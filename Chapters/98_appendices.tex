@@ -1,9 +1,571 @@
+% !TeX root = ../main.tex
 %%%%% If Appendices Needed %%%%%
 
-\achapter{The Title of the Appendix A}
+\achapter{Toy Example}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. 
+\section{Data}
+The toy example data demonstrates the behavior described in the paper. A matrix with features 'A' through 'J' shows that even with only 10 features, the coefficients become muddled. Columns A and D were designed to produce the result vector, while the others were largely random, with top elements tweaked to ensure they are \textbf{not} optimal for producing the result vector.
 
-\achapter{The Title of the Appendix B}
+\[ \mathbf{X} =
+\scriptsize
+\left[ \begin{array}{rrrrrrrrrr}
+	\text{A} & \text{B} & \text{C} & \text{D} & \text{E} & \text{F} & \text{G} & \text{H} & \text{I} & \text{J} \\
+	0.49 &  0.48 &  0.42 & 0.13 & 0.45 & 0.48 & 0.42 & 0.48 & 0.43 & 0.46 \\
+	0.12 &  0.52 &  0.46 & 0.47 & 0.42 & 0.47 & 0.49 & 0.47 & 0.51& 0.48 \\
+	0.23 &  0.11 &  0.38 & 0.57 & 0.99 & 0.51 & 0.41 & 0.71 & 0.29 & 0.56 \\ 
+	\mathbf{0.48} &  0.40 & 0.59 & \mathbf{0.46} & 0.41 & 0.43 & 0.40 & 0.41 & 0.60 & 0.52\\
+	0.83 &  0.45 &  0.48 &  0.54 &  0.44 & 0.44 & 0.23 & 0.41 & 0.46 & 0.49 \\
+	\mathbf{0.55} &  0.52 & 0.41 &  \mathbf{0.58} & 0.40 & 0.60 & 0.51 & 0.42 & 0.42 & 0.45\\
+	0.53 & 0.02 &  0.55 & 0.16 & 0.38 & 0.06 &  0.50 &  0.55 & 0.71 & 0.51 \\
+	\mathbf{0.54} & 0.60 &  0.56 & \mathbf{0.47} &  0.49 & 0.52 &  0.52 & 0.56 & 0.54 & 0.58 \\
+	0.33 & 0.22 &  0.59 & 0.49 &  0.47 & 0.49 &  0.59 & 0.47 & 0.91 & 0.57\\
+	0.34 & 0.49 & 0.66 &  0.51 &  0.48 & 0.79 & 0.84 & 0.53 & 0.73 & 0.67 \\
+\end{array} \right]
+\]
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. 
+\section{Transformation}
+After transformation, the matrix is encoded with ones and negative ones. The encoding rule was simple: values between 0.4 and 0.6 (inclusive) became ones; others became negative ones. Details on defining this \textit{critical range} are in the other sections. In summary, if both features A and D were between 0.4 and 0.6 simultaneously, an event occurred.
+
+\[ \mathbf{X} =
+\scriptsize
+\left[ \begin{array}{rrrrrrrrrr}
+	\text{A} & \text{B} & \text{C} & \text{D} & \text{E} & \text{F} & \text{G} & \text{H} & \text{I} & \text{J} \\
+	1 &  1 &  1 & -1 &  1 &  1 &  1 &  1 &  1 &  1 \\
+	-1 &  1 &  1 &  1 &  1 &  1 &  1 &  1 &  1 &  1 \\
+	-1 & -1 & -1 &  1 & -1 &  1 &  1 & -1 & -1 &  1 \\ 
+	\mathbf{1} &  1 &  1 &  \mathbf{1} & 1 & 1 & 1 & 1 & 1 &  1 \\
+	-1 &  1 &  1 &  1 &  1 &  1 & -1 &  1 &  1 &  1 \\
+	\mathbf{1} &  1 &  1 & \mathbf{1} & 1 & 1 & 1 & 1 & 1 & 1 \\
+	1 & -1 &  1 & -1 & -1 & -1 &  1 &  1 & -1 &  1 \\
+	\mathbf{1} &  1 &  1 & \mathbf{1} & 1 & 1 &  1 & 1 &  1 &  1 \\
+	-1 & -1 &  1 &  1 &  1 &  1 &  1 &  1 & -1 &  1 \\
+	-1 &  1 & -1 &  1 &  1 & -1 & -1 &  1 & -1 & -1 \\
+\end{array} \right]
+\]
+
+Here is the boolean response vector:
+\[
+y^T = 
+\begin{bmatrix}
+	F & F & F & \mathbf{T} & F & \mathbf{T} & F & \mathbf{T} & F & F
+\end{bmatrix} 
+\]
+
+It can be shown that the only possible logical AND combination of these features which would produce the response vector shown would be the 1st and 4th columns.  %This can also be revealed by plotting the coefficients (see Figure \ref{fig:toy_example})
+
+\clearpage
+
+\achapter{Lemmas}
+
+\section{Lemma 1}
+The relationship between the pre-binarization correlation ($ \rho $), and the post binarization correlation ($ \tilde{\rho} $) for \textbf{standard normal} random variables is:
+
+\[
+\tilde{\rho} = \frac{2}{\pi} \arcsin(\rho)\\
+\]
+
+\textbf{Step 1. }
+\textit{Basic definitions.}
+
+Let $ X $ and $ Y $ be \textbf{standard normal} random variables with:
+
+\begin{itemize}
+	\setlength\itemsep{-0.5em} % Adjust the spacing
+	\item \textbf{Means:} $ E[X] = E[Y] = 0 $ (centered)
+	\item \textbf{Variances:} $ \text{Var}(X) = \text{Var}(Y) = 1 $ (standardized)
+	\item \textbf{Correlation:} $ \text{Corr}(X, Y) = \rho$, where $ -1 \leq \rho \leq 1 $
+\end{itemize}		
+
+\textbf{Step 2. }	
+\textit{Define the Binarized Variables.}
+
+We binarize $ X $ and $ Y $ using the threshold zero:
+
+\[
+\tilde{X} = \begin{cases}
+	1 & \text{if } X > 0 \\
+	0 & \text{if } X \leq 0
+\end{cases}
+\quad \text{and} \quad
+\tilde{Y} = \begin{cases}
+	1 & \text{if } Y > 0 \\
+	0 & \text{if } Y \leq 0
+\end{cases}
+\]
+This $0/1$ encoding is affine-equivalent to the $\{\pm1\}$ sign encoding used in Chapter 06; after centering, the correlation-ordering arguments are unchanged up to constant scaling.
+
+\textbf{Step 3. }
+\textit{Calculate Means and Variances of Binarized Variables.}
+
+Since $ X $ and $ Y $ are symmetric about zero:
+
+\begin{itemize}
+	\setlength\itemsep{-0.5em} % Adjust the spacing
+	\item Mean of $ \tilde{X} :	E[\tilde{X}] = P(X > 0) = 0.5 $
+	\item Variance of $ \tilde{X} :	\text{Var}(\tilde{X}) = E[\tilde{X}^2] - (E[\tilde{X}])^2 = 0.5 - (0.5)^2 = 0.25 $
+	\item Similarly for $ \tilde{Y} : E[\tilde{Y}] = 0.5, \quad \text{Var}(\tilde{Y}) = 0.25 $
+\end{itemize}
+
+\textbf{Step 4. }
+\textit{Express the Correlation Between Binarized Variables.}
+
+The correlation $ \tilde{\rho} $ between $ \tilde{X} $ and $ \tilde{Y} $ is:
+
+\[
+\tilde{\rho} = \frac{E[\tilde{X} \tilde{Y}] - E[\tilde{X}] E[\tilde{Y}]}{\sqrt{\text{Var}(\tilde{X}) \text{Var}(\tilde{Y})}} = 4 \left( P(\tilde{X} = 1, \tilde{Y} = 1) - 0.25 \right)
+\]
+
+\textbf{Step 5. }
+\textit{Define the probabilities.}
+
+Since $ X $ and $ Y $ are assumed to be jointly normally distributed, $ P(\tilde{X} = 1, \tilde{Y} = 1) $ can be expressed using the \textbf{bivariate standard normal cumulative distribution function (CDF)}.
+
+\[
+P(\tilde{X} = 1, \tilde{Y} = 1) = P(X > 0, Y > 0)
+\]
+
+\textbf{Step 6. }
+\textit{Use the Bivariate Normal CDF.}
+
+For standard normal variables $ X $ and $ Y $ with correlation $ \rho $ an expression of the \textit{Gaussian Copula Formula} holds \cite{WFeller1991Introduction}:
+
+\[
+P(X > 0, Y > 0) = \frac{1}{4} + \frac{\arcsin(\rho)}{2\pi}
+\]
+
+Explanation:
+\begin{itemize}
+	\setlength\itemsep{-0.5em} % Adjust the spacing
+	\item The joint probability $ P(X > 0, Y > 0) $ corresponds to the \textit{orthant probability} in the positive quadrant.
+	\item The term $ \arcsin(\rho) $ arises from integrating the bivariate normal density over this quadrant.
+\end{itemize}
+
+\textbf{Step 7. }	
+\textit{Substitute Back to Find $ \tilde{\rho} $.}
+
+\[
+\tilde{\rho} = 4 \left( \frac{1}{4} + \frac{\arcsin(\rho)}{2\pi} - 0.25 \right)
+= \frac{2}{\pi} \arcsin(\rho)
+\]
+
+\section{Lemma 2}
+
+\[
+| \tilde{\rho} | \leq | \rho |
+\]	
+
+Interpretation:
+Using the result of Lemma 1, the ratio $ \frac{\tilde{\rho}}{\rho} = \frac{2}{\pi\rho} \arcsin(\rho) $ is always less than one for $ \rho $ in the interval $ (-1,1) $ except at $ \rho = \pm{1} $ where the ratio is equal to one.
+
+\textbf{Step 1}
+
+Properties of the Arcsine ($ sin^{-1}$) Function:
+
+\begin{itemize}
+	\setlength\itemsep{-0.5em} % Adjust the spacing
+	\item The \textbf{arcsine function} $ \arcsin(x) $ is defined for $ x \in [-1, 1] $.
+	\item The range of $ \arcsin(x) $ is $ [-\frac{\pi}{2}, \frac{\pi}{2}] $.
+	\item The function $ \arcsin(x) $ is \textbf{increasing} on $ [-1, 1] $.
+\end{itemize}
+
+\textbf{Step 2}
+
+We can consider $ \rho $ in one of three intervals:
+\begin{itemize}
+	\setlength\itemsep{-0.5em} % Adjust the spacing
+	\item [1.] $ \rho = 0 $
+	\item [2.] $ 0 < \rho < 1 $
+	\item [3.] $ -1 < \rho < 0 $	
+\end{itemize}
+
+\textbf{Step 3 (Case 1: $ \rho = 0 $)}
+
+{
+	\small
+	\begin{itemize}
+		\setlength\itemsep{-0.1em} % Adjust the spacing
+		\item $ \arcsin(0) = 0 $
+		\item The ratio becomes indeterminate ($ \frac{0}{0} $), but we can consider the limit as $ \rho \to 0 $.
+		\item As $ \rho \to 0 $, $ \arcsin(\rho) \approx \rho $ (using the first-order Taylor expansion).
+		\item Therefore, $ \frac{\tilde{\rho}}{\rho} \approx \frac{2}{\pi \rho} \cdot \rho = \frac{2}{\pi} \approx 0.6366 $.
+	\end{itemize}
+}
+
+\textbf{Step 4 (Case 2: $ 0 < \rho < 1 $)}
+
+Both $ \rho $ and $ \arcsin(\rho) $ are positive.
+
+Define the function:
+
+\[
+f(\rho) = \frac{2}{\pi \rho} \arcsin(\rho)
+\]
+
+We need to show that $ f(\rho) < 1 $ for $ 0 < \rho < 1 $.
+
+For $ 0 < \rho < 1 $: $ \arcsin(\rho) < \frac{\pi}{2} \rho $
+
+This inequality holds because of the well known result that the function $ \arcsin(\rho) $ is \textbf{strictly convex} on $ (0, 1) $, and its graph lies below the straight line $ y = \frac{\pi}{2} \rho $ \cite{JOrender2025Efficient}. 
+
+Therefore: $ f(\rho) < 1 $ for all $ 0 < \rho < 1 $.
+
+\textbf{Step 5 (Case 3: $ -1 < \rho < 0 $)}
+
+{
+	\small
+	\begin{itemize}
+		\setlength\itemsep{-0.25em} % Adjust the spacing		
+		\item When $ \rho $ is negative $ \arcsin(\rho) $ is negative, also implying that $\tilde{\rho}$ is negative.
+		\item The ratio $ \frac{\tilde{\rho}}{\rho} $ is therefore positive because a negative divided by negative is positive.
+		\item Since $ \arcsin(\rho) $ is negative and increasing from $ -\frac{\pi}{2} $ to $ 0 $ as $ \rho $ increases from $ -1 $ to $ 0 $, we can use logic similar to Case 2.
+		\item Compute the Limit as $ \rho \to -1^+ $.
+		\item $ \arcsin(-1) = -\frac{\pi}{2} $
+		\item $ f(-1) = \frac{2}{\pi \times (-1)} \times \left( -\frac{\pi}{2} \right ) = 1 $
+		\item For $ -1 < \rho < 0 $: $ \arcsin(\rho) > \frac{\pi}{2} \rho $
+	\end{itemize}
+}
+
+(using the same logic as in case 2, except that the signs are opposite) 
+
+$ f(\rho) < 1 $ for all $ -1 < \rho < 0 $.
+
+\textbf{Step 6}
+
+{
+	\small
+	\begin{itemize}
+		\setlength\itemsep{-0.25em} % Adjust the spacing
+		\item The ratio $ \frac{\tilde{\rho}}{\rho} = \frac{2}{\pi \rho} \arcsin(\rho) $ is \textbf{less than one} for all $ \rho $ in $ (-1, 1) $.
+		\item The ratio equals \textbf{one only when} $ \rho = 1 $ or $ \rho = -1 $.
+		\item Therefore, \textbf{the ratio is always less than or equal to one}.
+		\item Furthermore, since $\tilde{\rho}$ will always have the same sign as $ \rho $, the magnitude of $\tilde{\rho}$ will always be less than the magnitude of $ \rho $
+	\end{itemize}
+}
+
+\[
+| \tilde{\rho} | \leq | \rho |
+\]
+
+\textbf{Implications}
+
+{
+	\small
+	\begin{itemize}
+		\item Under this result, binarization reduces or at worst preserves correlation - never inflates it beyond its original absolute value.  That is, for any pair of binarized features, the magnitude of correlation coefficient $ \tilde{\rho} $ is strictly less than the original $ \rho $, except at $ \pm 1 $ where they are equal.
+		\item This result effectively keeps all off-diagonal correlations from saturating to exactly $ \pm 1 $ when no column is an exact multiple of another.
+		\item If all off-diagonal entries of a correlation matrix are strictly bounded away from $ \pm 1 $, then the matrix's smallest eigenvalue $ \lambda_{min} (R)$ is always positive \cite{RAHorn2012Matrix}.
+		\item Therefore, $ R^{-1} $ is well-defined and has a finite spectral norm bound given by: \\  $ \|R^{-1}\|_2 \leq \frac{1}{\lambda_{min}(R)} $.
+		\item Hence, the boundedness of $ R^{-1} $ is implied when $ |\tilde{\rho}| \leq |\rho| $ and $ \tilde{\rho} \neq \pm 1 $ and the entire correlation matrix must be invertible, with binarization universally enhancing its conditioning for more stable inversion in practice.
+		\item Thus, a matrix-level corollary can be extended from the pairwise-level bound shown above. Both statements reinforce the same theme: binarization controls correlations and preserves invertibility in a way beneficial to sparse regression methods like LASSO.
+	\end{itemize}
+}
+
+\section{Lemma 3}
+
+\[
+\left| \operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) \right| \leq \left| \operatorname{Cov}(x_{{S^c}i}, x_{Sj}) \right|
+\]
+
+Interpretation: Binarization reduces the covariance between features for any irrelevant feature $ x_{{S^c}i} \in X_{S^c} $ and relevant feature $ x_{Sj} \in X_S $.
+
+\textbf{Review of Assumptions:}
+
+\begin{itemize}
+	\item [1.] \textbf{Joint Normality:} The continuous features $ x_{{S^c}i} $ and $ x_{Sj} $ are jointly normally distributed with zero means and unit variances:
+	\[
+	x_{{S^c}i}, x_{Sj} \sim \mathcal{N}(0, 1)
+	\]
+	
+	and correlation $ \rho_{ij} = \operatorname{Corr}(x_{{S^c}i}, x_{Sj}) $.
+	
+	\item [2.] \textbf{Binarization at Zero Threshold} -  The binarized variables are defined as:
+	\[
+	\tilde{X}_k = \begin{cases}
+		1 & \text{if } X_k > 0 \\
+		0 & \text{if } X_k \leq 0
+	\end{cases}, \quad k = i, j
+	\]
+\end{itemize}	
+
+\textbf{Step 1}
+
+The covariance between $ x_{{S^c}i} $ and $ x_{Sj} $ is:
+
+\[
+\operatorname{Cov}(x_{{S^c}i}, x_{Sj}) = \rho_{ij} \cdot \sigma_{x_{{S^c}i}} \sigma_{x_{Sj}} = \rho_{ij} \cdot (1)(1) = \rho_{ij}
+\]
+
+\textbf{Step 2}
+
+The covariance between $ \tilde{x}_{{S^c}i} $ and $ \tilde{x}_{Sj} $ is:
+
+\[
+\operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) = \mathbb{E}[\tilde{x}_{{S^c}i} \tilde{x}_{Sj}] - \mathbb{E}[\tilde{x}_{{S^c}i}] \mathbb{E}[\tilde{x}_{Sj}]
+\]
+
+Since $ x_{{S^c}i} $ and $ x_{Sj} $ are symmetric about zero:
+
+\[
+\mathbb{E}[\tilde{x}_{{S^c}i}] = P(x_{{S^c}i} > 0) = \frac{1}{2}, \quad \mathbb{E}[\tilde{x}_{Sj}] = \frac{1}{2}
+\]
+
+Compute the joint probability:
+
+\[
+\mathbb{E}[\tilde{x}_{{S^c}i} \tilde{x}_{Sj}] = P(x_{{S^c}i} > 0, x_{Sj} > 0)
+\]
+
+For jointly standard normal variables, this joint probability is given by \cite{WFeller1991Introduction}:
+
+\[
+P(x_{{S^c}i} > 0, x_{Sj} > 0) = \frac{1}{4} + \frac{\arcsin(\rho_{ij})}{2\pi}
+\]
+
+Therefore, the covariance is:
+
+\[
+\operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) = \left( \frac{1}{4} + \frac{\arcsin(\rho_{ij})}{2\pi} \right) - \left( \frac{1}{2} \cdot \frac{1}{2} \right) = \frac{\arcsin(\rho_{ij})}{2\pi}
+\]
+
+\textbf{Step 2}
+
+\textit{Comparing Covariances Before and After Binarization}
+
+We need to show that:
+
+\[
+\left| \frac{\arcsin(\rho_{ij})}{2\pi} \right| \leq |\rho_{ij}|
+\]
+
+Case 1: When $ \rho_{ij} \geq 0 $
+
+The function $ f(\rho) = \frac{\arcsin(\rho)}{2\pi} $ is increasing in $ [0, 1] $.
+Since $ \arcsin(\rho) \leq \frac{\pi}{2} $, we have:
+\[
+0 \leq \frac{\arcsin(\rho_{ij})}{2\pi} \leq \frac{1}{4}
+\]
+
+Also, $ \rho_{ij} \leq 1 $, so:
+
+\[
+0 \leq \frac{\arcsin(\rho_{ij})}{2\pi} \leq \rho_{ij}
+\]
+
+because $ \arcsin(\rho_{ij}) \leq \frac{\pi}{2} \rho_{ij} $ in $ [0, 1] $.
+
+\textbf{Step 3}
+
+Case 2: When $ \rho_{ij} \leq 0 $
+
+The function $ f(\rho) = \frac{\arcsin(\rho)}{2\pi} $ is increasing in $ [-1, 0] $.
+Since $ \arcsin(\rho_{ij}) \geq -\frac{\pi}{2} $, we have:
+
+\[
+-\frac{1}{4} \leq \frac{\arcsin(\rho_{ij})}{2\pi} \leq 0
+\]
+
+Also, $ \rho_{ij} \geq -1 $, so:
+
+\[
+\rho_{ij} \leq \frac{\arcsin(\rho_{ij})}{2\pi} \leq 0
+\]
+
+because $ \arcsin(\rho_{ij}) \geq \frac{\pi}{2} \rho_{ij} $ in $ [-1, 0] $.
+
+Therefore, in both cases:
+
+\[
+\left| \operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) \right| = \left| \frac{\arcsin(\rho_{ij})}{2\pi} \right| \leq |\rho_{ij}| = \left| \operatorname{Cov}(x_{{S^c}i}, x_{Sj}) \right|
+\]
+
+
+\textbf{Conclusion}
+
+The magnitude of the covariance between $ \tilde{x}_{{S^c}i} $ and $ \tilde{x}_{Sj} $ is less than or equal to the magnitude of the covariance between $ x_{{S^c}i} $ and $ x_{Sj} $. Therefore, binarization reduces the covariances between irrelevant and relevant features.
+
+\section{Lemma 4}
+
+When $ \tilde{\rho} $ and $ \rho > 0 $,
+
+\[
+\|\tilde{G}^{-1}\|_\infty \leq  \|G^{-1}\|_\infty 
+\]
+
+Interpretation: The Infinity norm of the binarized matrix is less than or equal to the Infinity norm of the original continuous matrix. 
+
+\textbf{Definitions:}
+
+{
+	\small
+	\begin{itemize}
+		\item $ n > 0 $: Positive scalar (e.g., sample size).
+		\item $ s \geq 2 $: Dimension of the square matrices ($ s \times s $).
+		\item $ \mathbf{I}_s $: Identity matrix of size $ s $.
+		\item $ \mathbf{J}_s $: All-ones matrix of size $ s $.
+		\item $ 0 < \tilde{\rho} < \rho < 1 $: Constants with $ \tilde{\rho} $ always less than $ \rho $.
+	\end{itemize}
+}
+
+\textbf{Step 1}	
+
+Original Gram Matrix:
+\[
+G = n \left( (1 - \rho) \mathbf{I}_s + \rho \mathbf{J}_s \right)
+\]
+
+Binarized Gram Matrix:
+\[
+\tilde{G} = n \left( (1 - \tilde{\rho}) \mathbf{I}_s + \tilde{\rho} \mathbf{J}_s \right)
+\]
+
+Inverse of $ G $ and $\tilde{G}$:
+
+First, rewrite $ G $ as
+\[
+G = n (1 - \rho) \left( \mathbf{I}_s + \frac{\rho}{1 - \rho} \mathbf{J}_s \right)
+\]
+
+Let $ \alpha = \dfrac{\rho}{1 - \rho} $.
+
+Compute $ ( \mathbf{I}_s + \alpha \mathbf{J}_s )^{-1} $:
+
+\begin{itemize}
+	\item Observation: $ \mathbf{J}_s $ is rank-1.
+	\item Sherman-Morrison-Woodbury formula for the inverse:
+	\[
+	(\mathbf{A} + \mathbf{U}\mathbf{C}\mathbf{V}^T)^{-1} = \mathbf{A}^{-1} - \mathbf{A}^{-1}\mathbf{U}(\mathbf{C}^{-1} + \mathbf{V}^T\mathbf{A}^{-1}\mathbf{U})^{-1}\mathbf{V}^T\mathbf{A}^{-1}
+	\]
+	\setlength\itemsep{-0.25em} % Adjust the spacing
+	\item $\mathbf{A} = \mathbf{I}_s \Rightarrow \mathbf{A}^{-1} = \mathbf{I}_s$
+	\item $\mathbf{U} = \mathbf{V} = \mathbf{1}_s$
+	\item $\mathbf{C} = \alpha$
+	\item $\mathbf{C}^{-1} = \frac{1}{\alpha}$ (the inverse of a scalar being its reciprocal)
+	\item $\mathbf{V}^T \mathbf{A}^{-1} \mathbf{U} = \mathbf{1}_s^T \mathbf{1}_s = s$
+\end{itemize}
+
+For $\mathbf{I}_s + \alpha \mathbf{J}_s$:
+\[
+(\mathbf{I}_s + \alpha \mathbf{J}_s)^{-1} = \mathbf{I}_s - \frac{\alpha}{1 + \alpha s}\mathbf{J}_s
+\]
+
+Therefore,
+
+\[
+G^{-1} = \frac{1}{n (1 - \rho)} \left( \mathbf{I}_s - \frac{\rho}{1 + \rho (s - 1)} \mathbf{J}_s \right)
+\]
+
+Similarly, for $\tilde{G}$:
+\[
+\tilde{G}^{-1} = \frac{1}{n (1 - \tilde{\rho})} \left( \mathbf{I}_s - \frac{\tilde{\rho}}{1 + \tilde{\rho} (s - 1)} \mathbf{J}_s \right)
+\]
+
+\textbf{Step 2}
+
+Definition of Infinity Norm for Matrices:
+
+\[
+\|A\|_\infty = \max_{1 \leq i \leq s} \sum_{j=1}^{s} |a_{ij}|
+\]
+
+Compute Entries of $G^{-1}$:
+
+\begin{itemize}
+	\item Diagonal Entries: $ (G^{-1})_{ii} = \frac{1}{n (1 - \rho)} \left( 1 - \gamma \right) $
+	\item Off-Diagonal Entries: $ (G^{-1})_{ij} = -\frac{\gamma}{n (1 - \rho)} \quad \text{for } i \neq j $
+\end{itemize}
+
+Where:
+$ \gamma = \frac{\rho}{1 + \rho (s - 1)} $
+
+Compute the Row Sum for $G^{-1}$:
+
+
+Row Sum:
+
+\[
+\text{RowSum}_{G^{-1}} = \frac{1}{n (1 - \rho)} \left[ (1 - \gamma) + (s - 1) \gamma \right]
+\]
+
+Simplify the Row Sum:
+
+\[
+\text{RowSum}_{G^{-1}} = \frac{1}{n (1 - \rho)} \left[ 1 - \gamma + \gamma (s - 1) \right] \\
+% &= \frac{1}{n (1 - \rho)} \left[ 1 - \gamma + \gamma s - \gamma \right] \\
+% &= \frac{1}{n (1 - \rho)} \left[ 1 - 2\gamma + \gamma s \right] \\
+= \frac{1}{n (1 - \rho)} \left[ 1 + \gamma (s - 2) \right]
+\]
+
+Where: $ \tilde{\gamma} = \frac{\tilde{\rho}}{1 + \tilde{\rho} (s - 1)} $
+
+Similarly:
+
+\[
+\text{RowSum}_{\tilde{G}^{-1}} = \frac{1}{n (1 - \tilde{\rho})} \left[ 1 + \tilde{\gamma} (s - 2) \right]
+\]
+
+\textbf{Step 3}
+
+\textit{Establishing the Relationship between $\gamma$ and $\tilde{\gamma}$ }
+
+Define function $ f(x) = \frac{x}{1 + x (s - 1)} $
+
+Due to the monotinicity of f(x), when $ x_1 < x_2 $, $ f(x_1) < f(x_2) $
+
+It follows that:
+
+{
+	\small
+	\begin{itemize}
+		\item $f(x)$ is \textit{increasing} wrt $ x $ on $\left(\frac{-1}{s-1}, 1\right)$.
+		\item $|\tilde{\rho}| \leq |\rho|$ (Lemma 2), and both are bounded by the interval $(-1,1)$
+		\item Since $ \tilde{\rho} \geq \rho $ when $ \tilde{\rho} $ and $ \rho $ are less than zero (meaning that $ \rho $ is *more* negative), the monotincity of f(x) implies that $ |f(\tilde{\rho})| \leq |f(\rho)| $
+		\item Therefore, we have $|\tilde{\gamma}| = |f(\tilde{\rho})| \leq |f(\rho)| = |\gamma|$, with a discontinuity at $ x = \frac{-1}{s-1} $.
+		\item Furthermore, $ \tilde{\rho}, \rho, $ and hence $ \gamma $, $ \tilde{\gamma} $ will all be of the same sign in the interval $ \left[\frac{-1}{s-1}, 1 \right) $ for $ \tilde{\rho} $ and $ \rho $, and $ \gamma $ will be positive otherwise.
+	\end{itemize}
+}
+
+\textbf{Step 4}
+
+Comparing Row Sums:
+
+Since $|\gamma| \geq |\tilde{\gamma}|$ and $s - 2 \geq 0$ (because $s \geq 2$),
+\[
+\gamma (s - 2) \geq \tilde{\gamma} (s - 2) \text{ when } \gamma > 0
+\]
+
+Therefore,
+\[
+1 + \gamma (s - 2) \geq 1 + \tilde{\gamma} (s - 2) \text{ when } \gamma > 0
+\]
+
+Comparing Denominators:
+
+Since $ |\tilde{\rho}| \leq |\rho| $,
+\begin{itemize}
+	\item $ 1 - \tilde{\rho} \geq 1 - \rho \Rightarrow \frac{1}{n (1 - \tilde{\rho})} \leq \frac{1}{n (1 - \rho)} $ when $ \tilde{\rho}, \rho > 0 $
+	\item $ 1 - \tilde{\rho} \leq 1 - \rho \Rightarrow \frac{1}{n (1 - \tilde{\rho})} \geq \frac{1}{n (1 - \rho)} $ when $ \tilde{\rho}, \rho < 0 $
+\end{itemize}
+
+\textbf{Step 5}
+
+\textit{Putting It All Together}
+
+Infinity Norms when $ \tilde{\rho}, \rho $ and $ \gamma > 0 $:
+\[
+\|G^{-1}\|_\infty = \frac{1}{n (1 - \rho)} \left[ 1 + \gamma (s - 2) \right]
+\]
+
+\[
+\|\tilde{G}^{-1}\|_\infty = \frac{1}{n (1 - \tilde{\rho})} \left[ 1 + \tilde{\gamma} (s - 2) \right]
+\]
+
+\textbf{Conclusion}
+
+Since both terms examined in the expression for $ G^{-1} $ are greater than the corresponding terms in the expression for $ \tilde{G}^{-1} $ when $ \tilde{\rho}, \rho $ and $ \gamma $ are greater than zero,
+\[
+\|G^{-1}\|_\infty \geq \|\tilde{G}^{-1}\|_\infty
+\]
+Furthermore, when $ s = 2 $ and $ \tilde{\rho}, \rho $ and $ \gamma $ are less than zero it can be shown that the reverse is guaranteed to be true. When $ s > 2 $ the answer is dependent upon where $\tilde{\rho}$ or $ \rho $ fall with respect to the interval $ \left[\frac{-1}{s-1}, 1 \right) $. When $ \rho $ is below the lower bound but $ \tilde{\rho} $ is above, the relative norm values will be ambiguous.  By constraining $ \rho $ and $ \tilde{\rho} $ to be greater than zero, the inequality is unambiguous.
+
+As a result, in the positive-correlation PoC regime the binarization process \textit{enhances positive correlation relationships} and, when $ \tilde{\rho} $ and $ \rho $ are on the same side of the discontinuity at $ \frac{-1}{s-1} $, it will also deemphasize negative correlation relationships (so, this will happen the vast majority of the time). Note that this seeming disadvantage can be mitigated by adding the complement to each binarized column into the feature matrix.
+

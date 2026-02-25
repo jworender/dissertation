@@ -1,0 +1,218 @@
+% !TeX root = ../main.tex
+
+\chapter{Theoretical Analysis (RQ2)}
+
+RQ2 asks why rectification helps and how broadly that mechanism can be generalized. This chapter provides a proof-of-concept (PoC) theoretical justification for the binarization step using the irrepresentable condition (IC) as the central lens. The analysis is intentionally scoped: it focuses on zero-threshold sign binarization under joint normal feature assumptions, where correlation behavior is analytically tractable \autocites{PZhao2006model,JOrender2025Efficient}.
+
+The point of this chapter is not to claim a universal theorem for every thresholding scheme. Instead, it establishes a defensible mechanism: if binarization contracts dependence in the right way, the IC becomes easier to satisfy, and sparse support recovery becomes more likely. That mechanism aligns with both prior empirical evidence in this line of inquiry and broader observations that lasso-style selection can be unstable under strong dependence \autocites{freijeirogonzalez2022,JOrender2025Efficient}.
+
+\section{Why RQ2 matters after RQ1 evidence}
+
+RQ1 showed encouraging preliminary evidence that rectification improves support concentration and lag attribution in several settings. However, empirical success alone is insufficient for the central claim. Without a credible mechanism, improvements could be dismissed as dataset-specific tuning effects.
+
+For sparse selection methods, this concern is especially important. Lasso is a strong predictive tool \autocite{tibshirani1996}, but model-selection consistency depends on structural conditions that may fail under multicollinearity \autocite{PZhao2006model}. In other words, high AUC does not imply reliable feature recovery. RQ2 therefore asks whether rectification improves a known structural bottleneck rather than merely shifting surface metrics.
+
+\section{IC in computer-science terms}
+
+The IC can be read as an interference constraint in a sparse-recovery system. Let $S$ be the true active-feature set and $S^c$ the inactive set (the complement). For lasso to recover the right support, inactive features should not be too well explained by active features after accounting for active-feature geometry. Formally, one common sufficient condition is:
+\[
+\left\|\mathbf{X}_{S^c}^{\top}\mathbf{X}_S(\mathbf{X}_S^{\top}\mathbf{X}_S)^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right\|_\infty < 1.
+\]
+
+A CS-oriented interpretation is useful:
+\begin{itemize}
+    \item $\mathbf{X}_S^{\top}\mathbf{X}_S$ is the active-feature interaction matrix.
+    \item $(\mathbf{X}_S^{\top}\mathbf{X}_S)^{-1}$ is a de-mixing operator for that interaction.
+    \item $\mathbf{X}_{S^c}^{\top}\mathbf{X}_S$ measures leakage from active features into each inactive feature.
+    \item The $\ell_\infty$ bound asks for worst-case leakage to stay below a hard margin.
+\end{itemize}
+
+When this leakage margin is violated, inactive features can mimic active ones and enter the model, taking the place of true support in the model, causing feature and lag misattribution due to spurious correlation. This is a structural reason for false inclusions and support instability, consistent with dependency-focused reviews \autocite{freijeirogonzalez2022}.
+
+\section{PoC setup and assumptions}
+
+To keep the analysis explicit, this chapter uses the PoC setting from prior work \autocite{JOrender2025Efficient}.
+
+\paragraph{Data and transformation.}
+Let $\mathbf{X}\in\mathbb{R}^{n\times d}$ be standardized continuous features and $\tilde{\mathbf{X}}\in\{\pm 1\}^{n\times d}$ the sign-binarized version:
+\[
+\tilde{x}_{ij}=\operatorname{sign}(x_{ij}),
+\]
+with threshold at zero.
+For derivations, the appendix sometimes uses an equivalent $\{0,1\}$ encoding; after centering, it preserves the same correlation-ordering arguments up to constant scaling.
+
+\paragraph{Assumptions.}
+\begin{itemize}
+    \item Continuous features are jointly normal after standardization.
+    \item The support set $S$ is fixed in the local analysis.
+    \item Correlation summaries are interpreted through large-sample covariance approximations.
+    \item The goal is comparative: raw versus binarized IC satisfaction probability.
+    \item The zero-threshold is meaningful and retains the signal components relevant to the PoC mechanism in the target regime (e.g. modeling a threshold-based phenomena).
+\end{itemize}
+
+Joint normality and zero-threshold meaningfulness are modeling assumptions introduced for tractable PoC analysis; they are not empirically verified prerequisites for using the full pipeline.
+
+These assumptions are restrictive by design. They allow closed-form dependence mapping and a clean theorem statement, but they are not presented as full generality. In finite samples, especially when $d$ is large relative to $n$, population-covariance approximations may deviate from realized sample behavior, so the claims here are regime-scoped and probabilistic.
+
+\section{Why sign binarization can reduce dependence}
+
+Under bivariate normality, sign-binarized correlation is a deterministic function of raw Pearson correlation $(\rho)$:
+\[
+\tilde{\rho} = \frac{2}{\pi}\arcsin(\rho).
+\]
+For $\rho\in(-1,1)$, this mapping contracts magnitude in most of the interior, while preserving sign and endpoint behavior. Intuitively, sign mapping removes amplitude information and retains only direction, which can weaken linear coupling caused by shared scale variation. All binarized equivalent values will be annotated with a tilde (e.g. "$\tilde{\rho}$" for the binarized Pearson correlation).
+
+From an IC viewpoint, this contraction can help in two places:
+\begin{itemize}
+    \item It can reduce cross-correlation between inactive and active features.
+    \item It can improve conditioning behavior of the active Gram block in relevant regimes.
+\end{itemize}
+
+The second point should not be read as a universal monotone guarantee for every design. It is a regime-level effect supported in the PoC analysis and tied to matrix-conditioning arguments \autocites{JOrender2025Efficient,RAHorn2012Matrix}.
+
+\section{Lemma pathway (with intuition)}
+
+This section summarizes the proof structure. Full derivations are moved to the appendix.
+
+\subsection{Lemma 1: Correlation contraction after binarization}
+\[
+\tilde{\rho} = \frac{2}{\pi}\arcsin(\rho).
+\]
+
+\textbf{Interpretation:} Under the PoC assumptions, sign binarization induces a deterministic arcsine mapping from raw correlation to transformed correlation. In practical terms, the representation keeps polarity while suppressing magnitude information that drives linear coupling.
+
+\subsection{Lemma 2: Controlled inverse behavior for active block}
+\[
+|\tilde{\rho}| \leq |\rho|.
+\]
+
+\textbf{Interpretation:} The transformed correlation magnitude is bounded by the raw magnitude (with equality at endpoints). This bound is the key contraction property used downstream to control active-block inversion effects and reduce amplification risk in de-mixing.
+
+\subsection{Lemma 3: Lower inactive-active leakage}
+\[
+\left| \operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) \right|
+\leq
+\left| \operatorname{Cov}(x_{{S^c}i}, x_{Sj}) \right|.
+\]
+
+\textbf{Interpretation:} For each inactive-active pair, binarization weakens covariance leakage (or leaves it unchanged in edge cases). In sparse-selection terms, inactive features become less able to mimic the active span.
+
+\subsection{Lemma 4: Easier IC satisfaction}
+\[
+\|\tilde{G}^{-1}\|_\infty \leq \|G^{-1}\|_\infty
+\quad \text{(PoC positive-correlation regime)}.
+\]
+
+\textbf{Interpretation:} The transformed active block requires no greater inverse amplification than the raw block in the target regime. Combined with Lemma 3, this yields a smaller IC interference term and therefore a higher chance of satisfying the IC margin.
+
+\section{Main theorem (probability form)}
+
+Let
+\[
+\Theta(\mathbf{X}) = \left\|\mathbf{X}_{S^c}^{\top}\mathbf{X}_S(\mathbf{X}_S^{\top}\mathbf{X}_S)^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right\|_\infty,
+\]
+and define $\Theta(\tilde{\mathbf{X}})$ analogously for binarized features. In the PoC setting, the target inequality is
+\[
+P\big(\Theta(\mathbf{X})<1\big) \leq P\big(\Theta(\tilde{\mathbf{X}})<1\big).
+\]
+
+This theorem states a probabilistic improvement claim, not deterministic per-instance dominance. The claim is that transformed designs are at least as likely to lie in an IC-favorable region. Strict improvement is expected only in stylized regimes.
+
+\section{Proof sketch}
+
+A concise proof sketch is given below; full derivations remain in the appendix.
+
+\begin{proof}[Sketch]
+For each inactive feature index $i\in S^c$, define
+\[
+\theta_i = \left|\mathbf{c}_i\mathbf{G}^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right|,
+\]
+where $\mathbf{c}_i$ is its covariance vector with active features and $\mathbf{G}$ is the active Gram matrix.
+
+In large-sample approximation, replace sample quantities by population correlation blocks. For raw and binarized designs this gives comparable expressions based on $(\boldsymbol{\rho}_{iS},\boldsymbol{\rho}_{SS})$ and $(\tilde{\boldsymbol{\rho}}_{iS},\tilde{\boldsymbol{\rho}}_{SS})$ respectively.
+
+By Lemma 1, the transformed inactive-active block contracts in norm under the PoC regime. By Lemma 2, inverse amplification from the active block is controlled. Using submultiplicative norm bounds,
+\[
+\theta_i^{\text{bin}} \lesssim \|\tilde{\boldsymbol{\rho}}_{iS}\|\,\|\tilde{\boldsymbol{\rho}}_{SS}^{-1}\|\,\|\operatorname{sign}(\boldsymbol{\beta}_S)\|,
+\]
+with an analogous bound for $\theta_i$ in the raw domain. The transformed upper bound is tighter under the lemma conditions, which implies a weakly higher probability that each inactive-feature interference score stays below 1. Taking the maximum over $i\in S^c$ yields the stated IC-probability improvement.
+\end{proof}
+
+\section{Practical interpretation}
+
+The theorem can be read as a data-representation effect on sparse search geometry.
+
+\begin{itemize}
+    \item \textbf{Before transformation:} lag-expanded features create dense dependency graphs. Multiple inactive nodes have high edge weight to active nodes, increasing support ambiguity.
+    \item \textbf{After transformation:} edge weights are attenuated in the target regime, reducing ambiguity and lowering the number of near-tie candidates along the regularization path.
+\end{itemize}
+
+This interpretation connects theory to observed outcomes in earlier chapters: fewer false positives, clearer lag attribution, and higher support stability in threshold-and-lag aligned datasets \autocites{orender2022,JOrender2025Efficient}.
+
+Importantly, the argument does \emph{not} require modifying lasso internals. The solver, objective, and tuning workflow remain standard; the intervention is in representation. That separation is operationally useful because it preserves mature optimization tooling while changing the statistical geometry presented to the solver.
+
+\section{A small interference example}
+
+Consider a simplified setting with one active feature $x_1$ and one inactive feature $x_2$ that is strongly correlated with $x_1$. If the true signal is carried only by $x_1$, lasso can still assign weight to $x_2$ when $x_2$ is highly predictable from $x_1$. In IC language, this is a high-leakage case: $x_2$ sits close to the active span, so the inactive-feature margin shrinks.
+
+Now apply sign binarization. In the PoC regime, the effective correlation between the two channels is contracted by the arcsin mapping. The inactive channel remains related to the active channel, but less linearly confounded in the space used by the sparse solver. This can move the system from a near-violation regime toward a satisfied-margin regime.
+
+For an advanced CS reader, this is analogous to reducing feature aliasing in a compressed representation. The model family is unchanged, but representational overlap among candidate predictors is reduced enough that greedy path updates and KKT-driven screening are less likely to elevate spurious coordinates early in the path.
+
+\section{How this differs from penalty-only fixes}
+
+A natural question is why this chapter emphasizes representation rather than only stronger penalties. Existing work already proposes many penalty-level fixes for dependence, including elastic net, adaptive penalties, and grouped or ordered structures \autocites{HZou2005Regularization,HZou2006adaptive,yuan2006,RTibshirani2016ordered}. These methods are important and remain part of the baseline set.
+
+The RQ2 claim is narrower: even with the same downstream sparse learner, changing the representation can improve the structural conditions that drive support recovery. Penalty redesign and representation redesign are not mutually exclusive; they attack different layers of the pipeline.
+
+From a systems perspective:
+\begin{itemize}
+    \item Penalty-level methods change optimization geometry in coefficient space.
+    \item Rectification changes statistical geometry in feature space before optimization.
+\end{itemize}
+
+This distinction matters for engineering reuse. If the mechanism is mainly representational, the approach can be plugged into mature sparse-learning stacks without custom solvers, while still improving support behavior in targeted dependence regimes.
+
+\section{What this theorem does not claim}
+
+To avoid overreach, the following non-claims are explicit:
+\begin{itemize}
+    \item It does not prove universal improvement for arbitrary nonzero thresholds.
+    \item It does not guarantee gains for every dataset or every correlation sign pattern.
+    \item It does not replace empirical validation; it explains a mechanism under a tractable regime.
+\end{itemize}
+
+These caveats are consistent with prior reports that transformed and untransformed tradeoffs can vary by regime, with some datasets favoring raw discrimination while transformed models improve interpretability and attribution fidelity \autocites{freijeirogonzalez2022,JOrender2025Efficient}.
+
+\section{Generalization roadmap beyond the PoC theorem}
+
+The PoC theorem is intentionally conservative. To move from this scoped result to broader claims, the next theoretical steps are explicit:
+\begin{enumerate}
+    \item Extend analysis from zero-threshold sign mapping to learned nonzero critical ranges.
+    \item Characterize behavior under non-Gaussian dependence (for example heavy tails, skew, and mixture distributions).
+    \item Replace purely asymptotic arguments with finite-sample concentration bounds that better match practical dataset sizes.
+    \item Clarify edge cases where correlation contraction is weak or asymmetric, especially when negative-correlation structure dominates.
+\end{enumerate}
+
+Each item maps directly to a falsifiable question in later chapters. If a proposed extension fails, the failure still sharpens the applicability boundary of the method, which is a valid and useful RQ2 outcome. If it succeeds, the dissertation moves from proof-of-concept theory toward deployable guarantees with clearer external validity.
+
+\section{How RQ2 guides subsequent chapters}
+
+This chapter provides the mechanism hypothesis that later chapters test at scale:
+\begin{enumerate}
+    \item If dependence contraction is the driver, transformed models should show stronger support stability under controlled dependence stress.
+    \item If IC-margin effects are real, false-positive lag selection should drop in threshold-aligned regimes.
+    \item If claims are regime-limited, failures should cluster where assumptions break (for example nonzero-threshold mismatch or adverse correlation structure).
+\end{enumerate}
+
+These predictions convert RQ2 from abstract theory into falsifiable experimental expectations.
+
+\section{Practical Significance}
+
+For RQ2, the core result is a principled explanation for why a simple preprocessing step can improve sparse support recovery in a difficult longitudinal regime. The significance is twofold:
+\begin{itemize}
+    \item \textbf{Scientific:} it links empirical improvements to established model-selection theory through IC-oriented analysis \autocite{PZhao2006model}.
+    \item \textbf{Engineering:} it supports a modular pipeline design where preprocessing changes correlation geometry while downstream sparse solvers remain standard and efficient.
+\end{itemize}
+
+In summary, the PoC theorem does not end the theoretical story, but it establishes a coherent bridge from binarization to IC favorability. That bridge is sufficient to motivate deeper generalization work while already explaining a large portion of observed RQ1 behavior.

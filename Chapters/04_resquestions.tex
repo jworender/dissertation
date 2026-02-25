@@ -1,0 +1,55 @@
+% !TeX root = ../main.tex
+
+\chapter{Research Questions}
+
+This chapter defines the core research questions that guide this work and explains why they are important. Longitudinal feature learning is targeted under three simultaneous constraints: strong dependence created by lag expansion, the need for reliable feature-lag attribution, and the need for compact human-auditable model outputs. Prior chapters established that sparse methods are attractive but not always stable under dependence, and that interpretability requirements in high-stakes settings favor inherently transparent model forms over post hoc explanation layers \autocites{tibshirani1996,PZhao2006model,freijeirogonzalez2022,CRudin2019Stop,WJMurdoch2019Definitions}.
+
+The three research questions are:
+\begin{itemize}
+    \item \textbf{RQ1:} Can critical-range rectification produce a stable sparse baseline with reliable feature and lag attribution?
+    \item \textbf{RQ2:} Why does rectification work when it works, and how far can that mechanism be generalized beyond current proof-of-concept assumptions?
+    \item \textbf{RQ3:} Can the resulting sparse solution be compressed into compact logical rules without unacceptable loss in operational discrimination?
+\end{itemize}
+
+Together, these questions move from empirical utility (\textbf{RQ1}) to theoretical credibility (\textbf{RQ2}) to deployment usability (\textbf{RQ3}). They are intentionally sequenced so that later questions build on earlier ones: there is little value in rule compression if upstream sparse attribution is unstable, and little scientific value in observed gains if the mechanism is not understood.
+
+\section{Why RQ1 matters}
+
+RQ1 addresses the practical entry point of the dissertation: does representation-level rectification make sparse longitudinal selection more reliable than fitting directly on raw lag-expanded inputs? This question is important because dependence among lagged predictors is the norm in longitudinal data, and support recovery can degrade sharply in such settings even when prediction remains acceptable \autocites{PZhao2006model,freijeirogonzalez2022}.
+
+Competing methods attempt to mitigate this problem through penalty design (elastic net, adaptive lasso, group/ordered penalties) or relevance-redundancy optimization \autocites{HZou2005Regularization,HZou2006adaptive,yuan2006,meier2008,RTibshirani2016ordered,katrutsa2017}. These methods are essential baselines, but they still work primarily in the original correlated representation. RQ1 matters because it tests a different intervention point: transform representation first, then apply sparse learning.
+
+This question is also important for continuity with prior publications in the dissertation line. Earlier work introduced and refined rectification-first sparse longitudinal modeling and reported promising empirical behavior across synthetic and real datasets \autocites{orender2022,JOrender2025Efficient}. This work must now determine whether those improvements are robust across broader benchmark designs, stronger baselines, and stricter attribution-oriented criteria.
+
+\section{Why RQ2 matters}
+
+RQ2 asks for mechanism, not only outcome. Even if rectification improves support stability in multiple datasets, this work has taken upon itself to explain \emph{why} that improvement occurs and under what assumptions it should be expected. This matters for scientific defensibility, external validity, and principled method extension.
+
+At a high level, the motivating hypothesis is that rectification can contract harmful dependence structure in ways that improve sparse-support conditions related to IC-style reasoning \autocites{PZhao2006model,RAHorn2012Matrix}. Prior proof-of-concept analysis in this line supports this direction under explicit assumptions, but does not yet establish universal guarantees across all threshold settings and dependence regimes \autocite{JOrender2025Efficient}. RQ2 is therefore critical: it separates durable methodological insight from dataset-specific heuristic success.
+
+RQ2 also matters for how results will be interpreted in later chapters. If gains appear only in certain dependence geometries or event-logic structures, that boundary must be made explicit. A clear mechanism and boundary analysis prevents overclaiming and supports reproducible, domain-appropriate deployment.
+
+\section{Why RQ3 matters}
+
+RQ3 addresses the final translational step: can sparse rectified models be converted into compact logical rules that humans can audit and use? In high-stakes settings, model acceptance often depends on transparency, verifiability, and ease of expert review, not only ROC-level discrimination \autocites{CRudin2019Stop,WJMurdoch2019Definitions}.
+
+Rule-oriented model families and LAD-style traditions demonstrate the value of explicit logic structures for decision support \autocites{EBoros1997Logical,EBoros2000implementation,EAngelino2018Learning}. However, direct combinatorial search can be expensive in high-dimensional longitudinal spaces. The dissertation's question is whether an anytime compression stage can deliver much of the same interpretability benefit while preserving most of the discriminative value of the sparse baseline \autocite{JOrender2025Anytime}.
+
+RQ3 is important because it determines operational usability. A model with good AUC but hundreds of small coefficients is often difficult to deploy in environments that require policy documentation, cross-team review, and traceable rationale. Compact rules can close that gap if their performance loss is controlled and measurable.
+
+\section{Cross-RQ Evaluation Priorities}
+
+Detailed experimental designs are reserved for later chapters, but the dissertation applies a common set of evaluation priorities across all three research questions:
+\begin{itemize}
+    \item \textbf{Predictive discrimination:} metrics such as AUC and Youden's J at operational thresholds, with context-dependent interpretation across datasets \autocites{JOrender2025Efficient,shin2020,sigillito1989}.
+    \item \textbf{Attribution quality and stability:} support recovery behavior, lag localization fidelity, and stability across folds or resamples.
+    \item \textbf{Interpretability complexity:} active-feature count, rule count, and rule length as direct proxies for human audit burden \autocites{WJMurdoch2019Definitions,EAngelino2018Learning}.
+    \item \textbf{Efficiency:} end-to-end training and inference time, including preprocessing overhead and compression overhead.
+    \item \textbf{Practical non-inferiority framing where appropriate:} when simplified rule models are compared to upstream sparse baselines, interval-based equivalence logic can be used to assess whether differences are practically small \autocite{DJSchuirmann1987comparison}.
+\end{itemize}
+
+These priorities reflect the overall objective: not maximizing a single metric, but balancing reliability, interpretability, and computational feasibility.
+
+\section{Significance of the Chapter}
+
+This chapter establishes the scope and rationale of the research program before technical detail. RQ1 asks whether the approach works empirically in the intended problem class. RQ2 asks whether the observed behavior is theoretically credible and generalizable. RQ3 asks whether the resulting models are usable in real decision workflows. Taken together, the three questions define the dissertation's central claim that rectification-first sparse longitudinal learning, followed by anytime rule compression, can provide a practical middle ground between unstable raw sparse fitting and computationally heavy direct rule search \autocites{orender2022,JOrender2025Efficient,JOrender2025Anytime}.

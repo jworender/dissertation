@@ -1,37 +1,86 @@
+% !TeX root = ../main.tex
+
 \chapter{Related Work}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus.
+This chapter reviews method families most relevant to the problem identified in this work: sparse longitudinal feature selection under strong dependence, with interpretable downstream decision logic. The discussion is organized to move from core sparse-learning foundations to structured penalties, dependence-aware alternatives, and rule-based interpretability frameworks. The final sections position this work relative to prior work in the same method lineage.
 
-\section{Section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi.  
+\section{Sparse Regularization Foundations}
 
-\section{Section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+L1-regularized modeling is the canonical starting point for sparse feature selection. The lasso formulation introduced by Tibshirani established a convex mechanism that performs shrinkage and variable selection simultaneously, making it practical for high-dimensional settings \autocite{tibshirani1996}. In classification settings, L1-regularized logistic regression inherits the same sparsity behavior and is widely used when model compactness and feature attribution are important.
 
-\section{Section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+Early theoretical and empirical analyses also clarified why L1 penalties are often preferable to purely L2-regularized approaches when many predictors are irrelevant. In sparse-relevance regimes, L1 methods can scale better with growing nuisance dimensionality than rotationally invariant alternatives \autocite{AYNg2004Feature}. This intuition remains central for longitudinal lag-expanded designs, where many candidate lag terms may not be causally relevant.
 
-\section{Section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+A second reason this family became dominant is computational maturity. Coordinate-descent path algorithms provide efficient fitting across full regularization paths for generalized linear models and related objectives \autocites{fried2010,tay2023}. These advances made sparse modeling feasible at operational scales and enabled cross-validated tuning in realistic workflows rather than one-off, expensive optimization.
 
-\begin{table}[tbh]
-%\caption[short title for list of tables - no period at end per EE 9/23]{long title for text}
-\caption[The short caption of the table goes here.]{The full caption of the table goes here. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi.}
-\label{tab:table_example1}
-\begin{center}
-\begin{tabular}{lll}
-      & Mean  & SD   \\ \hline
-Row 1 & 21.13 & 2.98 \\ 
-Row 2 & 13.40 & 1.75 \\ 
-Row 3 & 33.20 & 5.53 \\ \hline
-\end{tabular}
-% \addtabletext{nomenclature for the TSs refers to the numbered species in the table.}
-\end{center}
-\end{table}
+However, plain lasso is not the endpoint of sparse modeling. Elastic net and adaptive lasso were proposed to improve behavior under correlation and to reduce some forms of selection bias \autocites{HZou2005Regularization,HZou2006adaptive}. This work treats these methods as important baselines, but not as complete solutions for threshold-and-lag attribution in heavily collinear longitudinal representations.
 
-\section{Section Title}
-Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat.
+\section{Support Recovery Under Dependence}
 
+Predictive accuracy and correct feature recovery are distinct goals. Zhao and Yu formalized this distinction by showing that lasso model-selection consistency depends on covariance-structure conditions, particularly the irrepresentable condition (IC) \autocite{PZhao2006model}. In practical terms, when inactive predictors are too correlated with active predictors, support recovery may fail even if prediction remains competitive.
 
-\section{Section Title}
-Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. 
+This issue is acute in lag-expanded longitudinal data, where neighboring lags and related channels often have strong dependence. Recent reviews emphasize that lasso and many derivatives can produce unstable supports and elevated false positives in dependent designs, especially under common tuning choices optimized for prediction rather than exact support recovery \autocite{freijeirogonzalez2022}.
+
+Dependence-aware variants address parts of this problem. Examples include transformed or weighted formulations for highly correlated predictors and robust rank-based alternatives that reduce sensitivity to link-function misspecification or heavy-tailed behavior \autocites{HZhu2021variable,MRejchel2020Rank}. These methods improve robustness in specific regimes, but they generally do not provide a unified threshold semantics and lag-rule representation for operational interpretation.
+
+From a matrix-analysis viewpoint, these selection instabilities reflect conditioning and inverse-Gram sensitivity, which directly affect sparse-support perturbation behavior \autocite{RAHorn2012Matrix}. This perspective motivates representation-level interventions before sparse fitting, rather than relying only on penalty redesign in the original feature space.
+
+\section{Group, Block, and Ordered Sparsity}
+
+Structured penalties were developed to stabilize selection when predictors have known organization. Early simultaneous-selection formulations for multiresponse models and later grouped penalties introduced mechanisms that select predictors at the block level rather than coefficient-by-coefficient \autocites{turlach2005,yuan2006}. This is relevant in longitudinal settings where features can be grouped by channel, basis expansion, or lag family.
+
+Subsequent work extended grouped sparsity to logistic settings and improved practical optimization. Group lasso for logistic regression, blockwise sparse regression, and unified majorization-descent solvers significantly improved feasibility for high-dimensional non-orthonormal designs \autocites{meier2008,kim2006,yang2015}. These methods remain strong comparators because they encode structural assumptions directly in the objective while retaining convexity in many cases.
+
+Temporal structure has also been added explicitly through ordered penalties. Ordered lasso introduces monotonicity constraints across lag coefficients, reflecting assumptions such as decaying lag influence and yielding interpretable lag profiles when those assumptions hold \autocite{RTibshirani2016ordered}. This is a particularly relevant baseline for relevant experiments because it targets time-lagged sparsity directly.
+
+Despite these advances, structured penalties still operate in the original correlated representation. They can improve stability and interpretability relative to plain lasso, but they do not inherently convert continuous trajectories into explicit threshold logic. This work positions its rectification step as complementary to these methods: change the representation first, then apply sparse learning.
+
+\section{Correlation-Aware and Alternative Feature Selection Families}
+
+Beyond penalized linear models, several approaches attempt to reduce redundancy through direct relevance-redundancy criteria. Katrutsa and Strijov proposed a quadratic-programming feature-selection framework where pairwise similarity and target relevance are balanced in a convex relaxation \autocite{katrutsa2017}. This strategy can reduce redundant supports, but it is primarily pairwise in construction and does not natively express lag-threshold rules.
+
+Robust multicollinearity-focused estimators provide another pathway. Methods combining robust regression ideas with conditioning-oriented penalties can improve estimation under contamination and ill-conditioning \autocite{roozbeh2018}. These approaches are useful for robustness analysis but typically prioritize fit stability over compact, human-auditable sparse logic.
+
+Filter, wrapper, and embedded selection families remain widely used in practice because they are flexible and model-agnostic \autocite{ladha2011}. Recent hybrid ranking-plus-search approaches also show good empirical performance in domain-specific pipelines \autocite{kp2022feature}. Still, these families can be sensitive to search heuristics, may yield unstable subsets under resampling, and usually do not produce direct temporal-threshold semantics without additional modeling layers.
+
+Accordingly, this work includes these methods primarily as conceptual comparators rather than as primary interpretability baselines. Their strengths are pragmatic feature screening and broad applicability; their limitations are weaker guarantees for sparse lag attribution and logic-level interpretability.
+
+\section{Interpretable Modeling and Rule-Learning Literature}
+
+Interpretability-focused literature increasingly argues that high-stakes deployments should prefer inherently interpretable models over post hoc explanations of black boxes whenever performance is competitive \autocites{CRudin2019Stop,WJMurdoch2019Definitions}. This framing strongly influences the design choices in this work: interpretability is treated as a primary objective, not a secondary (post-hoc) reporting artifact.
+
+Rule-based models are central to this viewpoint. Classical Logical Analysis of Data (LAD) frameworks formalize binarization and logic-pattern extraction, including optimization-based treatment of cut-point selection and pattern construction \autocites{EBoros1997Logical,EBoros2000implementation}. These methods establish the value of explicit threshold logic for decision support, but can face combinatorial scaling limits in large, highly correlated feature spaces.
+
+Modern rule-list methods demonstrate that transparent models can be both accurate and principled when optimization is carefully designed. Certifiably optimal rule-list learning shows that exact or bounded-search approaches can produce compact, auditable models with competitive predictive performance on structured tasks \autocite{EAngelino2018Learning}. This work does not replicate global rule-list optimization, but it draws from the same interpretability objective and complexity-aware evaluation philosophy.
+
+Relative to this literature, the strategy for this work is to anchor interpretability in sparse model fitting and then compress coefficients into logic-like forms through an "anytime" procedure. This avoids full combinatorial search while still yielding compact rule structures suitable for expert review.
+
+\section{Longitudinal High-Dimensional Modeling Context}
+
+Longitudinal methods in broader statistics and machine learning emphasize that repeated measures introduce heterogeneity, temporal dependence, and subgroup structure that can invalidate cross-sectional assumptions. Model-based clustering with regularized mixed-effects formulations demonstrates one advanced path for high-dimensional trajectory modeling \autocite{yang2023model}. These methods are powerful for discovering latent trajectory classes, but they optimize a different end goal than sparse, explicit lag-rule extraction.
+
+Domain literature further illustrates why interpretable longitudinal modeling matters. Clinical and biological longitudinal studies report heterogeneous temporal pathways and delayed outcome behavior, reinforcing the need for methods that preserve temporal attribution \autocites{hiploylee2017,wong2010longitudinal}. Similar heterogeneity appears in socio-environmental longitudinal surveys \autocite{sorvali2021farmer}. These contexts motivate models that can be inspected and discussed by domain experts rather than only ranked by black-box metrics.
+
+Benchmark infrastructure also matters for evaluating longitudinal methods. Public anomaly and signal datasets used in this line of inquiry, such as HAI ICS telemetry and ionospheric radar-return data, provide realistic stress tests for lag attribution, sparse recovery, and interpretability tradeoffs \autocites{shin2020,sigillito1989}. Related engineering contexts with threshold-driven transitions likewise support the relevance of range-based temporal reasoning \autocite{inoue2021}.
+
+\section{Method Lineage and Dissertation Positioning}
+
+This work is not a stand-alone methodology detached from prior work; it extends a concrete sequence of methods developed in earlier publications. The initial conference work introduced a rectification-first perspective for longitudinal feature learning, where critical-range binarization precedes sparse selection \autocite{orender2022}. This established the basic preprocessing-plus-lasso pipeline and empirical motivation.
+
+Subsequent work added proof-of-concept theory and broader case studies. The 2025 efficient longitudinal feature-selection paper linked binarized transformation to correlation contraction arguments and improved IC-related behavior under stated assumptions, while also reporting computationally practical implementations \autocite{JOrender2025Efficient}. This paper provides the main theoretical bridge between representation design and support recovery.
+
+The companion 2025 anytime rule-compression paper addressed the remaining interpretability gap: sparse coefficients are often still too numerous for direct human use. The anytime compression stage converts sparse rectified models into compact m-of-K style rule behavior with controlled discrimination tradeoffs and early-stop practicality \autocite{JOrender2025Anytime}. This contribution aligns the pipeline with interpretable-model deployment requirements discussed earlier in this chapter.
+
+Compared with related work, the dissertation's distinguishing emphasis is integration. Rather than proposing only a new penalty, only a new binarizer, or only a new rule learner, it unifies all three stages and evaluates them as one longitudinal decision-support pipeline. The key comparative hypothesis is that representation-level rectification plus sparse selection plus anytime compression better balances support reliability, interpretability, and compute constraints than any single-stage alternative.
+
+\section{Summary of Gaps in Prior Work}
+
+The reviewed literature reveals four persistent gaps that motivate this dissertation.
+
+\begin{itemize}
+  \item Sparse penalties are computationally mature and often predictive, but support consistency remains fragile under strong lag-induced dependence \autocites{PZhao2006model,freijeirogonzalez2022}.
+  \item Structured and dependence-aware penalties improve behavior in specific regimes, yet usually remain tied to raw correlated representations and do not produce threshold-native logic outputs \autocites{RTibshirani2016ordered,HZhu2021variable,yuan2006}.
+  \item Rule-learning frameworks deliver transparency, but direct combinatorial optimization can be difficult to scale in high-dimensional longitudinal spaces \autocites{EBoros1997Logical,EAngelino2018Learning}.
+  \item Prior work in this dissertation line introduced the key pieces, but an end-to-end, reproducible, and extensively benchmarked synthesis is still needed \autocites{orender2022,JOrender2025Efficient,JOrender2025Anytime}.
+\end{itemize}
+
+The remainder of the dissertation addresses these gaps through unified methodology, theory-informed analysis, and comparative empirical evaluation.

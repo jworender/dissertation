@@ -12,11 +12,12 @@
 %%%%% Citation Style %%%%% 
 %% Uncomment the appropriate line for your discipline
 %% IEEE
-\usepackage[style=ieee, sorting=nyt, citestyle=numeric-comp, maxnames=10, minnames=10]{biblatex}
+%% Using backend=bibtex for environments where biber is unavailable.
+\usepackage[backend=bibtex, style=ieee, sorting=nyt, citestyle=numeric-comp, maxnames=10, minnames=10]{biblatex}
 %% APA
-% \usepackage[style=apa, sorting=nyt, maxnames=10, minnames=10]{biblatex}
+% \usepackage[backend=bibtex, style=apa, sorting=nyt, maxnames=10, minnames=10]{biblatex}
 %% Science 
-% \usepackage[style=science, sorting=nyt, maxnames=10, minnames=10]{biblatex}
+% \usepackage[backend=bibtex, style=science, sorting=nyt, maxnames=10, minnames=10]{biblatex}
 
 %% add BibTeX file
 \addbibresource{ref.bib}

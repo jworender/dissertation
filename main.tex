@@ -6,17 +6,21 @@
 
 %%%%% Thesis or Dissertation Selection %%%%% 
 \usepackage[diss]{odusci}  
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
 % for MS thesis, replace diss with thesis
 % \usepackage[thesis]{odusci}
 
 %%%%% Citation Style %%%%% 
 %% Uncomment the appropriate line for your discipline
 %% IEEE
-\usepackage[style=ieee, sorting=nyt, citestyle=numeric-comp, maxnames=10, minnames=10]{biblatex}
+%% Using backend=bibtex for environments where biber is unavailable.
+\usepackage[backend=bibtex, style=ieee, sorting=nyt, citestyle=numeric-comp, maxnames=10, minnames=10]{biblatex}
 %% APA
-% \usepackage[style=apa, sorting=nyt, maxnames=10, minnames=10]{biblatex}
+% \usepackage[backend=bibtex, style=apa, sorting=nyt, maxnames=10, minnames=10]{biblatex}
 %% Science 
-% \usepackage[style=science, sorting=nyt, maxnames=10, minnames=10]{biblatex}
+% \usepackage[backend=bibtex, style=science, sorting=nyt, maxnames=10, minnames=10]{biblatex}
 
 %% add BibTeX file
 \addbibresource{ref.bib}
@@ -36,18 +40,14 @@
 \begin{document}
 
 %%%%% TITLE PAGE %%%%% 
-\title{THE TITLE OF THE DISSERTATION. PLEASE REPLACE THE TEXT HERE WITH YOUR TITLE}
+\title{INTERPRETABLE SPARSE MODELING OF LONGITUDINAL SIGNALS VIA CRITICAL-RANGE RECTIFICATION AND ANYTIME RULE COMPRESSION}
 
-\author{Jane Ann Doe}
+\author{Jason Orender}
 
 %% US degree
-\degrees{B.S. July 2017, Stanford University \\
-         M.S. July 2020, Stanford University}
-
-%% Use the following format if the prior degrees are outside of the US. 
-%% University and Country must be all in a single line.
-% \degrees{B.S. July 2017, University of Oxford, United Kingdom \\
-%          M.S. July 2020, University of Oxford,  United Kingdom}
+\degrees{B.S. December 1993, University of Texas at Austin\\
+		 M.S. December 2003, George Mason University\\
+         M.S. May 2018, Old Dominion University}
 
 %% Department
 \dept{Computer Science}
@@ -56,38 +56,39 @@
 %\copyrightfalse
 
 %% submit date must use either "May", "August", or "December" for the month
-\submitdate{May 2024}
-% \submitdate{August 2024}
+\submitdate{August 2026}
 % \submitdate{December 2024}
 
 %% Default is for a single adviser
-\principaladviser{Director Name}
-\member{Member Name}
-\member{Member Name}
-\member{Member Name}
+\principaladviser{Jiangwen Sun}
+\member{Mohammed Zubair}
+\member{Yaohang Li}
+\member{Yet Nguyen}
 
 %% Co-advisers - uncomment below if required
-% \coadvisers{Director Name1}
-% \coadvisers{Director Name2}
-% \member{Member Name}
-% \member{Member Name}
-% \member{Member Name}
+%\coadvisers{{Jiangwen Sun}
+%\coadvisers{Mohammed Zubair}
+%\member{Yaohang Li}
+%\member{Yet Nguyen}
 %% See https://github.com/oduwsdl/odusci-etd-template/blob/main/README.md
 %% for instructions on adjusting odusci.sty to allow co-advisers
 
 %%%%% FRONT MATTER %%%%% 
 
 %% Abstract - maximum 350 words
-\abstract{Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus.} 
+\abstract{High-dimensional longitudinal data are common in clinical monitoring, industrial control systems, and other sensor-driven domains. When outcomes are governed by go/no-go thresholds and delayed effects, standard sparse models such as L1-regularized logistic regression often become unstable after lag expansion because multicollinearity undermines consistent support recovery. At the same time, many stakeholders require models that are interpretable as simple rules and that can be trained and evaluated under constrained compute.
+This prospectus proposes an end-to-end framework that addresses these constraints using three stages: (i) critical-range rectification, which converts each lagged continuous measurement into a \{-1,+1\} indicator denoting whether it lies within a data-driven range observed during events; (ii) sparse model fitting using an L1-regularized logistic baseline on the rectified design; and (iii) anytime rule compression (“logic polishing”), which collapses small-magnitude coefficients to produce a compact m-of-K rule model tuned to maximize Youden’s J at a chosen operating point. Preliminary studies on synthetic data with known ground-truth rules and on real-world datasets (including the HAI industrial control system) suggest that rectification improves feature-and-lag attribution, reduces false positives, and can decrease end-to-end training time.
+A tractable proof-of-concept theoretical analysis uses the zero-threshold arcsin relation under joint normality to show generally how sign binarization contracts pairwise correlations, improves conditioning of the Gram matrix, and increases the likelihood of satisfying the LASSO irrepresentable condition. The proposed dissertation work will (a) validate the proof-of-concept assertions, (b) quantify the contribution of each pipeline stage via ablations and stability studies, and (c) expand evaluation to additional longitudinal domains and baselines.} 
 
 %% Dedication - optional, 1 page max
-\dedication{I dedicate my dissertation ... Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus.}
+\dedication{I dedicate my dissertation to my wife Danielle.}
 
 %% Acknowledgements
-\acknowledge{I would like to thank...Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. 
+\acknowledge{I would like to thank my committee, and especially Drs. Sun and Zubair, without whose guidiance this document and the work it represents would not have been possible. 
 %% If you want multiple paragraphs, must add a newline and indent as below
-\\ \indent 
-Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus.}
+%\\ \indent 
+%Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus.
+}
 
 %% Nomenclature - optional, uncomment below if required 
 % \nomenclature{
@@ -112,9 +113,10 @@ Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque 
 \input{Chapters/01_introduction}
 \input{Chapters/02_background}
 \input{Chapters/03_relatedwork}
-\input{Chapters/04_aurum}
-\input{Chapters/05_boreas}
-\input{Chapters/06_concordia}
+\input{Chapters/04_resquestions}
+\input{Chapters/05_rq1}
+\input{Chapters/06_rq2}
+\input{Chapters/07_rq3}
 \input{Chapters/88_futurework}
 \input{Chapters/89_conclusion}
 
@@ -128,7 +130,7 @@ Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque 
 %% Comment the lines below if you do not have any appendices
 \begin{Appendices}
 \include{Chapters/98_appendices} % First appendix file
-\include{Chapters/98_appendices2} % Second appendix file
+% \include{Chapters/98_appendices2} % Second appendix file
 % You can add more .tex files as needed
 \end{Appendices}
 

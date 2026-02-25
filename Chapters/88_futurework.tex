@@ -1,10 +1,174 @@
+% !TeX root = ../main.tex
+
 \chapter{Future Work}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac mauris luctus, laoreet mauris non, maximus justo. Nam semper laoreet orci a rhoncus. Pellentesque sed pellentesque purus. Vivamus et dapibus elit, id dapibus justo. Maecenas magna ipsum, rutrum a nisl ac, porta convallis nulla. Pellentesque ornare tempor ipsum, eu dictum mi ultrices vitae. Quisque enim lacus, posuere eget mollis in, ornare a eros. Aliquam laoreet nulla sit amet facilisis laoreet. Vivamus non est et ante luctus dignissim convallis eget massa. Suspendisse eu tortor a nibh consequat dictum. Nam semper laoreet orci a rhoncus. Pellentesque sed pellentesque purus. Vivamus et dapibus elit, id dapibus justo. Maecenas magna ipsum, rutrum a nisl ac, porta convallis nulla.
+This chapter defines the work that must be completed before the final formal dissertation defense. The goal is not to introduce a new research direction, but to close remaining validity gaps in a controlled, auditable way and convert the current proof-of-concept contributions into a defense-ready body of evidence. The plan extends the method lineage established in prior work while preserving the same three-stage architecture: critical-range rectification, sparse fitting, and anytime rule compression \autocite{orender2022,JOrender2025Efficient,JOrender2025Anytime}.
 
-Vestibulum vitae quam vulputate, facilisis lorem nec, venenatis massa. Duis id odio pulvinar, semper est nec, placerat nisl. Aenean eget dui libero. Phasellus scelerisque convallis molestie. Sed sem quam, pharetra ut massa nec, viverra vestibulum odio. Morbi eu sem quis metus tempus eleifend quis non felis. Nullam ornare nulla eu dapibus ullamcorper. Mauris convallis risus id turpis semper pulvinar. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla volutpat velit a dignissim facilisis. Mauris non eros eget est faucibus laoreet sit amet ut urna. Cras id condimentum magna. Sed sit amet dolor iaculis purus sodales vulputate id nec nunc. Sed ultrices justo vel orci rhoncus, eu tempor nunc convallis. Proin pretium sodales sem, quis porta sem feugiat eget.
+\section{Defense-Readiness Objective}
 
-Cras in convallis felis, ullamcorper volutpat nisi. Nunc sit amet consequat risus. Morbi urna dolor, scelerisque non risus nec, venenatis lobortis nunc. Mauris elementum porta nunc eu suscipit. Pellentesque porta dolor ligula, sit amet porta turpis pharetra sed. Vivamus malesuada augue tellus. Mauris pharetra neque ut velit pulvinar, non tempor nulla convallis. Integer et lorem turpis. Cras commodo ex lectus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus suscipit nibh vitae nisl interdum, vel euismod arcu laoreet. Mauris id elit magna.
+The final defense package will be considered complete when the dissertation demonstrates all three of the following:
+\begin{enumerate}
+	\item \textbf{Empirical credibility:} RQ1 claims are supported by stability-aware, multi-dataset evidence rather than single-split performance snapshots.
+	\item \textbf{Theoretical transparency:} RQ2 assumptions, scope boundaries, and failure modes are explicit, testable, and consistent with established selection-consistency theory \autocite{PZhao2006model,freijeirogonzalez2022}.
+	\item \textbf{Operational interpretability:} RQ3 compression yields compact rules with documented complexity/performance tradeoffs and practical non-inferiority checks \autocite{JOrender2025Anytime,DJSchuirmann1987comparison}.
+\end{enumerate}
 
-Quisque scelerisque molestie justo id dignissim. Morbi vel urna orci. Ut condimentum nisi purus, vitae finibus orci ultricies ultricies. Proin dolor neque, semper sit amet massa vitae, iaculis viverra magna. Proin leo sem, sodales ac nunc at, scelerisque imperdiet eros. Morbi velit arcu, auctor ut rutrum quis, pretium eu arcu. Curabitur semper mauris nisl, sit amet ullamcorper orci aliquet id. Sed euismod venenatis laoreet. Etiam accumsan tincidunt pharetra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra euismod pellentesque.
+These criteria align with interpretable-ML guidance that model quality must include predictive performance, descriptive fidelity, and audience relevance for high-stakes use \autocite{CRudin2019Stop,WJMurdoch2019Definitions}.
+
+\section{Workstream A: RQ1 Empirical Strengthening}
+
+\subsection{A1. Stability-first evaluation protocol}
+
+The first required expansion is to report \emph{selection stability} and \emph{lag fidelity} as first-class outcomes alongside AUC, Youden's $J$, and sparsity. This directly addresses known dependence-related fragility in sparse selection and avoids over-claiming based only on point predictive metrics \autocite{PZhao2006model,freijeirogonzalez2022}.
+
+Planned outputs:
+\begin{itemize}
+	\item Bootstrap and repeated-fold stability summaries for selected features and lags.
+	\item False-positive and false-negative attribution summaries under controlled synthetic truth.
+	\item Runtime and memory scaling under lag expansion.
+\end{itemize}
+
+\subsection{A2. Baseline expansion under multicollinearity}
+
+To position results more rigorously, RQ1 comparisons will include baseline families that are specifically designed for correlated predictors:
+\begin{itemize}
+	\item L1 and elastic-net path baselines \autocite{tibshirani1996,HZou2005Regularization,fried2010,tay2023}.
+	\item Adaptive/weighted sparse variants \autocite{HZou2006adaptive,MRejchel2020Rank}.
+	\item Grouped-penalty baselines \autocite{turlach2005,yuan2006,meier2008,yang2015}.
+	\item Ordered lag-constrained sparse baselines for time-lag structure \autocite{RTibshirani2016ordered}.
+	\item Multicollinearity-focused selection comparators \autocite{katrutsa2017}.
+\end{itemize}
+
+The objective is not to show a universal winner, but to quantify where the rectification-first pipeline helps, where it is neutral, and where it should not be preferred.
+
+\subsection{A3. Cross-domain longitudinal validation}
+
+At least one additional longitudinal setting will be included beyond current core experiments to test transferability of the threshold-and-lag assumptions. Candidate contexts include ICS anomaly detection and biomedical/clinical trajectory settings \autocite{shin2020,wong2010longitudinal,hiploylee2017,yang2023model}. A legacy signal-processing dataset is retained as a secondary check for lagged-feature behavior \autocite{sigillito1989}.
+
+\section{Workstream B: RQ2 Theoretical Completion}
+
+\subsection{B1. Scope-accurate extension of the current derivation}
+
+The current theory is intentionally proof-of-concept. Before defense, the chapter will be finalized with a clearer bridge from the zero-threshold derivation to limited non-zero-threshold settings, while preserving explicit caveats about generality \autocite{JOrender2025Efficient}.
+
+Required updates:
+\begin{itemize}
+	\item Separate theorem-level claims from engineering intuition in the prose.
+	\item Make all assumptions testable or falsifiable in synthetic studies.
+	\item Add a concise failure-mode section for cases where dependence structure violates required conditions.
+\end{itemize}
+
+\subsection{B2. Assumption stress testing}
+
+Each assumption in the RQ2 chapter will be paired with at least one targeted stress test. This is necessary because support-recovery claims are known to be sensitive to covariance geometry and signal-strength conditions \autocite{PZhao2006model,freijeirogonzalez2022}.
+
+Planned stress tests:
+\begin{itemize}
+	\item Correlation-pattern sweeps that deliberately approach known problematic IC regimes.
+	\item Threshold-placement perturbations to measure robustness away from idealized critical ranges.
+	\item Controlled negative-correlation regimes and complement-feature handling.
+\end{itemize}
+
+\section{Workstream C: RQ3 Anytime Compression Validation}
+
+\subsection{C1. Real-data anytime curves and operating-point policy}
+
+RQ3 will be extended with full $J$-versus-$k$ compression curves on real data and a prespecified adoption policy for practical deployment. The policy will explicitly encode acceptable complexity/performance tradeoffs instead of selecting rule size post hoc \autocite{JOrender2025Anytime}.
+
+\subsection{C2. Equivalence-style model comparison}
+
+For compressed versus baseline models, evaluation will include equivalence-style testing with predefined margins rather than only ``no significant difference'' claims \autocite{DJSchuirmann1987comparison,Student1908probable}. This is required to support statements of practical non-loss.
+
+\subsection{C3. Interpretability quality audit}
+
+Rule models will be audited with explicit structural metrics: number of conditions, effective rule length, and decision-path simulatability. This follows interpretable-model guidance that transparent structure should be measured directly, not inferred from sparse coefficients alone \autocite{CRudin2019Stop,WJMurdoch2019Definitions}.
+
+\subsection{C4. Comparator rule learners}
+
+At least one rule-list and one logical-pattern baseline will be included for context:
+\begin{itemize}
+	\item Certifiably optimal rule-list style baselines \autocite{EAngelino2018Learning}.
+	\item LAD-style logical methods and implementation variants \autocite{EBoros1997Logical,EBoros2000implementation}.
+\end{itemize}
+
+This comparison is intended to clarify when anytime compression is the best practical choice versus when direct combinatorial rule learning is preferable.
+
+\section{Cross-Cutting Ablation Program}
+
+All three research questions will use one unified ablation design to isolate causal contribution by stage:
+\begin{enumerate}
+	\item Raw features + sparse learner.
+	\item Rectified features + sparse learner.
+	\item Rectified features + sparse learner + anytime compression.
+	\item Optional controls (for example, raw + sparse learner + compression) to separate representation from compression effects.
+\end{enumerate}
+
+This program is the main mechanism for demonstrating that each stage contributes measurable value and for preventing confounding between preprocessing, fitting, and post-processing choices \autocite{orender2022,JOrender2025Efficient,JOrender2025Anytime}.
+
+\section{Reproducibility and Defense Artifacts}
+
+Before defense, all experiments will be migrated to a reproducible execution bundle with:
+\begin{itemize}
+	\item fixed seeds, versioned splits, and immutable feature-generation settings;
+	\item per-run manifests capturing code revision, data hash, and hyperparameter state;
+	\item automated export of metrics, selected supports, and rule artifacts;
+	\item one-command regeneration scripts for every figure/table used in the dissertation.
+\end{itemize}
+
+The expected outcome is a committee-auditable artifact package that can reproduce core claims without manual intervention.
+
+\section{Risks and Mitigation Prior to Defense}
+
+\begin{itemize}
+	\item \textbf{Risk:} Outlier-driven critical ranges produce brittle rules. \textbf{Mitigation:} robust quantile variants and sensitivity envelopes around range boundaries \autocite{JOrender2025Efficient}.
+	\item \textbf{Risk:} Correlated-feature regimes still destabilize supports. \textbf{Mitigation:} expanded correlated-baseline pack and stability reporting under repeated resampling \autocite{HZou2005Regularization,HZou2006adaptive,yuan2006}.
+	\item \textbf{Risk:} Compression appears accurate but changes operating behavior. \textbf{Mitigation:} operating-point diagnostics plus equivalence-margin reporting \autocite{JOrender2025Anytime,DJSchuirmann1987comparison}.
+	\item \textbf{Risk:} Overstated theoretical generality. \textbf{Mitigation:} explicit scope language and assumption-level counterexample tests \autocite{PZhao2006model,freijeirogonzalez2022}.
+\end{itemize}
+
+\section{Timeline and Committee Decision Gates}
+
+The schedule below identifies concrete pre-defense gates. Dates are targets and may be adjusted by committee direction, but each gate has a required output and a go/no-go criterion.
+
+\begin{table}[tbh]
+	\caption[Pre-defense milestone plan.]{Pre-defense milestone plan with required outputs and decision gates.}
+	\label{tab:futurework_timeline}
+	\begin{center}
+		\begin{tabular}{llll}
+			Milestone              & Target Date  & Required Output           & Gate Criterion          \\ \hline
+			Prospectus defense     & 23 Feb 2026  & Approved scope and        & Proceed with agreed     \\ 
+			                       &              & committee directives      & RQ closure plan         \\ \hline
+			D3 submission          & 06 Mar 2026  & Filed prospectus          & Administrative          \\ 
+			                       &              & documents                 & acceptance complete     \\ \hline
+			RQ1 stability package  & 31 Mar 2026  & Stability + ablation      & Metrics include stabil- \\ 
+			                       &              & report draft              & ity and lag fidelity    \\ \hline
+			Expanded baseline      & 30 Apr 2026  & Multicollinearity         & No missing baseline     \\
+			benchmarking           &              & baseline comparison       & family category         \\ \hline
+			RQ2 assumption stress  & 29 May 2026  & Theory-scope and failure- & Assumptions mapped to   \\ 
+			tests                  &              & mode supplement           & explicit tests          \\ \hline
+			RQ3 real-data compres- & 19 Jun 2026  & Anytime curves +          & Compression policy      \\ 
+			sion package           &              & equivalence analysis      & fully prespecified      \\ \hline
+			Full draft to          & 03 Jul 2026  & Complete dissertation     & All chapters internally \\ 
+			committee              &              & manuscript                & consistent              \\ \hline
+			Mock defense and       & 10 Jul 2026  & Final slide deck and      & No critical unresolved  \\ 
+			revision closeout      &              & resolved action log       & findings                \\ \hline
+			Formal dissertation    & 17 Jul 2026  & Defended dissertation     & Committee pass with     \\ 
+			defense                &              &                           & required revisions      \\ \hline
+			Final submission and   & 28 Aug 2026  & Post-defense corrections  & Degree conferral        \\
+			graduation             &              & and deposit               &                         \\ \hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\section{Pre-Defense Exit Checklist}
+
+Prior to scheduling the final defense date, the following checklist must be complete:
+\begin{enumerate}
+	\item All RQ chapters include explicit claim boundaries and supporting evidence.
+	\item All major figures and tables regenerate from scripted workflows.
+	\item Citation coverage is complete for methodological claims and comparator methods.
+	\item At least one committee-facing artifact review confirms reproducibility.
+	\item Open methodological risks are documented with mitigation status.
+\end{enumerate}
+
+Completion of this checklist marks transition from exploratory dissertation development to defense execution.

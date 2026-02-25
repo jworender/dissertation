@@ -1,21 +1,47 @@
-\chapter{Introduction} 
-This first paragraph will demonstrate some of the citation methods that can be used. The rest of the document is filler text used solely to demonstrate the desired layout.  This is a journal citation \autocite{berlin-tweb23}. This is a paper in a conference proceedings \autocite{weigle-jcdl23}. This is citing a poster \autocite{jayanetti-sbp23}. This is a tech report citation \autocite{weigle-2023}. This is citing an edited book, \textcite{vanet-book}, and demonstrates using the ``textcite'' command that will print the names of the authors along with the citation tag, allowing for easy use inside a sentence.  This is a journal article with 12 authors \autocite{coifman2005geometric}, but only 10 authors should be printed in the references, ending with ``\emph{et al.}'' before printing the article title.  Finally, this  demonstrates citing multiple references in a single command \autocites{jones-memento21,vanet-book,weigle-jcdl23}, but if they are near each other in the order the notation may be shortened in some styles \autocites{berlin-tweb23, coifman2005geometric, jayanetti-sbp23}.
+% !TeX root = ../main.tex
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. For more information, visit \url{https://github.com/oduwsdl/odusci-etd-template/blob/main/README.md}.Quisque gravida risus ac dapibus blandit. Mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec.
-
-\section{Problem}
-In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. 
-
+\chapter{Introduction}
+Longitudinal data contain repeated measurements of the same variables across time and are central to many scientific and operational problems. Examples include symptom progression in clinical cohorts, temporal variation in biological markers, and multi-wave surveys of human decision behavior \autocites{hiploylee2017,wong2010longitudinal,sorvali2021farmer}. Across these settings, outcomes are often triggered by threshold-and-lag mechanisms: a variable enters a critical range, then a target event appears after a delay as with Figure \ref{fig:tandl}. This structure is common in sensing and monitoring contexts where decision-makers need not only accurate predictions, but also clear explanations of which variables and lags drove the prediction.
 
 \begin{figure}[tbh]
-  \centering
-  \includegraphics[width=0.5\textwidth]{Figures/cos1.jpeg}
-  \caption[The short figure caption goes here.]{The full figure caption goes here. Please describe the figure and figure legends here.}
-  \label{fig:cos1}
+	\centering
+	\includegraphics[width=0.75\textwidth]{Figures/threshold_and_lag.png}
+	\caption[Threshold-and-Lag.]{Illustrative threshold-and-lag behavior in longitudinal signals.}
+	\label{fig:tandl}
 \end{figure}
 
+In high-dimensional longitudinal modeling, a standard strategy is to construct a lag-expanded design matrix and apply a sparse estimator. This strategy is attractive because sparse models can retain predictive performance while reducing dimensionality \autocites{tibshirani1996,AYNg2004Feature}. However, lag expansion also introduces strong dependence among adjacent lags and among correlated channels, creating exactly the regimes where support recovery becomes unstable and model-selection assumptions can fail \autocites{PZhao2006model,freijeirogonzalez2022}. Practical outcomes include arbitrary swapping among correlated predictors, sensitivity to tuning choices, and weak reproducibility of selected supports across resamples.
+
+A substantial body of work addresses these issues through penalty design and optimization advances, including elastic net, adaptive lasso, group-based penalties, and ordered lag constraints \autocites{HZou2005Regularization,HZou2006adaptive,yuan2006,meier2008,RTibshirani2016ordered}. These methods provide important baselines and often improve behavior relative to plain lasso, but they still operate directly on raw correlated representations and may not provide explicit threshold semantics for human review. Correlation-aware variants in domain-specific contexts further reinforce this point: dependence can be mitigated, but stable, interpretable attribution remains difficult when predictors are densely coupled \autocites{HZhu2021variable,katrutsa2017,yang2023model}.
+
+A second challenge is interpretability under high-stakes use. Post hoc explanations of complex models can be useful, but interpretable-model-first approaches are often preferable when transparency, auditability, and operational trust are mandatory \autocites{CRudin2019Stop,WJMurdoch2019Definitions}. Rule-structured models are especially relevant because they align with human review workflows and can be validated directly by domain experts \autocites{EAngelino2018Learning,EBoros1997Logical,EBoros2000implementation}. This dissertation therefore focuses on an inherently interpretable sparse pipeline rather than black-box prediction with after-the-fact explanation.
+
+The proposed approach builds from prior work in this research line: a rectification-first longitudinal feature-selection method, proof-of-concept theory linking binarized transformation to improved irrepresentable-condition (IC) behavior, and an anytime rule-compression method that converts sparse models into compact logic-like forms \autocites{orender2022,JOrender2025Efficient,JOrender2025Anytime}. The dissertation unifies these components into one framework, strengthens the supporting analysis, broadens empirical evaluation, and emphasizes reproducible implementation.
+
+\section{Problem}
+This work addresses three tensions that arise jointly in longitudinal feature learning:
+
+\begin{itemize}
+	\item Correlation + high dimension $\rightarrow$ unstable sparse support selection and weak lag attribution.
+	\item Operational use $\rightarrow$ limited compute budgets and constraints on model complexity.
+	\item High-stakes deployment $\rightarrow$ demand for transparent, auditable rules instead of opaque scoring functions.
+\end{itemize}
+
+The central research question is whether representation-level rectification can make sparse longitudinal selection more reliable before model fitting, and whether a principled post-selection compression step can preserve discrimination while improving human interpretability. In contrast to approaches that rely only on penalty modifications, this dissertation investigates a preprocessing-plus-selection-plus-compression pipeline designed to explicitly encode threshold behavior, reduce correlation burden, and expose causal hypotheses at the feature-lag level.
+
+Thesis statement: critical-range rectification improves reliability of sparse longitudinal feature recovery by contracting harmful dependence structures in lag-expanded data, and anytime rule compression converts resulting sparse models into compact, operationally usable rule forms with minimal loss in discriminative performance \autocites{JOrender2025Efficient,JOrender2025Anytime}. The scope emphasizes inherently interpretable sparse models with explicit attribution; deep learning appears only as contextual baselines where needed.
+
 \section{Contributions}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+This dissertation makes four integrated contributions.
+
+\begin{enumerate}
+  \item \textbf{A unified rectification-first longitudinal pipeline.} Building on prior conference work, the dissertation consolidates critical-range transformation, sparse logistic selection, and downstream rule extraction into a single end-to-end framework \autocites{orender2022,JOrender2025Efficient}.
+  \item \textbf{Theory-informed analysis of correlation and selection behavior.} The dissertation extends proof-of-concept arguments relating transformed representations to improved support-recovery conditions, situating these results against established lasso consistency theory and dependence-aware critiques \autocites{PZhao2006model,freijeirogonzalez2022,JOrender2025Efficient}.
+  \item \textbf{Anytime compression to interpretable m-of-K style rules.} Sparse coefficient models are converted into compact rule forms that can be audited and deployed under time and complexity constraints, extending recent rule-compression results \autocites{JOrender2025Anytime,EAngelino2018Learning}.
+  \item \textbf{A broad empirical protocol for longitudinal evaluation.} The dissertation compares raw and rectified representations across synthetic and real longitudinal benchmarks, including signal-rich settings such as ICS anomaly data and ionospheric radar returns, with evaluation focused on both discrimination and attribution quality \autocites{shin2020,sigillito1989}.
+\end{enumerate}
 
 \section{Thesis Organization}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+Following this introduction, the dissertation is organized as follows. The background chapter formalizes longitudinal feature-learning assumptions, sparse regularization foundations, and interpretability criteria, and then positions related methods in grouped, ordered, and dependence-aware selection \autocites{fried2010,tay2023,yang2015}. The methodology chapter presents the rectification algorithm, sparse fitting procedure, and anytime rule-compression mechanism in unified notation, including implementation details needed for reproducibility.
+
+The experimental-design chapter defines datasets, preprocessing, temporal splits, baseline families, and statistical evaluation criteria. The results chapter reports predictive performance, support stability, lag-attribution behavior, and compression tradeoffs. The final chapters summarize limitations, future extensions, and deployment implications for longitudinal decision support. Proof details are discussed at a high level in the main text and provided step-by-step in the appendices.

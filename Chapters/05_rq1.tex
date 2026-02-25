@@ -1,0 +1,104 @@
+% !TeX root = ../main.tex
+
+\chapter{Preliminary Studies and Evidence to Date for RQ1}
+
+RQ1 asks whether critical-range rectification can produce a stable sparse baseline with reliable feature and lag attribution in longitudinal settings. This chapter summarizes the current evidence accumulated before the full dissertation-scale evaluation. The goal here is not to present the final, exhaustive answer, but to establish what has already been demonstrated, what remains uncertain, and why the observed results are important for the broader research program.
+
+The evidence reported to date is anchored in prior work from the same method lineage, beginning with the rectification-first lasso logic framework and extending to later theory-backed case studies \autocites{orender2022,JOrender2025Efficient}. Across studies, the central empirical pattern is consistent: when the data generating process has threshold-and-lag structure, rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity pressure.
+
+\section{How RQ1 is evaluated in preliminary work}
+
+To answer RQ1 in a meaningful way, preliminary studies use three complementary evidence streams:
+\begin{itemize}
+    \item \textbf{Controlled synthetic studies} with known feature-lag ground truth, where attribution quality can be inspected directly.
+    \item \textbf{Comparative baseline studies} against methods designed to address collinearity or redundancy through alternative mechanisms.
+    \item \textbf{Real-world case studies} that test whether observed gains survive outside synthetic conditions.
+\end{itemize}
+
+The preliminary decision criteria are practical rather than purely theoretical: discriminatory performance (for example AUC and Youden's J), sparsity and support clarity, lag-level attribution fidelity, and end-to-end computational cost. This aligns with known limitations of penalty-only sparse methods under dependence, where prediction may remain strong while support recovery becomes unstable \autocites{PZhao2006model,freijeirogonzalez2022}.
+
+\section{Synthetic evidence with known ground truth}
+
+Synthetic longitudinal datasets are constructed so that events occur when a small subset of variables simultaneously enters critical ranges at specific lags. This creates a hard but controlled setting where lag expansion induces severe multicollinearity by design, closely mirroring the failure modes discussed in lasso consistency literature \autocites{PZhao2006model,freijeirogonzalez2022}. In this regime, representation-level rectification is applied before sparse fitting and compared with untransformed baselines.
+
+\begin{table}[tbh]
+    \caption[Synthetic data case study results.]{Synthetic case: transformed vs untransformed comparisons (values from preliminary experiments).}
+    \label{tab:synth_results}
+    \begin{center}
+        \begin{tabular}{lllll}
+            Method        & Transform Status  & Rel. Time &  Youden's J & F1    \\ \hline
+            LASSO         & Transformed       & 1.00      & 0.975       & 0.988 \\ \hline
+            LASSO         & Untransformed     & 1.83      & 0.753       & 0.804 \\ \hline
+            Random Forest & Transformed       & 12.5      & 0.980       & 0.990 \\ \hline
+            Random Forest & Untransformed     & 43.0      & 0.913       & 0.947 \\ \hline
+            Group LASSO   & Transformed       & 24.5      & 0.689       & 0.558 \\ \hline
+            Group LASSO   & Untransformed     & 53.5      & 0.624       & 0.459 \\ \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+The synthetic results in Table \ref{tab:synth_results} show the main preliminary pattern: transformed models improve discrimination and often reduce runtime relative to their untransformed counterparts. More importantly for RQ1, support concentration is visibly improved at the coefficient level when transformed inputs are used, which directly affects lag-attribution reliability.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/synth_trans_vs_untrans_coeff.png}
+    \caption[Synthetic data transformed vs. untransformed.]{Coefficient profiles on synthetic data: transformed vs untransformed (ground-truth lag locations highlighted).}
+    \label{fig:synth_tvsu}
+\end{figure}
+
+Figure \ref{fig:synth_tvsu} provides qualitative support for the same conclusion: rectification yields nonzero coefficients that align more closely with true causal lags, while untransformed fitting produces noisier support spread. This behavior is consistent with the rectification rationale described in prior publications, where binarized critical-range mapping is expected to reduce harmful correlation effects before sparse optimization \autocites{orender2022,JOrender2025Efficient}.
+
+\section{Comparison to competing feature-selection baselines}
+
+Preliminary RQ1 evidence also includes comparisons with methods intended to address redundancy or grouped dependence through different mechanisms. Group and block-structured sparse families remain important comparators because they are explicitly designed for correlated predictor settings \autocites{yuan2006,meier2008,kim2006,yang2015,RTibshirani2016ordered}. In these early studies, however, representation-level rectification combined with standard lasso often provides clearer lag attribution in threshold-triggered synthetic settings.
+
+A focused comparator is the quadratic-programming selector of Katrutsa and Strijov, which optimizes a relevance-redundancy objective using pairwise similarity structure \autocite{katrutsa2017}. The method is conceptually aligned with the goal of reducing redundancy, but it emphasizes pairwise criteria and does not directly encode multi-lag conjunctive trigger logic.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/katrutsa_strijov_coeff.png}
+    \caption[Katrutsa and Strijov method results.]{Quadratic-programming importance magnitudes on the synthetic dataset.}
+    \label{fig:katrutsa_coeff}
+\end{figure}
+
+In preliminary tests, the quadratic-programming approach often identifies related variables but may miss the correct lag localization and exhibits substantially higher computational cost. Observed runtime differences were on the order of roughly 100--200x relative to rectification plus lasso in the tested configuration. For RQ1, this matters because a "stable sparse baseline" is not only a statistical target; it must also be practical to run repeatedly across folds, ablations, and deployment refresh cycles.
+
+\section{Real-world evidence and interpretability tradeoffs}
+
+Synthetic evidence is necessary but not sufficient. Preliminary real-world studies therefore evaluate whether the same pattern appears in operationally relevant longitudinal data. The HAI industrial control benchmark is particularly useful because it includes realistic multi-sensor temporal dynamics with labeled attack scenarios and known subsystem context \autocite{shin2020}. Additional evidence from historical ionospheric radar work supports the relevance of lagged signal discrimination settings where sparse attribution can complement raw predictive performance \autocite{sigillito1989}.
+
+\begin{table}[tbh]
+    \caption[Real-world transformed vs. untransformed results.]{Real-world case studies: transformed vs untransformed comparisons (values from preliminary experiments).}
+    \label{tab:rw_results}
+    \begin{center}
+        \begin{tabular}{lllll}
+            Statistic        & HAI (Transformed) & HAI (Un-Trans) & UNICEF (Transformed) & UNICEF (Un-Trans) \\ \hline
+            ACC              & 0.987             & 0.939          & 0.902                & 0.963             \\ \hline
+            AUC              & 0.982             & 0.943          & 0.865                & 0.989             \\ \hline
+            F1               & 0.987             & 0.942          & 0.894                & 0.958             \\ \hline
+            Youden's J-Index & 0.974             & 0.878          & 0.815                & 0.925             \\ \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+As shown in Table \ref{tab:rw_results}, HAI results favor transformed models on both discrimination and attribution-oriented interpretation. In this setting, transformed models concentrate coefficients on turbine-related channels aligned with known attack context, while untransformed models spread attribution more diffusely.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/hai_trans_vs_untrans_coeff.png}
+    \caption[HAI results.]{Real-world coefficient concentration and performance: HAI turbine-loop selection vs untransformed spread.}
+    \label{fig:hai_coeff}
+\end{figure}
+
+Cross-dataset behavior is not uniform. In the UNICEF case, untransformed models can achieve stronger raw discrimination metrics while transformed models remain substantially sparser and easier to interpret. This pattern is consistent with prior reports that rectification benefits are context dependent: strongest in threshold-and-lag aligned regimes, and more mixed when data-generating structure is less compatible with the assumed critical-range mechanism \autocite{JOrender2025Efficient}.
+
+\section{Interim answer to RQ1}
+
+Based on evidence to date, the preliminary answer to RQ1 is \textbf{yes, conditionally}. Critical-range rectification can produce a more stable and interpretable sparse baseline, particularly in settings where events are driven by threshold-triggered lag interactions and raw lag expansion creates severe dependence. Evidence supporting this claim includes:
+\begin{itemize}
+    \item improved lag-attribution concentration in controlled synthetic experiments,
+    \item favorable or comparable discrimination with better sparsity in key real-world cases,
+    \item and materially lower runtime than certain redundancy-oriented alternatives in tested configurations.
+\end{itemize}
+
+However, the current evidence is not yet sufficient for universal claims. Remaining gaps include broader dataset diversity, stronger robustness checks for edge-case correlation structures, and tighter statistical characterization of when discrimination gains versus interpretability gains dominate. These limitations motivate the deeper analyses in subsequent chapters, where RQ1 is tested under expanded protocols and connected to the theoretical questions addressed by RQ2.

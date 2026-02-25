@@ -1,0 +1,557 @@
+--- Slide 1 ---
+Interpretable Sparse Modeling of Longitudinal Signals via Critical-Range Rectification and Anytime Rule Compression
+Achieving Explainability while Minimizing Computational Cost
+Jason Orender
+Department of Computer Science
+Date 2/23/2026
+Committee Members:
+Dr.
+Jiangwen
+Sun
+Dr. Mohammed Zubair
+Dr.
+Yoahang
+Li
+Dr. Yet Nguyen
+
+--- Slide 2 ---
+Ove
+r
+view
+Critical-range rectification makes sparse longitudinal modeling more reliable and interpretable; anytime rule compression makes it usable.
+Thesis:
+01.
+Discuss the core problem and knowledge gap
+Background
+02.
+Define the questions that will address the knowledge gap:
+RQ1
+: Can critical-range binarization produce a stable sparse baseline with reliable feature attribution?
+RQ2
+: Why does binarization work, and can the backbone be generalized?
+RQ3
+: Can the solution be compressed into a set of logical rules?
+Research Questions
+03.
+Summarize the contributions, timeline, and future work
+Contributions
+
+--- Slide 3 ---
+01.
+Background
+The core problem and knowledge gap.
+
+--- Slide 4 ---
+Core
+Problem
+Two tensions:
+correlation + high dimension → unstable sparse selection
+interpretability demands rules, not hundreds of coefficients.
+Real World
+Longitudinal sensor/clinical/industrial signals often reflect threshold behavior and lagged dependencies, which complicates creation of interpretable models.
+
+--- Slide 5 ---
+Knowledge
+Gap
+Existing sparse methods become unstable under correlated lag features, existing rule learners are costly, and black boxes aren’t usable in constrained compute environments or in areas where interpretability is more important than simple accuracy.
+Accurate, Interpretable, Sparse, Efficient
+
+--- Slide 6 ---
+Other
+Solutions
+There are several competing solutions to these problems, but they each have shortcomings that limit their usefulness.  Note that
+deep learning solutions
+were as a rule
+not
+considered as “
+competing
+” methods this work focuses on inherently interpretable sparse models with explicit feature attribution under constrained compute.
+Group and structured sparsity
+These impose some kind of structure on the coefficients, preserve domain groupings, and stabilize estimation, but remain sensitive to near singular covariance.
+Rank based LASSO
+These can be advantageous in specific regimes but ultimately leave the original covariance geometry intact, affecting both sparsity and accuracy.
+Wrapper methods
+These pragmatically prune the data using less transparent heuristics and complex dependencies, often making the answers difficult to understand.
+Quadratic programming and logic rules
+These are perhaps the closest and produce a similar result but are computationally intensive and tend to focus on
+pairwise testing and combinatorial rule searches
+.
+
+--- Slide 7 ---
+02.
+Approach/Research Questions
+The main thrust of the work.
+
+--- Slide 8 ---
+Proposed Solution (end-to-end)
+Rectify
+Use a rectification scheme to reduce the irrelevant and enhance the relevant information to enhance contrast.
+Fit Sparse Model
+Convert the sparse coefficients into an anytime rule-based model which is easy to understand and apply.
+Compress
+Use an optimized model fitting technique to converge on a solution via gradient descent.
+Raw Coefficient
+Features (A-Z)
+E
+H
+P
+W
+E + H + P + W
+
+--- Slide 9 ---
+Critical Range
+A critical range describes a condition in which an event has a non-zero chance of occurring. In its simplest manifestation for independent variables, it is a min and max describing all times in which that event has ever occurred, but may be a more complex association if variables are not independent.  In short, rectification turns continuous, correlated signals into logical indicators.
+Definition
+-1
+Not within the critical range
+Matrix
+A binarized matrix of identical proportions to the original is constructed, but with {-1, +1} replacing feature values
+Outcome
+A response vector is constructed in which the event either occurs or does not occur { 1, 0 }
++1
+Within the critical range
+(+1)
+(+1)
+(+1)
+(+1)
+(+1)
+(+1)
+(+1)
+(-1)
+(-1)
+(-1)
+(-1)
+(-1)
+(-1)
+(-1)
+(-1)
+(-1)
+(-1)
+** Ranges learned on training folds only
+
+--- Slide 10 ---
+Measuring Success
+The goal of this work is to create a system for modeling that produces easily interpretable rules but still describes the phenomenon as well
+or nearly as well
+as the best alternate solution.  The metrics we used are selected to be as descriptive and non-biased as possible:
+Predictive and Interpretable
+Performance:
+Area Under the ROC Curve (AUC)
+Youden’s J-Index (notable for its use in imbalanced data sets)
+Interpretability:
+Number of Features / Rules (minimized)
+Efficiency:
+Training / Inference Runtime
+
+--- Slide 11 ---
+Research Questions
+Selecting relevant features in high-dimensional, strongly correlated longitudinal data is challenging when go/no-go thresholds and lags drive outcomes.  Many physical phenomena (e.g. brittle fracture) and psychological outcomes are governed by such rules. We use binarization to map continuous measurements to binary indicators defined by critical ranges, simplifying correlations and stabilizing sparse model fitting. This motivation begs the following research questions:
+Motivation
+RQ1
+Can critical-range binarization produce a stable sparse baseline with reliable feature attribution?
+RQ2
+Why does binarization work, and can the backbone be generalized?
+RQ3
+Can the solution be compressed into a set of logical rules?
+
+--- Slide 12 ---
+02a.
+Research Question #1
+Can critical-range binarization produce a stable sparse baseline with reliable feature attribution?
+
+--- Slide 13 ---
+RQ1: Rectification Step
+Collect and Flatten Longitudinal Data
+Lagged examples are collected for each event with each column of data offset by one time step for each measurement.  This is the origin of the problem of highly correlated measurements.
+All measurements taken when the response vector is “TRUE” are by definition within the critical range.
+Critical Range Determination
+
+--- Slide 14 ---
+RQ1: Synthetic Data
+Compare Coefficients between Transformed vs. Untransformed Data
+Simply performing the critical range transformation on the synthetic input data showed remarkable adherence to the known relevant feature selection.  Synthetic data was used first to compare actual results with known relevant features using
+complete
+data.
+Coefficient Values
+Features
+Method
+Status
+Rel Execution Time
+Youdens
+J-Index
+F1 Score
+LASSO
+Transformed
+1.00
+0.975
+0.988
+Un-Transformed
+1.83
+0.753
+0.804
+Random Forest
+Transformed
+12.5
+0.980
+0.990
+Un-Transformed
+43.0
+0.913
+0.947
+Group LASSO
+Transformed
+24.5
+0.689
+0.558
+Un-Transformed
+53.5
+0.624
+0.459
+
+--- Slide 15 ---
+RQ1: Quadratic Programming Comparison
+The closest parallel method
+In addition to being imprecise with respect to the specific relevant variables and time-steps, the computational intensity of that method was far in excess of the method
+described in this work. The slowdown was variable, but the
+Katrutsa
+and
+Strijov
+method was generally about 100 to 200 times slower than the combined time requirement of the data transformation and LASSO fit together.
+Using the method pioneered by
+Katrutsa
+and
+Strijov
+Note that this gives coefficient values for “importance” but does not produce a model to measure other metrics (e.g. AUC, Youden’s J-Index, F1, etc.)
+Many of the importance values came close to identifying the correct variables, but in many cases identified the wrong time-step.
+The data is the same between last slide and this one.
+
+--- Slide 16 ---
+RQ1: Real World Data
+Compare Coefficients between Transformed vs. Untransformed Data
+The coefficients correctly identified the correct features (the turbine instrument) in this case and excluded other features which were not relevant. Note that while the basic metrics of the UNICEF data set were superior for the un-transformed data, the complexity of the solution was much greater (5 vs. 16 feature categories).
+Statistic
+HAI (Transformed)
+HAI
+(Un-Trans)
+UNICEF (Transformed)
+UNICEF
+(Un-Trans)
+ACC
+0.987
+0.939
+0.902
+0.963
+AUC
+0.982
+0.943
+0.865
+0.989
+F1
+0.987
+0.942
+0.894
+0.958
+Youden’s
+J-Index
+0.974
+0.878
+0.815
+0.925
+“P2” indicates
+turbine instrument
+readings
+P1 Instruments
+P2
+P3
+P4
+Instrument Features
+HAI Transformed
+HAI Un-Transformed
+
+--- Slide 17 ---
+RQ1: Takeaway
+Bonus advantage
+The binarization process also reduces computational demands compared to untransformed data. Model fitting with transformed data is nearly twice as fast, even including transformation time. The linear time transformation supports parallelism for large datasets and potentially could benefit from faster integer math. Thus, transforming data prior to fitting can also improve efficiency.
+The binarization method effectively shifts the frame of reference to boolean logic,
+providing an alternative to traditional additive models. It leverages the LASSO algorithm
+to identify optimal logical combinations with a sparse coefficient vector, useful
+as a feature selection tool beyond just classification. It also identifies critical ranges
+for continuous variables, offering additional insights to adjust variables and influence
+studied processes. Any problems that can be formulated as binary classifications can
+potentially benefit from this approach.
+Why does this work mathematically?
+What general insights can be gained from a mathematical description?
+When does it generalize?
+What are the drawbacks and when do they occur?
+What Remains:
+
+--- Slide 18 ---
+02b.
+Research Question #2
+Why does binarization work, and can the backbone be generalized?
+
+--- Slide 19 ---
+RQ2: Irrepresentable Condition (IC)
+A Tractable Proof-of-Concept (POC)
+While nonzero thresholds obey a related but more intricate mapping, the full proof of such a relationship would be far more complex and would not be necessary to show the broad strokes of why binarization helps.  However, such an effort might be beneficial for teasing out additional applications or how the method might be useful in the future.  As a result, further work along these lines is recommended going forward.
+Based on the work of Zhao and Yu in 2006, which proved that if we can satisfy the IC relationship, there is a substantially improved probability of recovering the true support for a dataset.
+We will use the
+arcsin
+relation as a tractable proof‑of‑concept (PoC) to show that in the case of zero-based thresholds binarization increases the probability of satisfying the IC.
+High collinearity among raw, lag‑expanded features often violates the IC, yielding dense or unstable selections, hence the focus in this work on longitudinal data.
+We are attempting to prove that the probability of the following relationship holding true:
+is greater if binarization is used to transform the data set.
+
+--- Slide 20 ---
+RQ2: The
+Arcsin
+Relation
+A Tractable Proof-of-Concept (POC)
+While nonzero thresholds obey a related but more intricate mapping, the full proof of such a relationship would be far more complex and would not be necessary to show the broad strokes of why binarization helps.  However, such an effort might be beneficial for teasing out additional applications or how the method might be useful in the future.  As a result, further work along these lines is recommended going forward.
+For standardized, jointly normal (
+𝑋
+,
+𝑌
+) with correlation
+𝜌
+and binarized
+𝑋.
+The tilde (“~”) is used to distinguish binarized data from its original continuous counterpart, where in this case all feature values greater than 0 are coded as +1 and all feature values that are less than or equal to zero are coded as -1.
+Under joint normality and zero-threshold sign binarization, this result shows that when binarized, all pairwise correlations must be less than or equal to their original,
+never greater
+.
+In fact,
+equality occurs only at 𝜌∈{−1,0,1}
+, due to the
+arcsin
+relation being strictly convex on (0,1) and strictly concave on (-1,0).
+The bivariate normal orthant probability identity, 𝑃(𝑋 > 0, 𝑌 > 0) = 1⁄4 + 1⁄2𝜋
+arcsin
+(𝜌) implies the following closed-form mapping:
+
+--- Slide 21 ---
+RQ2: Gram Matrix Bounds
+A Tractable Proof-of-Concept (POC)
+While nonzero thresholds obey a related but more intricate mapping, the full proof of such a relationship would be far more complex and would not be necessary to show the broad strokes of why binarization helps.  However, such an effort might be beneficial for teasing out additional applications or how the method might be useful in the future.  As a result, further work along these lines is recommended going forward.
+Similar expressions for binarized versions
+and
+and can be expressed by substituting
+for
+.
+When the expression
+is true, it can be shown that:
+The gram matrix
+is expressed as
+and its inverse as
+in the following
+equi
+-correlated case assuming 𝜌∈(−1/(𝑠−1),1) so that 𝐺 is invertible:
+where,
+is the identity matrix of size S, and
+is a matrix of ones of size S.
+Thus, binarization will
+consistently
+emphasize positive correlation relationships by reducing the infinity norm of the inverse gram matrix. Recall that this is the second term in the IC:
+
+--- Slide 22 ---
+RQ2: Parsing the Results
+A Tractable Proof-of-Concept (POC)
+While nonzero thresholds obey a related but more intricate mapping, the full proof of such a relationship would be far more complex and would not be necessary to show the broad strokes of why binarization helps.  However, such an effort might be beneficial for teasing out additional applications or how the method might be useful in the future.  As a result, further work along these lines is recommended going forward.
+The infinity norm of
+will always be 1 when limiting consideration to non-zero coefficients.
+It can be shown that for non-relevant features
+and relevant features
+, the magnitude of the covariance decreases under binarization using the
+arcsin
+relation previously covered under the simplifications stated.
+Because
+for
+, binarization attenuates positive correlations; the attenuation factor is strongest away from
+, leading to a proportionately greater effect for non-relevant features.
+So with these assumptions,
+, often strictly smaller for
+Taking the original IC expression:
+and defining a similar form:
+then applying the
+submultiplicative
+property of induced norms:
+
+--- Slide 23 ---
+RQ2: Putting the Pieces Together
+A Tractable Proof-of-Concept (POC)
+While nonzero thresholds obey a related but more intricate mapping, the full proof of such a relationship would be far more complex and would not be necessary to show the broad strokes of why binarization helps.  However, such an effort might be beneficial for teasing out additional applications or how the method might be useful in the future.  As a result, further work along these lines is recommended going forward.
+Since:
+and:
+,
+we define:
+,
+,
+Thus, under the stated assumptions:
+The lemmas isolate why binarization helps:
+pairwise contraction keeps off‑diagonals from saturating
+better conditioning bounds inverse norms
+Smaller off‑support covariances reduce the IC term.
+Together these raise the chance of correct support recovery and promote sparse, stable selections.
+
+--- Slide 24 ---
+02c.
+Research Question #3
+Can the solution be compressed into a set of logical rules?
+
+--- Slide 25 ---
+RQ3: Rule Compression
+“Logic Polishing”
+We will use the term “logic polishing” to describe the process of taking the focused results of the L1-logistic and cleaning up the smaller magnitude coefficients by forcing the coefficients to be either a specific large value or zero. The specific value chosen can be adjusted, but experiments have shown that there is very little difference in the outcome as long as the chosen coefficient is sufficiently larger than the noisy coefficients we are attempting to force to zero.
+L1-regularized logistic models provide:
+Sparsity
+Computational simplicity
+But there are still potentially large numbers of small magnitude weights that obscure underlying logic.  The example to the right shows the value that each step in the process provides.
+Rectification focuses the model on the appropriate features
+Rule compression cleans the result and produces a logical model
+
+--- Slide 26 ---
+RQ3: Results
+Paired t-test AUC P-value comparison
+The Youden’s J vs K plot shows the number of features required to achieve the specific result.
+The procedure shows a clear progression, which will allow the model to stop once the desired metric value has been reached.
+Adding more features than is required forces the result to zero in this case since irrelevant features will not be in sync with the other features (a hallmark of spurious correlators).
+Run
+Binarized (new)
+Rule-based model
+Binarized (
+sk
+-learn)
+Raw (
+sk
+-learn)
+Binarized (new)
+NA
+1.6E-6*
+1.5E-6*
+7.3E-8
+Rule-based model
+1.6E-6*
+NA
+9.7E-10*
+6.6E-7
+Binarized (
+sk
+-learn)
+1.5E-6*
+9.7E-10*
+NA
+7.7E-9
+Raw (
+sk
+-learn)
+7.3E-8
+6.6E-7
+7.7E-9
+NA
+*These models also passed the “Two One-Sided Tests” (TOST) criteria to consider these results statistically equivalent with 90% CI within ±0.01AUC.
+
+--- Slide 27 ---
+03.
+Contributions
+Summarize the contributions, timeline, and future work
+
+--- Slide 28 ---
+Contributions
+Outcome
+RQ1
+RQ2
+RQ3
+Critical-range rectification yields more reliable feature/lag attribution in longitudinal, correlated settings (synthetic + real-world).
+Often improves interpretability and efficiency (fewer feature categories; faster fits).
+Proof-of-concept shows binarization can increase the probability of satisfying IC under tractable assumptions.
+Key mechanism: correlation contraction + improved conditioning → smaller off-support influence.
+“Logic polishing” compresses sparse models into compact rule forms without materially degrading AUC / J (equivalence framing).
+Anytime behavior: stop once desired J reached (complexity-performance tradeoff).
+The final result of the analysis will be an interpretable sparse baseline, theoretical justification, and usable rule model with a reproducible implementation pathway.
+
+--- Slide 29 ---
+Conclusions
+Positioning Relative to Prior Work
+RQ1
+RQ2
+RQ3
+The accumulated evidence supports a conditional positive conclusion for RQ1.
+In threshold-and-lag aligned settings, critical-range rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity stress.
+This work provides a proof-of-concept theoretical argument: in a tractable regime (zero-threshold sign binarization with explicit assumptions).
+Dependence contraction can improve the likelihood of satisfying IC-related sparse-recovery conditions.
+Theoretical contribution is mechanistic rather than universal.
+Sparse rectified models can often be compressed into substantially smaller rule representations while preserving practical discrimination quality under predefined tolerance policies.
+Directly addresses deployment requirements in settings where explanation, auditability, and compact decision logic are non-negotiable.
+This work extends, rather than replaces, prior sparse and interpretable modeling literature. Relative to classical L1 and elastic-net families, the main difference is intervention point: representation is modified before sparse optimization. Relative to grouped and ordered penalties, this work emphasizes threshold logic and lag-attribution clarity in a longitudinal context. Relative to direct rule-learning approaches, it uses sparse convex fitting as a scalable front end and performs structured rule simplification afterward.
+
+--- Slide 30 ---
+Future Work (Prospectus Plan)
+Feedback Requested
+Must Do
+High‑leverage experiments
+Stretch Goals
+RQ1 expansion
+: add stability analysis (bootstrap / fold stability) and a unified evaluation harness across datasets (AUC/J/complexity/runtime).
+RQ3 validation
+: “Anytime” tradeoff curves on at least one real dataset + sensitivity to K / intercept policy.
+Non-independence extension
+: demonstrate a multivariate/ interaction-aware critical region on a focused case study.
+Ablations
+: (
+i
+) rectification only, (ii) L1 only, (iii) rectification+L1, (iv) +polish.
+RQ2 strengthening
+: extend beyond zero-threshold PoC toward non-zero thresholds / critical-range thresholds (scope-limited, not full generality).
+Package/reproducibility release + documentation for repeatable experiments.
+(1) which baselines matter most, (2) which real dataset/case study should be the flagship, (3) how far to push the RQ2 generalization beyond PoC.
+
+--- Slide 31 ---
+Timeline To Graduation
+Complete:
+Graduation
+(28 Aug)
+Dissertation
+Prospectus
+Defense
+(23 Feb)
+Graduation
+Application
+Deadline
+(28 Feb)
+Defense
+(17 Jul)
+All coursework
+D2 form (formation of committee) approved
+D9 form (advancement to candidacy) approved
+Graduation Application (online via LEO)
+Graduate
+Assessment
+Survey
+(30 Jun)
+Pro-Quest
+Submission
+Deadline
+(21 Aug)
+D3 form
+Submission
+(6 Mar)
+COS Review
+Package due
+(31 Jul)
+Pro-Quest
+Account
+Creation
+(mid-June)
+Dissertation due
+to committee
+(3 Jul)
+D3/D5 Due to
+CS department
+(24 Jul)
+Register for
+Summer
+(31 Mar)
+
+--- Slide 32 ---
+THANK YOU
+

@@ -1,0 +1,902 @@
+0001 [p1] Efficient Longitudinal Feature Selection via Binarized
+0002 [p1] Transformation: Theory and Case Studies
+0003 [p1] Jason Orender
+0004 [p1] Department of Computer Science
+0005 [p1] Old Dominion University
+0006 [p1] Norfolk, Virginia
+0007 [p1] joren001@odu.edu
+0008 [p1] Jiangwen Sun
+0009 [p1] Department of Computer Science
+0010 [p1] Old Dominion University
+0011 [p1] Norfolk, Virginia
+0012 [p1] jsun@cs.odu.edu
+0013 [p1] Mohammed Zubair
+0014 [p1] Department of Computer Science
+0015 [p1] Old Dominion University
+0016 [p1] Norfolk, Virginia
+0017 [p1] zubair@cs.odu.edu
+0018 [p1] Abstract—Selecting relevant features in high-dimensional,
+0019 [p1] strongly correlated longitudinal data is challenging when go/no-go
+0020 [p1] thresholds and lags drive outcomes. We use binarization to map
+0021 [p1] continuous measurements to binary indicators defined by critical
+0022 [p1] ranges, simplifying correlations and stabilizing sparse model
+0023 [p1] fitting. To avoid overstating generality, our theoretical exposition
+0024 [p1] deliberately adopts the zero threshold arcsin relation as a tractable
+0025 [p1] proof-of-concept: for jointly normal variables, sign binarization
+0026 [p1] reduces the magnitude of pairwise correlations and yields a better-
+0027 [p1] conditioned correlation matrix, which in turn improves
+0028 [p1] satisfaction of the LASSO irrepresentable condition and supports
+0029 [p1] recovery. More general nonzero threshold mappings obey a
+0030 [p1] related but more intricate correlation formula; we therefore
+0031 [p1] present the arcsin case as a conservative surrogate while
+0032 [p1] implementing feature-specific critical ranges in practice. We
+0033 [p1] validate the approach on synthetic data and the HAI industrial
+0034 [p1] control system dataset. On HAI, the binarized model achieved
+0035 [p1] accuracy 0.987, area under the receiver operating characteristic
+0036 [p1] curve 0.982, F1 score 0.987, and Youden’s J 0.974, while selecting
+0037 [p1] only turbine-related sensors and reducing false positives. The
+0038 [p1] transformation runs in linear time and produces sparse,
+0039 [p1] interpretable models with actionable ranges and lags, supporting
+0040 [p1] monitoring and decision making in complex systems.
+0041 [p1] Keywords—feature selection; binarization; LASSO;
+0042 [p1] longitudinal data; industrial control systems; anomaly detection;
+0043 [p1] interpretability
+0044 [p1] I. INTRODUCTION
+0045 [p1] Selecting relevant predictors from high‑dimensional,
+0046 [p1] strongly correlated longitudinal data remains difficult,
+0047 [p1] especially when outcomes are driven by thresholds and lags [1].
+0048 [p1] In such settings, standard L1‑penalized methods (least absolute
+0049 [p1] shrinkage and selection operator, LASSO) can return dense,
+0050 [p1] unstable supports because multicollinearity saturates the
+0051 [p1] correlation structure and undermines conditions required for
+0052 [p1] consistent recovery [2]. This problem recurs across domains
+0053 [p1] including clinical studies, industrial control systems, and
+0054 [p1] finance, where delayed responses are common.
+0055 [p1] We address this by binarizing continuous inputs into
+0056 [p1] per‑feature critical‑range indicators (values inside the range
+0057 [p1] map to 1, outside to −1). This preprocessing directly simplifies
+0058 [p1] correlations, improves conditioning of the Gram matrix, and
+0059 [p1] yields sparse models with interpretable ranges and lags when
+0060 [p1] combined with L1‑regularized logistic regression [3]. The
+0061 [p1] transformation is linear‑time, making it practical at scale.
+0062 [p1] To avoid overstating generality, our theoretical exposition
+0063 [p1] deliberately adopts the zero‑threshold case as a tractable
+0064 [p1] proof‑of‑concept: for jointly normal variables, sign binarization
+0065 [p1] contracts pairwise correlations according to an arcsin relation
+0066 [p1] [4,5], which in turn bounds the inverse correlation matrix [6] and
+0067 [p1] improves satisfaction of the LASSO irrepresentable condition
+0068 [p1] (IC) [2]. In practice, we implement feature‑specific, nonzero
+0069 [p1] critical ranges whose correlation mapping is more intricate; the
+0070 [p1] arcsin case is therefore presented as a conservative surrogate that
+0071 [p1] captures the central mechanism driving the improvement.
+0072 [p1] Preview of results. On HAI, models fit to binarized
+0073 [p1] predictors achieved the metrics above (on 2,552 training and
+0074 [p1] 1,080 test examples with 590 lag‑expanded features), and their
+0075 [p1] coefficients correctly concentrated on the attacked turbine loop
+0076 [p1] (P2), identifying the source of the failure by enhancing
+0077 [p1] subsystem fidelity and interpretability [7].
+0078 [p1] A. Contributions
+0079 [p1] This paper:
+0080 [p1]  Theory. States lemmas connecting binarization to an
+0081 [p1] arcsin‑based contraction of correlations [4,5],
+0082 [p1] bounding the inverse correlation matrix and
+0083 [p1] tightening off‑support covariances. Together, these
+0084 [p1] increase the probability that IC holds and that
+0085 [p1] LASSO recovers the true support [2].
+0086 [p1]  Approach. Describes a linear‑time critical‑range
+0087 [p1] binarization pipeline (Algorithm 1) that plugs into
+0088 [p1] standard L1‑regularized models [3] and exposes
+0089 [p1] actionable thresholds and lags.
+0090 [p1]  Evidence. Validates on synthetic data and on the
+0091 [p1] HAI 1.0 industrial control system (ICS) dataset,
+0092 [p1] where binarization yields ACC 0.987, AUC 0.982,
+0093 [p1] F1 0.987, and Youden’s J 0.974, while selecting
+0094 [p1] only turbine‑related sensors and reducing false
+0095 [p1] positives.
+0096 [p1] B. Related Work and Positioning
+0097 [p1] LASSO and the Irrepresentable Condition (IC). Our
+0098 [p1] work builds directly on the IC of Zhao and Yu, which
+0099 [p1] characterizes when LASSO can recover the true support in the
+0100 [p1] presence of correlated predictors [2]. Prior art pinpoints why
+0101 [p2] strong correlations derail selection but does not offer a pre‑fit
+0102 [p2] mechanism to reduce or bound those correlations. We inject
+0103 [p2] such a mechanism through binarization: by mapping features to
+0104 [p2] {±1} indicators, pairwise correlations contract (arcsin relation in
+0105 [p2] the zero‑threshold case) [4], the relevant Gram matrix is better
+0106 [p2] conditioned [6], and the IC term is more readily satisfied. This
+0107 [p2] positions binarization as a principled, model‑agnostic
+0108 [p2] preprocessing step rather than a new penalty or solver. (see
+0109 [p2] related works  below and Theory §4).
+0110 [p2] Group and structured sparsity methods. Group LASSO
+0111 [p2] and related block/ordered variants address multicollinearity by
+0112 [p2] imposing structure on the coefficients (e.g., group penalties or
+0113 [p2] monotone lag decay) [8–12,13]. These approaches preserve
+0114 [p2] domain groupings and can stabilize estimation but do not
+0115 [p2] directly transform the correlation structure of the inputs. In
+0116 [p2] highly correlated, lag‑expanded longitudinal designs, they may
+0117 [p2] remain sensitive to near‑singular covariance. Our study instead
+0118 [p2] tightens off‑diagonal correlations before fitting, then uses
+0119 [p2] standard L1 regularization to recover sparse, lag‑specific
+0120 [p2] supports.
+0121 [p2] Correlation‑aware or rank‑based LASSO variants.
+0122 [p2] WLasso rewrites design matrices to account for predictor
+0123 [p2] correlations, and rank‑based LASSO replaces raw values by
+0124 [p2] ranks to gain robustness under heavy tails [14,15]. Both can be
+0125 [p2] advantageous in specific regimes but still leave the original
+0126 [p2] covariance geometry largely intact or target robustness rather
+0127 [p2] than IC satisfaction. By contrast, binarization systematically
+0128 [p2] contracts correlations (and bounds the inverse correlation
+0129 [p2] matrix), offering a conceptual route to improve the IC margin
+0130 [p2] irrespective of the downstream sparse solver.
+0131 [p2] Wrapper/importance methods. Recursive feature
+0132 [p2] elimination and tree‑based importance (RF/GB) provide
+0133 [p2] pragmatic pruning under complex dependencies but are
+0134 [p2] typically heuristic, dataset‑size sensitive, and less transparent
+0135 [p2] about why features are retained [16]. Our pipeline yields explicit
+0136 [p2] critical ranges and lags for selected sensors, which are actionable
+0137 [p2] in monitoring and control contexts.
+0138 [p2] Quadratic‑programming and logic‑rule approaches.
+0139 [p2] Katrutsa & Strijov’s quadratic‑programming selection and
+0140 [p2] Logical Analysis of Data (LAD) aim to curb redundancy and
+0141 [p2] capture thresholding via Boolean structure [17-19]. However,
+0142 [p2] pairwise testing and combinatorial rule search can become
+0143 [p2] computationally intensive and may struggle with groupwise
+0144 [p2] dependencies among lagged, correlated signals. Our approach
+0145 [p2] retains the thresholding intuition of those lines of work while
+0146 [p2] achieving polynomial complexity by pairing binarization with
+0147 [p2] L1‑regularized logistic regression.
+0148 [p2] Scope decisions shaped by related work. In setting scope
+0149 [p2] and comparisons, we (i) treat Weighted Lasso [20] as
+0150 [p2] complementary rather than a head‑to‑head competitor; (ii)
+0151 [p2] exclude deep learning or manifold‑projection feature‑selection
+0152 [p2] methods where transparency and efficiency are not the primary
+0153 [p2] design goals; and (iii) acknowledge rule/rough‑set families but
+0154 [p2] do not emphasize them experimentally due to their scaling
+0155 [p2] characteristics on large, lag‑expanded designs. These choices
+0156 [p2] reflect our focus on a theoretically motivated, computationally
+0157 [p2] light preprocessing step that improves IC satisfaction and
+0158 [p2] interpretability for longitudinal systems. (see Introduction §1).
+0159 [p2] Impact on this paper’s claims and design. Because
+0160 [p2] nonzero thresholds yield more intricate correlation formulas, we
+0161 [p2] present the zero‑threshold arcsin relation as a proof‑of‑concept
+0162 [p2] that conservatively captures the contraction mechanism; in
+0163 [p2] practice, we implement feature‑specific critical ranges and show
+0164 [p2] empirically that the benefits persist. This positioning avoids
+0165 [p2] overstating generality while still linking the method to
+0166 [p2] well‑understood correlation bounds that inform our theory,
+0167 [p2] experiment design, and interpretation of results. (see Theory §4).
+0168 [p2] C. Organization
+0169 [p2] Section II reviews background and related work; Section III
+0170 [p2] details the binarization pipeline approach; Section IV presents
+0171 [p2] the theoretical results; Section V reports experiments with the
+0172 [p2] case studies; Section VI discusses implications and limitations;
+0173 [p2] and Section VII concludes.
+0174 [p2] II. BACKGROUND
+0175 [p2] This section summarizes the statistical background that
+0176 [p2] motivates a binarization‑first pipeline for sparse modeling in
+0177 [p2] longitudinal, highly correlated settings. We review the
+0178 [p2] L1‑regularized modeling setup [3], formalize the irrepresentable
+0179 [p2] condition (IC) for support recovery [2], and state the
+0180 [p2] correlation‑contraction property induced by zero‑threshold sign
+0181 [p2] binarization. We use the arcsin relation as a tractable
+0182 [p2] proof‑of‑concept (PoC) case to avoid overstating generality
+0183 [p2] [4,5]; nonzero thresholds obey a related but more intricate
+0184 [p2] mapping that we do not rely on for the theory presented here.
+0185 [p2] A. Problem Setting and Notation
+0186 [p2] Let
+0187 [p2] 𝑋∈ ℝ௡×ௗ
+0188 [p2] denote standardized predictors (zero mean, unit variance)
+0189 [p2] constructed from longitudinal streams and their lags;
+0190 [p2] 𝑦∈ {0,1}
+0191 [p2] is the response. The true support is
+0192 [p2] 𝑆⊂ {1, … ,𝑑}
+0193 [p2] with:
+0194 [p2] |𝑆| =𝑠, and 𝑆௖ its complement
+0195 [p2] For any index set 𝐴, write 𝑋஺ for the corresponding submatrix.
+0196 [p2] The (sample) Gram matrix on 𝑆 is 𝐺=ଵ
+0197 [p2] ௡𝑋ௌୃ𝑋ௌ. For the
+0198 [p2] binarized design 𝑋෨ ∈ {±1}௡×ௗ, define 𝐺෨ =ଵ
+0199 [p2] ௡𝑋෨ௌୃ𝑋෨ௌ. We use 𝜌
+0200 [p2] for pairwise correlations in the continuous domain and 𝑟 for
+0201 [p2] those after binarization (see Theory §4.1 for matching
+0202 [p2] notation).
+0203 [p2] B. L1‑regularized Modeling and Support Recovery
+0204 [p2] Throughout, we fit a sparse linear or logistic model with an
+0205 [p2] ℓଵ penalty:
+0206 [p3] ൫𝛽መ଴,𝛽መ൯=argminఉబ,ఉ 1
+0207 [p3] 𝑛෍ℓ
+0208 [p3] ௡
+0209 [p3] ௜ୀଵ
+0210 [p3] (𝑦௜, 𝛽଴ +𝑥௜ୃ𝛽)+𝜆∥𝛽∥ଵ (1)
+0211 [p3] where ℓ is the squared‑error or logistic loss [3]. The
+0212 [p3] LASSO’s ability to recover S is characterized by the
+0213 [p3] irrepresentable condition (IC), which requires the off‑support
+0214 [p3] predictors not be too correlated with the on‑support set [2]:
+0215 [p3] ∥∥𝑋ௌ೎ୃ𝑋ௌ (𝑋ௌୃ𝑋ௌ)ିଵsign(𝛽ௌ)∥∥ஶ <1 (2)
+0216 [p3] High collinearity among raw, lag‑expanded features often
+0217 [p3] violates (2), yielding dense or unstable selections. The core idea
+0218 [p3] behind our approach is to alter the correlation geometry before
+0219 [p3] fitting so that the left‑hand side of (2) shrinks, improving the
+0220 [p3] chance of correct support recovery. (See Theory §4 for the
+0221 [p3] IC‑based development.)
+0222 [p3] C. Zero‑threshold Binarization and the Arcsin Relation (PoC)
+0223 [p3] As a proof‑of‑concept theoretical setting, consider sign
+0224 [p3] binarization at zero threshold under joint normality of the
+0225 [p3] continuous variables. Let (𝑋,𝑌) be standardized, jointly normal
+0226 [p3] with Pearson correlation 𝜌, and define 𝑋෨ = sign(𝑋) ∈ {±1},
+0227 [p3] 𝑌෨ = sign(𝑌) . Then the correlation between the binarized
+0228 [p3] variables satisfies the classical arcsin relation:
+0229 [p3] 𝜌෤ = 2
+0230 [p3] 𝜋arcsin(𝜌),  |𝜌෤| ≤|𝜌| for 𝜌 (3)
+0231 [p3] ∈(−1,1), with strict inequality except at 0, ±1.
+0232 [p3] This orthant‑probability result (Hotelling‑type) shows that
+0233 [p3] sign binarization contracts correlation magnitudes and, in turn,
+0234 [p3] avoids saturation of off‑diagonals in 𝐺෨ [4,5]. We leverage (3) in
+0235 [p3] our lemmas and theorem as a conservative surrogate for the
+0236 [p3] more general, but algebraically more involved,
+0237 [p3] nonzero‑threshold mappings used in practice.
+0238 [p3] D. Matrix‑conditioning consequences
+0239 [p3] Correlation contraction has matrix‑level implications. In the
+0240 [p3] constant‑correlation stylized case with on‑support pairwise
+0241 [p3] correlation 𝜌 (continuous) and 𝑟 (binarized), we have:
+0242 [p3] 𝐺=𝑛൫(1−𝜌)𝐼௦ +𝜌𝐽௦൯,
+0243 [p3] 𝐺ିଵ= 1
+0244 [p3] 𝑛(1−𝜌) ൬𝐼௦ − 𝜌
+0245 [p3] 1+𝜌(𝑠−1)𝐽௦൰ (4)
+0246 [p3] and analogously 𝐺෨ with 𝑟 in place of 𝜌. When 0 <𝜌෤ <𝜌< 1,
+0247 [p3] row‑sum bounds imply:
+0248 [p3] ∥𝐺෨ିଵ ∥ஶ ≤ ∥𝐺ିଵ ∥ஶ, (5)
+0249 [p3] so the binarized Gram matrix is no worse conditioned, and
+0250 [p3] often strictly better, than its continuous counterpart [6] (see also
+0251 [p3] the explicit ∞‑norm contraction via row‑sum/diagonal‑
+0252 [p3] dominance at the end of Lemma 2). Together with the
+0253 [p3] off‑support covariance contraction:
+0254 [p3] ∥𝐶ሚ௜ ∥ஶ ≤ ∥𝐶௜ ∥ஶ,
+0255 [p3] 𝐶௜ =1 𝑛⁄ 𝑋௜,ௌ೎ୃ 𝑋ௌ,
+0256 [p3] 𝐶ሚ௜ =1 𝑛⁄ 𝑋෨௜,ௌ೎ୃ 𝑋෨ௌ,
+0257 [p3] (6)
+0258 [p3] these bounds shrink the IC term for each 𝑖 ∈𝑆௖:
+0259 [p3] 𝜃෨௜ =𝐶ሚ௜ 𝐺෨ିଵsign(𝛽ௌ) vs. 𝜃௜ =𝐶௜ 𝐺ିଵsign(𝛽ௌ), (7)
+0260 [p3] increasing the probability that ∥𝜃෨௜ ∥ஶ< 1. (Lemmas 2-4 show
+0261 [p3] the Sherman-Morrison derivation and norm comparison [6].)
+0262 [p3] E. Practical bridge to the approach
+0263 [p3] While our theory section uses the zero‑threshold arcsin case
+0264 [p3] as a clean PoC, our approach implements feature‑specific
+0265 [p3] critical ranges: a value maps to +1 if it lies within the empirically
+0266 [p3] derived range observed during events and to -1 otherwise
+0267 [p3] (Algorithm 1). This maintains the intuition of correlation
+0268 [p3] contraction and the benefits for IC satisfaction, while yielding
+0269 [p3] directly interpretable thresholds and lags in longitudinal
+0270 [p3] applications. (Approach §3 and Algorithm 1).
+0271 [p3] III. APPROACH
+0272 [p3] This section presents a practical, scalable pipeline that (i)
+0273 [p3] binarizes longitudinal predictors into feature‑specific
+0274 [p3] critical‑range indicators, and (ii) fits a sparse L1‑regularized
+0275 [p3] classifier on the transformed design. The binarization step is a
+0276 [p3] single pass over the data, producing interpretable thresholds and
+0277 [p3] revealing lags while simplifying the correlation geometry for
+0278 [p3] LASSO. We emphasize that while our theory uses the
+0279 [p3] zero‑threshold arcsin case as a proof‑of‑concept, the
+0280 [p3] implementation here estimates nonzero, per‑feature critical
+0281 [p3] ranges from the positive class and leverages them in practice
+0282 [p3] [4,5].
+0283 [p3] A. Critical‑Range Binarization
+0284 [p3] Let 𝑋∈ ℝ௡×ௗ be the lag‑expanded design (Section II‑A)
+0285 [p3] and 𝑦∈ {0,1} the response. Define the event subset
+0286 [p3] 𝑍  = { 𝑖 ∈{1,…,𝑛}:𝑦௜ =1 } (8)
+0287 [p3] and for each feature 𝑗 ∈ {1, … ,𝑑} compute its critical range
+0288 [p3] (CR) from event rows only:
+0289 [p3] ൣ𝑏௝, 𝑐௝൧ = ቂmin௜∈௓ 𝑥௜௝, max௜∈௓ 𝑥௜௝ቃ (9)
+0290 [p3] We then produce the binarized matrix 𝑋෨ ∈ {±1}௡×ௗ
+0291 [p3] feature‑wise via:
+0292 [p3] 𝑥෤௜௝ = ൜+1, 𝑥௜௝ ∈ൣ𝑏௝, 𝑐௝൧,
+0293 [p3] −1, otherwise.  (10)
+0294 [p3] Equations (8)-(10) implement the critical‑range indicator
+0295 [p3] used throughout our experiments and figures; this is the same
+0296 [p3] construction summarized as Algorithm 1.
+0297 [p3] Lag expansion. For 𝑝 raw streams and 𝐿 historical steps, we
+0298 [p3] form 𝑑=𝑝(𝐿+ 1) columns by concatenating per‑stream lags
+0299 [p3] {0, … ,𝐿}  before applying (8)–(10). This preserves lag
+0300 [p3] interpretability in 𝑋෨ : selected columns map directly to
+0301 [p3] stream‑lag pairs (sensor,lag) and their CRs ൣ𝑏௝,𝑐௝൧.
+0302 [p3] Sign conventions. We use {±1} coding for alignment with
+0303 [p3] the theory; a {0,1} variant can be substituted with no change in
+0304 [p4] the downstream fitting step. For domains dominated by
+0305 [p4] negative‑correlation mechanisms, adding complement
+0306 [p4] columns for selected features can help mirror “outside‑range”
+0307 [p4] activation (see Appendix remark).
+0308 [p4] Algorithm 1 Binarization
+0309 [p4] Require: X, y (training set only)
+0310 [p4] Output: A, rj[b, c]
+0311 [p4] 1: Let rj[b, c] be the critical range for feature vector Xj,
+0312 [p4] where b is the minimum and c is maximum defining that
+0313 [p4] range.
+0314 [p4] 2: procedure BINARIZATION(X, y)
+0315 [p4] 3: Let Z be the rows of X where y=1.
+0316 [p4] Z ⊆ X, where Z = {X | y = TRUE}
+0317 [p4] 4: Compute rj=1..d = [min(Zj), max(Zj)] .
+0318 [p4] Note: If the min / max calculations induce brittleness in
+0319 [p4] the solution (e.g. if there are outliers in the data set),
+0320 [p4] using a robust quantile can provide a remedy.
+0321 [p4] 5: Compute A, the set of transformed features, such
+0322 [p4] that:
+0323 [p4] aij = +1 when xij ≥ rj[b] and xij ≤ rj[c]
+0324 [p4] aij = −1 when xij < rj[b] or xij > rj[c]
+0325 [p4] 6: end procedure
+0326 [p4] Important: The critical ranges are only calculated using the
+0327 [p4] training set, not the set-aside test set.  The critical ranges are
+0328 [p4] retained and used again when processing the test set. This
+0329 [p4] prevents information leakage and maintains the integrity of the
+0330 [p4] data.
+0331 [p4] B. Model fitting on Binarized Features
+0332 [p4] We fit a sparse linear or logistic model with an ℓଵ penalty on
+0333 [p4] 𝑋෨ for ൫𝛽መ଴,𝛽መ൯ similar to eq. 1:
+0334 [p4] argminఉబ,ఉ 1
+0335 [p4] 𝑛෍ℓ
+0336 [p4] ௡
+0337 [p4] ௜ୀଵ
+0338 [p4] (𝑦௜, 𝛽଴ +𝑥෤௜ୃ𝛽)+𝜆∥𝛽∥ଵ (11)
+0339 [p4] selecting 𝜆 by 𝐾-fold cross‑validation (we use 𝐾= 10) via
+0340 [p4] standard coordinate‑descent solvers (e.g., glmnet, choosing
+0341 [p4] 𝜆୫୧୬ or the 1‑SE rule). This pairing is model‑agnostic and
+0342 [p4] leverages mature, efficient implementations.
+0343 [p4] C. Complexity and Scalability
+0344 [p4] Computing ൣ𝑏௝,𝑐௝൧  and applying the thresholding each
+0345 [p4] require a single pass per feature. Thus the transform is
+0346 [p4] linear‑time in the number of feature values:
+0347 [p4] Time  = 𝛩(𝑛𝑑),  Space  = 𝛩(𝑛𝑑) (12)
+0348 [p4] and is trivially parallelizable across features. In our experiments
+0349 [p4] this overhead is negligible relative to the solver, and empirically,
+0350 [p4] even including transformation time, fits on 𝑋෨ are often faster
+0351 [p4] than fits on raw 𝑋.
+0352 [p4] D. Outputs and Interpretability Artifacts
+0353 [p4] The pipeline yields three artifacts per selected column 𝑗:
+0354 [p4] 1. Binary indicator 𝑥෤⋅௝  exposing when the feature is
+0355 [p4] “active.”
+0356 [p4] 2. Critical range ൣ𝑏௝,𝑐௝൧, which is directly actionable
+0357 [p4] (thresholds for monitoring/alerting).
+0358 [p4] 3. Lag index (from the column’s construction), enabling
+0359 [p4] attribution of when the feature matters.
+0360 [p4] These artifacts underpin the qualitative analyses in
+0361 [p4] Section V (e.g., turbine‑only selection on HAI and reduced false
+0362 [p4] positives), and they are central to the claim of interpretable
+0363 [p4] sparsity.
+0364 [p4] E. Practical Notes
+0365 [p4]  Zero‑threshold vs. nonzero thresholds. Our theory
+0366 [p4] uses the zero‑threshold arcsin mapping as a
+0367 [p4] conservative, tractable proxy; the implementation uses
+0368 [p4] nonzero, feature‑specific CRs learned from events. This
+0369 [p4] separation avoids overstating generality while retaining
+0370 [p4] the core contraction mechanism that benefits LASSO’s
+0371 [p4] IC [4,5].
+0372 [p4]  Baselines and CV protocol. We compare 𝑋෨ to raw 𝑋
+0373 [p4] under the same solver and CV protocol; additional
+0374 [p4] baselines (e.g., RF) can be included for context.
+0375 [p4] IV. THEORY
+0376 [p4] This section develops the theoretical core showing how
+0377 [p4] binarization improves the likelihood that an ℓଵ ‑regularized
+0378 [p4] model satisfies the irrepresentable condition (IC) and recovers
+0379 [p4] the true support [2]. We deliberately use the zero‑threshold,
+0380 [p4] jointly normal setting as a tractable proof‑of‑concept (PoC): in
+0381 [p4] this regime, the arcsin relation yields an exact contraction of
+0382 [p4] pairwise correlations after sign/binary mapping [4,5], which
+0383 [p4] tightens off‑support covariances and improves Gram‑matrix
+0384 [p4] conditioning [6]. The more general nonzero‑threshold mappings
+0385 [p4] used in our implementation obey related but more intricate
+0386 [p4] formulas; we therefore present the arcsin case as a conservative
+0387 [p4] surrogate that captures the key mechanism.
+0388 [p4] A. Setup and Assumptions (PoC case)
+0389 [p4] Let 𝑋∈ ℝ௡×ௗ be the standardized continuous design; 𝑦∈
+0390 [p4] {0,1} is the response; 𝑆⊂ {1, … ,𝑑} is the true support, |𝑆| =𝑠,
+0391 [p4] with complement 𝑆௖. Write 𝑋ௌ and 𝑋ௌ೎ for submatrices and
+0392 [p4] define the (sample) Gram matrix 𝐺=ଵ
+0393 [p4] ௡𝑋ௌୃ𝑋ௌ . Let 𝑋෨ ∈
+0394 [p4] {±1}௡×ௗ be the binarized design (zero‑threshold sign mapping
+0395 [p4] for theory), with 𝐺෨ =ଵ
+0396 [p4] ௡𝑋෨ௌୃ𝑋෨ௌ. Denote by 𝜌 the pre‑binarization
+0397 [p4] Pearson correlation and by 𝑟 the post‑binarization correlation.
+0398 [p4] Assumptions (PoC). (i) Columns of 𝑋 are standardized; (ii)
+0399 [p4] joint normality of the continuous features; (iii) theory uses zero
+0400 [p4] threshold sign binarization, while practice uses
+0401 [p4] feature‑specific (nonzero) critical ranges; (iv) large‑𝑛
+0402 [p4] approximations replace sample covariances with population
+0403 [p4] quantities where stated.
+0404 [p4] B. Lemma 1 (Arcsin contraction of correlation)
+0405 [p4] Statement. For standardized, jointly normal (𝑋,𝑌) with
+0406 [p4] correlation 𝜌, and binarized 𝑋෨ = sign(𝑋), 𝑌෨ = sign(𝑌) (or
+0407 [p5] equivalently 0/1 with centering), the correlation after
+0408 [p5] binarization satisfies:
+0409 [p5] 𝜌෤ = 2
+0410 [p5] 𝜋arcsin(𝜌), hence |𝜌෤| ≤|𝜌| for 𝜌∈(−1,1) (13)
+0411 [p5] with strict inequality except at 𝜌∈ {0, ±1} [4,5].
+0412 [p5] Proof sketch. Using orthant probability of the bivariate
+0413 [p5] normal, 𝑃(𝑋> 0,𝑌> 0) = 1 4⁄ + 1 2𝜋⁄ arcsin(𝜌) ; with
+0414 [p5] 𝐸[𝑋෨] =𝐸[𝑌෨] = 0  after centering, Corr൫𝑋෨,𝑌෨൯= 4(𝑃(𝑋>
+0415 [p5] 0,𝑌> 0)− 1 4⁄ ) = 2𝜋⁄ arcsin(𝜌). Convexity of arcsin on
+0416 [p5] [0,1] and symmetry yield |𝜌෤| ≤|𝜌| [4,5].
+0417 [p5] C. Lemma 2 (Bound on the inverse correlation/Gram matrix)
+0418 [p5] Statement. If the post‑binarization correlation matrix
+0419 [p5] 𝑅=𝐸[𝑋෨ୃ𝑋෨]  is invertible, then its smallest eigenvalue is
+0420 [p5] bounded away from 0, implying ∥𝑅ିଵ∥ଶ≤𝛾 for some finite 𝛾.
+0421 [p5] Consequently, for the on‑support Gram matrix 𝐺෨, ∥𝐺෨ିଵ∥ is no
+0422 [p5] worse, and often strictly better, than ∥𝐺ିଵ∥.
+0423 [p5] Sketch & intuition. Lemma 1 keeps all off‑diagonal entries
+0424 [p5] of 𝑅 strictly away from ±1 (unless a column is a scalar
+0425 [p5] multiple), ensuring positive definiteness and a finite
+0426 [p5] spectral‑norm bound ∥𝑅ିଵ∥ଶ≤ 1/𝜆୫୧୬(𝑅) . A stylized
+0427 [p5] constant‑correlation model makes this explicit:
+0428 [p5] 𝐺=𝑛൫(1−𝜌)𝐼௦ +𝜌𝐽௦൯,
+0429 [p5] 𝐺ିଵ= 1
+0430 [p5] 𝑛(1−𝜌) ൬𝐼௦ − 𝜌
+0431 [p5] 1+𝜌(𝑠−1)𝐽௦൰ (14)
+0432 [p5] and analogously for 𝐺෨ with 𝜌 replaced by 𝜌෤. Since 0 <𝜌෤ <
+0433 [p5] 𝜌< 1 under Lemma 1, row‑sum bounds yield ∥𝐺෨ିଵ∥ஶ≤∥
+0434 [p5] 𝐺ିଵ∥ஶ [6].
+0435 [p5] Finally, by a standard row-sum/diagonal-dominance bound
+0436 [p5] (e.g., Gershgorin/Varah), writing 𝑠𝑖 =∑ | 𝑅𝑖𝑘|𝑘≠𝑖  and 𝑠⋆ =
+0437 [p5] max𝑖𝑠𝑖, we have ∥𝑅ିଵ∥ஶ≤(1 −𝑠⋆)ିଵ; since zero threshold
+0438 [p5] binarization contracts off-diagonals entrywise, 𝑠̃⋆ ≤𝑠⋆ and thus
+0439 [p5] ∥𝑅෨ିଵ∥ஶ≤(1 −𝑠̃⋆)ିଵ≤(1 −𝑠⋆)ିଵ. Since 𝐺𝑆𝑆  is the on-
+0440 [p5] support block of the Gram/correlation matrix, the same ∞-norm
+0441 [p5] upper bound applies to 𝐺𝑆𝑆−1 and is no larger after binarization.
+0442 [p5] D. Lemma 3 (Contraction of off‑support covariances)
+0443 [p5] Statement. For 𝑖 ∈𝑆௖  and 𝑗 ∈𝑆 , the magnitude of
+0444 [p5] covariance decreases under binarization:
+0445 [p5] ൫𝑥෤௜,𝑥෤௝൯| ≤ |Cov൫𝑥௜,𝑥௝൯| (15)
+0446 [p5] Sketch. With the arcsin relation applied to ൫𝑥௜,𝑥௝൯ at zero
+0447 [p5] threshold, Cov൫𝑥෤௜,𝑥෤௝൯= 1 2𝜋⁄ arcsin൫𝜌௜௝൯ (from the orthant-
+0448 [p5] probability already cited), hence หCov൫𝑥෤௜,𝑥෤௝൯ห≤ห𝜌௜௝ห =
+0449 [p5] หCov൫𝑥௜,𝑥௝൯ห [4,5].
+0450 [p5] E. Lemma 4 (IC bound tightening under binarization)
+0451 [p5] Let 𝑆 be the true support with |𝑆| =𝑠 and 𝑆௖ its
+0452 [p5] complement (definition repeated for clarity).
+0453 [p5] For any 𝑗 ∈𝑆௖, write the IC component as:
+0454 [p5] 𝜃𝑗  = 𝐶𝑗𝑆 𝐺𝑆𝑆−1 sign൫𝛽𝑆൯,
+0455 [p5] 𝜃෤𝑗  = 𝐶෤𝑗𝑆 𝐺෤𝑆𝑆
+0456 [p5] −1 sign൫𝛽𝑆൯
+0457 [p5] (16)
+0458 [p5] where 𝐶௝ௌ  and 𝐶ሚ௝ௌ  denote the off–support/on–support
+0459 [p5] covariance row (pre- and post-binarization), and 𝐺ௌௌ, 𝐺෨ௌௌ are the
+0460 [p5] on-support Gram blocks.
+0461 [p5] Statement. Under Lemmas 1–3 (pairwise correlation
+0462 [p5] contraction; inverse-Gram bound; off-support covariance
+0463 [p5] contraction) and submultiplicativity of induced norms,
+0464 [p5] ∥𝜃௝ ∥ஶ ≤ ∥𝐶௝ௌ∥ஶ ∥𝐺ௌௌିଵ ∥ஶ ∥sign(𝛽ௌ) ∥ஶ,
+0465 [p5] ∥𝜃෨௝ ∥ஶ ≤ ∥𝐶ሚ௝ௌ∥ஶ ∥𝐺෨ௌௌିଵ ∥ஶ ∥sign(𝛽ௌ) ∥ஶ. (17)
+0466 [p5] Since ∥ sign(𝛽ௌ) ∥ஶ= 1, define the per-index bounds:
+0467 [p5] 𝐵௝ ≔ ∥𝐶௝ௌ∥ஶ ∥𝐺ௌௌିଵ ∥ஶ,
+0468 [p5] 𝐵෨௝ := ∥𝐶ሚ௝ௌ∥ஶ ∥𝐺෨ௌௌିଵ ∥ஶ (18)
+0469 [p5] Then Lemmas 1–3 yield the bound contraction:
+0470 [p5] 𝐵෨௝ ≤ 𝐵௝ (19)
+0471 [p5] and hence,
+0472 [p5] ∥𝜃෨௝ ∥ஶ ≤ 𝐵෨௝ ≤ 𝐵௝,
+0473 [p5] ∥𝜃௝ ∥ஶ ≤ 𝐵௝ (20)
+0474 [p5] for all 𝑗 ∈𝑆௖.
+0475 [p5] So, if 𝐵⋆ : = max௝∈ௌ೎𝐵௝ < 1, then ∥𝜃∥ஶ< 1 (the IC holds).
+0476 [p5] After binarization,
+0477 [p5] 𝐵෨⋆ :=max௝∈ௌ೎𝐵෨௝  ≤ max௝∈ௌ೎𝐵௝  = 𝐵⋆ (21)
+0478 [p5] so the norm-based sufficient condition 𝐵෨⋆ < 1 is no harder, and
+0479 [p5] often easier, to satisfy.
+0480 [p5] This lemma establishes tightening of a standard upper bound
+0481 [p5] on each IC component (and on its maximum). It does not assert
+0482 [p5] a pointwise ordering ∥𝜃෨௝ ∥ஶ≤∥𝜃௝ ∥ஶ in every dataset; rather, it
+0483 [p5] shows that the admissible upper envelope shrinks under
+0484 [p5] binarization, which increases the chance that the IC is met.
+0485 [p5] F. Corollary (equicorrelation with aligned signs)
+0486 [p5] Let 𝑆 be the true support with |𝑆| =𝑠, and fix any 𝑗 ∈𝑆௖.
+0487 [p5] Assume the stylized constant‑correlation model used in §II.D:
+0488 [p5] for standardized columns, Corr(𝑋௞,𝑋ℓ) =𝜌 for 𝑘≠ ℓ ∈𝑆 and
+0489 [p5] Corr൫𝑋௝,𝑋௞൯=𝜌 for 𝑘∈𝑆, with 0 <𝜌< 1.
+0490 [p5] Without loss of generality, absorb signs into the columns so
+0491 [p5] that sign(𝛽ௌ)= 1. Write the population correlation blocks as:
+0492 [p5] 𝛴ௌௌ=(1−𝜌)𝐼௦ +𝜌 𝟏𝟏ୃ,
+0493 [p5] 𝛴௝ௌ =𝜌 𝟏ୃ (22)
+0494 [p5] Then the IC scalar (cf. §IV.E) reduces to:
+0495 [p5] 𝜃௝ = 𝛴௝ௌ 𝛴ௌௌିଵ sign(𝛽ௌ) = 𝜌 𝟏ୃ𝛴ௌௌିଵ𝟏 (23)
+0496 [p5] Using the equicorrelation inverse,
+0497 [p6] 𝛴ௌௌିଵ = 1
+0498 [p6] 1−𝜌𝐼௦ −  𝜌
+0499 [p6] (1−𝜌)(1−𝜌+𝑠𝜌) 𝟏𝟏ୃ (24)
+0500 [p6] we obtain:
+0501 [p6] 𝟏ୃ𝛴ௌௌିଵ𝟏= 𝑠
+0502 [p6] 1−𝜌+𝑠𝜌 ⇒ 𝜃௝ =  𝑠𝜌
+0503 [p6] 1−𝜌+𝑠𝜌
+0504 [p6] =  𝑠𝜌
+0505 [p6] 1+(𝑠−1)𝜌 (25)
+0506 [p6] After binarization at zero threshold (PoC setting),
+0507 [p6] correlations contract under the same conditions as (5):
+0508 [p6] 𝜌෤ = 2
+0509 [p6] 𝜋arcsin(𝜌),
+0510 [p6] 0<𝜌෤ <𝜌<1,
+0511 [p6] (26)
+0512 [p6] and the same calculation gives:
+0513 [p6] 𝜃෨௝ =  𝑠𝜌෤
+0514 [p6] 1+(𝑠−1)𝜌෤ (27)
+0515 [p6] Define 𝑓(𝑥) = ௦௫
+0516 [p6] ଵା(௦ିଵ)௫ on (−1/(𝑠− 1), 1). Then,
+0517 [p6] 𝑓′(𝑥) =  𝑠
+0518 [p6] (1+(𝑠−1)𝑥)ଶ > 0 (28)
+0519 [p6] so 𝑓 is strictly increasing. Because 0 <𝜌෤ <𝜌< 1, we
+0520 [p6] have:
+0521 [p6] ห𝜃෨௝ห = 𝑓(𝜌෤) < 𝑓(𝜌) = ห𝜃௝ห (29)
+0522 [p6] Hence, in this stylized equicorrelation regime with aligned
+0523 [p6] signs,
+0524 [p6] ∥𝜃෨௝ ∥ஶ = ห𝜃෨௝ห < ห𝜃௝ห = ∥𝜃௝ ∥ஶ, (30)
+0525 [p6] i.e., the IC term for each 𝑗 ∈𝑆௖ is strictly smaller after
+0526 [p6] binarization, supporting the more general conclusion.
+0527 [p6] G. Main Theorem (Higher probability that a standard IC
+0528 [p6] sufficient condition holds).
+0529 [p6] Let 𝐵௝ and 𝐵෨௝ be as in Lemma 4:
+0530 [p6] 𝐵௝ ≔∥𝐶௝ௌ∥ஶ ∥𝐺ௌௌିଵ ∥ஶ,
+0531 [p6] 𝐵෨௝ :=∥𝐶ሚ௝ௌ∥ஶ ∥𝐺෨ௌௌିଵ ∥ஶ (31)
+0532 [p6] and define 𝐵⋆ : = max௝∈ௌ೎𝐵௝ and 𝐵෨⋆ : = max௝∈ௌ೎𝐵෨௝.
+0533 [p6] Statement. Under the PoC assumptions (zero threshold sign
+0534 [p6] binarization under joint normality) and large-𝑛 approximations
+0535 [p6] that replace sample covariances by their population limits,
+0536 [p6] Lemmas 1–4 imply 𝐵෨⋆ ≤𝐵⋆. Consequently,
+0537 [p6] Pr൫𝐵෨⋆ <1൯ ≥ Pr(𝐵⋆ <1) (32)
+0538 [p6] Since {𝐵෨⋆ < 1} ⊆ {∥𝜃෨ ∥ஶ< 1} and {𝐵⋆ < 1} ⊆ {∥𝜃∥ஶ<
+0539 [p6] 1}, binarization weakly increases the probability of satisfying a
+0540 [p6] standard sufficient condition for the IC.
+0541 [p6] Sketch. Lemma 1 (arcsin contraction) yields ∥𝐶ሚ௝ௌ∥ஶ≤∥
+0542 [p6] 𝐶௝ௌ∥ஶ; Lemma 2 (inverse-Gram bound) gives ∥𝐺෨ௌௌିଵ∥ஶ≤∥
+0543 [p6] 𝐺ௌௌିଵ∥ஶ (e.g., via row-sum/diagonal-dominance bounds or in the
+0544 [p6] constant-correlation stylized case). Hence 𝐵෨௝ ≤𝐵௝ for all 𝑗 ∈𝑆௖
+0545 [p6] and thus 𝐵෨⋆ ≤𝐵⋆. The event inclusions follow from ∥𝜃௝ ∥ஶ≤
+0546 [p6] 𝐵௝ and ∥𝜃෨௝ ∥ஶ≤𝐵෨௝. No general pointwise ordering between ∥
+0547 [p6] 𝜃෨ ∥ஶ  and ∥𝜃∥ஶ  is claimed; the equicorrelation corollary
+0548 [p6] provides a strict ordering only in that stylized regime.
+0549 [p6] H. Practical significance, caveats, and implementation bridge
+0550 [p6] Significance. The lemmas isolate why binarization helps: (i)
+0551 [p6] pairwise contraction keeps off‑diagonals from saturating; (ii)
+0552 [p6] better conditioning bounds inverse norms; (iii) smaller
+0553 [p6] off‑support covariances reduce the IC term. Together these raise
+0554 [p6] the chance of correct support recovery and promote sparse,
+0555 [p6] stable selections.
+0556 [p6] Negative correlations & discontinuity. In the
+0557 [p6] constant‑correlation model, row‑sum bounds for ∥𝐺෨ିଵ∥ஶ are
+0558 [p6] unambiguous for 0 <𝑟 <𝜌< 1, while for strong negative
+0559 [p6] correlations a discontinuity at −1/(𝑠− 1)  complicates
+0560 [p6] monotonicity; in practice, adding complement columns (the
+0561 [p6] negative of those columns) for selected features mitigates
+0562 [p6] adverse cases.
+0563 [p6] Bridge to the approach. Our implementation uses
+0564 [p6] feature‑specific, nonzero critical ranges (Algorithm 1) to
+0565 [p6] produce 𝑋෨ ∈ {±1}௡×ௗ; while their exact correlation mapping is
+0566 [p6] more involved, empirical results and the PoC chain above
+0567 [p6] explain why the same mechanism (correlation tightening ⇒
+0568 [p6] improved IC margin) appears in practice (see Approach §3 for
+0569 [p6] Algorithm 1).
+0570 [p6] V. RESULTS
+0571 [p6] This section reports empirical evidence that the
+0572 [p6] binarization-first pipeline improves accuracy, sparsity, and
+0573 [p6] interpretability across synthetic and real-world settings. We
+0574 [p6] adhere to a common protocol: lag expansion, critical-range
+0575 [p6] binarization (Algorithm 1), and L1-regularized logistic
+0576 [p6] regression with 10-fold cross-validation; comparative baselines
+0577 [p6] mirror the same CV setup.
+0578 [p6] A. Synthetic Data Experiments
+0579 [p6] Design. We generated longitudinal data with 7 relevant and
+0580 [p6] 33 irrelevant variables over 4911 examples. Exactly one lag per
+0581 [p6] relevant variable triggers the event, yielding 11 time steps and
+0582 [p6] 440 features (≈ 1.6 % relevant). This setting stresses support
+0583 [p6] recovery under strong correlation and lag structure (details and
+0584 [p6] figures in §5).
+0585 [p6] Findings. LASSO on transformed (binarized) features
+0586 [p6] nearly perfectly classifies the test set and returns a sparse,
+0587 [p6] lag-faithful support; untransformed fits are noisier, denser, and
+0588 [p6] mis-localized (Fig. 1a-b). A quadratic-programming selector
+0589 [p6] (Katrutsa–Strijov) recovers at most one true feature (see Fig. 2)
+0590 [p6] and is 100–200× slower than binarization plus LASSO.
+0591 [p7] Fig. 1. Coefficients for transformed (a) vs. untransformed (b) data. Adapted
+0592 [p7] from [21].
+0593 [p7] Fig. 2. Katrutsa-Strijov coefficient response on untransformed data. Adapted
+0594 [p7] from  [21].
+0595 [p7] Fig. 3. HAI Coefficients for transformed (a) and untransformed (b) data.
+0596 [p7] Adapted from [21]. Feature groups are shown along the x-axis and separated
+0597 [p7] into four parts (1-4). Each bar represents the coefficient for a particular feature
+0598 [p7] at a particular lag (590 total).
+0599 [p7] Takeaway. Binarization improves accuracy, halves compute
+0600 [p7] (despite transform cost – See Table 1), and most importantly,
+0601 [p7] exposes the correct lagged support under severe
+0602 [p7] multicollinearity.
+0603 [p7] TABLE I.  SYNTHETIC CASE COMPARISON ON UNSEEN TEST DATA
+0604 [p7] Method
+0605 [p7] Metrics
+0606 [p7] Transform Rel. Time Youden’s
+0607 [p7] J F1
+0608 [p7] LASSO Transformed 1.00 0.975 0.988
+0609 [p7] LASSO Untransformed 1.83 0.753 0.804
+0610 [p7] Ridge* Transformed 1.00 0.980 0.990
+0611 [p7] Ridge Untransformed 1.83 0.753 0.804
+0612 [p7] Random Forest Transformed 12.5 0.980 0.990
+0613 [p7] Method
+0614 [p7] Metrics
+0615 [p7] Transform Rel. Time Youden’s
+0616 [p7] J F1
+0617 [p7] Random Forest Untransformed 43.0 0.913 0.947
+0618 [p7] Group Lasso Transformed 24.5 0.689 0.558
+0619 [p7] Group Lasso Untransformed 53.5 0.624 0.459
+0620 [p7] * Small loss of lag fidelity noted for Ridge when indicating
+0621 [p7] specific time steps (journal note under Table 1).
+0622 [p7] B. HAI ICS Case Study
+0623 [p7] Dataset & setup. The HAI 1.0 ICS testbed spans boiler,
+0624 [p7] turbine, and water treatment loops with real attack scenarios. We
+0625 [p7] use the turbine-attack subset with 2,552 training examples,
+0626 [p7] 1,080 test examples, and 59 raw sensors × 10 lags = 590 features.
+0627 [p7] Metrics. We report Accuracy (ACC), AUC, F1, and
+0628 [p7] Youden’s 𝐽 on the held-out test set (operating point from CV).
+0629 [p7] TABLE II.  HAI TEST‑SET PERFORMANCE (TURBINE ATTACK)
+0630 [p7] Statistic HAI Metrics
+0631 [p7] Transformed Untransformed
+0632 [p7] ACC 0.987 0.939
+0633 [p7] AUC 0.982 0.943
+0634 [p7] F1 0.987 0.942
+0635 [p7] Youden’s J 0.974 0.878
+0636 [p7] Interpretation. Results show markedly fewer false
+0637 [p7] positives for the transformed model. Coefficient stems
+0638 [p7] concentrate on turbine (P2) sensors only, evidencing
+0639 [p7] subsystem-faithful selection; the untransformed model spreads
+0640 [p7] small weights across non-attacked loops (Fig. 3a-b).
+0641 [p7] C. Additional Experiments
+0642 [p7] We include summaries of two further datasets to indicate
+0643 [p7] broader evaluation without extensive detail here.
+0644 [p7]  Goose Bay Ionosphere (UCI). 34 features (17 pulses ×
+0645 [p7] real/imag). Transformed LASSO outperforms
+0646 [p7] untransformed and approaches original neural-network
+0647 [p7] performance; the sparse coefficient vector pinpoints
+0648 [p7] pulses and yields critical energy ranges.
+0649 [p7]  UNICEF longitudinal (1256 examples × 316 features,
+0650 [p7] over 75 years). Conventional LASSO on un-
+0651 [p7] transformed features posts higher raw metrics, but at the
+0652 [p7] cost of a dense, harder-to-interpret coefficient profile;
+0653 [p7] transformed models are much sparser and more
+0654 [p7] transparent.
+0655 [p7] TABLE III.  OTHER EXPERIMENTS AT A GLANCE
+0656 [p7] Dataset
+0657 [p7] Metrics
+0658 [p7] ACC
+0659 [p7] (Transformed /
+0660 [p7] Untransformed)
+0661 [p7] F1
+0662 [p7] (Transformed/
+0663 [p7] Untransformed)
+0664 [p7] Youden’s 𝑱
+0665 [p7] (Transformed /
+0666 [p7] Untransformed)
+0667 [p7] Goose Bay
+0668 [p7] Ionosphere
+0669 [p7] 0.940 / 0.871 0.993 / 0.903 0.946 / 0.866
+0670 [p7] UNICEF
+0671 [p7] Longitudinal 0.902 / 0.963 0.894 / 0.958 0.815 / 0.925
+0672 [p8] D. Aggregate Observations
+0673 [p8] Across synthetic and ICS data, critical-range binarization
+0674 [p8] consistently sharpens support recovery and reduces false
+0675 [p8] positives, in line with the theoretical contraction of correlations
+0676 [p8] and improved IC margin. Even where untransformed metrics
+0677 [p8] win (UNICEF), binarization delivers interpretable sparsity and
+0678 [p8] actionable ranges, which is often the decisive requirement in
+0679 [p8] monitoring and controls.
+0680 [p8] VI. DISCUSSION AND LIMITATIONS
+0681 [p8] This section interprets the theoretical and empirical
+0682 [p8] findings, clarifies the scope of claims, and delineates limitations
+0683 [p8] and edge cases. We emphasize that our theoretical analysis
+0684 [p8] adopts the zero threshold arcsin relation as a tractable
+0685 [p8] proof-of-concept, while the implemented binarization uses
+0686 [p8] feature-specific, nonzero critical ranges. The latter follows a
+0687 [p8] more intricate correlation mapping, but the same contraction
+0688 [p8] mechanism explains the empirical gains we observe.
+0689 [p8] A. When and why binarization helps
+0690 [p8] Thresholded, lagged phenomena with correlated
+0691 [p8] predictors. In domains where events are triggered when
+0692 [p8] variables enter critical ranges, often with delays, continuous
+0693 [p8] measurements create saturated pairwise correlations that impede
+0694 [p8] sparse recovery. Mapping to {±1} indicators reduces
+0695 [p8] correlation magnitudes (arcsin contraction in the zero threshold,
+0696 [p8] jointly normal case), improves conditioning, and lowers
+0697 [p8] off-support covariances. In our experiments, this manifests as
+0698 [p8] sharper supports and fewer false positives (e.g., HAI turbine
+0699 [p8] loop), consistent with the theoretical chain culminating in a
+0700 [p8] smaller IC term.
+0701 [p8] Interpretability and actionability. Each selected column
+0702 [p8] yields a threshold range ൣ𝑏௝,𝑐௝൧ and a lag index, producing
+0703 [p8] compact, actionable rules (“when sensor 𝑗 is in range at lag ℓ”).
+0704 [p8] This interpretability underpins the subsystem-faithful selection
+0705 [p8] seen in HAI and the pulse-specific findings in the ionosphere
+0706 [p8] data.
+0707 [p8] Computational efficiency. The transformation is linear-time
+0708 [p8] in the number of feature values (single pass per feature),
+0709 [p8] parallelizable across columns and empirically yields fits that are
+0710 [p8] faster than modeling the raw design, even after including
+0711 [p8] transform time (≈1.8× speedup vs. untransformed in the
+0712 [p8] synthetic case – See Table 1).
+0713 [p8] B. What the theory guarantees, and what it does not
+0714 [p8] Proof-of-concept regime. The arcsin mapping 𝜌෤ =
+0715 [p8] 2 𝜋⁄ arcsin(𝜌) and the corollaries |𝜌෤| ≤|𝜌| are invoked under
+0716 [p8] joint normality and zero thresholds. These yield: (i) pairwise
+0717 [p8] contraction; (ii) inverse-Gram bounds (better or no-worse
+0718 [p8] conditioning); and (iii) reduced off-support covariances,
+0719 [p8] together implying that the IC term shrinks:
+0720 [p8] ∥𝜃෨௝ ∥ஶ ≤ 𝐵෨௝ ≤ 𝐵௝,
+0721 [p8] ∥𝜃௝ ∥ஶ ≤ 𝐵௝ (33)
+0722 [p8] Thus, the probability that the IC holds is weakly higher after
+0723 [p8] binarization in this PoC setting. We do not claim a closed-form
+0724 [p8] mapping for general nonzero thresholds; instead, we use the
+0725 [p8] arcsin case as a conservative surrogate for the contraction
+0726 [p8] mechanism observed empirically.
+0727 [p8] Matrix-level caveats. In the constant-correlation model,
+0728 [p8] improvements are unambiguous for 0 <𝜌෤ <𝜌< 1. With
+0729 [p8] strong negative correlations, a discontinuity at −1/(𝑠− 1) can
+0730 [p8] complicate monotonicity of ∥𝐺෨ିଵ∥ஶ vs. ∥𝐺ିଵ∥ஶ. In practice,
+0731 [p8] adding complement columns (to capture “outside-range”
+0732 [p8] activation explicitly) mitigates adverse cases.
+0733 [p8] C. Empirical scope: what improved and where
+0734 [p8] Synthetic and HAI datasets. Binarization delivered large
+0735 [p8] gains: near-perfect classification and correct lag localization on
+0736 [p8] synthetic data, and ACC 0.987/AUC 0.982/F1 0.987/J 0.974 on
+0737 [p8] HAI with turbine-only supports and fewer false positives than
+0738 [p8] untransformed models (See Table 2 and Fig. 3). These patterns
+0739 [p8] align with the theory’s correlation-contraction narrative and the
+0740 [p8] IC margin improvement.
+0741 [p8] UNICEF longitudinal data. A counterexample to blanket
+0742 [p8] dominance: untransformed models produced higher raw metrics
+0743 [p8] (e.g., F1 0.958 vs. 0.894 – See Table 3) but at the cost of dense,
+0744 [p8] hard-to-interpret coefficients. The transformed model remained
+0745 [p8] much sparser while still describing nearly all of the data
+0746 [p8] variation, preserving attribution clarity despite lower headline
+0747 [p8] scores, consistent with the method’s linear decision boundary
+0748 [p8] and possible information loss from binarization in complex,
+0749 [p8] non-threshold regimes.
+0750 [p8] D. Limitations
+0751 [p8] 1. Linearity of the downstream model. Our pipeline
+0752 [p8] pairs binarization with L1-regularized
+0753 [p8] linear/logistic models. Where decision boundaries
+0754 [p8] are strongly nonlinear and not well approximated by
+0755 [p8] logical combinations of range indicators,
+0756 [p8] performance can lag, as seen with UNICEF.
+0757 [p8] 2. Assumptions behind the PoC theory. The arcsin
+0758 [p8] derivations assume joint normality and zero
+0759 [p8] thresholds; real systems use nonzero range
+0760 [p8] thresholds. We explicitly avoid overstating generality
+0761 [p8] by presenting the arcsin case as a proof-of-concept
+0762 [p8] rather than a universal mapping.
+0763 [p8] 3. Negative-correlation edge cases. Around the
+0764 [p8] −1/(𝑠− 1) discontinuity (constant-correlation
+0765 [p8] stylization), inverse-norm comparisons can become
+0766 [p8] ambiguous, and monotonic improvements are not
+0767 [p8] guaranteed. Complement features alleviate—but do
+0768 [p8] not theoretically eliminate—this concern.
+0769 [p8] 4. Comparative breadth. We benchmarked against
+0770 [p8] several methods in the synthetic study and focused on
+0771 [p8] before/after comparisons elsewhere for brevity.
+0772 [p8] Some families (e.g., rough/fuzzy-rough sets, certain
+0773 [p8] deep selectors) were de-emphasized due to
+0774 [p8] computational cost or misalignment with the paper’s
+0775 [p8] goals of interpretability and efficiency; WLasso is
+0776 [p9] positioned as complementary rather than a
+0777 [p9] head-to-head competitor.
+0778 [p9] E. Practical guidance and mitigations
+0779 [p9]  Design for interpretability. Prefer per-feature critical
+0780 [p9] ranges that produce compact supports and subsystem
+0781 [p9] faithfulness; report ൣ𝑏௝,𝑐௝൧ and lag indices with the
+0782 [p9] selected features to enable operational use (alerts,
+0783 [p9] controls).
+0784 [p9]  Handle negative correlations. Include complement
+0785 [p9] columns for features likely to activate outside the event
+0786 [p9] range; this can stabilize selection when relevant signals
+0787 [p9] are negatively associated.
+0788 [p9]  Scale easily. Leverage the 𝑂(𝑛𝑑)  transform and
+0789 [p9] parallelize across features; in many workloads,
+0790 [p9] end-to-end time is lower than modeling raw 𝑋.
+0791 [p9] VII. CONCLUSION
+0792 [p9] We presented a binarization-first pipeline for longitudinal
+0793 [p9] feature selection that (i) transforms continuous measurements
+0794 [p9] into feature-specific critical-range indicators and (ii) fits a
+0795 [p9] sparse ℓଵ-regularized model on the transformed design. The
+0796 [p9] theoretical core, deliberately framed as a proof-of-concept, uses
+0797 [p9] the zero threshold, jointly normal setting to make the argument
+0798 [p9] transparent: sign binarization contracts pairwise correlations
+0799 [p9] via the arcsin relation,  𝑟 = 2𝜋⁄ arcsin(𝜌) , which bounds
+0800 [p9] inverse-Gram norms and reduces off-support covariances. This
+0801 [p9] chain tightens the irrepresentable condition (IC) term, yielding
+0802 [p9] ∥𝜃෨௝ ∥ஶ ≤  𝐵෨௝  ≤  𝐵௝, and ∥𝜃௝ ∥ஶ ≤  𝐵௝ , thereby increasing
+0803 [p9] the likelihood of correct support recovery. We emphasize that
+0804 [p9] this arcsin analysis is a tractable surrogate; in practice we
+0805 [p9] implement nonzero, per-feature ranges, whose correlation
+0806 [p9] mapping is more intricate but empirically exhibits the same
+0807 [p9] contraction mechanism.
+0808 [p9] Empirically, the approach produces sparser,
+0809 [p9] subsystem-faithful models and competitive or superior
+0810 [p9] accuracy. On HAI 1.0 ICS data, the binarized model achieved
+0811 [p9] ACC 0.987, AUC 0.982, F1 0.987, and Youden’s 𝐽 0.974, with
+0812 [p9] coefficients concentrated on the attacked turbine loop, reducing
+0813 [p9] false positives while preserving detection power. Synthetic
+0814 [p9] experiments show near-perfect classification and precise lag
+0815 [p9] localization under severe multicollinearity; additional studies
+0816 [p9] (ionosphere, UNICEF) illustrate the interpretability/accuracy
+0817 [p9] trade-off when phenomena deviate from threshold-and-lag
+0818 [p9] regimes. Together, these results support binarization as a
+0819 [p9] practical route to interpretable sparsity in complex systems.
+0820 [p9] Computationally, the transformation is linear-time in the
+0821 [p9] number of feature values and trivially parallelizable; end-to-end
+0822 [p9] fitting (transform + solver) was often faster than modeling raw
+0823 [p9] features, consistent with the simplified correlation geometry
+0824 [p9] and sparser solutions observed across datasets. This efficiency
+0825 [p9] complements the interpretability benefits of explicit ranges and
+0826 [p9] lags for each selected feature, enabling operational use in
+0827 [p9] monitoring and control.
+0828 [p9] Limitations. Our guarantees are stated in the zero threshold
+0829 [p9] PoC regime; extending closed-form results to nonzero
+0830 [p9] thresholds remains open. The downstream model is
+0831 [p9] linear/logistic; where decision boundaries are strongly
+0832 [p9] nonlinear (e.g., UNICEF), accuracy gains may not materialize
+0833 [p9] even though sparsity and attribution improve. Finally,
+0834 [p9] negative-correlation edge cases can complicate inverse-norm
+0835 [p9] monotonicity in stylized constant-correlation models;
+0836 [p9] complement columns mitigate this in practice.
+0837 [p9] Outlook. Future work includes (i) formalizing correlation
+0838 [p9] bounds for nonzero threshold binarization, (ii) an optimized
+0839 [p9] parallel library for large-scale deployments, (iii) extensions to
+0840 [p9] multiclass outcomes and structured sparsity (e.g., grouped
+0841 [p9] lags), and (iv) broader longitudinal applications (e.g., chemical
+0842 [p9] oscillators, climate, ecological thresholds) to further probe the
+0843 [p9] method’s scope while preserving transparency and efficiency.
+0844 [p9] REFERENCES
+0845 [p9] [1] Freijeiro-González, L., Febrero-Bande, M., & González-Manteiga, W.
+0846 [p9] (2022). A critical review of lasso and its derivatives for variable selection
+0847 [p9] under dependence among covariates. International Statistical Review,
+0848 [p9] 90(1), 118–145.
+0849 [p9] [2] Zhao, P., & Yu, B. (2006). On model selection consistency of
+0850 [p9] lasso. Journal of Machine Learning Research, 7, 2541–2563.
+0851 [p9] [3] Friedman, J., Hastie, T., & Tibshirani, R. (2010). Regularization paths for
+0852 [p9] generalized linear models via coordinate descent. Journal of Statistical
+0853 [p9] Software, 33(1), 1–22.
+0854 [p9] [4] Feller, W. (1991). An introduction to probability theory and its
+0855 [p9] applications (Vol. 2). John Wiley & Sons.
+0856 [p9] [5] Hotelling, H. (2012). Relations between two sets of variates. In S. Kotz &
+0857 [p9] N. L. Johnson (Eds.), Breakthroughs in statistics: Methodology and
+0858 [p9] distribution (pp. 162–190). Springer. (Original work published 1936)
+0859 [p9] [6] Horn, R. A., & Johnson, C. R. (2012). Matrix analysis (2nd ed.).
+0860 [p9] Cambridge University Press.
+0861 [p9] [7] Shin, H., Lee, W., Yun, J., & Kim, H. (2020). HAI 1.0: HIL-based
+0862 [p9] augmented ICS security dataset. In Proceedings of the 13th USENIX
+0863 [p9] Workshop on Cyber Security Experimentation and Test (CSET).
+0864 [p9] [8] Yuan, M., & Lin, Y. (2006). Model selection and estimation in regression
+0865 [p9] with grouped variables. Journal of the Royal Statistical Society: Series B
+0866 [p9] (Statistical Methodology), 68(1), 49–67.
+0867 [p9] [9] Turlach, B. A., Venables, W. N., & Wright, S. J. (2005). Simultaneous
+0868 [p9] variable selection. Technometrics, 47(3), 349–363.
+0869 [p9] [10] Meier, L., van de Geer, S., & Bühlmann, P. (2006). The group lasso for
+0870 [p9] logistic regression. Journal of the Royal Statistical Society: Series B
+0871 [p9] (Statistical Methodology), 70(1), 53–71.
+0872 [p9] [11] Yang, Y., & Zou, H. (2015). A fast unified algorithm for solving group
+0873 [p9] lasso penalized learning problems. Statistics and Computing, 25(6),
+0874 [p9] 1129–1141.
+0875 [p9] [12] Kim, Y., Kim, J., & Kim, Y. (2006). Blockwise sparse
+0876 [p9] regression. Statistica Sinica, 16, 375–390.
+0877 [p9] [13] Tibshirani, R., & Suo, X. (2016). An ordered lasso and sparse time-lagged
+0878 [p9] regression. Technometrics, 58(4), 415-423.
+0879 [p9] [14] Zhu, H., Xu, W., Zhang, Z., Xu, Y., & Fan, J. (2021). A variable selection
+0880 [p9] approach for highly correlated predictors in high-dimensional genomic
+0881 [p9] data. Bioinformatics, 37(16), 2238–2244.
+0882 [p9] [15] Rejchel, M., & Bogdan, M. (2020). Rank-based lasso: Efficient methods
+0883 [p9] for high-dimensional robust model selection. Journal of Machine
+0884 [p9] Learning Research, 21(244), 1–47.
+0885 [p9] [16] Ladha, L., & Deepa, T. (2011). Feature selection methods and
+0886 [p9] algorithms. International Journal on Computer Science and Engineering,
+0887 [p9] 3(5), 1787–1797.
+0888 [p9] [17] Katrutsa, A., & Strijov, V. (2017). Comprehensive study of feature
+0889 [p9] selection methods to solve multicollinearity problem according to
+0890 [p9] evaluation criteria. Expert Systems with Applications, 76, 1–11.
+0891 [p9] [18] Boros, E., Hammer, P. L., Ibaraki, T., Kogan, A., Mayoraz, E., &
+0892 [p9] Muchnik, I. (2000). An implementation of logical analysis of data. IEEE
+0893 [p9] Transactions on Knowledge and Data Engineering, 12(2), 292–306.
+0894 [p10] [19] Boros, E., Hammer, P. L., Ibaraki, T., & Kogan, A. (1997). Logical
+0895 [p10] analysis of numerical data. Mathematical Programming, 79(1–3), 163–
+0896 [p10] 190.
+0897 [p10] [20] Zou, H. (2006). The adaptive lasso and its oracle properties. Journal of
+0898 [p10] the American statistical association, 101(476), 1418-1429.
+0899 [p10] [21] Orender, Jason, Mohammad Zubair, and Jiangwen Sun. "LASSO Logic
+0900 [p10] Engine: harnessing the logic parsing capabilities of the LASSO algorithm
+0901 [p10] for longitudinal feature learning." 2022 IEEE International Conference
+0902 [p10] on Big Data (Big Data). IEEE, 2022.

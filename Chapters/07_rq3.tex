@@ -1,0 +1,101 @@
+% !TeX root = ../main.tex
+
+\chapter{Anytime Rule Compression (RQ3)}
+
+Research Question 3 asks whether a sparse, rectified linear model can be compressed into a compact rule form while preserving practical discrimination quality. In this dissertation, the target is not just sparsity in coefficient space, but operational interpretability: a model that can be read, explained, and validated as an explicit decision rule under realistic constraints. The anytime rule compression framework was proposed to address this requirement by converting a fitted sparse model into an ordered sequence of candidate logic rules and allowing compression to stop as soon as performance is good enough for the application context \autocite{JOrender2025Anytime,JOrender2025Efficient}.
+
+\section{Why RQ3 Matters After RQ1 and RQ2}
+
+RQ1 and RQ2 establish two foundations: first, binarization plus sparse learning can recover relevant structure more reliably in threshold-driven settings; second, the theoretical conditions for support recovery can improve when feature interactions are reframed through the binarized representation. RQ3 addresses the remaining translational gap: whether those improvements can be turned into human-auditable, low-complexity rules without giving back the predictive benefit \autocite{JOrender2025Efficient,JOrender2025Anytime}.
+
+This is important for longitudinal and event-focused domains where users need a concrete trigger logic rather than a dense weight vector. In healthcare monitoring, safety surveillance, and maintenance settings, end users often need to know which few conditions jointly trigger escalation, and they need that logic in a form that is stable under repeated deployment \autocite{wong2010longitudinal,hiploylee2017,shin2020}. In interpretability terms, this chapter focuses on the transition from post hoc explanations to inherently interpretable rule structure \autocite{CRudin2019Stop,WJMurdoch2019Definitions}.
+
+\section{From Rectified Sparse Models to Rule Space}
+
+Given a rectified design matrix and an L1-regularized logistic model, the baseline predictor can be written as
+\begin{equation}
+\hat{p}(y_i=1 \mid \mathbf{x}_i)=\sigma\!\left(\beta_0+\sum_{j=1}^{p}\beta_j \tilde{x}_{ij}\right),
+\end{equation}
+where $\tilde{x}_{ij}$ is the binarized/rectified feature and $\beta_j$ is sparse due to the L1 penalty \autocite{tibshirani1996,fried2010,tay2023}. Let the active set be $\mathcal{A}=\{j:\beta_j\neq 0\}$. RQ3 starts from this fitted model and asks whether we can replace the full weighted sum with a smaller rule that preserves operating performance.
+
+The compression idea is to map the active coefficients to a shared magnitude (logic polishing), keep their signs, and evaluate truncated models along an ordered path. Ordering is by absolute effect size from the trained sparse model so that early steps prioritize the most influential terms \autocite{JOrender2025Anytime}.
+
+\section{Anytime Compression Objective}
+
+The objective is to optimize a practical trade-off:
+\begin{equation}
+\max_{\text{rule complexity } C} \; J(C) \quad \text{subject to} \quad C \leq C_{\max},
+\end{equation}
+where $J$ is Youden's statistic ($J=\mathrm{TPR}+\mathrm{TNR}-1$), and complexity is represented by the number of retained conditions $k$ (and optionally the vote threshold $m$ in an $m$-of-$k$ rule) \autocite{JOrender2025Anytime}. Rather than commit to a single fixed complexity in advance, the anytime procedure scans candidate compressions and can stop at any prefix as soon as the achieved $J$ is within an application-defined tolerance of the baseline.
+
+This aligns with a deployment reality: in some environments, a 1--2\% relative loss may be acceptable if complexity falls by an order of magnitude; in others, compression is only accepted at near-zero loss. The framework supports either case by explicitly parameterizing the tolerance \autocite{JOrender2025Anytime}.
+
+\section{Algorithmic Pipeline}
+
+The compression process can be summarized in four stages \autocite{JOrender2025Anytime}.
+
+\subsection{1. Train Baseline Sparse Rectified Model}
+
+Fit L1-regularized logistic regression on the rectified matrix and compute baseline operating metrics (AUC, $J$, sensitivity, specificity) at the chosen operating threshold. This baseline defines the reference quality floor for compression \autocite{tibshirani1996,fried2010,tay2023,JOrender2025Anytime}.
+
+\subsection{2. Logic Polishing and Ordered Prefix Construction}
+
+Restrict to active features $\mathcal{A}$ and sort them by $|\beta_j|$ descending. For prefix length $k$, keep the top-$k$ signed indicators and assign common magnitude $K$ (or equivalently use signed votes). This yields candidate rule families of increasing complexity, each nested in the next \autocite{JOrender2025Anytime}.
+
+\subsection{3. Vote Threshold Optimization}
+
+For each prefix, evaluate an $m$-of-$k$ decision threshold. Intuitively, $m$ controls how many supportive conditions are required before predicting the positive class. Sweeping $m$ gives a local complexity-performance frontier at fixed $k$; sweeping $k$ gives the global anytime frontier \autocite{JOrender2025Anytime}.
+
+\subsection{4. Adoption Rule with Relative Tolerance}
+
+Let $J_{\text{base}}$ be the baseline score and $J(k,m)$ the compressed candidate. A candidate is accepted when
+\begin{equation}
+J(k,m)\geq (1-\epsilon)\,J_{\text{base}},
+\end{equation}
+for configured tolerance $\epsilon$. Among accepted candidates, one can choose the smallest $k$ (maximal simplification) or the best $J$ under a complexity cap. This makes compression policy explicit instead of ad hoc \autocite{JOrender2025Anytime}.
+
+\section{Why the Method Is ``Anytime''}
+
+The method is anytime in the algorithmic sense: each additional step (larger $k$ or alternative $m$) refines quality, but every intermediate rule is already a valid deployable model. If computation must stop early, the current incumbent can still be used. If more budget is available, scanning continues to improve operating characteristics. This property is practical for iterative model governance and constrained environments \autocite{JOrender2025Anytime}.
+
+\section{Empirical Evidence to Date}
+
+In the prior study that introduced this framework, compression often reduced model complexity by large factors while preserving discrimination closely. Reported results showed substantial complexity drops (including cases near 50x reduction) with negligible AUC change under a practical equivalence margin, and frequently with stable or slightly improved $J$ at the selected operating point \autocite{JOrender2025Anytime}. Runtime behavior was also favorable relative to standard sparse solvers in high-dimensional rectified settings, supporting use as a post-fit compression stage \autocite{JOrender2025Anytime}.
+
+Figure~\ref{fig:rq3_results} illustrates the central behavior: $J$ is tracked as a function of retained rule size $k$, creating an explicit curve from highly compressed to minimally compressed models. The chapter-level answer to RQ3 is based on this curve, not on a single arbitrarily chosen point.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.75\textwidth]{Figures/J_vs_K_curve.png}
+	\caption[Anytime compression (RQ3) results.]{$J$ versus retained rule size $k$ for anytime compression. The curve provides a direct complexity-performance trade-off for selecting a deployable $m$-of-$k$ rule.}
+	\label{fig:rq3_results}
+\end{figure}
+
+\section{Statistical Framing of ``No Material Degradation''}
+
+RQ3 uses ``no material degradation'' in a practical, decision-oriented sense rather than a literal requirement of zero difference. Classical null-hypothesis difference tests are not sufficient to show retained utility, because failure to reject a difference is not evidence of equivalence. Accordingly, the prior work used an equivalence framing (TOST-style logic) with a predeclared margin (for example, $\pm 0.01$ AUC) to justify practical non-loss claims \autocite{DJSchuirmann1987comparison,Student1908probable,JOrender2025Anytime}. This is methodologically aligned with the chapter objective: demonstrate that simplified rules remain fit for purpose under explicit tolerance.
+
+\section{Relationship to Adjacent Interpretable Methods}
+
+Rule-list and scoring-system approaches provide strong interpretability baselines, but they often optimize directly in combinatorial rule space with different scalability profiles \autocite{EAngelino2018Learning,CRudin2019Stop}. The anytime compression strategy differs by leveraging a sparse convex fit first, then performing structured compression in a constrained post-processing stage. This separation is useful when the rectified feature space is large and sparse optimization is already part of the workflow.
+
+The approach is also related to Logical Analysis of Data (LAD), particularly in its use of thresholded indicators and logical structure, but it targets a different optimization path and deployment interface \autocite{EBoros1997Logical,EBoros2000implementation}. In the dissertation context, this can be viewed as a bridge between sparse statistical learning and logic-level decision rules tailored to threshold-driven events \autocite{orender2022,JOrender2025Efficient}.
+
+\section{Motivation and Application Context}
+
+The practical motivation for anytime rule compression is strongest in settings where decisions must be explained and audited quickly:
+\begin{enumerate}
+	\item Clinical and public-health monitoring: produce concise trigger logic for intervention review and cross-site validation in longitudinal streams \autocite{wong2010longitudinal,hiploylee2017}.
+	\item Safety and reliability operations: support transparent condition-based escalation when false negatives are costly and operators need explicit criteria.
+	\item Policy-facing analytics: convert technical models into rules stakeholders can inspect, challenge, and recalibrate without retraining a complex model stack.
+\end{enumerate}
+
+Across these settings, the benefit is not only readability. Compact rules also reduce implementation burden, simplify drift monitoring, and support deterministic replay during audits. The anytime mechanism then provides a tunable point on the complexity-performance frontier for each deployment constraint \autocite{JOrender2025Anytime,WJMurdoch2019Definitions}.
+
+\section{Limitations and Scope}
+
+The current evidence is strongest for the dissertation's target regime: sparse, threshold-mediated phenomena represented through rectified features. It is a proof-of-concept framework, not a universal guarantee that every sparse model admits large compression at negligible loss. Performance depends on the shape of the learned coefficient spectrum, class balance, and operating-point priorities. These boundaries are consistent with the chapter's scope and motivate the empirical analyses that follow.
+
+\section{Interim Answer to RQ3}
+
+The accumulated evidence supports a positive interim answer: sparse rectified models can often be compressed into substantially smaller $m$-of-$k$ rule representations with little practical degradation in discrimination, while improving interpretability and deployability. The key contribution is the anytime formulation itself: it makes compression controllable, auditable, and explicitly tied to operational tolerances rather than fixed model-size heuristics \autocite{JOrender2025Anytime,JOrender2025Efficient}.

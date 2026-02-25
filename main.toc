@@ -1,0 +1,131 @@
+\babel@toc {english}{}\relax 
+\hfill Page\par 
+\vspace {0.42cm}
+\contentsline {chapter}{\uppercase {List of Tables}}{x}{}%
+\vspace *{0.42cm}
+\contentsline {chapter}{\uppercase {List of Figures}}{xi}{}%
+\vspace *{0.42cm}
+\noindent Chapter
+
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {1.}\uppercase {Introduction}}{1}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {1.1\hfil }\uppercase {Problem}}{3}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {1.2\hfil }\uppercase {Contributions}}{4}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {1.3\hfil }\uppercase {Thesis Organization}}{4}{}%
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {2.}\uppercase {Background}}{6}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {2.1\hfil }\uppercase {L1-regularized models and feature selection}}{6}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {2.2\hfil }\uppercase {Support recovery and the irrepresentable condition}}{7}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {2.3\hfil }\uppercase {Longitudinal lag expansion and structured sparsity}}{7}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {2.4\hfil }\uppercase {Interpretability as a design requirement}}{8}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {2.5\hfil }\uppercase {Competing approaches}}{8}{}%
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {3.}\uppercase {Related Work}}{10}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.1\hfil }\uppercase {Sparse Regularization Foundations}}{10}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.2\hfil }\uppercase {Support Recovery Under Dependence}}{11}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.3\hfil }\uppercase {Group, Block, and Ordered Sparsity}}{12}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.4\hfil }\uppercase {Correlation-Aware and Alternative Feature Selection Families}}{13}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.5\hfil }\uppercase {Interpretable Modeling and Rule-Learning Literature}}{14}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.6\hfil }\uppercase {Longitudinal High-Dimensional Modeling Context}}{14}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.7\hfil }\uppercase {Method Lineage and Dissertation Positioning}}{15}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.8\hfil }\uppercase {Summary of Gaps in Prior Work}}{16}{}%
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {4.}\uppercase {Research Questions}}{18}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.1\hfil }\uppercase {Why RQ1 matters}}{18}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.2\hfil }\uppercase {Why RQ2 matters}}{19}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.3\hfil }\uppercase {Why RQ3 matters}}{20}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.4\hfil }\uppercase {Cross-RQ Evaluation Priorities}}{21}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.5\hfil }\uppercase {Significance of the Chapter}}{21}{}%
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {5.}\uppercase {Preliminary Studies and Evidence to Date for RQ1}}{23}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.1\hfil }\uppercase {How RQ1 is evaluated in preliminary work}}{23}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.2\hfil }\uppercase {Synthetic evidence with known ground truth}}{24}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.3\hfil }\uppercase {Comparison to competing feature-selection baselines}}{24}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.4\hfil }\uppercase {Real-world evidence and interpretability tradeoffs}}{26}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.5\hfil }\uppercase {Interim answer to RQ1}}{28}{}%
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {6.}\uppercase {Theoretical Analysis (RQ2)}}{30}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.1\hfil }\uppercase {Why RQ2 matters after RQ1 evidence}}{30}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.2\hfil }\uppercase {IC in computer-science terms}}{31}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.3\hfil }\uppercase {PoC setup and assumptions}}{31}{}%
+\contentsline {paragraph}{Data and transformation.}{32}{}%
+\contentsline {paragraph}{Assumptions.}{32}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.4\hfil }\uppercase {Why sign binarization can reduce dependence}}{32}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.5\hfil }\uppercase {Lemma pathway (with intuition)}}{33}{}%
+\contentsline {subsection}{\numberline {6.5.1}\uppercase {Lemma 1: Correlation contraction after binarization}}{33}{}%
+\contentsline {subsection}{\numberline {6.5.2}\uppercase {Lemma 2: Controlled inverse behavior for active block}}{34}{}%
+\contentsline {subsection}{\numberline {6.5.3}\uppercase {Lemma 3: Lower inactive-active leakage}}{34}{}%
+\contentsline {subsection}{\numberline {6.5.4}\uppercase {Lemma 4: Easier IC satisfaction}}{34}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.6\hfil }\uppercase {Main theorem (probability form)}}{34}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.7\hfil }\uppercase {Proof sketch}}{35}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.8\hfil }\uppercase {Practical interpretation}}{36}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.9\hfil }\uppercase {A small interference example}}{36}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.10\hfil }\uppercase {How this differs from penalty-only fixes}}{37}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.11\hfil }\uppercase {What this theorem does not claim}}{38}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.12\hfil }\uppercase {Generalization roadmap beyond the PoC theorem}}{38}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.13\hfil }\uppercase {How RQ2 guides subsequent chapters}}{39}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.14\hfil }\uppercase {Practical Significance}}{39}{}%
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {7.}\uppercase {Anytime Rule Compression (RQ3)}}{41}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.1\hfil }\uppercase {Why RQ3 Matters After RQ1 and RQ2}}{41}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.2\hfil }\uppercase {From Rectified Sparse Models to Rule Space}}{42}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.3\hfil }\uppercase {Anytime Compression Objective}}{42}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.4\hfil }\uppercase {Algorithmic Pipeline}}{43}{}%
+\contentsline {subsection}{\numberline {7.4.1}\uppercase {1. Train Baseline Sparse Rectified Model}}{43}{}%
+\contentsline {subsection}{\numberline {7.4.2}\uppercase {2. Logic Polishing and Ordered Prefix Construction}}{43}{}%
+\contentsline {subsection}{\numberline {7.4.3}\uppercase {3. Vote Threshold Optimization}}{43}{}%
+\contentsline {subsection}{\numberline {7.4.4}\uppercase {4. Adoption Rule with Relative Tolerance}}{43}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.5\hfil }\uppercase {Why the Method Is ``Anytime''}}{44}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.6\hfil }\uppercase {Empirical Evidence to Date}}{44}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.7\hfil }\uppercase {Statistical Framing of ``No Material Degradation''}}{45}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.8\hfil }\uppercase {Relationship to Adjacent Interpretable Methods}}{46}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.9\hfil }\uppercase {Motivation and Application Context}}{46}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.10\hfil }\uppercase {Limitations and Scope}}{47}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.11\hfil }\uppercase {Interim Answer to RQ3}}{47}{}%
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {8.}\uppercase {Future Work}}{48}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.1\hfil }\uppercase {Defense-Readiness Objective}}{48}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.2\hfil }\uppercase {Workstream A: RQ1 Empirical Strengthening}}{48}{}%
+\contentsline {subsection}{\numberline {8.2.1}\uppercase {A1. Stability-first evaluation protocol}}{49}{}%
+\contentsline {subsection}{\numberline {8.2.2}\uppercase {A2. Baseline expansion under multicollinearity}}{49}{}%
+\contentsline {subsection}{\numberline {8.2.3}\uppercase {A3. Cross-domain longitudinal validation}}{50}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.3\hfil }\uppercase {Workstream B: RQ2 Theoretical Completion}}{50}{}%
+\contentsline {subsection}{\numberline {8.3.1}\uppercase {B1. Scope-accurate extension of the current derivation}}{50}{}%
+\contentsline {subsection}{\numberline {8.3.2}\uppercase {B2. Assumption stress testing}}{50}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.4\hfil }\uppercase {Workstream C: RQ3 Anytime Compression Validation}}{51}{}%
+\contentsline {subsection}{\numberline {8.4.1}\uppercase {C1. Real-data anytime curves and operating-point policy}}{51}{}%
+\contentsline {subsection}{\numberline {8.4.2}\uppercase {C2. Equivalence-style model comparison}}{51}{}%
+\contentsline {subsection}{\numberline {8.4.3}\uppercase {C3. Interpretability quality audit}}{51}{}%
+\contentsline {subsection}{\numberline {8.4.4}\uppercase {C4. Comparator rule learners}}{52}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.5\hfil }\uppercase {Cross-Cutting Ablation Program}}{52}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.6\hfil }\uppercase {Reproducibility and Defense Artifacts}}{52}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.7\hfil }\uppercase {Risks and Mitigation Prior to Defense}}{53}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.8\hfil }\uppercase {Timeline and Committee Decision Gates}}{53}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.9\hfil }\uppercase {Pre-Defense Exit Checklist}}{54}{}%
+\vspace {0.42cm}
+\contentsline {chapter}{\numberline {9.}\uppercase {Conclusion}}{56}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.1\hfil }\uppercase {Research Program Summary}}{56}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.2\hfil }\uppercase {Conclusions by Research Question}}{57}{}%
+\contentsline {subsection}{\numberline {9.2.1}\uppercase {RQ1 conclusion: Rectification can improve attribution reliability in target regimes}}{57}{}%
+\contentsline {subsection}{\numberline {9.2.2}\uppercase {RQ2 conclusion: A scoped IC-based mechanism is theoretically defensible}}{57}{}%
+\contentsline {subsection}{\numberline {9.2.3}\uppercase {RQ3 conclusion: Anytime compression makes interpretability operational}}{58}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.3\hfil }\uppercase {Primary Dissertation Contributions}}{58}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.4\hfil }\uppercase {Positioning Relative to Prior Work}}{59}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.5\hfil }\uppercase {Scope Boundaries and Limitations}}{59}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.6\hfil }\uppercase {Practical Implications}}{60}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.7\hfil }\uppercase {Final Statement}}{60}{}%
+\vspace *{12pt}
+\contentsline {chapter}{REFERENCES}{61}{}%
+\vspace *{0.42cm}
+\noindent APPENDICES
+
+\contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {A.\hfil }\uppercase {Toy Example}}{66}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {A.1\hfil }\uppercase {Data}}{66}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {A.2\hfil }\uppercase {Transformation}}{66}{}%
+\contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {B.\hfil }\uppercase {Lemmas}}{68}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.1\hfil }\uppercase {Lemma 1}}{68}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.2\hfil }\uppercase {Lemma 2}}{70}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.3\hfil }\uppercase {Lemma 3}}{73}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.4\hfil }\uppercase {Lemma 4}}{76}{}%
+\vspace *{0.42cm}
+\contentsline {chapter}{VITA}{82}{}%

@@ -1,55 +1,43 @@
+% !TeX root = ../main.tex
+
 \chapter{Background}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus. 
+Sparse modeling with L1 penalties is a standard approach for feature selection in high-dimensional data because it often yields compact models with practical predictive performance \autocites{tibshirani1996,AYNg2004Feature}. In longitudinal settings, sparse selection is also used for lag attribution: selected coefficients identify not only which variables matter, but when they matter. This chapter reviews the background needed for the dissertation, including sparse regularization, support-recovery theory under dependence, interpretability requirements, and competing method families.
 
-\section{Section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus.  Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+Longitudinal applications motivate this framing because repeated-measure data often contain delayed and heterogeneous effects across people, systems, or environments \autocites{hiploylee2017,wong2010longitudinal,sorvali2021farmer}. When temporal predictors are expanded across lags, model dimensionality and dependence both increase, so variable selection and interpretability must be considered jointly rather than as separate post-processing steps.
 
-\section{Section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+\section{L1-regularized models and feature selection}
+The LASSO and L1-regularized logistic regression induce sparsity by shrinking many coefficients to exactly zero, creating an embedded feature-selection mechanism inside model fitting \autocite{tibshirani1996}. This property is one reason L1 methods are widely used in longitudinal pipelines: selected nonzero lag terms can provide concise, testable hypotheses about delayed effects.
 
+Modern implementations make these methods computationally practical at scale: coordinate-descent path algorithms with warm starts support efficient generalized linear modeling across many tuning values \autocites{fried2010,tay2023}. Beyond plain L1 penalties, elastic net, adaptive lasso, and group-aware variants address correlated and block-structured predictors, which is directly relevant for lagged longitudinal features \autocites{HZou2005Regularization,HZou2006adaptive,yuan2006,meier2008,kim2006}.
 
-\begin{lstlisting}[caption = Python Code Example]
-def hello_world():
-    @This part will be highlighted in red@
-    print("Hello, world!")
-hello_world()
-\end{lstlisting}
+\section{Support recovery and the irrepresentable condition}
+For feature selection, prediction accuracy alone is insufficient; the key question is whether selected supports match the true active set. Zhao and Yu formalized this issue through the irrepresentable condition (IC), showing that support recovery consistency for lasso depends critically on covariance structure \autocite{PZhao2006model}. When off-support predictors are too correlated with active predictors, sparse recovery can fail even when predictive fit appears strong.
 
-\section{Section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+This limitation is central in lag-expanded longitudinal designs, where adjacent lags and related channels are frequently collinear. Reviews of lasso under dependence consistently report this selection-versus-prediction tension, with false discoveries and unstable supports common under strong correlation \autocite{freijeirogonzalez2022}. Correlation-aware variants, including transformed/weighted and rank-based approaches, can improve robustness in specific regimes, but they do not eliminate the underlying dependence challenge in general \autocites{HZhu2021variable,MRejchel2020Rank}.
 
-\subsection{Sub-section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio.  Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. 
+From a linear-algebra perspective, the issue is closely tied to conditioning and inverse-Gram stability, which govern how sensitive selected supports are to perturbations in data and tuning \autocite{RAHorn2012Matrix}. For this reason, the dissertation treats representation-level correlation contraction as a first-class objective before sparse fitting, and uses IC-oriented reasoning as the theoretical lens for interpreting support behavior.
 
-\subsection{Sub-section title}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi.  Figure \ref{fig:main_figure} consists of two sub figures: Figure \ref{fig:subfigure_a} and Figure \ref{fig:subfigure_b}.     
+\section{Longitudinal lag expansion and structured sparsity}
+Lag expansion is the dominant way to represent temporal effects in classical supervised learning, but it can quickly create high-dimensional, redundant design matrices. Ordered and structured penalties attempt to encode temporal assumptions directly in the coefficient space, for example monotone lag decay or shared supports across tasks \autocites{RTibshirani2016ordered,turlach2005}.
 
-\begin{figure}[tbh]
-\centering
-\sidesubfloat[]{\includegraphics[width=0.4\textwidth]{Figures/cos1.jpeg}\label{fig:subfigure_a}}
-\hfill
-\sidesubfloat[]{\includegraphics[width=0.4\textwidth]{Figures/cos2.jpeg}\label{fig:subfigure_b}}
-%\caption[short title for list of figures]{long title for text}
-\caption[The short caption of the figure with sub-figures goes here.]{The full caption of the figure with sub-figures goes here. \textit{(A)} Please describe the figure and figure legends for sub-figure A here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra. \textit{(B)} Please describe the figure and figure legends for sub-figure B here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra.}
-\label{fig:main_figure}
-\end{figure}
+Additional group-penalized optimization work improves runtime and practical convergence for non-orthonormal designs, making structured sparse models more usable in real pipelines \autocite{yang2015}. These methods are important comparators for this work: they preserve the original numeric representation and optimize increasingly sophisticated penalties, whereas the proposed pipeline changes representation first and then applies sparse selection.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. Lorem ipsum dolor sit amet. Equation \ref{eq:1} exemplifies a standard power series, demonstrating how to include equations in your document.
+\section{Interpretability as a design requirement}
+In high-stakes settings, interpretability is not an afterthought: end-users must understand why a prediction was made and be able to verify it against domain knowledge. Interpretable-model-first arguments emphasize that transparent model classes are often preferable to post hoc explanations layered on top of black boxes \autocites{CRudin2019Stop,WJMurdoch2019Definitions}. This principle is especially relevant when longitudinal decisions affect operations, safety, or clinical workflows.
 
-\begin{equation} \label{eq:1}
-\sum_{i=0}^{\infty} a_i x^i
-\end{equation}
+Rule-based models provide a natural interface for such settings because they are directly inspectable and can be validated by experts testing each feature and lag individually against specific rules. Classical logical-analysis frameworks and modern optimal-rule-list methods show that transparent rule structures can be competitive while preserving auditability \autocites{EBoros1997Logical,EBoros2000implementation,EAngelino2018Learning}. This work adopts this perspective by treating rule compression as part of model construction, not merely post-hoc explanation.
 
+\section{Competing approaches}
 
-\section{Section Title}
-In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus. Vivamus elementum, diam id lobortis mattis, nisi lacus. Vivamus elementum, diam id lobortis mattis, nisi lacus. Vivamus elementum, diam id lobortis mattis, nisi lacus.  Vivamus elementum, diam id lobortis mattis. 
+Related works will be analyzed contextually with this work in greater detail, but a brief overview of the relevant competing families include:
 
-Figure \ref{fig:logo_landscape} illustrates the process of incorporating figure in landscape orientation into your document. A similar approach can be employed for tables as well.
+\begin{itemize}
+	\item Group and structured sparsity methods impose constraints on coefficients, such as group-wise inclusion or ordered lag decay; they often improve stability but generally do not alter the raw input dependence structure \autocites{yuan2006,meier2008,RTibshirani2016ordered,yang2015}.
+	\item Dependence-aware sparse variants attempt to improve selection under strong correlation through reweighting, transformed objectives, or robust/rank formulations \autocites{HZhu2021variable,MRejchel2020Rank,katrutsa2017}.
+	\item Wrapper and filter selection methods remain pragmatic baselines, especially in domain pipelines where model families vary, but they are often heuristic and may provide weaker attribution consistency across resamples \autocites{ladha2011,kp2022feature}.
+	\item Robust multicollinearity-focused estimators and heuristics can improve fit under contamination and ill-conditioning, but may prioritize prediction stability over sparse interpretability \autocite{roozbeh2018}.
+	\item Logic-rule and LAD-style methods explicitly target threshold semantics and human-readable decisions, yet can face combinatorial scaling pressures as feature spaces grow \autocites{EBoros1997Logical,EBoros2000implementation,EAngelino2018Learning}.
+\end{itemize}
 
-\begin{sidewaysfigure}[htbp]
-\includegraphics[width=\columnwidth]{Figures/cos_landscape.jpg}
-\caption[The short figure caption goes here.]{The full figure caption goes here. Please describe the figure and figure legends here.}
-\label{fig:logo_landscape}
-\end{sidewaysfigure}
-
+Taken together, this literature motivates the design choice for this work: combine representation-level preprocessing with sparse estimation and rule-oriented compression. This places the work between two extremes, pure penalty engineering on raw lag-expanded data and direct combinatorial rule search, with the goal of balancing reliability, transparency, and computational feasibility.

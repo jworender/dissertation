@@ -1,10 +1,73 @@
+% !TeX root = ../main.tex
+
 \chapter{Conclusion}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non molestie odio. Pellentesque volutpat, sem a viverra dictum, leo est scelerisque risus, ut convallis dui nulla a lacus. Proin mi magna, pharetra non ante sit amet, euismod lobortis odio. Donec gravida eu elit quis sagittis. Duis consequat, elit in fermentum rutrum, tellus dolor sodales ante, ac aliquam libero purus eu nisi. In aliquam nibh maximus varius blandit. Sed consequat libero faucibus vehicula gravida. Suspendisse vitae nisi ex. Quisque gravida risus ac dapibus blandit. Vestibulum mollis sollicitudin justo. Donec vel ipsum non ligula efficitur consequat. Morbi vulputate feugiat diam, rhoncus vehicula eros posuere vitae. Pellentesque sed egestas metus. Vestibulum libero elit, euismod quis vestibulum nec, vulputate at risus. In accumsan sem eu porta ultrices. Quisque sagittis massa felis, eget varius metus semper id. Vivamus tincidunt ipsum sem, sit amet eleifend diam tempor nec. Vivamus elementum, diam id lobortis mattis, nisi lacus.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac mauris luctus, laoreet mauris non, maximus justo. Nam semper laoreet orci a rhoncus. Pellentesque sed pellentesque purus. Vivamus et dapibus elit, id dapibus justo. Maecenas magna ipsum, rutrum a nisl ac, porta convallis nulla. Pellentesque ornare tempor ipsum, eu dictum mi ultrices vitae. Quisque enim lacus, posuere eget mollis in, ornare a eros. Aliquam laoreet nulla sit amet facilisis laoreet. Vivamus non est et ante luctus dignissim convallis eget massa.
+This dissertation examined longitudinal feature learning under three simultaneous constraints: dependence induced by lag expansion, the need for reliable feature-lag attribution, and the requirement for compact, human-auditable model outputs. The central claim is that a representation-first pipeline, followed by sparse fitting and anytime rule compression, provides a practical middle ground between unstable raw sparse selection and computationally heavy direct rule search \autocite{orender2022,JOrender2025Efficient,JOrender2025Anytime}.
 
-Vestibulum vitae quam vulputate, facilisis lorem nec, venenatis massa. Duis id odio pulvinar, semper est nec, placerat nisl. Aenean eget dui libero. Phasellus scelerisque convallis molestie. Sed sem quam, pharetra ut massa nec, viverra vestibulum odio. Morbi eu sem quis metus tempus eleifend quis non felis. Nullam ornare nulla eu dapibus ullamcorper. Mauris convallis risus id turpis semper pulvinar. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla volutpat velit a dignissim facilisis. Mauris non eros eget est faucibus laoreet sit amet ut urna. Cras id condimentum magna. Sed sit amet dolor iaculis purus sodales vulputate id nec nunc. Sed ultrices justo vel orci rhoncus, eu tempor nunc convallis. Proin pretium sodales sem, quis porta sem feugiat eget.
+\section{Research Program Summary}
 
-Cras in convallis felis, ullamcorper volutpat nisi. Nunc sit amet consequat risus. Morbi urna dolor, scelerisque non risus nec, venenatis lobortis nunc. Mauris elementum porta nunc eu suscipit. Pellentesque porta dolor ligula, sit amet porta turpis pharetra sed. Vivamus malesuada augue tellus. Mauris pharetra neque ut velit pulvinar, non tempor nulla convallis. Integer et lorem turpis. Cras commodo ex lectus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus suscipit nibh vitae nisl interdum, vel euismod arcu laoreet. Mauris id elit magna.
+The work was organized around three research questions:
+\begin{itemize}
+	\item \textbf{RQ1:} whether critical-range rectification improves sparse attribution reliability in longitudinal settings;
+	\item \textbf{RQ2:} why rectification helps under a defensible theoretical mechanism and where that mechanism is scoped;
+	\item \textbf{RQ3:} whether sparse rectified models can be compressed into compact logical rules without unacceptable operational loss.
+\end{itemize}
 
-Quisque scelerisque molestie justo id dignissim. Morbi vel urna orci. Ut condimentum nisi purus, vitae finibus orci ultricies ultricies. Proin dolor neque, semper sit amet massa vitae, iaculis viverra magna. Proin leo sem, sodales ac nunc at, scelerisque imperdiet eros. Morbi velit arcu, auctor ut rutrum quis, pretium eu arcu. Curabitur semper mauris nisl, sit amet ullamcorper orci aliquet id. Sed euismod venenatis laoreet. Etiam accumsan tincidunt pharetra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra euismod pellentesque.
+Together, these questions move from empirical behavior (RQ1), to theoretical plausibility (RQ2), to deployment usability (RQ3). This sequencing is intentional: interpretability claims are weak if support recovery is unstable, and practical rule compression is less meaningful without a credible upstream selection mechanism \autocite{PZhao2006model,freijeirogonzalez2022,CRudin2019Stop,WJMurdoch2019Definitions}.
+
+\section{Conclusions by Research Question}
+
+\subsection{RQ1 conclusion: Rectification can improve attribution reliability in target regimes}
+
+The accumulated evidence supports a conditional positive conclusion for RQ1. In threshold-and-lag aligned settings, critical-range rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity stress \autocite{orender2022,JOrender2025Efficient}. This finding is consistent with known dependence-related limits of penalty-only sparse selection, where prediction can remain acceptable while support identification degrades \autocite{PZhao2006model,freijeirogonzalez2022}.
+
+The dissertation does not claim universal dominance over all baseline families. Instead, it establishes that representation-level intervention is a viable and often effective alternative to penalty redesign alone, especially when events are naturally threshold-mediated.
+
+\subsection{RQ2 conclusion: A scoped IC-based mechanism is theoretically defensible}
+
+For RQ2, this work provides a proof-of-concept theoretical argument: in a tractable regime (zero-threshold sign binarization with explicit assumptions), dependence contraction can improve the likelihood of satisfying IC-related sparse-recovery conditions \autocite{PZhao2006model,JOrender2025Efficient}. The theoretical contribution is therefore mechanistic rather than universal.
+
+This distinction is central to rigor. The chapter argues for a plausible structural pathway from binarization to improved sparse-support behavior, while explicitly separating theorem-scoped claims from broader engineering intuition. The resulting conclusion is that rectification is not just a heuristic preprocessing trick; it has a coherent connection to established sparse-selection theory under defined conditions.
+
+\subsection{RQ3 conclusion: Anytime compression makes interpretability operational}
+
+For RQ3, this work concludes that sparse rectified models can often be compressed into substantially smaller rule representations while preserving practical discrimination quality under predefined tolerance policies \autocite{JOrender2025Anytime,JOrender2025Efficient}. This directly addresses deployment requirements in settings where explanation, auditability, and compact decision logic are non-negotiable \autocite{CRudin2019Stop,WJMurdoch2019Definitions}.
+
+The key advance is the anytime framing itself: rule complexity can be reduced incrementally with explicit stop/adoption criteria, making the interpretability-performance tradeoff controllable rather than ad hoc. Equivalence-oriented evaluation framing further supports practical non-loss claims when simplification is the objective \autocite{DJSchuirmann1987comparison,Student1908probable}.
+
+\section{Primary Dissertation Contributions}
+
+The dissertation contributes the following integrated advances:
+\begin{enumerate}
+	\item \textbf{A rectification-first longitudinal feature-learning pipeline} that preserves lag structure while mapping signals into critical-range indicators with clear operational semantics \autocite{orender2022,JOrender2025Efficient}.
+	\item \textbf{A scoped theoretical bridge to sparse-recovery conditions} showing how representation-level dependence contraction can increase IC favorability in a proof-of-concept regime \autocite{PZhao2006model,JOrender2025Efficient}.
+	\item \textbf{An anytime rule-compression stage} that converts sparse coefficients into compact $m$-of-$k$-style logic with tunable performance-complexity tradeoffs \autocite{JOrender2025Anytime}.
+	\item \textbf{A unified evaluation perspective} that balances discrimination, attribution stability, interpretability complexity, and computational efficiency rather than optimizing a single metric.
+	\item \textbf{A reproducible implementation pathway} for rectification, sparse fitting, and compression, enabling repeatable comparisons and practical extension in follow-on work.
+\end{enumerate}
+
+\section{Positioning Relative to Prior Work}
+
+This work extends, rather than replaces, prior sparse and interpretable modeling literature. Relative to classical L1 and elastic-net families \autocite{tibshirani1996,HZou2005Regularization,HZou2006adaptive,fried2010,tay2023}, the main difference is intervention point: representation is modified before sparse optimization. Relative to grouped and ordered penalties \autocite{turlach2005,yuan2006,meier2008,yang2015,RTibshirani2016ordered}, this work emphasizes threshold logic and lag-attribution clarity in a longitudinal context. Relative to direct rule-learning approaches \autocite{EAngelino2018Learning,EBoros1997Logical,EBoros2000implementation}, it uses sparse convex fitting as a scalable front end and performs structured rule simplification afterward.
+
+Accordingly, the work is best interpreted as a bridge architecture between sparse statistical learning and rule-level interpretability, not as a claim that one method family should replace all others.
+
+\section{Scope Boundaries and Limitations}
+
+Several limitations remain explicit:
+\begin{itemize}
+	\item Benefits are strongest in regimes with threshold-mediated event structure and may be weaker when that structure is absent.
+	\item The current theory is proof-of-concept and does not provide universal guarantees across arbitrary threshold schemes or dependence geometries.
+	\item Compression quality depends on operating-point policy, class balance, and the shape of the learned sparse support.
+	\item Interpretability gains can trade against raw discrimination in some datasets.
+\end{itemize}
+
+These boundaries are consistent with broader evidence that no sparse-selection or interpretable-modeling method is uniformly optimal across all dependence structures and objectives \autocite{freijeirogonzalez2022,WJMurdoch2019Definitions}.
+
+\section{Practical Implications}
+
+This work's practical implication is straightforward: when longitudinal decisions require both predictive utility and audit-ready rationale, it can be more effective to restructure features around event-relevant critical ranges first, then apply mature sparse optimization, and finally compress to explicit rule logic. This design is particularly relevant in domains such as ICS monitoring and clinical trajectory analysis, where lag effects, threshold triggers, and traceable decision criteria are operationally important \autocite{shin2020,wong2010longitudinal,hiploylee2017}.
+
+\section{Final Statement}
+
+This work concludes that rectification-first sparse longitudinal learning with anytime rule compression is a credible and useful framework for interpretable event modeling under dependence. Its value lies in integration: empirical support behavior (RQ1), scoped mechanistic theory (RQ2), and operational rule simplification (RQ3) are addressed as a single pipeline rather than isolated techniques \autocite{orender2022,JOrender2025Efficient,JOrender2025Anytime}. Within its stated scope, this provides a defensible contribution to interpretable machine learning for longitudinal data.
