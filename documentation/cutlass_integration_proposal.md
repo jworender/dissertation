@@ -57,3 +57,37 @@ You will create a new script in the `nanochat/dev/` folder. This script will:
 When running the `runs/speedrun.sh` equivalent, the user first runs the `generate_rap_prior.py` script once offline. Then, the standard `nanochat` training loop picks up the `.pt` file and trains the Transformer with the warm-started attention logic.
 
 This architecture cleanly isolates the classical ML logic (your dissertation's `cutlass` work) from the deep-learning optimization loop (`nanochat`), maximizing your chances of a successful and celebrated Pull Request.
+
+## 4. PyPI Publishing Pipeline
+
+To ensure that `cutlass` can be easily installed via `pip` as suggested in the integration strategy, follow these exact steps to publish it to the Python Package Index (PyPI):
+
+### 4.1 Preparation
+1. Ensure your `cutlass` project structure contains a valid configuration file (`pyproject.toml` is recommended for modern packages, or `setup.py`).
+2. Create an account on [PyPI](https://pypi.org/) and [TestPyPI](https://test.pypi.org/).
+3. Generate API tokens from your PyPI and TestPyPI account settings for authentication.
+
+### 4.2 Build the Distribution
+Make sure the build tools are up to date and build your package archives (a source distribution and a wheel):
+```bash
+python -m pip install --upgrade build twine
+python -m build
+```
+This will create a `dist/` directory populated with `.tar.gz` and `.whl` files.
+
+### 4.3 Test Upload to TestPyPI
+Before pushing to the main PyPI, it is best practice to upload to TestPyPI first:
+```bash
+python -m twine upload --repository testpypi dist/*
+```
+Verify the installation works locally in a fresh virtual environment:
+```bash
+python -m pip install --index-url https://test.pypi.org/simple/ --no-deps cutlass
+```
+
+### 4.4 Publish to PyPI
+Once testing is successful, upload the package to the main repository for official release:
+```bash
+python -m twine upload dist/*
+```
+Your package is now officially published. Any user or integration script can install your package simply by running `pip install cutlass`.
