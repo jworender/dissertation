@@ -42,7 +42,7 @@ The synthetic results in Table \ref{tab:synth_results} show the main preliminary
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=0.75\textwidth]{Figures/synth_trans_vs_untrans_coeff.png}
-    \caption[Synthetic data transformed vs. untransformed.]{Coefficient profiles on synthetic data: transformed vs untransformed (ground-truth lag locations highlighted).}
+    \caption[Synthetic Data Transformed vs. Untransformed.]{Coefficient profiles on synthetic data: transformed vs untransformed (ground-truth lag locations highlighted).}
     \label{fig:synth_tvsu}
 \end{figure}
 
@@ -57,7 +57,7 @@ A focused comparator is the quadratic-programming selector of Katrutsa and Strij
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=0.75\textwidth]{Figures/katrutsa_strijov_coeff.png}
-    \caption[Katrutsa and Strijov method results.]{Quadratic-programming importance magnitudes on the synthetic dataset.}
+    \caption[Katrutsa and Strijov Method Results.]{Quadratic-programming importance magnitudes on the synthetic dataset.}
     \label{fig:katrutsa_coeff}
 \end{figure}
 
@@ -86,11 +86,11 @@ As shown in Table \ref{tab:rw_results}, HAI results favor transformed models on 
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=0.75\textwidth]{Figures/hai_trans_vs_untrans_coeff.png}
-    \caption[HAI results.]{Real-world coefficient concentration and performance: HAI turbine-loop selection vs untransformed spread.}
+    \caption[HAI Results.]{Real-world coefficient concentration and performance: HAI turbine-loop selection vs untransformed spread.}
     \label{fig:hai_coeff}
 \end{figure}
 
-Cross-dataset behavior is not uniform. In the UNICEF case, untransformed models can achieve stronger raw discrimination metrics while transformed models remain substantially sparser and easier to interpret. This pattern is consistent with prior reports that rectification benefits are context dependent: strongest in threshold-and-lag aligned regimes, and more mixed when data-generating structure is less compatible with the assumed critical-range mechanism \autocite{JOrender2025Efficient}.
+Cross-dataset behavior is not uniform. In the UNICEF \autocite{unicef2023} case, untransformed models can achieve stronger raw discrimination metrics while transformed models remain substantially sparser and easier to interpret. This pattern is consistent with prior reports that rectification benefits are context dependent: strongest in threshold-and-lag aligned regimes, and more mixed when data-generating structure is less compatible with the assumed critical-range mechanism \autocite{JOrender2025Efficient}.
 
 \section{Interim answer to RQ1}
 

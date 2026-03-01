@@ -3,6 +3,16 @@
 \chapter{Introduction}
 Longitudinal data contain repeated measurements of the same variables across time and are central to many scientific and operational problems. Examples include symptom progression in clinical cohorts, temporal variation in biological markers, and multi-wave surveys of human decision behavior \autocites{hiploylee2017,wong2010longitudinal,sorvali2021farmer}. Across these settings, outcomes are often triggered by threshold-and-lag mechanisms: a variable enters a critical range, then a target event appears after a delay as with Figure \ref{fig:tandl}. This structure is common in sensing and monitoring contexts where decision-makers need not only accurate predictions, but also clear explanations of which variables and lags drove the prediction.
 
+Specifically, several study areas that have shown a tendency to involve threshold-and-lag scenarios are:
+
+\begin{itemize}
+	\item \textbf{Ecosystem Dynamics.} Ecosystems often exhibit threshold-dependent responses with lagged effects, such as delayed population shifts  \cite{hemraj2025ecosystem}.
+	\item \textbf{Epidemic Spreading.} The spread of infectious diseases depends on multiple thresholds (e.g., transmission, recovery, and vaccination rates) \cite{mata2015multiple}.
+	\item \textbf{Control Systems.} Many engineering systems feature threshold-driven lagged behaviors in response to control inputs or environmental changes.
+	\item \textbf{Financial Markets.} Market reactions to economic indicators, interest rates, or sentiment often follow threshold effects with delayed responses \cite{ters2020arbitrage}.
+\end{itemize}
+
+
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Figures/threshold_and_lag.png}

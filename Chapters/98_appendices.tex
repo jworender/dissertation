@@ -3,6 +3,17 @@
 
 \achapter{Toy Example}
 
+Consider a \emph{toy example} showing how continuous features can obscure true relationships. Let \(\mathbf{X}\) be a $10$-feature matrix with columns \(\text{A}, \dots, \text{J}\). Suppose only \(\text{A}\) and \(\text{D}\) determine the outcome \(y\). Fitting LASSO on raw continuous data can yield spurious coefficients (Figure~\ref{fig:toy_example}, top). After \emph{binarizing} features by marking each as $+1$ or $-1$ based on a range, irrelevant columns disappear, and \(\text{A}\) and \(\text{D}\) stand out (Figure~\ref{fig:toy_example}, bottom).
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.75\textwidth]{Figures/toy_example.pdf}
+	\caption[Toy Example Coefficient Vectors.]{Coefficient vectors for LASSO on the same data before (top) and after (bottom) binarization. The non-zero feature coefficients indicate the selected features.}
+	\label{fig:toy_example}
+\end{figure}
+
+Binarization effectively “flattens” continuous variations that inflate feature correlations. Intuitively, columns with moderate overlap in continuous space can appear overly correlated. Mapping to $\{\pm1\}$ reduces correlation unless columns are identical or scalar multiples, preserving meaningful relationships.
+
 \section{Data}
 The toy example data demonstrates the behavior described in the paper. A matrix with features 'A' through 'J' shows that even with only 10 features, the coefficients become muddled. Columns A and D were designed to produce the result vector, while the others were largely random, with top elements tweaked to ensure they are \textbf{not} optimal for producing the result vector.
 
@@ -24,7 +35,7 @@ The toy example data demonstrates the behavior described in the paper. A matrix 
 \]
 
 \section{Transformation}
-After transformation, the matrix is encoded with ones and negative ones. The encoding rule was simple: values between 0.4 and 0.6 (inclusive) became ones; others became negative ones. Details on defining this \textit{critical range} are in the other sections. In summary, if both features A and D were between 0.4 and 0.6 simultaneously, an event occurred.
+After transformation, the matrix is encoded with ones and negative ones. The encoding rule in this case was simple: values between 0.4 and 0.6 (inclusive) became ones; others became negative ones. Details on defining this \textit{critical range} are in the other sections. A summarized version of the result is that if both features A and D were between 0.4 and 0.6 simultaneously, an event occurred.
 
 \[ \mathbf{X} =
 \scriptsize

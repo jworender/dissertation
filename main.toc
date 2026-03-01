@@ -11,7 +11,7 @@
 \contentsline {chapter}{\numberline {1.}\uppercase {Introduction}}{1}{}%
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {1.1\hfil }\uppercase {Problem}}{3}{}%
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {1.2\hfil }\uppercase {Contributions}}{4}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {1.3\hfil }\uppercase {Thesis Organization}}{4}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {1.3\hfil }\uppercase {Thesis Organization}}{5}{}%
 \vspace {0.42cm}
 \contentsline {chapter}{\numberline {2.}\uppercase {Background}}{6}{}%
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {2.1\hfil }\uppercase {L1-regularized models and feature selection}}{6}{}%
@@ -120,12 +120,12 @@
 \noindent APPENDICES
 
 \contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {A.\hfil }\uppercase {Toy Example}}{66}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {A.1\hfil }\uppercase {Data}}{66}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {A.2\hfil }\uppercase {Transformation}}{66}{}%
-\contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {B.\hfil }\uppercase {Lemmas}}{68}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.1\hfil }\uppercase {Lemma 1}}{68}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.2\hfil }\uppercase {Lemma 2}}{70}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.3\hfil }\uppercase {Lemma 3}}{73}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.4\hfil }\uppercase {Lemma 4}}{76}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {A.1\hfil }\uppercase {Data}}{67}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {A.2\hfil }\uppercase {Transformation}}{67}{}%
+\contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {B.\hfil }\uppercase {Lemmas}}{69}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.1\hfil }\uppercase {Lemma 1}}{69}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.2\hfil }\uppercase {Lemma 2}}{71}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.3\hfil }\uppercase {Lemma 3}}{74}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.4\hfil }\uppercase {Lemma 4}}{77}{}%
 \vspace *{0.42cm}
-\contentsline {chapter}{VITA}{82}{}%
+\contentsline {chapter}{VITA}{83}{}%

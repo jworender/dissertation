@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  23 FEB 2026 10:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  1 MAR 2026 15:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1036,23 +1036,23 @@ ON FAM-
 
 
 ] (Chapters/01_introduction.tex
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
+.
+
+(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
 <Figures/threshold_and_lag.png, id=38, 373.395pt x 256.70906pt>
 File: Figures/threshold_and_lag.png Graphic file (type png)
 <use Figures/threshold_and_lag.png>
-Package pdftex.def Info: Figures/threshold_and_lag.png  used on input line 8.
+Package pdftex.def Info: Figures/threshold_and_lag.png  used on input line 18.
 (pdftex.def)             Requested size: 352.31625pt x 242.22704pt.
 
 [1
 
 
-] [2 <./Figures/threshold_and_lag.png>]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-5.
-
-(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-[3] [4]) (Chapters/02_background.tex [5]
+] [2 <./Figures/threshold_and_lag.png>] [3] [4]) (Chapters/02_background.tex
+[5]
 Overfull \hbox (13.42902pt too wide) in paragraph at lines 5--6
 []\T1/ptm/m/n/12 Sparse mod-el-ing with L1 penal-ties is a stan-dard ap-proach 
 for fea-ture se-lec-tion in high-dimensional
@@ -1189,39 +1189,46 @@ LaTeX Warning: Float too large for page by 14.96992pt on input line 161.
 
  (Chapters/98_appendices.tex
 APPENDIX A
-
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 10.
-
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 12.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 12.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 12.
-
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 30.
-
+<Figures/toy_example.pdf, id=266, 578.16pt x 433.62pt>
+File: Figures/toy_example.pdf Graphic file (type pdf)
+<use Figures/toy_example.pdf>
+Package pdftex.def Info: Figures/toy_example.pdf  used on input line 10.
+(pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
 [66
 
 
-] [67]
+ <./Figures/toy_example.pdf>]
+
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 21.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
+[67]
+
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 41.
+
+[68]
 APPENDIX B
-[68
+[69
 
 
-] [69]
+] [70]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 187.
- [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80]) [81]
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 198.
+ [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81]) [82]
 \openout2 = `Chapters/99_vita.aux'.
 
 
-(Chapters/99_vita.tex [82
+(Chapters/99_vita.tex [83
 
 
 
 
-]) [83] (main.aux (Chapters/98_appendices.aux)
+]) [84] (main.aux (Chapters/98_appendices.aux)
 (Chapters/99_vita.aux))
  ***********
 LaTeX2e <2025-11-01>
@@ -1232,10 +1239,10 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19563 strings out of 467871
- 355810 string characters out of 5418376
- 1016122 words of memory out of 5000000
- 48091 multiletter control sequences out of 15000+600000
+ 19590 strings out of 467871
+ 356880 string characters out of 5418376
+ 1013423 words of memory out of 5000000
+ 48118 multiletter control sequences out of 15000+600000
  703475 words of font info for 167 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,9n,79p,1852b,1907s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1253,9 +1260,9 @@ rs/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (94 pages, 677370 bytes).
+Output written on main.pdf (95 pages, 693456 bytes).
 PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
+ 429 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

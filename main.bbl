@@ -244,6 +244,46 @@
     \field{year}{2010}
   \endentry
 
+  \entry{hemraj2025ecosystem}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=HD}{%
+         family={Hemraj},
+         familyi={H\bibinitperiod},
+         given={D.},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=SK}{%
+         family={Solis},
+         familyi={S\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=PNea}{%
+         family={Petersen},
+         familyi={P\bibinitperiod},
+         given={N.\bibnamedelima et\bibnamedelima al.},
+         giveni={N\bibinitperiod\bibinitdelim e\bibinitperiod\bibinitdelim
+  a\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Cambridge University Press}%
+    }
+    \strng{namehash}{HDSKPNea1}
+    \strng{fullhash}{HDSKPNea1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{number}{2}
+    \field{pages}{892\bibrangedash 919}
+    \field{title}{Towards ecosystem-based techniques for tipping point
+  detection}
+    \field{volume}{100}
+    \field{journaltitle}{Biological Reviews}
+    \field{year}{2025}
+  \endentry
+
   \entry{hiploylee2017}{article}{}{}
     \name{author}{7}{}{%
       {{hash=HC}{%
@@ -491,6 +531,39 @@
     \field{journaltitle}{International journal on computer science and
   engineering}
     \field{year}{2011}
+  \endentry
+
+  \entry{mata2015multiple}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=MAS}{%
+         family={Mata},
+         familyi={M\bibinitperiod},
+         given={A.\bibnamedelima S.},
+         giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=FSC}{%
+         family={Ferreira},
+         familyi={F\bibinitperiod},
+         given={S.\bibnamedelima C.},
+         giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MASFSC1}
+    \strng{fullhash}{MASFSC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \verb{doi}
+    \verb 10.1103/PhysRevE.91.012816
+    \endverb
+    \field{number}{1}
+    \field{pages}{012816}
+    \field{title}{Multiple transitions of the susceptible-infected-susceptible
+  epidemic model on complex networks}
+    \field{volume}{91}
+    \field{journaltitle}{Physical Review E}
+    \field{year}{2015}
   \endentry
 
   \entry{meier2008}{article}{}{}
@@ -980,6 +1053,41 @@
     \field{year}{2023}
   \endentry
 
+  \entry{ters2020arbitrage}{report}{}{}
+    \name{author}{2}{}{%
+      {{hash=TK}{%
+         family={Ters},
+         familyi={T\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=UJ}{%
+         family={Urban},
+         familyi={U\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TKUJ1}
+    \strng{fullhash}{TKUJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{note}{Working paper version used in this dissertation}
+    \field{number}{689}
+    \field{title}{Estimating unknown arbitrage costs: evidence from a
+  three-regime threshold vector error correction model}
+    \verb{url}
+    \verb https://www.bis.org/publ/work689.htm
+    \endverb
+    \list{institution}{1}{%
+      {Bank for International Settlements}%
+    }
+    \field{type}{BIS Working Papers}
+    \field{year}{2018}
+  \endentry
+
   \entry{tibshirani1996}{article}{}{}
     \name{author}{1}{}{%
       {{hash=TR}{%
@@ -1061,6 +1169,24 @@
     \field{volume}{47}
     \field{journaltitle}{Technometrics}
     \field{year}{2005}
+  \endentry
+
+  \entry{unicef2023}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=U}{%
+         family={{UNICEF}},
+         familyi={U\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{U1}
+    \strng{fullhash}{U1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{howpublished}{\url{https://data.unicef.org/dv_index/}}
+    \field{title}{{UNICEF} {Data} {Warehouse}}
+    \field{year}{2023}
   \endentry
 
   \entry{wong2010longitudinal}{article}{}{}
