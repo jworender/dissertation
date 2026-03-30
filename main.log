@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  1 MAR 2026 15:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  29 MAR 2026 15:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -820,7 +820,14 @@ LaTeX Font Info:    Trying to load font information for T1+ptm on input line 40
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-(main.aux (Chapters/98_appendices.aux) (Chapters/99_vita.aux))
+(main.aux (Chapters/98_appendices.aux
+
+LaTeX Warning: Label `fig:curve_generation_1' multiply defined.
+
+
+LaTeX Warning: Label `fig:curve_generation_1' multiply defined.
+
+) (Chapters/99_vita.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
@@ -1042,25 +1049,25 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-<Figures/threshold_and_lag.png, id=38, 373.395pt x 256.70906pt>
-File: Figures/threshold_and_lag.png Graphic file (type png)
-<use Figures/threshold_and_lag.png>
-Package pdftex.def Info: Figures/threshold_and_lag.png  used on input line 18.
-(pdftex.def)             Requested size: 352.31625pt x 242.22704pt.
+<Figures/threshold_and_lag.pdf, id=38, 850.45892pt x 1254.08516pt>
+File: Figures/threshold_and_lag.pdf Graphic file (type pdf)
+<use Figures/threshold_and_lag.pdf>
+Package pdftex.def Info: Figures/threshold_and_lag.pdf  used on input line 18.
+(pdftex.def)             Requested size: 352.31625pt x 519.53627pt.
 
 [1
 
 
-] [2 <./Figures/threshold_and_lag.png>] [3] [4]) (Chapters/02_background.tex
-[5]
+] [2] [3] [4]) (Chapters/02_background.tex [5] [6 <./Figures/threshold_and_lag.
+pdf>]
 Overfull \hbox (13.42902pt too wide) in paragraph at lines 5--6
 []\T1/ptm/m/n/12 Sparse mod-el-ing with L1 penal-ties is a stan-dard ap-proach 
 for fea-ture se-lec-tion in high-dimensional
  []
 
-[6
+[7
 
-] [7] [8]
+] [8] [9]
 Overfull \hbox (2.47362pt too wide) in paragraph at lines 33--34
 []\T1/ptm/m/n/12 Related works will be an-a-lyzed con-tex-tu-ally with this wor
 k in greater de-tail, but a brief overview
@@ -1078,40 +1085,41 @@ Overfull \hbox (3.75694pt too wide) in paragraph at lines 43--2
 oice for this work: com-bine representation-
  []
 
-[9] [10
+[10] [11
 
-] [11]
+] [12]
 Overfull \hbox (4.04805pt too wide) in paragraph at lines 31--32
 \T1/ptm/m/n/12 miza-tion. Group lasso for lo-gis-tic re-gres-sion, block-wise s
 parse re-gres-sion, and uni-fied majorization-
  []
 
-[12] [13]
+[13] [14]
 Overfull \hbox (0.9277pt too wide) in paragraph at lines 51--52
 \T1/ptm/m/n/12 frame-works for-mal-ize bi-na-riza-tion and logic-pattern ex-tra
 c-tion, in-clud-ing optimization-based treat-
  []
 
-[14] [15] [16]) (Chapters/04_resquestions.tex [17] [18
+[15] [16] [17]) (Chapters/04_resquestions.tex [18] [19
 
-] [19] [20])
-(Chapters/05_rq1.tex [21] [22] [23
+] [20] [21])
+(Chapters/05_rq1.tex [22] [23] [24
 
 ]
-<Figures/synth_trans_vs_untrans_coeff.png, id=116, 469.755pt x 476.37975pt>
-File: Figures/synth_trans_vs_untrans_coeff.png Graphic file (type png)
-<use Figures/synth_trans_vs_untrans_coeff.png>
-Package pdftex.def Info: Figures/synth_trans_vs_untrans_coeff.png  used on inpu
-t line 44.
-(pdftex.def)             Requested size: 352.31625pt x 357.28392pt.
- [24]
-<Figures/katrutsa_strijov_coeff.png, id=120, 389.0535pt x 195.129pt>
-File: Figures/katrutsa_strijov_coeff.png Graphic file (type png)
-<use Figures/katrutsa_strijov_coeff.png>
-Package pdftex.def Info: Figures/katrutsa_strijov_coeff.png  used on input line
- 59.
-(pdftex.def)             Requested size: 352.31625pt x 176.71313pt.
- [25] [26 <./Figures/synth_trans_vs_untrans_coeff.png>]
+<Figures/Coefficient_Comparison_Raw_vs._Rectified.png, id=169, 1011.78pt x 549.
+252pt>
+File: Figures/Coefficient_Comparison_Raw_vs._Rectified.png Graphic file (type p
+ng)
+<use Figures/Coefficient_Comparison_Raw_vs._Rectified.png>
+Package pdftex.def Info: Figures/Coefficient_Comparison_Raw_vs._Rectified.png  
+used on input line 44.
+(pdftex.def)             Requested size: 422.77664pt x 229.51094pt.
+ [25]
+<Figures/katrutsa_figure.pdf, id=174, 592.08078pt x 516.98706pt>
+File: Figures/katrutsa_figure.pdf Graphic file (type pdf)
+<use Figures/katrutsa_figure.pdf>
+Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 59.
+(pdftex.def)             Requested size: 352.31625pt x 307.63872pt.
+ [26] [27 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
 Overfull \hbox (61.25377pt too wide) in paragraph at lines 74--81
  [] 
  []
@@ -1122,39 +1130,39 @@ Overfull \hbox (12.78098pt too wide) in paragraph at lines 84--85
 ls on both dis-crim-i-na-tion and attribution-
  []
 
-<Figures/hai_trans_vs_untrans_coeff.png, id=129, 469.755pt x 466.74374pt>
+<Figures/hai_trans_vs_untrans_coeff.png, id=183, 469.755pt x 466.74374pt>
 File: Figures/hai_trans_vs_untrans_coeff.png Graphic file (type png)
 <use Figures/hai_trans_vs_untrans_coeff.png>
 Package pdftex.def Info: Figures/hai_trans_vs_untrans_coeff.png  used on input 
 line 88.
 (pdftex.def)             Requested size: 352.31625pt x 350.05695pt.
-[27 <./Figures/katrutsa_strijov_coeff.png>] [28]) (Chapters/06_rq2.tex [29 <./F
-igures/hai_trans_vs_untrans_coeff.png>] [30
+[28 <./Figures/katrutsa_figure.pdf>] [29]) (Chapters/06_rq2.tex [30 <./Figures/
+hai_trans_vs_untrans_coeff.png>] [31
 
-] [31] [32] [33] [34] [35] [36]
-[37] [38] [39]) (Chapters/07_rq3.tex [40] [41
+] [32] [33] [34] [35] [36] [37] [38]
+[39] [40]) (Chapters/07_rq3.tex [41] [42
 
-] [42] [43] [44]
-<Figures/J_vs_K_curve.png, id=197, 455.7828pt x 281.3712pt>
+] [43] [44] [45]
+<Figures/J_vs_K_curve.png, id=298, 455.7828pt x 281.3712pt>
 File: Figures/J_vs_K_curve.png Graphic file (type png)
 <use Figures/J_vs_K_curve.png>
 Package pdftex.def Info: Figures/J_vs_K_curve.png  used on input line 69.
 (pdftex.def)             Requested size: 352.31625pt x 217.4937pt.
- [45 <./Figures/J_vs_K_curve.png>] [46]
+ [46 <./Figures/J_vs_K_curve.png>] [47]
 Overfull \hbox (1.71669pt too wide) in paragraph at lines 97--98
 []\T1/ptm/m/n/12 The cur-rent ev-i-dence is strongest for the dis-ser-ta-tion's
  tar-get regime: sparse, threshold-mediated
  []
 
-) (Chapters/88_futurework.tex [47] [48
+) (Chapters/88_futurework.tex [48] [49
 
-] [49] [50]
+] [50] [51]
 Overfull \hbox (4.49094pt too wide) in paragraph at lines 68--69
 []\T1/ptm/m/n/12 Threshold-placement per-tur-ba-tions to mea-sure ro-bust-ness 
 away from ide-al-ized crit-i-cal ranges. 
  []
 
-[51] [52]
+[52] [53]
 Overfull \hbox (3.09842pt too wide) in paragraph at lines 124--125
 []\T1/ptm/b/n/12 Risk: \T1/ptm/m/n/12 Correlated-feature regimes still desta-bi
 -lize sup-ports. \T1/ptm/b/n/12 Mit-i-ga-tion: \T1/ptm/m/n/12 ex-panded correla
@@ -1178,23 +1186,23 @@ sumption-
 
 LaTeX Warning: Float too large for page by 14.96992pt on input line 161.
 
-[53]) (Chapters/89_conclusion.tex [54] [55] [56
+[54]) (Chapters/89_conclusion.tex [55] [56] [57
 
-] [57] [58] [59]) [60] [61
+] [58] [59] [60]) [61] [62
 
 
 ]
-[62] [63] [64] [65]
+[63] [64] [65] [66] [67]
 \openout2 = `Chapters/98_appendices.aux'.
 
  (Chapters/98_appendices.tex
 APPENDIX A
-<Figures/toy_example.pdf, id=266, 578.16pt x 433.62pt>
+<Figures/toy_example.pdf, id=370, 578.16pt x 433.62pt>
 File: Figures/toy_example.pdf Graphic file (type pdf)
 <use Figures/toy_example.pdf>
 Package pdftex.def Info: Figures/toy_example.pdf  used on input line 10.
 (pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
-[66
+[68
 
 
  <./Figures/toy_example.pdf>]
@@ -1207,42 +1215,94 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
-[67]
+[69]
 
 LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 41.
 
-[68]
+[70]
+
+pdfTeX warning: pdflatex.exe (file ./Figures/first_irrelevant.pdf): PDF inclusi
+on: found PDF version <1.7>, but at most version <1.5> allowed
+<Figures/first_irrelevant.pdf, id=387, 963.6pt x 542.025pt>
+File: Figures/first_irrelevant.pdf Graphic file (type pdf)
+<use Figures/first_irrelevant.pdf>
+Package pdftex.def Info: Figures/first_irrelevant.pdf  used on input line 77.
+(pdftex.def)             Requested size: 352.31625pt x 198.17244pt.
+
+
+pdfTeX warning: pdflatex.exe (file ./Figures/both_relevant.pdf): PDF inclusion:
+ found PDF version <1.7>, but at most version <1.5> allowed
+<Figures/both_relevant.pdf, id=388, 963.6pt x 542.025pt>
+File: Figures/both_relevant.pdf Graphic file (type pdf)
+<use Figures/both_relevant.pdf>
+Package pdftex.def Info: Figures/both_relevant.pdf  used on input line 91.
+(pdftex.def)             Requested size: 352.31625pt x 198.17244pt.
+[71] [72 <./Figures/first_irrelevant.pdf>] [73 <./Figures/both_relevant.pdf>]
 APPENDIX B
-[69
+[74
 
 
-] [70]
+]
+<Figures/curve_generation_1.png, id=421, 715.92468pt x 139.27031pt>
+File: Figures/curve_generation_1.png Graphic file (type png)
+<use Figures/curve_generation_1.png>
+Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 126
+.
+(pdftex.def)             Requested size: 352.31625pt x 68.5363pt.
+<Figures/curve_generation_2.png, id=422, 711.4078pt x 137.7647pt>
+File: Figures/curve_generation_2.png Graphic file (type png)
+<use Figures/curve_generation_2.png>
+Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 135
+.
+(pdftex.def)             Requested size: 352.31625pt x 68.22841pt.
+ [75 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
+<Figures/curve_generation_3.png, id=426, 718.93594pt x 136.25906pt>
+File: Figures/curve_generation_3.png Graphic file (type png)
+<use Figures/curve_generation_3.png>
+Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 146
+.
+(pdftex.def)             Requested size: 352.31625pt x 66.77583pt.
+[76 <./Figures/curve_generation_3.png>]
+<Figures/curve_flatten.png, id=430, 943.27406pt x 490.08093pt>
+File: Figures/curve_flatten.png Graphic file (type png)
+<use Figures/curve_flatten.png>
+Package pdftex.def Info: Figures/curve_flatten.png  used on input line 159.
+(pdftex.def)             Requested size: 352.31625pt x 183.04704pt.
+ [77 <./Figures/curve_flatten.png>]
+APPENDIX C
+[78
+
+] [79]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 198.
- [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81]) [82]
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 300.
+ [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90]) [91]
 \openout2 = `Chapters/99_vita.aux'.
 
 
-(Chapters/99_vita.tex [83
+(Chapters/99_vita.tex) [92
 
 
 
 
-]) [84] (main.aux (Chapters/98_appendices.aux)
+] (main.aux (Chapters/98_appendices.aux)
 (Chapters/99_vita.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19590 strings out of 467871
- 356880 string characters out of 5418376
- 1013423 words of memory out of 5000000
- 48118 multiletter control sequences out of 15000+600000
+ 19640 strings out of 467871
+ 358741 string characters out of 5418376
+ 1013634 words of memory out of 5000000
+ 48168 multiletter control sequences out of 15000+600000
  703475 words of font info for 167 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,9n,79p,1852b,1907s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1260,9 +1320,9 @@ rs/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (95 pages, 693456 bytes).
+Output written on main.pdf (103 pages, 1097942 bytes).
 PDF statistics:
- 429 PDF objects out of 1000 (max. 8388607)
+ 578 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,8 +1,14 @@
 \babel@toc {english}{}\relax 
 \noindent Figure\hfill Page\par 
-\contentsline {figure}{\numberline {1.}{\ignorespaces Threshold-and-Lag.}}{2}{}%
-\contentsline {figure}{\numberline {2.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{26}{}%
-\contentsline {figure}{\numberline {3.}{\ignorespaces Katrutsa and Strijov Method Results.}}{27}{}%
-\contentsline {figure}{\numberline {4.}{\ignorespaces HAI Results.}}{29}{}%
-\contentsline {figure}{\numberline {5.}{\ignorespaces Anytime Compression (RQ3) Results.}}{45}{}%
-\contentsline {figure}{\numberline {6.}{\ignorespaces Toy Example Coefficient Vectors.}}{66}{}%
+\contentsline {figure}{\numberline {1.}{\ignorespaces Threshold-and-Lag.}}{6}{}%
+\contentsline {figure}{\numberline {2.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{27}{}%
+\contentsline {figure}{\numberline {3.}{\ignorespaces Katrutsa and Strijov Method Results.}}{28}{}%
+\contentsline {figure}{\numberline {4.}{\ignorespaces HAI Results.}}{30}{}%
+\contentsline {figure}{\numberline {5.}{\ignorespaces Anytime Compression (RQ3) Results.}}{46}{}%
+\contentsline {figure}{\numberline {6.}{\ignorespaces Toy Example Coefficient Vectors.}}{68}{}%
+\contentsline {figure}{\numberline {7.}{\ignorespaces Intuition Developement for One Relevant Curve.}}{72}{}%
+\contentsline {figure}{\numberline {8.}{\ignorespaces Intuition Developement for Two Relevant Curves.}}{73}{}%
+\contentsline {figure}{\numberline {9.}{\ignorespaces Synthetic Data Generation Step 1.}}{75}{}%
+\contentsline {figure}{\numberline {10.}{\ignorespaces Synthetic Data Generation Step 2.}}{75}{}%
+\contentsline {figure}{\numberline {11.}{\ignorespaces Synthetic Data Generation Step 4.}}{76}{}%
+\contentsline {figure}{\numberline {12.}{\ignorespaces Synthetic Data Generation Step 7, Curve Flattening.}}{77}{}%

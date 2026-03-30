@@ -772,6 +772,39 @@
     \field{year}{2022}
   \endentry
 
+  \entry{peng2013event}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=PC}{%
+         family={Peng},
+         familyi={P\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=YTC}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={T.\bibnamedelima C.},
+         giveni={T\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PCYTC1}
+    \strng{fullhash}{PCYTC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \verb{doi}
+    \verb 10.1016/j.automatica.2013.01.038
+    \endverb
+    \field{number}{5}
+    \field{pages}{1326\bibrangedash 1332}
+    \field{title}{Event-triggered communication and H-infinity control
+  co-design for networked control systems}
+    \field{volume}{49}
+    \field{journaltitle}{Automatica}
+    \field{year}{2013}
+  \endentry
+
   \entry{MRejchel2020Rank}{article}{}{}
     \name{author}{2}{}{%
       {{hash=RM}{%
