@@ -4,11 +4,12 @@
 \contentsline {figure}{\numberline {2.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{27}{}%
 \contentsline {figure}{\numberline {3.}{\ignorespaces Katrutsa and Strijov Method Results.}}{28}{}%
 \contentsline {figure}{\numberline {4.}{\ignorespaces HAI Results.}}{30}{}%
-\contentsline {figure}{\numberline {5.}{\ignorespaces Anytime Compression (RQ3) Results.}}{46}{}%
-\contentsline {figure}{\numberline {6.}{\ignorespaces Toy Example Coefficient Vectors.}}{68}{}%
-\contentsline {figure}{\numberline {7.}{\ignorespaces Intuition Developement for One Relevant Curve.}}{72}{}%
-\contentsline {figure}{\numberline {8.}{\ignorespaces Intuition Developement for Two Relevant Curves.}}{73}{}%
-\contentsline {figure}{\numberline {9.}{\ignorespaces Synthetic Data Generation Step 1.}}{75}{}%
-\contentsline {figure}{\numberline {10.}{\ignorespaces Synthetic Data Generation Step 2.}}{75}{}%
-\contentsline {figure}{\numberline {11.}{\ignorespaces Synthetic Data Generation Step 4.}}{76}{}%
-\contentsline {figure}{\numberline {12.}{\ignorespaces Synthetic Data Generation Step 7, Curve Flattening.}}{77}{}%
+\contentsline {figure}{\numberline {5.}{\ignorespaces HAI ROC.}}{31}{}%
+\contentsline {figure}{\numberline {6.}{\ignorespaces Anytime Compression (RQ3) Results.}}{47}{}%
+\contentsline {figure}{\numberline {7.}{\ignorespaces Toy Example Coefficient Vectors.}}{69}{}%
+\contentsline {figure}{\numberline {8.}{\ignorespaces Intuition Developement for One Relevant Curve.}}{73}{}%
+\contentsline {figure}{\numberline {9.}{\ignorespaces Intuition Developement for Two Relevant Curves.}}{74}{}%
+\contentsline {figure}{\numberline {10.}{\ignorespaces Synthetic Data Generation Step 1.}}{76}{}%
+\contentsline {figure}{\numberline {11.}{\ignorespaces Synthetic Data Generation Step 2.}}{76}{}%
+\contentsline {figure}{\numberline {12.}{\ignorespaces Synthetic Data Generation Step 4.}}{77}{}%
+\contentsline {figure}{\numberline {13.}{\ignorespaces Synthetic Data Generation Step 7, Curve Flattening.}}{78}{}%

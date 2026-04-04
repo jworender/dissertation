@@ -85,9 +85,16 @@ As shown in Table \ref{tab:rw_results}, HAI results favor transformed models on 
 
 \begin{figure}[tbh]
     \centering
-    \includegraphics[width=0.75\textwidth]{Figures/hai_trans_vs_untrans_coeff.png}
+    \includegraphics[width=0.75\textwidth]{Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png}
     \caption[HAI Results.]{Real-world coefficient concentration and performance: HAI turbine-loop selection vs untransformed spread.}
     \label{fig:hai_coeff}
+\end{figure}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.75\textwidth]{Figures/hai_attack_p2_sm_roc_comparison.png}
+	\caption[HAI ROC.]{The Receiver Operating Characteristic (ROC) of several HAI analyses using different methods.}
+	\label{fig:hai_roc}
 \end{figure}
 
 Cross-dataset behavior is not uniform. In the UNICEF \autocite{unicef2023} case, untransformed models can achieve stronger raw discrimination metrics while transformed models remain substantially sparser and easier to interpret. This pattern is consistent with prior reports that rectification benefits are context dependent: strongest in threshold-and-lag aligned regimes, and more mixed when data-generating structure is less compatible with the assumed critical-range mechanism \autocite{JOrender2025Efficient}.
