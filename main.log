@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  4 APR 2026 12:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  19 APR 2026 12:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -942,27 +942,27 @@ Package biblatex Info: ... file 'main.bbl' found.
 Package biblatex Info: Reference section=0 on input line 40.
 Package biblatex Info: Reference segment=0 on input line 40.
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 
  []
 
@@ -1016,7 +1016,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
 
-Overfull \hbox (15.26695pt too wide) in paragraph at lines 27--27
+Overfull \hbox (15.26695pt too wide) in paragraph at lines 29--29
  [][]  []\T1/ptm/m/n/12 CORRELATION-AWARE AND AL-TER-NA-TIVE FEA-TURE SE-LEC-TI
 ON FAM- 
  []
@@ -1058,22 +1058,16 @@ Package pdftex.def Info: Figures/threshold_and_lag.pdf  used on input line 18.
 [1
 
 
-] [2] [3] [4]) (Chapters/02_background.tex [5] [6 <./Figures/threshold_and_lag.
-pdf>]
+] [2] [3] [4] [5]) (Chapters/02_background.tex [6] [7 <./Figures/threshold_and_
+lag.pdf>]
 Overfull \hbox (13.42902pt too wide) in paragraph at lines 5--6
 []\T1/ptm/m/n/12 Sparse mod-el-ing with L1 penal-ties is a stan-dard ap-proach 
 for fea-ture se-lec-tion in high-dimensional
  []
 
-[7
+[8
 
-] [8] [9]
-Overfull \hbox (2.47362pt too wide) in paragraph at lines 33--34
-[]\T1/ptm/m/n/12 Related works will be an-a-lyzed con-tex-tu-ally with this wor
-k in greater de-tail, but a brief overview
- []
-
-
+] [9] [10]
 Overfull \hbox (15.09836pt too wide) in paragraph at lines 38--39
 []\T1/ptm/m/n/12 Wrapper and fil-ter se-lec-tion meth-ods re-main prag-matic ba
 se-lines, es-pe-cially in do-main pipelines
@@ -1085,208 +1079,185 @@ Overfull \hbox (3.75694pt too wide) in paragraph at lines 43--2
 oice for this work: com-bine representation-
  []
 
-[10] [11
+[11] [12
 
-] [12]
+] [13]
 Overfull \hbox (4.04805pt too wide) in paragraph at lines 31--32
 \T1/ptm/m/n/12 miza-tion. Group lasso for lo-gis-tic re-gres-sion, block-wise s
 parse re-gres-sion, and uni-fied majorization-
  []
 
-[13] [14]
+[14] [15]
 Overfull \hbox (0.9277pt too wide) in paragraph at lines 51--52
 \T1/ptm/m/n/12 frame-works for-mal-ize bi-na-riza-tion and logic-pattern ex-tra
 c-tion, in-clud-ing optimization-based treat-
  []
 
-[15] [16] [17]) (Chapters/04_resquestions.tex [18] [19
+[16] [17] [18]) (Chapters/04_approach.tex [19] [20
 
-] [20] [21])
-(Chapters/05_rq1.tex [22] [23] [24
-
-]
-<Figures/Coefficient_Comparison_Raw_vs._Rectified.png, id=169, 1011.78pt x 549.
-252pt>
-File: Figures/Coefficient_Comparison_Raw_vs._Rectified.png Graphic file (type p
-ng)
-<use Figures/Coefficient_Comparison_Raw_vs._Rectified.png>
-Package pdftex.def Info: Figures/Coefficient_Comparison_Raw_vs._Rectified.png  
-used on input line 44.
-(pdftex.def)             Requested size: 422.77664pt x 229.51094pt.
- [25]
-<Figures/katrutsa_figure.pdf, id=174, 592.08078pt x 516.98706pt>
-File: Figures/katrutsa_figure.pdf Graphic file (type pdf)
-<use Figures/katrutsa_figure.pdf>
-Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 59.
-(pdftex.def)             Requested size: 352.31625pt x 307.63872pt.
- [26] [27 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
-Overfull \hbox (61.25377pt too wide) in paragraph at lines 74--81
- [] 
- []
-
-
-Overfull \hbox (12.78098pt too wide) in paragraph at lines 84--85
-[]\T1/ptm/m/n/12 As shown in Ta-ble 2[], HAI re-sults fa-vor trans-formed mod-e
-ls on both dis-crim-i-na-tion and attribution-
- []
-
-<Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png
-, id=183, 840.86145pt x 638.8668pt>
-File: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficient
-s.png Graphic file (type png)
-<use Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients
-.png>
-Package pdftex.def Info: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_p
-ipeline_coefficients.png  used on input line 88.
-(pdftex.def)             Requested size: 352.31625pt x 267.67883pt.
-<Figures/hai_attack_p2_sm_roc_comparison.png, id=184, 606.70665pt x 462.16666pt
->
-File: Figures/hai_attack_p2_sm_roc_comparison.png Graphic file (type png)
-<use Figures/hai_attack_p2_sm_roc_comparison.png>
-Package pdftex.def Info: Figures/hai_attack_p2_sm_roc_comparison.png  used on i
-nput line 95.
-(pdftex.def)             Requested size: 352.31625pt x 268.38829pt.
-[28 <./Figures/katrutsa_figure.pdf>] [29]) (Chapters/06_rq2.tex [30 <./Figures/
-hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png>]
-[31 <./Figures/hai_attack_p2_sm_roc_comparison.png>] [32
-
-] [33] [34] [35]
-[36] [37] [38] [39] [40] [41]) (Chapters/07_rq3.tex [42] [43
-
-] [44] [45]
-[46]
-<Figures/J_vs_K_curve.png, id=303, 455.7828pt x 281.3712pt>
-File: Figures/J_vs_K_curve.png Graphic file (type png)
-<use Figures/J_vs_K_curve.png>
-Package pdftex.def Info: Figures/J_vs_K_curve.png  used on input line 69.
-(pdftex.def)             Requested size: 352.31625pt x 217.4937pt.
- [47 <./Figures/J_vs_K_curve.png>] [48]
-Overfull \hbox (1.71669pt too wide) in paragraph at lines 97--98
-[]\T1/ptm/m/n/12 The cur-rent ev-i-dence is strongest for the dis-ser-ta-tion's
- tar-get regime: sparse, threshold-mediated
- []
-
-) (Chapters/88_futurework.tex [49] [50
-
-] [51] [52]
-Overfull \hbox (4.49094pt too wide) in paragraph at lines 68--69
-[]\T1/ptm/m/n/12 Threshold-placement per-tur-ba-tions to mea-sure ro-bust-ness 
-away from ide-al-ized crit-i-cal ranges. 
- []
-
-[53] [54]
-Overfull \hbox (3.09842pt too wide) in paragraph at lines 124--125
-[]\T1/ptm/b/n/12 Risk: \T1/ptm/m/n/12 Correlated-feature regimes still desta-bi
--lize sup-ports. \T1/ptm/b/n/12 Mit-i-ga-tion: \T1/ptm/m/n/12 ex-panded correla
-ted-
- []
-
-
-Overfull \hbox (1.26361pt too wide) in paragraph at lines 125--126
-[]\T1/ptm/b/n/12 Risk: \T1/ptm/m/n/12 Com-pres-sion ap-pears ac-cu-rate but cha
-nges op-er-at-ing be-hav-ior. \T1/ptm/b/n/12 Mit-i-ga-tion: \T1/ptm/m/n/12 oper
-ating-
- []
-
-
-Overfull \hbox (3.95087pt too wide) in paragraph at lines 126--127
-[]\T1/ptm/b/n/12 Risk: \T1/ptm/m/n/12 Over-stated the-o-ret-i-cal gen-er-al-ity
-. \T1/ptm/b/n/12 Mit-i-ga-tion: \T1/ptm/m/n/12 ex-plicit scope lan-guage and as
-sumption-
- []
-
-
-LaTeX Warning: Float too large for page by 14.96992pt on input line 161.
-
-[55]) (Chapters/89_conclusion.tex [56] [57] [58
-
-] [59] [60] [61]) [62] [63
-
-
-]
-[64] [65] [66] [67] [68]
-\openout2 = `Chapters/98_appendices.aux'.
-
- (Chapters/98_appendices.tex
-APPENDIX A
-<Figures/toy_example.pdf, id=376, 578.16pt x 433.62pt>
+] [21] [22] [23] [24]
+[25]) (Chapters/05_rq1.tex [26]
+<Figures/toy_example.pdf, id=176, 578.16pt x 433.62pt>
 File: Figures/toy_example.pdf Graphic file (type pdf)
 <use Figures/toy_example.pdf>
-Package pdftex.def Info: Figures/toy_example.pdf  used on input line 10.
+Package pdftex.def Info: Figures/toy_example.pdf  used on input line 15.
 (pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
-[69
+ [27
 
+] [28 <./Figures/toy_example.pdf>]
 
- <./Figures/toy_example.pdf>]
-
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 21.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 26.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 28.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 28.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 23.
-[70]
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 28.
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 41.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 46.
 
-[71]
+[29] [30]
 
 pdfTeX warning: pdflatex.exe (file ./Figures/first_irrelevant.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
-<Figures/first_irrelevant.pdf, id=392, 963.6pt x 542.025pt>
+<Figures/first_irrelevant.pdf, id=198, 963.6pt x 542.025pt>
 File: Figures/first_irrelevant.pdf Graphic file (type pdf)
 <use Figures/first_irrelevant.pdf>
-Package pdftex.def Info: Figures/first_irrelevant.pdf  used on input line 77.
+Package pdftex.def Info: Figures/first_irrelevant.pdf  used on input line 82.
 (pdftex.def)             Requested size: 352.31625pt x 198.17244pt.
 
 
 pdfTeX warning: pdflatex.exe (file ./Figures/both_relevant.pdf): PDF inclusion:
  found PDF version <1.7>, but at most version <1.5> allowed
-<Figures/both_relevant.pdf, id=393, 963.6pt x 542.025pt>
+<Figures/both_relevant.pdf, id=199, 963.6pt x 542.025pt>
 File: Figures/both_relevant.pdf Graphic file (type pdf)
 <use Figures/both_relevant.pdf>
-Package pdftex.def Info: Figures/both_relevant.pdf  used on input line 91.
+Package pdftex.def Info: Figures/both_relevant.pdf  used on input line 96.
 (pdftex.def)             Requested size: 352.31625pt x 198.17244pt.
-[72] [73 <./Figures/first_irrelevant.pdf>] [74 <./Figures/both_relevant.pdf>]
-APPENDIX B
+[31] [32 <./Figures/first_irrelevant.pdf>] [33 <./Figures/both_relevant.pdf>]
+<Figures/Coefficient_Comparison_Raw_vs._Rectified.png, id=229, 1011.78pt x 549.
+252pt>
+File: Figures/Coefficient_Comparison_Raw_vs._Rectified.png Graphic file (type p
+ng)
+<use Figures/Coefficient_Comparison_Raw_vs._Rectified.png>
+Package pdftex.def Info: Figures/Coefficient_Comparison_Raw_vs._Rectified.png  
+used on input line 136.
+(pdftex.def)             Requested size: 422.77664pt x 229.51094pt.
+
+[34]
+<Figures/katrutsa_figure.pdf, id=235, 592.08078pt x 516.98706pt>
+File: Figures/katrutsa_figure.pdf Graphic file (type pdf)
+<use Figures/katrutsa_figure.pdf>
+Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 151.
+(pdftex.def)             Requested size: 352.31625pt x 307.63872pt.
+ [35]
+Overfull \hbox (2.82085pt too wide) in paragraph at lines 160--161
+[]\T1/ptm/m/n/12 Synthetic ev-i-dence is nec-es-sary but not suf-fi-cient. Real
+-world stud-ies there-fore eval-u-ate whether
+ []
+
+[36 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
+Overfull \hbox (61.25377pt too wide) in paragraph at lines 166--173
+ [] 
+ []
+
+
+Overfull \hbox (12.78098pt too wide) in paragraph at lines 176--177
+[]\T1/ptm/m/n/12 As shown in Ta-ble 2[], HAI re-sults fa-vor trans-formed mod-e
+ls on both dis-crim-i-na-tion and attribution-
+ []
+
+[37 <./Figures/katrutsa_figure.pdf>]
+<Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png
+, id=294, 840.86145pt x 638.8668pt>
+File: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficient
+s.png Graphic file (type png)
+<use Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients
+.png>
+Package pdftex.def Info: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_p
+ipeline_coefficients.png  used on input line 182.
+(pdftex.def)             Requested size: 352.31625pt x 267.67883pt.
+<Figures/hai_attack_p2_sm_roc_comparison.png, id=295, 606.70665pt x 462.16666pt
+>
+File: Figures/hai_attack_p2_sm_roc_comparison.png Graphic file (type png)
+<use Figures/hai_attack_p2_sm_roc_comparison.png>
+Package pdftex.def Info: Figures/hai_attack_p2_sm_roc_comparison.png  used on i
+nput line 189.
+(pdftex.def)             Requested size: 352.31625pt x 268.38829pt.
+<Figures/hai_attack_p2_sm_logical_J_vs_k.png, id=296, 643.203pt x 461.0826pt>
+File: Figures/hai_attack_p2_sm_logical_J_vs_k.png Graphic file (type png)
+<use Figures/hai_attack_p2_sm_logical_J_vs_k.png>
+Package pdftex.def Info: Figures/hai_attack_p2_sm_logical_J_vs_k.png  used on i
+nput line 197.
+(pdftex.def)             Requested size: 352.31625pt x 252.56198pt.
+ [38] [39 <./Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coef
+ficients.png>]) (Chapters/06_rq2.tex
+[40 <./Figures/hai_attack_p2_sm_roc_comparison.png>] [41 <./Figures/hai_attack_
+p2_sm_logical_J_vs_k.png>] [42
+
+] [43] [44] [45] [46] [47] [48] [49] [50]
+[51]) (Chapters/07_rq3.tex [52] [53
+
+] [54] [55] [56]
+<Figures/synthetic_logical_J_vs_k.png, id=366, 491.436pt x 303.534pt>
+File: Figures/synthetic_logical_J_vs_k.png Graphic file (type png)
+<use Figures/synthetic_logical_J_vs_k.png>
+Package pdftex.def Info: Figures/synthetic_logical_J_vs_k.png  used on input li
+ne 69.
+(pdftex.def)             Requested size: 352.31625pt x 217.618pt.
+ [57 <./Figures/synthetic_logical_J_vs_k.png>] [58]) (Chapters/88_futurework.te
+x [59] [60] [61
+
+] [62])
+(Chapters/89_conclusion.tex [63] [64
+
+] [65] [66] [67]) [68] [69
+
+
+] [70] [71]
+[72] [73] [74]
+\openout2 = `Chapters/98_appendices.aux'.
+
+ (Chapters/98_appendices.tex
+APPENDIX A
 [75
 
 
+
 ]
-<Figures/curve_generation_1.png, id=426, 715.92468pt x 139.27031pt>
+<Figures/curve_generation_1.png, id=428, 715.92468pt x 139.27031pt>
 File: Figures/curve_generation_1.png Graphic file (type png)
 <use Figures/curve_generation_1.png>
-Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 126
-.
+Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 33.
+
 (pdftex.def)             Requested size: 352.31625pt x 68.5363pt.
-<Figures/curve_generation_2.png, id=427, 711.4078pt x 137.7647pt>
+<Figures/curve_generation_2.png, id=429, 711.4078pt x 137.7647pt>
 File: Figures/curve_generation_2.png Graphic file (type png)
 <use Figures/curve_generation_2.png>
-Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 135
-.
+Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 42.
+
 (pdftex.def)             Requested size: 352.31625pt x 68.22841pt.
  [76 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
-<Figures/curve_generation_3.png, id=431, 718.93594pt x 136.25906pt>
+<Figures/curve_generation_3.png, id=433, 718.93594pt x 136.25906pt>
 File: Figures/curve_generation_3.png Graphic file (type png)
 <use Figures/curve_generation_3.png>
-Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 146
-.
+Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 53.
+
 (pdftex.def)             Requested size: 352.31625pt x 66.77583pt.
 [77 <./Figures/curve_generation_3.png>]
-<Figures/curve_flatten.png, id=435, 943.27406pt x 490.08093pt>
+<Figures/curve_flatten.png, id=437, 943.27406pt x 490.08093pt>
 File: Figures/curve_flatten.png Graphic file (type png)
 <use Figures/curve_flatten.png>
-Package pdftex.def Info: Figures/curve_flatten.png  used on input line 159.
+Package pdftex.def Info: Figures/curve_flatten.png  used on input line 66.
 (pdftex.def)             Requested size: 352.31625pt x 183.04704pt.
  [78 <./Figures/curve_flatten.png>]
-APPENDIX C
+APPENDIX B
 [79
 
 ] [80]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 300.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 207.
  [81] [82] [83] [84] [85] [86] [87] [88] [89] [90] [91]) [92]
 \openout2 = `Chapters/99_vita.aux'.
 
@@ -1311,13 +1282,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19648 strings out of 467871
- 359383 string characters out of 5418376
- 1013634 words of memory out of 5000000
- 48176 multiletter control sequences out of 15000+600000
+ 19655 strings out of 467871
+ 359773 string characters out of 5418376
+ 1016662 words of memory out of 5000000
+ 48183 multiletter control sequences out of 15000+600000
  703475 words of font info for 167 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,9n,79p,1852b,1907s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,9n,79p,2335b,1911s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt
 1200.pk><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmex10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1332,9 +1303,9 @@ rs/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (104 pages, 1332937 bytes).
+Output written on main.pdf (104 pages, 1472981 bytes).
 PDF statistics:
- 583 PDF objects out of 1000 (max. 8388607)
+ 591 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

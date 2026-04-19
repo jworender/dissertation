@@ -1,15 +1,16 @@
 \babel@toc {english}{}\relax 
 \noindent Figure\hfill Page\par 
-\contentsline {figure}{\numberline {1.}{\ignorespaces Threshold-and-Lag.}}{6}{}%
-\contentsline {figure}{\numberline {2.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{27}{}%
-\contentsline {figure}{\numberline {3.}{\ignorespaces Katrutsa and Strijov Method Results.}}{28}{}%
-\contentsline {figure}{\numberline {4.}{\ignorespaces HAI Results.}}{30}{}%
-\contentsline {figure}{\numberline {5.}{\ignorespaces HAI ROC.}}{31}{}%
-\contentsline {figure}{\numberline {6.}{\ignorespaces Anytime Compression (RQ3) Results.}}{47}{}%
-\contentsline {figure}{\numberline {7.}{\ignorespaces Toy Example Coefficient Vectors.}}{69}{}%
-\contentsline {figure}{\numberline {8.}{\ignorespaces Intuition Developement for One Relevant Curve.}}{73}{}%
-\contentsline {figure}{\numberline {9.}{\ignorespaces Intuition Developement for Two Relevant Curves.}}{74}{}%
-\contentsline {figure}{\numberline {10.}{\ignorespaces Synthetic Data Generation Step 1.}}{76}{}%
-\contentsline {figure}{\numberline {11.}{\ignorespaces Synthetic Data Generation Step 2.}}{76}{}%
-\contentsline {figure}{\numberline {12.}{\ignorespaces Synthetic Data Generation Step 4.}}{77}{}%
-\contentsline {figure}{\numberline {13.}{\ignorespaces Synthetic Data Generation Step 7, Curve Flattening.}}{78}{}%
+\contentsline {figure}{\numberline {1.}{\ignorespaces Threshold-and-Lag.}}{7}{}%
+\contentsline {figure}{\numberline {2.}{\ignorespaces Toy Example Coefficient Vectors.}}{28}{}%
+\contentsline {figure}{\numberline {3.}{\ignorespaces Intuition Developement for One Relevant Curve.}}{32}{}%
+\contentsline {figure}{\numberline {4.}{\ignorespaces Intuition Developement for Two Relevant Curves.}}{33}{}%
+\contentsline {figure}{\numberline {5.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{36}{}%
+\contentsline {figure}{\numberline {6.}{\ignorespaces Katrutsa and Strijov Method Results.}}{37}{}%
+\contentsline {figure}{\numberline {7.}{\ignorespaces HAI Results.}}{39}{}%
+\contentsline {figure}{\numberline {8.}{\ignorespaces HAI ROC.}}{40}{}%
+\contentsline {figure}{\numberline {9.}{\ignorespaces HAI J vs. K.}}{41}{}%
+\contentsline {figure}{\numberline {10.}{\ignorespaces Anytime Compression (RQ3) Results.}}{57}{}%
+\contentsline {figure}{\numberline {11.}{\ignorespaces Synthetic Data Generation Step 1.}}{76}{}%
+\contentsline {figure}{\numberline {12.}{\ignorespaces Synthetic Data Generation Step 2.}}{76}{}%
+\contentsline {figure}{\numberline {13.}{\ignorespaces Synthetic Data Generation Step 4.}}{77}{}%
+\contentsline {figure}{\numberline {14.}{\ignorespaces Synthetic Data Generation Step 7, Curve Flattening.}}{78}{}%

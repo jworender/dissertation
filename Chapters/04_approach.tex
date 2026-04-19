@@ -1,0 +1,87 @@
+% !TeX root = ../main.tex
+
+\chapter{Approach}
+
+This chapter describes the research approach used throughout the dissertation. The central design choice is to intervene at the representation level before sparse optimization and then to compress the resulting sparse model into an explicit rule form. The overall pipeline is therefore: (i) lag-expand longitudinal measurements, (ii) rectify each candidate feature into a critical-range indicator, (iii) fit a sparse logistic baseline on the rectified representation, and (iv) compress the active coefficients into a compact $m$-of-$K$ style rule when operational interpretability is required \autocites{orender2022,JOrender2025Efficient,JOrender2025Anytime}.
+
+The chapter serves two purposes. First, it explains the intuition behind the method family as an integrated system rather than as three disconnected tricks. Second, it shows how the theoretical case is constructed: begin with an observable empirical failure mode in lag-expanded sparse selection, propose a representation-level intervention aimed at that failure mode, and then formalize the mechanism through a tractable argument tied to the irrepresentable condition (IC).
+
+\section{Why a Representation-First Pipeline}
+
+The motivating problem is not simply that longitudinal data are high dimensional. It is that lag expansion creates many predictors that are near-duplicates, shifted copies, or correlated surrogates of one another. In that regime, sparse penalties can still yield good prediction, but support recovery and lag attribution often become unstable \autocites{PZhao2006model,freijeirogonzalez2022}. A method that only optimizes predictive fit can therefore produce models that are difficult to trust scientifically or operationally.
+
+The dissertation's approach is to alter the feature space before fitting. Rather than asking the sparse learner to disentangle raw continuous trajectories directly, the method first asks a simpler question of each feature-lag candidate: was the measurement inside or outside a range that has historically been associated with events? This turns continuous temporal signals into logical indicators that are closer to the threshold-and-lag semantics of the target problem. Sparse fitting then operates on a representation in which irrelevant amplitude variation is suppressed and the feature-selection task is more directly aligned with event logic.
+
+This decision also reflects a practical systems argument. Representation redesign and penalty redesign solve different problems. Penalty engineering changes optimization geometry in coefficient space. Rectification changes statistical geometry in feature space before optimization. The dissertation emphasizes the second option because it can be layered onto mature sparse-learning software without requiring a custom solver, while still targeting the structural dependence issue that makes raw sparse supports unreliable.
+
+\section{Method Intuition}
+
+\subsection{Threshold-and-lag intuition}
+
+The intended problem class is one in which events are triggered when one or more variables enter critical operating ranges and the observed outcome may follow after a delay. In those settings, the exact numeric amplitude of a measurement is often less important than whether it crossed into the event-associated region at the relevant lag. Rectification encodes that event logic directly.
+
+This is the core intuition behind the dissertation's methods: if the phenomenon of interest is effectively governed by threshold conditions, then a representation that marks threshold satisfaction should make the true causal structure easier to recover than a representation that preserves every continuous fluctuation. The rectified representation does not claim to preserve all information. It intentionally trades some magnitude detail for clearer logical contrast.
+
+\subsection{Toy-example intuition}
+
+The toy examples used later in the dissertation illustrate this idea in a controlled form. When raw continuous features are moderately correlated, lasso can distribute weight across irrelevant but similar variables. After binarization, the relevant features more closely match the event pattern while many irrelevant features collapse into less informative indicator sequences. In effect, the search problem shifts from ``which continuous columns best interpolate the outcome?'' to ``which threshold indicators best explain the event pattern?'' That shift is what motivates the full pipeline.
+
+\subsection{From sparse coefficients to usable decisions}
+
+Even when rectification improves support concentration, the resulting sparse model may still contain too many active coefficients for direct human use. A linear score with dozens of nonzero lag terms is better than a black box, but it is not yet an operational rule. The final stage of the approach therefore treats sparse fitting as an intermediate representation and compresses it into an explicit decision rule. This preserves the front-end efficiency of convex sparse learning while recovering a model form closer to how experts reason about triggers, audits, and deployment criteria.
+
+\section{Pipeline Structure}
+
+\subsection{Stage 1: Longitudinal expansion and critical-range rectification}
+
+Starting from longitudinal measurements, the first step is to create a lag-expanded design matrix so that each predictor corresponds to a specific variable-lag pair. For each candidate feature, the method then estimates a \emph{critical range}: a range of observed values associated with event occurrence. The raw value is converted into a binary indicator that records whether the measurement falls inside or outside that range.
+
+In the simplest analyzed setting this is equivalent to zero-threshold sign binarization after standardization, which makes the theory analytically tractable. In the practical pipeline used for experiments, the thresholds need not be zero and the active condition can correspond to one-sided or interval-like ranges learned from the data. The practical objective is the same in both cases: replace noisy continuous variation with a signal that directly encodes threshold satisfaction.
+
+\subsection{Stage 2: Sparse baseline fitting}
+
+Once the rectified design matrix is built, the dissertation fits an L1-regularized logistic regression model as the baseline sparse learner \autocites{tibshirani1996,fried2010,tay2023}. This stage answers which feature-lag indicators remain necessary once the representation has already encoded threshold logic. Nonzero coefficients then become candidate causal or operational triggers in the sense relevant to the target event.
+
+The baseline is intentionally simple. More elaborate penalties exist and are treated as important comparators, but the dissertation's claim is that a standard sparse learner becomes more reliable when the representation itself has been improved. This keeps the method modular and makes comparisons against other sparse baselines easier to interpret.
+
+\subsection{Stage 3: Anytime rule compression}
+
+The active sparse coefficients are then ordered by magnitude and compressed into progressively simpler rule candidates. Logic polishing assigns a common magnitude to retained terms, removes small residual coefficients, and evaluates nested prefixes as $m$-of-$K$ decision rules \autocite{JOrender2025Anytime}. Because each prefix yields a usable rule, the process is ``anytime'': it can stop as soon as complexity is low enough and performance is still acceptable for the deployment context.
+
+This stage is not an unrelated post-processing convenience. It is part of the dissertation's overall research approach because the project is motivated by interpretable deployment, not only by feature-selection accuracy. The sparse model creates a focused candidate set; the compression stage converts that candidate set into a form that humans can audit, challenge, and implement.
+
+\section{How the Theoretical Case Is Built}
+
+\subsection{Target of the proof}
+
+The theoretical question is not whether every possible thresholding rule improves every sparse model. The goal is narrower and more defensible: show, in a tractable regime, that binarization can make sparse support recovery more likely by reducing harmful dependence patterns. The IC provides the right lens because it directly formalizes when inactive predictors can masquerade as active ones under lasso-style selection \autocite{PZhao2006model}.
+
+\subsection{Proof strategy}
+
+The proof structure used in this dissertation follows a simple progression.
+\begin{enumerate}
+    \item Start with the observed empirical problem: lag-expanded predictors are strongly dependent, so sparse support recovery is unstable even when prediction is acceptable.
+    \item Introduce a tractable transformation: zero-threshold sign binarization under joint normal assumptions.
+    \item Use the arcsin relationship to show that pairwise correlation is contracted in the transformed representation.
+    \item Show that this contraction reduces inactive-active leakage and can improve conditioning of the active Gram block in the positive-correlation analyzed regime.
+    \item Translate those matrix effects into a higher probability of satisfying the IC, which in turn supports more reliable sparse support recovery.
+\end{enumerate}
+
+This progression matters because it mirrors how the dissertation argues its case overall. The theory does not begin from an abstract theorem in search of an application. It begins from a concrete modeling failure mode, proposes a representation-level intervention for that failure mode, and then builds a mathematical structure that explains why the intervention should help.
+
+\subsection{Scope and boundary of the proof}
+
+The theoretical structure is intentionally limited. It uses zero-threshold sign binarization, jointly normal features, and large-sample covariance reasoning because those assumptions produce a clear analytical pathway. The dissertation does not claim that this proof is the final theory for arbitrary learned critical ranges. Instead, it uses the tractable result to establish a credible mechanism and then treats extension to nonzero and interval thresholds as part of the broader research agenda \autocite{JOrender2025Efficient}.
+
+This bounded strategy is important to the dissertation's argument. It allows the work to be rigorous without overclaiming. Because the theorem's mechanism aligns with the empirical behavior observed in synthetic and real data, the case for the approach remains strong even though full generalization beyond the analyzed regime is still an open research direction.
+
+\section{How the Approach Maps to the Research Questions}
+
+The integrated pipeline naturally defines the dissertation's three-question structure.
+\begin{itemize}
+    \item \textbf{RQ1} evaluates whether the rectification-first pipeline improves sparse support concentration, lag localization, and practical usability relative to fitting on raw lag-expanded inputs.
+    \item \textbf{RQ2} evaluates whether the theoretical mechanism behind those gains is credible, especially through IC-oriented arguments about correlation contraction and reduced inactive-feature interference.
+    \item \textbf{RQ3} evaluates whether the sparse rectified model can be turned into a compact rule set without unacceptable operational loss.
+\end{itemize}
+
+Thus, the chapters that follow do not present three separate projects. They examine one pipeline from three necessary angles: empirical performance, theoretical justification, and deployment-ready interpretability.

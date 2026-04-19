@@ -25,7 +25,7 @@ The dissertation does not claim universal dominance over all baseline families. 
 
 \subsection{RQ2 conclusion: A scoped IC-based mechanism is theoretically defensible}
 
-For RQ2, this work provides a proof-of-concept theoretical argument: in a tractable regime (zero-threshold sign binarization with explicit assumptions), dependence contraction can improve the likelihood of satisfying IC-related sparse-recovery conditions \autocite{PZhao2006model,JOrender2025Efficient}. The theoretical contribution is therefore mechanistic rather than universal.
+For RQ2, this work provides a scoped theoretical result: in a tractable regime (zero-threshold sign binarization with explicit assumptions), dependence contraction can improve the likelihood of satisfying IC-related sparse-recovery conditions \autocite{PZhao2006model,JOrender2025Efficient}. The theoretical contribution is therefore mechanistic rather than universal.
 
 This distinction is central to rigor. The chapter argues for a plausible structural pathway from binarization to improved sparse-support behavior, while explicitly separating theorem-scoped claims from broader engineering intuition. The resulting conclusion is that rectification is not just a heuristic preprocessing trick; it has a coherent connection to established sparse-selection theory under defined conditions.
 
@@ -40,7 +40,7 @@ The key advance is the anytime framing itself: rule complexity can be reduced in
 The dissertation contributes the following integrated advances:
 \begin{enumerate}
 	\item \textbf{A rectification-first longitudinal feature-learning pipeline} that preserves lag structure while mapping signals into critical-range indicators with clear operational semantics \autocite{orender2022,JOrender2025Efficient}.
-	\item \textbf{A scoped theoretical bridge to sparse-recovery conditions} showing how representation-level dependence contraction can increase IC favorability in a proof-of-concept regime \autocite{PZhao2006model,JOrender2025Efficient}.
+	\item \textbf{A scoped theoretical bridge to sparse-recovery conditions} showing how representation-level dependence contraction can increase IC favorability in a tractable regime \autocite{PZhao2006model,JOrender2025Efficient}.
 	\item \textbf{An anytime rule-compression stage} that converts sparse coefficients into compact $m$-of-$k$-style logic with tunable performance-complexity tradeoffs \autocite{JOrender2025Anytime}.
 	\item \textbf{A unified evaluation perspective} that balances discrimination, attribution stability, interpretability complexity, and computational efficiency rather than optimizing a single metric.
 	\item \textbf{A reproducible implementation pathway} for rectification, sparse fitting, and compression, enabling repeatable comparisons and practical extension in follow-on work.
@@ -57,7 +57,7 @@ Accordingly, the work is best interpreted as a bridge architecture between spars
 Several limitations remain explicit:
 \begin{itemize}
 	\item Benefits are strongest in regimes with threshold-mediated event structure and may be weaker when that structure is absent.
-	\item The current theory is proof-of-concept and does not provide universal guarantees across arbitrary threshold schemes or dependence geometries.
+	\item The current theory is intentionally scoped and does not provide universal guarantees across arbitrary threshold schemes or dependence geometries.
 	\item Compression quality depends on operating-point policy, class balance, and the shape of the learned sparse support.
 	\item Interpretability gains can trade against raw discrimination in some datasets.
 \end{itemize}

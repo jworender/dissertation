@@ -26,7 +26,7 @@ A substantial body of work addresses these issues through penalty design and opt
 
 A second challenge is interpretability under high-stakes use. Post hoc explanations of complex models can be useful, but interpretable-model-first approaches are often preferable when transparency, auditability, and operational trust are mandatory \autocites{CRudin2019Stop,WJMurdoch2019Definitions}. Rule-structured models are especially relevant because they align with human review workflows and can be validated directly by domain experts \autocites{EAngelino2018Learning,EBoros1997Logical,EBoros2000implementation}. This dissertation therefore focuses on an inherently interpretable sparse pipeline rather than black-box prediction with after-the-fact explanation.
 
-The proposed approach builds from prior work in this research line: a rectification-first longitudinal feature-selection method, proof-of-concept theory linking binarized transformation to improved irrepresentable-condition (IC) behavior, and an anytime rule-compression method that converts sparse models into compact logic-like forms \autocites{orender2022,JOrender2025Efficient,JOrender2025Anytime}. The dissertation unifies these components into one framework, strengthens the supporting analysis, broadens empirical evaluation, and emphasizes reproducible implementation.
+This approach builds from prior work in this research line: a rectification-first longitudinal feature-selection method, a scoped theoretical analysis linking binarized transformation to improved irrepresentable-condition (IC) behavior, and an anytime rule-compression method that converts sparse models into compact logic-like forms \autocites{orender2022,JOrender2025Efficient,JOrender2025Anytime}. The dissertation unifies these components into one framework, strengthens the supporting analysis, broadens empirical evaluation, and emphasizes reproducible implementation.
 
 \section{Problem}
 This work addresses three tensions that arise jointly in longitudinal feature learning:
@@ -46,12 +46,34 @@ This dissertation makes four integrated contributions.
 
 \begin{enumerate}
   \item \textbf{A unified rectification-first longitudinal pipeline.} Building on prior conference work, the dissertation consolidates critical-range transformation, sparse logistic selection, and downstream rule extraction into a single end-to-end framework \autocites{orender2022,JOrender2025Efficient}.
-  \item \textbf{Theory-informed analysis of correlation and selection behavior.} The dissertation extends proof-of-concept arguments relating transformed representations to improved support-recovery conditions, situating these results against established lasso consistency theory and dependence-aware critiques \autocites{PZhao2006model,freijeirogonzalez2022,JOrender2025Efficient}.
+  \item \textbf{Theory-informed analysis of correlation and selection behavior.} The dissertation extends tractable regime arguments relating transformed representations to improved support-recovery conditions, situating these results against established lasso consistency theory and dependence-aware critiques \autocites{PZhao2006model,freijeirogonzalez2022,JOrender2025Efficient}.
   \item \textbf{Anytime compression to interpretable m-of-K style rules.} Sparse coefficient models are converted into compact rule forms that can be audited and deployed under time and complexity constraints, extending recent rule-compression results \autocites{JOrender2025Anytime,EAngelino2018Learning}.
   \item \textbf{A broad empirical protocol for longitudinal evaluation.} The dissertation compares raw and rectified representations across synthetic and real longitudinal benchmarks, including signal-rich settings such as ICS anomaly data and ionospheric radar returns, with evaluation focused on both discrimination and attribution quality \autocites{shin2020,sigillito1989}.
 \end{enumerate}
 
-\section{Thesis Organization}
-Following this introduction, the dissertation is organized as follows. The background chapter formalizes longitudinal feature-learning assumptions, sparse regularization foundations, and interpretability criteria, and then positions related methods in grouped, ordered, and dependence-aware selection \autocites{fried2010,tay2023,yang2015}. The methodology chapter presents the rectification algorithm, sparse fitting procedure, and anytime rule-compression mechanism in unified notation, including implementation details needed for reproducibility.
+\section{Research Questions}
 
-The experimental-design chapter defines datasets, preprocessing, temporal splits, baseline families, and statistical evaluation criteria. The results chapter reports predictive performance, support stability, lag-attribution behavior, and compression tradeoffs. The final chapters summarize limitations, future extensions, and deployment implications for longitudinal decision support. Proof details are discussed at a high level in the main text and provided step-by-step in the appendices.
+This dissertation is organized around three research questions that move from empirical utility to theoretical credibility and then to deployment usability:
+\begin{itemize}
+    \item \textbf{RQ1:} Can critical-range rectification produce a stable sparse baseline with reliable feature and lag attribution?
+    \item \textbf{RQ2:} Why does rectification work when it works, and how far can that mechanism be generalized beyond the current theoretical assumptions?
+    \item \textbf{RQ3:} Can the resulting sparse solution be compressed into compact logical rules without unacceptable loss in operational discrimination?
+\end{itemize}
+
+Together, these questions are intentionally sequenced. There is little value in compressing a model into rules if upstream sparse attribution is unstable, and little scientific value in empirical gains if the mechanism producing those gains is not understood. Accordingly, RQ1 tests whether representation-level rectification improves sparse longitudinal selection in practice; RQ2 explains why those improvements should occur and where the theoretical boundary lies; and RQ3 asks whether the recovered sparse structure can be converted into models that are usable in real decision workflows \autocites{PZhao2006model,freijeirogonzalez2022,CRudin2019Stop,WJMurdoch2019Definitions}.
+
+\section{Evaluation Priorities}
+
+Across all three research questions, the dissertation evaluates the proposed framework using a common set of priorities:
+\begin{itemize}
+    \item \textbf{Predictive discrimination:} metrics such as AUC and Youden's J at operational thresholds, interpreted in dataset context \autocites{JOrender2025Efficient,shin2020,sigillito1989}.
+    \item \textbf{Attribution quality and stability:} support recovery behavior, lag localization fidelity, and stability across folds or resamples.
+    \item \textbf{Interpretability complexity:} active-feature count, rule count, and rule length as direct proxies for human audit burden \autocites{WJMurdoch2019Definitions,EAngelino2018Learning}.
+    \item \textbf{Efficiency:} end-to-end training and inference time, including preprocessing and compression overhead.
+    \item \textbf{Practical non-inferiority where needed:} when compressed rules are compared against upstream sparse baselines, the evaluation uses interval-based equivalence logic to determine whether performance loss is practically small \autocite{DJSchuirmann1987comparison}.
+\end{itemize}
+
+\section{Thesis Organization}
+Following this introduction, the dissertation is organized as follows. The background chapter formalizes longitudinal feature-learning assumptions, sparse regularization foundations, and interpretability criteria, and the related-work chapter positions competing methods in grouped, ordered, dependence-aware, and rule-based selection \autocites{fried2010,tay2023,yang2015}. The approach chapter then presents the rectification-first pipeline in unified notation, explains the intuition behind its design, and describes the theoretical pathway used later to justify the central claims.
+
+The subsequent chapters address the three research questions directly: empirical evidence for rectification, theoretical analysis of the mechanism, and anytime rule compression for deployment-ready interpretability. The final chapters summarize limitations, future extensions, and deployment implications for longitudinal decision support. Proof details are discussed at a high level in the main text and provided step-by-step in the appendices.

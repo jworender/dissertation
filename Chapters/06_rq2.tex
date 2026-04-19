@@ -2,13 +2,13 @@
 
 \chapter{Theoretical Analysis (RQ2)}
 
-RQ2 asks why rectification helps and how broadly that mechanism can be generalized. This chapter provides a proof-of-concept (PoC) theoretical justification for the binarization step using the irrepresentable condition (IC) as the central lens. The analysis is intentionally scoped: it focuses on zero-threshold sign binarization under joint normal feature assumptions, where correlation behavior is analytically tractable \autocites{PZhao2006model,JOrender2025Efficient}.
+RQ2 asks why rectification helps and how broadly that mechanism can be generalized. This chapter provides a tractable theoretical justification for the binarization step using the irrepresentable condition (IC) as the central lens. The analysis is intentionally scoped: it focuses on zero-threshold sign binarization under joint normal feature assumptions, where correlation behavior is analytically tractable \autocites{PZhao2006model,JOrender2025Efficient}.
 
 The point of this chapter is not to claim a universal theorem for every thresholding scheme. Instead, it establishes a defensible mechanism: if binarization contracts dependence in the right way, the IC becomes easier to satisfy, and sparse support recovery becomes more likely. That mechanism aligns with both prior empirical evidence in this line of inquiry and broader observations that lasso-style selection can be unstable under strong dependence \autocites{freijeirogonzalez2022,JOrender2025Efficient}.
 
 \section{Why RQ2 matters after RQ1 evidence}
 
-RQ1 showed encouraging preliminary evidence that rectification improves support concentration and lag attribution in several settings. However, empirical success alone is insufficient for the central claim. Without a credible mechanism, improvements could be dismissed as dataset-specific tuning effects.
+RQ1 showed that rectification improves support concentration and lag attribution in threshold-aligned settings. However, empirical success alone is insufficient for the central claim. Without a credible mechanism, improvements could be dismissed as dataset-specific tuning effects.
 
 For sparse selection methods, this concern is especially important. Lasso is a strong predictive tool \autocite{tibshirani1996}, but model-selection consistency depends on structural conditions that may fail under multicollinearity \autocite{PZhao2006model}. In other words, high AUC does not imply reliable feature recovery. RQ2 therefore asks whether rectification improves a known structural bottleneck rather than merely shifting surface metrics.
 
@@ -29,9 +29,9 @@ A CS-oriented interpretation is useful:
 
 When this leakage margin is violated, inactive features can mimic active ones and enter the model, taking the place of true support in the model, causing feature and lag misattribution due to spurious correlation. This is a structural reason for false inclusions and support instability, consistent with dependency-focused reviews \autocite{freijeirogonzalez2022}.
 
-\section{PoC setup and assumptions}
+\section{Tractable Setup and Assumptions}
 
-To keep the analysis explicit, this chapter uses the PoC setting from prior work \autocite{JOrender2025Efficient}.
+To keep the analysis explicit, this chapter uses the tractable zero-threshold setting from prior work \autocite{JOrender2025Efficient}.
 
 \paragraph{Data and transformation.}
 Let $\mathbf{X}\in\mathbb{R}^{n\times d}$ be standardized continuous features and $\tilde{\mathbf{X}}\in\{\pm 1\}^{n\times d}$ the sign-binarized version:
@@ -47,10 +47,10 @@ For derivations, the appendix sometimes uses an equivalent $\{0,1\}$ encoding; a
     \item The support set $S$ is fixed in the local analysis.
     \item Correlation summaries are interpreted through large-sample covariance approximations.
     \item The goal is comparative: raw versus binarized IC satisfaction probability.
-    \item The zero-threshold is meaningful and retains the signal components relevant to the PoC mechanism in the target regime (e.g. modeling a threshold-based phenomena).
+    \item The zero-threshold is meaningful and retains the signal components relevant to the analyzed mechanism in the target regime (e.g. modeling a threshold-based phenomena).
 \end{itemize}
 
-Joint normality and zero-threshold meaningfulness are modeling assumptions introduced for tractable PoC analysis; they are not empirically verified prerequisites for using the full pipeline.
+Joint normality and zero-threshold meaningfulness are modeling assumptions introduced for tractable analysis; they are not empirically verified prerequisites for using the full pipeline.
 
 These assumptions are restrictive by design. They allow closed-form dependence mapping and a clean theorem statement, but they are not presented as full generality. In finite samples, especially when $d$ is large relative to $n$, population-covariance approximations may deviate from realized sample behavior, so the claims here are regime-scoped and probabilistic.
 
@@ -68,7 +68,7 @@ From an IC viewpoint, this contraction can help in two places:
     \item It can improve conditioning behavior of the active Gram block in relevant regimes.
 \end{itemize}
 
-The second point should not be read as a universal monotone guarantee for every design. It is a regime-level effect supported in the PoC analysis and tied to matrix-conditioning arguments \autocites{JOrender2025Efficient,RAHorn2012Matrix}.
+The second point should not be read as a universal monotone guarantee for every design. It is a regime-level effect supported in the analyzed setting and tied to matrix-conditioning arguments \autocites{JOrender2025Efficient,RAHorn2012Matrix}.
 
 \section{Lemma pathway (with intuition)}
 
@@ -100,7 +100,7 @@ This section summarizes the proof structure. Full derivations are moved to the a
 \subsection{Lemma 4: Easier IC satisfaction}
 \[
 \|\tilde{G}^{-1}\|_\infty \leq \|G^{-1}\|_\infty
-\quad \text{(PoC positive-correlation regime)}.
+\quad \text{(positive-correlation analyzed regime)}.
 \]
 
 \textbf{Interpretation:} The transformed active block requires no greater inverse amplification than the raw block in the target regime. Combined with Lemma 3, this yields a smaller IC interference term and therefore a higher chance of satisfying the IC margin.
@@ -111,7 +111,7 @@ Let
 \[
 \Theta(\mathbf{X}) = \left\|\mathbf{X}_{S^c}^{\top}\mathbf{X}_S(\mathbf{X}_S^{\top}\mathbf{X}_S)^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right\|_\infty,
 \]
-and define $\Theta(\tilde{\mathbf{X}})$ analogously for binarized features. In the PoC setting, the target inequality is
+and define $\Theta(\tilde{\mathbf{X}})$ analogously for binarized features. In the analyzed setting, the target inequality is
 \[
 P\big(\Theta(\mathbf{X})<1\big) \leq P\big(\Theta(\tilde{\mathbf{X}})<1\big).
 \]
@@ -131,7 +131,7 @@ where $\mathbf{c}_i$ is its covariance vector with active features and $\mathbf{
 
 In large-sample approximation, replace sample quantities by population correlation blocks. For raw and binarized designs this gives comparable expressions based on $(\boldsymbol{\rho}_{iS},\boldsymbol{\rho}_{SS})$ and $(\tilde{\boldsymbol{\rho}}_{iS},\tilde{\boldsymbol{\rho}}_{SS})$ respectively.
 
-By Lemma 1, the transformed inactive-active block contracts in norm under the PoC regime. By Lemma 2, inverse amplification from the active block is controlled. Using submultiplicative norm bounds,
+By Lemma 1, the transformed inactive-active block contracts in norm under the analyzed regime. By Lemma 2, inverse amplification from the active block is controlled. Using submultiplicative norm bounds,
 \[
 \theta_i^{\text{bin}} \lesssim \|\tilde{\boldsymbol{\rho}}_{iS}\|\,\|\tilde{\boldsymbol{\rho}}_{SS}^{-1}\|\,\|\operatorname{sign}(\boldsymbol{\beta}_S)\|,
 \]
@@ -184,28 +184,26 @@ To avoid overreach, the following non-claims are explicit:
 
 These caveats are consistent with prior reports that transformed and untransformed tradeoffs can vary by regime, with some datasets favoring raw discrimination while transformed models improve interpretability and attribution fidelity \autocites{freijeirogonzalez2022,JOrender2025Efficient}.
 
-\section{Generalization roadmap beyond the PoC theorem}
+\section{Empirical Boundary Checks Beyond the Theorem}
 
-The PoC theorem is intentionally conservative. To move from this scoped result to broader claims, the next theoretical steps are explicit:
+The closed-form theorem is intentionally conservative. The dissertation therefore supplements it with empirical boundary checks that test how the mechanism behaves when its simplifying assumptions are relaxed. The corresponding threshold-perturbation studies, correlation-pattern sweeps, and negative-correlation summaries are reported in \texttt{<<< deficiency D003 >>>}.
 \begin{enumerate}
-    \item Extend analysis from zero-threshold sign mapping to learned nonzero critical ranges.
-    \item Characterize behavior under non-Gaussian dependence (for example heavy tails, skew, and mixture distributions).
-    \item Replace purely asymptotic arguments with finite-sample concentration bounds that better match practical dataset sizes.
-    \item Clarify edge cases where correlation contraction is weak or asymmetric, especially when negative-correlation structure dominates.
+    \item Correlation-pattern sweeps track how support stability changes as the design approaches known IC failure regimes.
+    \item Threshold-placement perturbation studies measure how robust rectification remains when practical critical ranges depart from the idealized zero-threshold setting.
+    \item Negative-correlation and complement-feature cases identify where correlation contraction weakens or becomes asymmetric.
+    \item Cross-dataset comparisons separate settings where the theorem's mechanism predicts observed gains from those where the benefits are primarily interpretability-driven.
 \end{enumerate}
 
-Each item maps directly to a falsifiable question in later chapters. If a proposed extension fails, the failure still sharpens the applicability boundary of the method, which is a valid and useful RQ2 outcome. If it succeeds, the dissertation moves from proof-of-concept theory toward deployable guarantees with clearer external validity.
+\section{Empirical Implications of RQ2}
 
-\section{How RQ2 guides subsequent chapters}
-
-This chapter provides the mechanism hypothesis that later chapters test at scale:
+The theorem's implications appear in the dissertation results in three recurring patterns:
 \begin{enumerate}
-    \item If dependence contraction is the driver, transformed models should show stronger support stability under controlled dependence stress.
-    \item If IC-margin effects are real, false-positive lag selection should drop in threshold-aligned regimes.
-    \item If claims are regime-limited, failures should cluster where assumptions break (for example nonzero-threshold mismatch or adverse correlation structure).
+    \item Under controlled dependence stress, transformed models show stronger support stability than their raw counterparts \texttt{<<< deficiency D003 >>>}.
+    \item In threshold-aligned regimes, false-positive lag selection drops as inactive-feature leakage is reduced.
+    \item Failure cases cluster where threshold mismatch or adverse covariance geometry breaks the conditions that make correlation contraction most helpful.
 \end{enumerate}
 
-These predictions convert RQ2 from abstract theory into falsifiable experimental expectations.
+These empirical patterns convert RQ2 from an abstract theorem into a concrete explanation for the behavior observed in RQ1 and RQ3.
 
 \section{Practical Significance}
 
@@ -215,4 +213,4 @@ For RQ2, the core result is a principled explanation for why a simple preprocess
     \item \textbf{Engineering:} it supports a modular pipeline design where preprocessing changes correlation geometry while downstream sparse solvers remain standard and efficient.
 \end{itemize}
 
-In summary, the PoC theorem does not end the theoretical story, but it establishes a coherent bridge from binarization to IC favorability. That bridge is sufficient to motivate deeper generalization work while already explaining a large portion of observed RQ1 behavior.
+In summary, the theorem does not end the theoretical story, but it establishes a coherent bridge from binarization to IC favorability. That bridge is sufficient to support the dissertation's mechanistic claim while also identifying the boundary conditions that matter for later extensions.

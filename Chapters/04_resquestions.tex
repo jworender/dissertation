@@ -7,13 +7,13 @@ This chapter defines the core research questions that guide this work and explai
 The three research questions are:
 \begin{itemize}
     \item \textbf{RQ1:} Can critical-range rectification produce a stable sparse baseline with reliable feature and lag attribution?
-    \item \textbf{RQ2:} Why does rectification work when it works, and how far can that mechanism be generalized beyond current proof-of-concept assumptions?
+    \item \textbf{RQ2:} Why does rectification work when it works, and how far can that mechanism be generalized beyond the current theoretical assumptions?
     \item \textbf{RQ3:} Can the resulting sparse solution be compressed into compact logical rules without unacceptable loss in operational discrimination?
 \end{itemize}
 
 Together, these questions move from empirical utility (\textbf{RQ1}) to theoretical credibility (\textbf{RQ2}) to deployment usability (\textbf{RQ3}). They are intentionally sequenced so that later questions build on earlier ones: there is little value in rule compression if upstream sparse attribution is unstable, and little scientific value in observed gains if the mechanism is not understood.
 
-\section{Why RQ1 matters}
+\section{RQ1: Does Rectification Improve Sparse Longitudinal Selection?}
 
 RQ1 addresses the practical entry point of the dissertation: does representation-level rectification make sparse longitudinal selection more reliable than fitting directly on raw lag-expanded inputs? This question is important because dependence among lagged predictors is the norm in longitudinal data, and support recovery can degrade sharply in such settings even when prediction remains acceptable \autocites{PZhao2006model,freijeirogonzalez2022}.
 
@@ -21,15 +21,15 @@ Competing methods attempt to mitigate this problem through penalty design (elast
 
 This question is also important for continuity with prior publications in the dissertation line. Earlier work introduced and refined rectification-first sparse longitudinal modeling and reported promising empirical behavior across synthetic and real datasets \autocites{orender2022,JOrender2025Efficient}. This work must now determine whether those improvements are robust across broader benchmark designs, stronger baselines, and stricter attribution-oriented criteria.
 
-\section{Why RQ2 matters}
+\section{RQ2: What Is the Reason for the Improvements Rectification Brings?}
 
 RQ2 asks for mechanism, not only outcome. Even if rectification improves support stability in multiple datasets, this work has taken upon itself to explain \emph{why} that improvement occurs and under what assumptions it should be expected. This matters for scientific defensibility, external validity, and principled method extension.
 
-At a high level, the motivating hypothesis is that rectification can contract harmful dependence structure in ways that improve sparse-support conditions related to IC-style reasoning \autocites{PZhao2006model,RAHorn2012Matrix}. Prior proof-of-concept analysis in this line supports this direction under explicit assumptions, but does not yet establish universal guarantees across all threshold settings and dependence regimes \autocite{JOrender2025Efficient}. RQ2 is therefore critical: it separates durable methodological insight from dataset-specific heuristic success.
+At a high level, the motivating hypothesis is that rectification can contract harmful dependence structure in ways that improve sparse-support conditions related to IC-style reasoning \autocites{PZhao2006model,RAHorn2012Matrix}. Prior tractable analysis in this line supports this direction under explicit assumptions, but does not establish universal guarantees across all threshold settings and dependence regimes \autocite{JOrender2025Efficient}. RQ2 is therefore critical: it separates durable methodological insight from dataset-specific heuristic success.
 
-RQ2 also matters for how results will be interpreted in later chapters. If gains appear only in certain dependence geometries or event-logic structures, that boundary must be made explicit. A clear mechanism and boundary analysis prevents overclaiming and supports reproducible, domain-appropriate deployment.
+RQ2 also matters for how results are interpreted across the dissertation. If gains appear only in certain dependence geometries or event-logic structures, that boundary must be made explicit. A clear mechanism and boundary analysis prevents overclaiming and supports reproducible, domain-appropriate deployment.
 
-\section{Why RQ3 matters}
+\section{RQ3: Can Sparse Rectified Models Become Logical Rule Sets?}
 
 RQ3 addresses the final translational step: can sparse rectified models be converted into compact logical rules that humans can audit and use? In high-stakes settings, model acceptance often depends on transparency, verifiability, and ease of expert review, not only ROC-level discrimination \autocites{CRudin2019Stop,WJMurdoch2019Definitions}.
 
@@ -39,7 +39,7 @@ RQ3 is important because it determines operational usability. A model with good 
 
 \section{Cross-RQ Evaluation Priorities}
 
-Detailed experimental designs are reserved for later chapters, but the dissertation applies a common set of evaluation priorities across all three research questions:
+Detailed experimental designs are discussed elsewhere in the dissertation, but the work applies a common set of evaluation priorities across all three research questions:
 \begin{itemize}
     \item \textbf{Predictive discrimination:} metrics such as AUC and Youden's J at operational thresholds, with context-dependent interpretation across datasets \autocites{JOrender2025Efficient,shin2020,sigillito1989}.
     \item \textbf{Attribution quality and stability:} support recovery behavior, lag localization fidelity, and stability across folds or resamples.

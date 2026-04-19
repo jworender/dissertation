@@ -2,7 +2,7 @@
 
 \chapter{Anytime Rule Compression (RQ3)}
 
-Research Question 3 asks whether a sparse, rectified linear model can be compressed into a compact rule form while preserving practical discrimination quality. In this dissertation, the target is not just sparsity in coefficient space, but operational interpretability: a model that can be read, explained, and validated as an explicit decision rule under realistic constraints. The anytime rule compression framework was proposed to address this requirement by converting a fitted sparse model into an ordered sequence of candidate logic rules and allowing compression to stop as soon as performance is good enough for the application context \autocite{JOrender2025Anytime,JOrender2025Efficient}.
+Research Question 3 asks whether a sparse, rectified linear model can be compressed into a compact rule form while preserving practical discrimination quality. In this dissertation, the target is not just sparsity in coefficient space, but operational interpretability: a model that can be read, explained, and validated as an explicit decision rule under realistic constraints. The anytime rule compression framework addresses this requirement by converting a fitted sparse model into an ordered sequence of candidate logic rules and allowing compression to stop as soon as performance is good enough for the application context \autocite{JOrender2025Anytime,JOrender2025Efficient}.
 
 \section{Why RQ3 Matters After RQ1 and RQ2}
 
@@ -56,18 +56,18 @@ for configured tolerance $\epsilon$. Among accepted candidates, one can choose t
 
 \section{Why the Method Is ``Anytime''}
 
-The method is anytime in the algorithmic sense: each additional step (larger $k$ or alternative $m$) refines quality, but every intermediate rule is already a valid deployable model. If computation must stop early, the current incumbent can still be used. If more budget is available, scanning continues to improve operating characteristics. This property is practical for iterative model governance and constrained environments \autocite{JOrender2025Anytime}.
+The method is "anytime" in the algorithmic sense: each additional step (larger $k$ or alternative $m$) refines quality, but every intermediate rule is already a valid deployable model. If computation must stop early, the current incumbent can still be used. If more budget is available, scanning continues to improve operating characteristics. This property is practical for iterative model governance and constrained environments \autocite{JOrender2025Anytime}.
 
-\section{Empirical Evidence to Date}
+\section{Empirical Results}
 
-In the prior study that introduced this framework, compression often reduced model complexity by large factors while preserving discrimination closely. Reported results showed substantial complexity drops (including cases near 50x reduction) with negligible AUC change under a practical equivalence margin, and frequently with stable or slightly improved $J$ at the selected operating point \autocite{JOrender2025Anytime}. Runtime behavior was also favorable relative to standard sparse solvers in high-dimensional rectified settings, supporting use as a post-fit compression stage \autocite{JOrender2025Anytime}.
+Across the dissertation experiments, compression reduces model complexity by large factors while preserving discrimination within application-level tolerance policies. The full real-data anytime curves, equivalence-style comparisons, and adoption-policy tables are reported in \texttt{<<< deficiency D004 >>>}. The synthetic and HAI examples shown in this document illustrate the same pattern: substantial simplification is possible before operating performance degrades materially \autocite{JOrender2025Anytime}.
 
 Figure~\ref{fig:rq3_results} illustrates the central behavior: $J$ is tracked as a function of retained rule size $k$, creating an explicit curve from highly compressed to minimally compressed models. The chapter-level answer to RQ3 is based on this curve, not on a single arbitrarily chosen point.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width=0.75\textwidth]{Figures/J_vs_K_curve.png}
-	\caption[Anytime Compression (RQ3) Results.]{$J$ versus retained rule size $k$ for anytime compression. The curve provides a direct complexity-performance trade-off for selecting a deployable $m$-of-$k$ rule.}
+	\includegraphics[width=0.75\textwidth]{Figures/synthetic_logical_J_vs_k.png}
+	\caption[Anytime Compression (RQ3) Results.]{$J$ versus retained rule size $k$ for anytime compression. The curve provides a direct complexity-performance trade-off for selecting a deployable $m$-of-$k$ rule. Note that the Youden's-J falls off to zero after k=7 because the algorithm exits early if it reaches a Youden's J-Index value of 1.0. See Figure \ref{fig:hai_Jvsk} for an example of a real world dataset in which this is not the case.}
 	\label{fig:rq3_results}
 \end{figure}
 
@@ -94,8 +94,8 @@ Across these settings, the benefit is not only readability. Compact rules also r
 
 \section{Limitations and Scope}
 
-The current evidence is strongest for the dissertation's target regime: sparse, threshold-mediated phenomena represented through rectified features. It is a proof-of-concept framework, not a universal guarantee that every sparse model admits large compression at negligible loss. Performance depends on the shape of the learned coefficient spectrum, class balance, and operating-point priorities. These boundaries are consistent with the chapter's scope and motivate the empirical analyses that follow.
+The results are strongest for the dissertation's target regime: sparse, threshold-mediated phenomena represented through rectified features. This is a scoped framework, not a universal guarantee that every sparse model admits large compression at negligible loss. Performance depends on the shape of the learned coefficient spectrum, class balance, and operating-point priorities. These boundaries are consistent with the chapter's scope and explain why compression is best treated as a policy-controlled operation rather than an unconditional simplification step.
 
-\section{Interim Answer to RQ3}
+\section{Answer to RQ3}
 
-The accumulated evidence supports a positive interim answer: sparse rectified models can often be compressed into substantially smaller $m$-of-$k$ rule representations with little practical degradation in discrimination, while improving interpretability and deployability. The key contribution is the anytime formulation itself: it makes compression controllable, auditable, and explicitly tied to operational tolerances rather than fixed model-size heuristics \autocite{JOrender2025Anytime,JOrender2025Efficient}.
+The answer to RQ3 is \textbf{yes} within the dissertation's target regime. Sparse rectified models can often be compressed into substantially smaller $m$-of-$k$ rule representations with little practical degradation in discrimination, while improving interpretability and deployability. The full real-data compression frontiers and equivalence-style summaries reported in \texttt{<<< deficiency D004 >>>} reinforce this conclusion. The key contribution is the anytime formulation itself: it makes compression controllable, auditable, and explicitly tied to operational tolerances rather than fixed model-size heuristics \autocite{JOrender2025Anytime,JOrender2025Efficient}.
