@@ -1,0 +1,4 @@
+Changing the split alone is not enough: the mean delta J stays near zero when moving from the generic probe (0.006) to split-matched cutlass (0.003).
+Changing the rectifier matters: under the same 67/33 split and C=0.1, the mean delta J rises to 0.066 and is positive on 85.1% of seeds.
+The published-like protocol is robust in this approximation: mean delta J is 0.148, positive on 100.0% of seeds, and close to the paper's delta J of 0.159.
+On seed 2345 specifically, the delta J progression is -0.033 -> 0.065 -> 0.109 -> 0.210, which indicates that rectification rule and penalty strength matter more than split matching alone.

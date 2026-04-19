@@ -1,0 +1,3 @@
+Under the standardized generic protocol, rectification improves both AUC and J on: HAI attack_p2 (a1)
+Under the standardized generic protocol, rectification is mixed across metrics on: HAI attack_p1p2 (a2), HAI attack_p3 (a3)
+Under the standardized generic protocol, rectification does not dominate on: HAI attack_p1p3 (a4), Ionosphere radar

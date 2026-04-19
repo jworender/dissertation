@@ -1,0 +1,6 @@
+domain,dataset_family,sample_train,sample_test,raw_auc,rectified_auc,delta_auc,raw_j,rectified_j,delta_j,raw_tpr,rectified_tpr,raw_tnr,rectified_tnr,raw_nonzero,rectified_nonzero,raw_runtime,rectified_runtime
+HAI attack_p2 (a1),HAI,2552,1080,0.949,0.989,0.040,0.574,0.930,0.356,0.961,0.950,0.613,0.980,26,57,37.460,0.645
+HAI attack_p1p2 (a2),HAI,2438,5638,1.000,0.999,-0.001,0.874,0.989,0.115,1.000,0.991,0.874,0.998,50,47,22.122,24.262
+HAI attack_p3 (a3),HAI,1158,182,0.552,0.730,0.179,-0.066,-0.066,0.000,0.231,0.011,0.703,0.923,57,41,11.642,0.311
+HAI attack_p1p3 (a4),HAI,1236,724,0.941,0.928,-0.013,0.765,0.713,-0.052,0.843,0.856,0.923,0.856,27,51,5.428,0.480
+Ionosphere radar,Radar,245,106,0.959,0.920,-0.040,0.775,0.716,-0.059,0.985,0.926,0.789,0.789,9,10,0.008,0.009

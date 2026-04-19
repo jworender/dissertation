@@ -1,0 +1,5 @@
+protocol_label,raw_j,rect_j,delta_j,raw_tpr,rect_tpr,delta_tpr,raw_tnr,rect_tnr,delta_tnr
+Generic probe,0.640,0.608,-0.033,0.956,0.897,-0.059,0.684,0.711,0.026
+Split-matched cutlass,0.606,0.670,0.065,0.987,0.813,-0.173,0.619,0.857,0.238
+Legacy rectifier bridge,0.606,0.714,0.109,0.987,1.000,0.013,0.619,0.714,0.095
+Published-like legacy,0.695,0.905,0.210,0.933,1.000,0.067,0.762,0.905,0.143

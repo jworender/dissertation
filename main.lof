@@ -5,12 +5,16 @@
 \contentsline {figure}{\numberline {3.}{\ignorespaces Intuition Developement for One Relevant Curve.}}{32}{}%
 \contentsline {figure}{\numberline {4.}{\ignorespaces Intuition Developement for Two Relevant Curves.}}{33}{}%
 \contentsline {figure}{\numberline {5.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{36}{}%
-\contentsline {figure}{\numberline {6.}{\ignorespaces Katrutsa and Strijov Method Results.}}{37}{}%
-\contentsline {figure}{\numberline {7.}{\ignorespaces HAI Results.}}{39}{}%
-\contentsline {figure}{\numberline {8.}{\ignorespaces HAI ROC.}}{40}{}%
-\contentsline {figure}{\numberline {9.}{\ignorespaces HAI J vs. K.}}{41}{}%
-\contentsline {figure}{\numberline {10.}{\ignorespaces Anytime Compression (RQ3) Results.}}{57}{}%
-\contentsline {figure}{\numberline {11.}{\ignorespaces Synthetic Data Generation Step 1.}}{76}{}%
-\contentsline {figure}{\numberline {12.}{\ignorespaces Synthetic Data Generation Step 2.}}{76}{}%
-\contentsline {figure}{\numberline {13.}{\ignorespaces Synthetic Data Generation Step 4.}}{77}{}%
-\contentsline {figure}{\numberline {14.}{\ignorespaces Synthetic Data Generation Step 7, Curve Flattening.}}{78}{}%
+\contentsline {figure}{\numberline {6.}{\ignorespaces RQ1 ablation summary.}}{38}{}%
+\contentsline {figure}{\numberline {7.}{\ignorespaces RQ1 pairwise support stability.}}{39}{}%
+\contentsline {figure}{\numberline {8.}{\ignorespaces RQ1 selection-frequency heatmaps.}}{40}{}%
+\contentsline {figure}{\numberline {9.}{\ignorespaces RQ1 runtime scaling under lag expansion.}}{41}{}%
+\contentsline {figure}{\numberline {10.}{\ignorespaces Katrutsa and Strijov Method Results.}}{42}{}%
+\contentsline {figure}{\numberline {11.}{\ignorespaces HAI Results.}}{44}{}%
+\contentsline {figure}{\numberline {12.}{\ignorespaces HAI ROC.}}{45}{}%
+\contentsline {figure}{\numberline {13.}{\ignorespaces HAI J vs. K.}}{46}{}%
+\contentsline {figure}{\numberline {14.}{\ignorespaces Anytime Compression (RQ3) Results.}}{62}{}%
+\contentsline {figure}{\numberline {15.}{\ignorespaces Synthetic Data Generation Step 1.}}{81}{}%
+\contentsline {figure}{\numberline {16.}{\ignorespaces Synthetic Data Generation Step 2.}}{81}{}%
+\contentsline {figure}{\numberline {17.}{\ignorespaces Synthetic Data Generation Step 4.}}{82}{}%
+\contentsline {figure}{\numberline {18.}{\ignorespaces Synthetic Data Generation Step 7, Curve Flattening.}}{83}{}%

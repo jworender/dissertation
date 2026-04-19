@@ -1,12 +1,35 @@
 # Dissertation Deficiencies
 
-This file tracks places where prospectus-era language was rewritten into dissertation-final language, but the supporting material is not yet present in the manuscript. Each identifier corresponds to a placeholder of the form `<<< deficiency D00X >>>` in the LaTeX sources.
+This file tracks places where prospectus-era language was rewritten into dissertation-final language, but the supporting material is not yet present in the manuscript. Each identifier corresponds to a placeholder of the form `<<< deficiency D00X >>>` in the LaTeX sources. When a deficiency is addressed, this file also records what was added so the manuscript and supporting artifacts stay synchronized.
 
 ## D001 - RQ1 stability and ablation package
 
-- Needed: repeated-fold or bootstrap stability summaries, lag-fidelity metrics, stage-wise ablation results, and runtime scaling summaries for the rectification pipeline.
-- Affected files: `main.tex`, `Chapters/05_rq1.tex`
-- Suggested backfill: one stability table, one ablation figure/table, and a short narrative paragraph tying those results to the RQ1 claim.
+- Status: Addressed on 2026-04-19.
+- Added notebook: `notebooks/stability_ablation.ipynb`
+- Added notebook regeneration helper: `scripts/_generate_stability_ablation_notebook.py`
+- Added cached result files:
+  - `notebooks/runs_new/stability_ablation/stability_ablation_runs.csv`
+  - `notebooks/runs_new/stability_ablation/stability_ablation_summary_numeric.csv`
+  - `notebooks/runs_new/stability_ablation/stability_ablation_summary_formatted.csv`
+  - `notebooks/runs_new/stability_ablation/stability_ablation_deltas.csv`
+  - `notebooks/runs_new/stability_ablation/stability_pairwise_jaccard.csv`
+  - `notebooks/runs_new/stability_ablation/stability_pairwise_summary.csv`
+  - `notebooks/runs_new/stability_ablation/lag_scaling_runs.csv`
+  - `notebooks/runs_new/stability_ablation/selection_frequency_raw.csv`
+  - `notebooks/runs_new/stability_ablation/selection_frequency_rectified.csv`
+  - `notebooks/runs_new/stability_ablation/selection_frequency_rule.csv`
+- Added generated figures to the manuscript `Figures/` directory:
+  - `Figures/stability_ablation_summary.png`
+  - `Figures/stability_pairwise_jaccard.png`
+  - `Figures/stability_selection_frequency.png`
+  - `Figures/lag_runtime_scaling.png`
+- Updated manuscript discussion in `Chapters/05_rq1.tex`:
+  - replaced both `<<< deficiency D001 >>>` placeholders,
+  - added a repeated-resample stability and stage-wise ablation subsection,
+  - added Table `tab:d001_stability`,
+  - added Figures `fig:d001_ablation`, `fig:d001_pairwise_jaccard`, `fig:d001_selection_frequency`, and `fig:d001_runtime_scaling`,
+  - added narrative interpreting the ablation deltas, support-stability results, lag-fidelity gains, and runtime-scaling behavior.
+- Net effect on the dissertation: D001 is now backed by a concrete synthetic resampling package rather than a placeholder reference.
 
 ## D002 - RQ1 expanded baseline and cross-domain comparison package
 

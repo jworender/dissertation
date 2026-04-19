@@ -107,7 +107,7 @@ The dissertation evaluates RQ1 using three complementary evidence streams:
     \item \textbf{Real-world case studies} that test whether observed gains survive outside synthetic conditions.
 \end{itemize}
 
-The evaluation criteria are practical rather than purely theoretical: discriminatory performance (for example AUC and Youden's J), sparsity and support clarity, lag-level attribution fidelity, and end-to-end computational cost. This aligns with known limitations of penalty-only sparse methods under dependence, where prediction may remain strong while support recovery becomes unstable \autocites{PZhao2006model,freijeirogonzalez2022}. The full repeated-fold stability summaries, stage-wise ablation tables, and lag-fidelity statistics are reported in \texttt{<<< deficiency D001 >>>}. The expanded baseline and cross-domain comparison package is summarized in \texttt{<<< deficiency D002 >>>}.
+The evaluation criteria are practical rather than purely theoretical: discriminatory performance (for example AUC and Youden's J), sparsity and support clarity, lag-level attribution fidelity, and end-to-end computational cost. This aligns with known limitations of penalty-only sparse methods under dependence, where prediction may remain strong while support recovery becomes unstable \autocites{PZhao2006model,freijeirogonzalez2022}. The repeated-resample stability and stage-wise ablation package is summarized in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling}. The expanded baseline and cross-domain comparison package is summarized in \texttt{<<< deficiency D002 >>>}.
 
 \section{Synthetic evidence with known ground truth}
 
@@ -139,6 +139,59 @@ The synthetic results in Table \ref{tab:synth_results} show a consistent pattern
 \end{figure}
 
 Figure \ref{fig:synth_tvsu} provides qualitative support for the same conclusion: rectification yields nonzero coefficients that align more closely with true causal lags, while untransformed fitting produces noisier support spread. This behavior is consistent with the rectification rationale described in prior publications, where binarized critical-range mapping is expected to reduce harmful correlation effects before sparse optimization \autocites{orender2022,JOrender2025Efficient}.
+
+\subsection{Repeated-resample stability and stage-wise ablation}
+
+To test whether the synthetic gains persist beyond a single seeded draw, the dissertation adds a repeated-resample ablation on the Case 1 generator with fixed planted support and independent random seeds. Each resample is evaluated at three pipeline stages: (i) raw lag-expanded L1-logistic on the continuous design, (ii) rectified L1-logistic after training-only critical-range estimation, and (iii) a compact $m$-of-$K$ rule derived from the rectified model by coefficient-ranked prefix compression. This design separates the contribution of the representation change from the contribution of the final logic-compression step.
+
+\begin{table}[tbh]
+    \caption[RQ1 repeated-resample stability and ablation summary.]{Repeated-resample stability and ablation summary for the synthetic Case 1 study. Values are mean $\pm$ standard deviation across three independent resamples. Pairwise stability is summarized with exact-support Jaccard over all seed pairs.}
+    \label{tab:d001_stability}
+    \begin{center}
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{lcccccc}
+            Method    & AUC               & J                 & Exact-lag F1      & Pairwise Jaccard  & Total Nonzero        & Runtime (s)        \\ \hline
+            Raw       & $0.986 \pm 0.008$ & $0.882 \pm 0.027$ & $0.048 \pm 0.082$ & $0.056 \pm 0.096$ & $340.667 \pm 105.396$ & $23.142 \pm 0.815$ \\ \hline
+            Rectified & $0.998 \pm 0.002$ & $0.971 \pm 0.019$ & $0.619 \pm 0.082$ & $0.452 \pm 0.090$ & $190.000 \pm 117.796$ & $12.196 \pm 1.562$ \\ \hline
+            Rule      & $0.994 \pm 0.003$ & $0.974 \pm 0.015$ & $0.759 \pm 0.056$ & $0.600 \pm 0.346$ & $6.000 \pm 3.464$     & $12.201 \pm 1.562$ \\ \hline
+        \end{tabular}
+        }
+    \end{center}
+\end{table}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/stability_ablation_summary.png}
+    \caption[RQ1 ablation summary.]{Repeated-resample ablation summary for the synthetic Case 1 study. Rectification improves discrimination and exact-lag recovery over raw sparse fitting, while the compressed rule retains nearly the same discrimination with stronger lag fidelity.}
+    \label{fig:d001_ablation}
+\end{figure}
+
+Table \ref{tab:d001_stability} and Figure \ref{fig:d001_ablation} show that rectification changes the result qualitatively. The gain is not marginal. Relative to raw sparse fitting, the rectified model improves mean test AUC from $0.986$ to $0.998$, improves Youden's $J$ from $0.882$ to $0.971$, improves exact-lag F1 from $0.048$ to $0.619$, and reduces the average number of nonzero coefficients from $340.7$ to $190.0$. The compression stage then preserves essentially all of the discrimination gain while further increasing exact-lag F1 to $0.759$ and reducing the deployed support to an average of six terms. This is exactly the practical pattern sought in RQ1: better attribution with no meaningful loss of operational performance.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/stability_pairwise_jaccard.png}
+    \caption[RQ1 pairwise support stability.]{Pairwise exact-support and near-lag support Jaccard distributions across repeated resamples. Rectification produces a much more stable selected support than raw sparse fitting, and the compressed rule concentrates support most aggressively.}
+    \label{fig:d001_pairwise_jaccard}
+\end{figure}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/stability_selection_frequency.png}
+    \caption[RQ1 selection-frequency heatmaps.]{Selection-frequency heatmaps across repeated resamples. Red boxes mark the planted variable-lag pairs. Raw fitting diffuses support over unrelated variables and lags, whereas rectified and compressed models concentrate mass near the planted structure.}
+    \label{fig:d001_selection_frequency}
+\end{figure}
+
+The stability figures make the same point from two different angles. Figure \ref{fig:d001_pairwise_jaccard} shows that pairwise exact-support overlap rises from $0.056$ for the raw baseline to $0.452$ after rectification, while the compressed rule reaches $0.600$. Figure \ref{fig:d001_selection_frequency} shows why this matters: raw fitting spreads selection mass broadly across the lag-expanded design, whereas rectified models repeatedly return to the same planted variable-lag neighborhoods. The support recovered after compression is even more concentrated because low-weight spillover terms are removed instead of being retained for marginal predictive gain.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/lag_runtime_scaling.png}
+    \caption[RQ1 runtime scaling under lag expansion.]{Runtime scaling as the lag-expanded feature count grows. The rectification step remains inexpensive, and the rectified sparse fit remains materially faster than the raw fit across the tested lag windows.}
+    \label{fig:d001_runtime_scaling}
+\end{figure}
+
+Figure \ref{fig:d001_runtime_scaling} shows that the representation change does not impose a prohibitive computational tax. As the lag-expanded feature count grows from $440$ to $840$, the rectification step remains small ($0.015$ to $0.034$ seconds), while the rectified sparse fit remains materially faster than the raw fit ($1.19$ vs.\ $2.24$ seconds at $440$ features, and $2.30$ vs.\ $4.35$ seconds at $840$ features). This matters for RQ1 because a stable baseline must remain practical under repeated resampling, ablation, model selection, and deployment refresh cycles.
 
 \section{Comparison to competing feature-selection baselines}
 
@@ -211,4 +264,4 @@ The answer to RQ1 is \textbf{yes, conditionally}. Critical-range rectification p
     \item and materially lower runtime than certain redundancy-oriented alternatives in tested configurations.
 \end{itemize}
 
-The repeated-fold stability summaries, stage-wise ablations, and expanded cross-domain comparisons reported in \texttt{<<< deficiency D001 >>>} and \texttt{<<< deficiency D002 >>>} reinforce this conclusion. The result is not universal: gains weaken when the data-generating process departs from threshold-mediated structure, as the UNICEF case illustrates. Even so, the dissertation establishes that representation-level rectification is a practical and effective intervention point for sparse longitudinal selection in the target regime.
+The repeated-resample stability and ablation results in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling} reinforce this conclusion, while the broader cross-domain comparison package in \texttt{<<< deficiency D002 >>>} remains a separate extension point. The result is not universal: gains weaken when the data-generating process departs from threshold-mediated structure, as the UNICEF case illustrates. Even so, the dissertation establishes that representation-level rectification is a practical and effective intervention point for sparse longitudinal selection in the target regime.

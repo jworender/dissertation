@@ -1,0 +1,5 @@
+protocol,protocol_label,mean_delta_j,median_delta_j,p05_delta_j,p95_delta_j,positive_fraction,mean_delta_tpr,mean_delta_tnr,mean_raw_j,mean_rect_j,mean_raw_nonzero,mean_rect_nonzero
+generic_probe,Generic probe,0.006,0.012,-0.126,0.155,0.564,-0.069,0.075,0.645,0.651,8.198,11.703
+matched_split_cutlass,Split-matched cutlass,0.003,0.005,-0.133,0.140,0.505,-0.081,0.084,0.639,0.642,7.802,11.515
+legacy_rectifier_bridge,Legacy rectifier bridge,0.066,0.071,-0.048,0.180,0.851,0.007,0.059,0.639,0.705,7.802,6.960
+published_like_legacy,Published-like legacy,0.148,0.146,0.040,0.249,1.000,0.006,0.142,0.684,0.832,31.406,26.000

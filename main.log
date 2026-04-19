@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  19 APR 2026 12:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  19 APR 2026 16:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1146,123 +1146,152 @@ used on input line 136.
 (pdftex.def)             Requested size: 422.77664pt x 229.51094pt.
 
 [34]
-<Figures/katrutsa_figure.pdf, id=235, 592.08078pt x 516.98706pt>
+<Figures/stability_ablation_summary.png, id=235, 855.195pt x 567.5604pt>
+File: Figures/stability_ablation_summary.png Graphic file (type png)
+<use Figures/stability_ablation_summary.png>
+Package pdftex.def Info: Figures/stability_ablation_summary.png  used on input 
+line 164.
+(pdftex.def)             Requested size: 399.29463pt x 264.99539pt.
+ [35]
+<Figures/stability_pairwise_jaccard.png, id=239, 855.195pt x 312.6882pt>
+File: Figures/stability_pairwise_jaccard.png Graphic file (type png)
+<use Figures/stability_pairwise_jaccard.png>
+Package pdftex.def Info: Figures/stability_pairwise_jaccard.png  used on input 
+line 173.
+(pdftex.def)             Requested size: 352.31625pt x 128.81847pt.
+<Figures/stability_selection_frequency.png, id=240, 1161.6198pt x 586.3506pt>
+File: Figures/stability_selection_frequency.png Graphic file (type png)
+<use Figures/stability_selection_frequency.png>
+Package pdftex.def Info: Figures/stability_selection_frequency.png  used on inp
+ut line 180.
+(pdftex.def)             Requested size: 469.75502pt x 237.12175pt.
+<Figures/lag_runtime_scaling.png, id=241, 638.8668pt x 385.44pt>
+File: Figures/lag_runtime_scaling.png Graphic file (type png)
+<use Figures/lag_runtime_scaling.png>
+Package pdftex.def Info: Figures/lag_runtime_scaling.png  used on input line 18
+9.
+(pdftex.def)             Requested size: 352.31625pt x 212.56314pt.
+ [36 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
+[37]
+<Figures/katrutsa_figure.pdf, id=249, 592.08078pt x 516.98706pt>
 File: Figures/katrutsa_figure.pdf Graphic file (type pdf)
 <use Figures/katrutsa_figure.pdf>
-Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 151.
+Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 204.
 (pdftex.def)             Requested size: 352.31625pt x 307.63872pt.
- [35]
-Overfull \hbox (2.82085pt too wide) in paragraph at lines 160--161
+ [38 <./Figures/stability_ablation_summary.png>]
+Overfull \hbox (2.82085pt too wide) in paragraph at lines 213--214
 []\T1/ptm/m/n/12 Synthetic ev-i-dence is nec-es-sary but not suf-fi-cient. Real
 -world stud-ies there-fore eval-u-ate whether
  []
 
-[36 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
-Overfull \hbox (61.25377pt too wide) in paragraph at lines 166--173
+
+Overfull \hbox (61.25377pt too wide) in paragraph at lines 219--226
  [] 
  []
 
 
-Overfull \hbox (12.78098pt too wide) in paragraph at lines 176--177
-[]\T1/ptm/m/n/12 As shown in Ta-ble 2[], HAI re-sults fa-vor trans-formed mod-e
+Overfull \hbox (12.78098pt too wide) in paragraph at lines 229--230
+[]\T1/ptm/m/n/12 As shown in Ta-ble 3[], HAI re-sults fa-vor trans-formed mod-e
 ls on both dis-crim-i-na-tion and attribution-
  []
 
-[37 <./Figures/katrutsa_figure.pdf>]
+[39 <./Figures/stability_pairwise_jaccard.png>]
 <Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png
-, id=294, 840.86145pt x 638.8668pt>
+, id=259, 840.86145pt x 638.8668pt>
 File: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficient
 s.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients
 .png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_p
-ipeline_coefficients.png  used on input line 182.
+ipeline_coefficients.png  used on input line 235.
 (pdftex.def)             Requested size: 352.31625pt x 267.67883pt.
-<Figures/hai_attack_p2_sm_roc_comparison.png, id=295, 606.70665pt x 462.16666pt
+ [40 <./Figures/stability_selection_frequency.png>]
+<Figures/hai_attack_p2_sm_roc_comparison.png, id=264, 606.70665pt x 462.16666pt
 >
 File: Figures/hai_attack_p2_sm_roc_comparison.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_roc_comparison.png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_roc_comparison.png  used on i
-nput line 189.
+nput line 242.
 (pdftex.def)             Requested size: 352.31625pt x 268.38829pt.
-<Figures/hai_attack_p2_sm_logical_J_vs_k.png, id=296, 643.203pt x 461.0826pt>
+<Figures/hai_attack_p2_sm_logical_J_vs_k.png, id=265, 643.203pt x 461.0826pt>
 File: Figures/hai_attack_p2_sm_logical_J_vs_k.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_logical_J_vs_k.png  used on i
-nput line 197.
+nput line 250.
 (pdftex.def)             Requested size: 352.31625pt x 252.56198pt.
- [38] [39 <./Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coef
-ficients.png>]) (Chapters/06_rq2.tex
-[40 <./Figures/hai_attack_p2_sm_roc_comparison.png>] [41 <./Figures/hai_attack_
-p2_sm_logical_J_vs_k.png>] [42
+ [41 <./Figures/lag_runtime_scaling.png>])
+(Chapters/06_rq2.tex [42 <./Figures/katrutsa_figure.pdf>] [43] [44 <./Figures/h
+ai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png>]
+[45 <./Figures/hai_attack_p2_sm_roc_comparison.png>] [46 <./Figures/hai_attack_
+p2_sm_logical_J_vs_k.png>] [47
 
-] [43] [44] [45] [46] [47] [48] [49] [50]
-[51]) (Chapters/07_rq3.tex [52] [53
+] [48] [49] [50] [51] [52] [53] [54] [55]
+[56]) (Chapters/07_rq3.tex [57] [58
 
-] [54] [55] [56]
-<Figures/synthetic_logical_J_vs_k.png, id=366, 491.436pt x 303.534pt>
+] [59] [60] [61]
+<Figures/synthetic_logical_J_vs_k.png, id=389, 491.436pt x 303.534pt>
 File: Figures/synthetic_logical_J_vs_k.png Graphic file (type png)
 <use Figures/synthetic_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/synthetic_logical_J_vs_k.png  used on input li
 ne 69.
 (pdftex.def)             Requested size: 352.31625pt x 217.618pt.
- [57 <./Figures/synthetic_logical_J_vs_k.png>] [58]) (Chapters/88_futurework.te
-x [59] [60] [61
+ [62 <./Figures/synthetic_logical_J_vs_k.png>] [63]) (Chapters/88_futurework.te
+x [64] [65] [66
 
-] [62])
-(Chapters/89_conclusion.tex [63] [64
+] [67])
+(Chapters/89_conclusion.tex [68] [69
 
-] [65] [66] [67]) [68] [69
+] [70] [71] [72]) [73] [74
 
 
-] [70] [71]
-[72] [73] [74]
+] [75] [76]
+[77] [78] [79]
 \openout2 = `Chapters/98_appendices.aux'.
 
  (Chapters/98_appendices.tex
 APPENDIX A
-[75
+[80
 
 
 
 ]
-<Figures/curve_generation_1.png, id=428, 715.92468pt x 139.27031pt>
+<Figures/curve_generation_1.png, id=452, 715.92468pt x 139.27031pt>
 File: Figures/curve_generation_1.png Graphic file (type png)
 <use Figures/curve_generation_1.png>
 Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 33.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.5363pt.
-<Figures/curve_generation_2.png, id=429, 711.4078pt x 137.7647pt>
+<Figures/curve_generation_2.png, id=453, 711.4078pt x 137.7647pt>
 File: Figures/curve_generation_2.png Graphic file (type png)
 <use Figures/curve_generation_2.png>
 Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 42.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.22841pt.
- [76 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
-<Figures/curve_generation_3.png, id=433, 718.93594pt x 136.25906pt>
+ [81 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
+<Figures/curve_generation_3.png, id=457, 718.93594pt x 136.25906pt>
 File: Figures/curve_generation_3.png Graphic file (type png)
 <use Figures/curve_generation_3.png>
 Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 53.
 
 (pdftex.def)             Requested size: 352.31625pt x 66.77583pt.
-[77 <./Figures/curve_generation_3.png>]
-<Figures/curve_flatten.png, id=437, 943.27406pt x 490.08093pt>
+[82 <./Figures/curve_generation_3.png>]
+<Figures/curve_flatten.png, id=461, 943.27406pt x 490.08093pt>
 File: Figures/curve_flatten.png Graphic file (type png)
 <use Figures/curve_flatten.png>
 Package pdftex.def Info: Figures/curve_flatten.png  used on input line 66.
 (pdftex.def)             Requested size: 352.31625pt x 183.04704pt.
- [78 <./Figures/curve_flatten.png>]
+ [83 <./Figures/curve_flatten.png>]
 APPENDIX B
-[79
+[84
 
-] [80]
+] [85]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 207.
- [81] [82] [83] [84] [85] [86] [87] [88] [89] [90] [91]) [92]
+ [86] [87] [88] [89] [90] [91] [92] [93] [94] [95] [96]) [97]
 \openout2 = `Chapters/99_vita.aux'.
 
 
-(Chapters/99_vita.tex) [93
+(Chapters/99_vita.tex) [98
 
 
 
@@ -1282,13 +1311,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19655 strings out of 467871
- 359773 string characters out of 5418376
- 1016662 words of memory out of 5000000
- 48183 multiletter control sequences out of 15000+600000
+ 19688 strings out of 467871
+ 361123 string characters out of 5418376
+ 1016794 words of memory out of 5000000
+ 48216 multiletter control sequences out of 15000+600000
  703475 words of font info for 167 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,9n,79p,2335b,1911s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,10n,79p,2335b,1911s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt
 1200.pk><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmex10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1303,9 +1332,9 @@ rs/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (104 pages, 1472981 bytes).
+Output written on main.pdf (109 pages, 1730875 bytes).
 PDF statistics:
- 591 PDF objects out of 1000 (max. 8388607)
+ 616 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

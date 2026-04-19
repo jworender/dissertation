@@ -1,0 +1,5 @@
+view,method,method_label,tpr_test,tnr_test,j_test,auc_test,source,notes
+Published 2022 Goose Bay reference,rectified_l1,Rectified L1,0.973,0.881,0.854,n/a,orender2022 paper,"Original LLE R pipeline, 67/33 class-stratified split, rseed=2345"
+Published 2022 Goose Bay reference,raw_l1,Raw L1,0.933,0.762,0.695,n/a,orender2022 paper,"Original LLE R pipeline, 67/33 class-stratified split, rseed=2345"
+Generic transfer probe,raw_l1,Raw L1,0.985,0.789,0.775,0.959,cross_domain.ipynb standardized protocol,"70/30 stratified split, random_state=42, fixed-C cutlass sparse logistic"
+Generic transfer probe,rectified_l1,Rectified L1,0.926,0.789,0.716,0.920,cross_domain.ipynb standardized protocol,"70/30 stratified split, random_state=42, fixed-C cutlass sparse logistic"
