@@ -1,0 +1,22 @@
+{
+  "policy_grid": [
+    0.01,
+    0.02,
+    0.05
+  ],
+  "strict_policy_label": "2%",
+  "strict_policy_eps": 0.02,
+  "strict_policy_k_selection_rule": "smallest_passing",
+  "strict_policy_auc_margin": 0.02,
+  "strict_policy_j_margin": 0.02,
+  "strict_policy_bootstrap_reps": 500,
+  "strict_policy_bootstrap_seed": 42,
+  "strict_policy_deployment_requirement": "both",
+  "real_data_domains": [
+    "HAI attack_p2 (a1)",
+    "HAI attack_p1p2 (a2)",
+    "HAI attack_p3 (a3)",
+    "HAI attack_p1p3 (a4)",
+    "Ionosphere radar"
+  ]
+}

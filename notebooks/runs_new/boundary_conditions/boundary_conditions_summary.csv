@@ -1,0 +1,7 @@
+setting,status,raw_metric,rectified_metric,delta,interpretation
+Positive zero-threshold sign (rho=0.60),strong,0.7185989564022417,0.6002885030773599,-0.1183104533248817,The exact arcsin regime holds: pairwise correlations contract and the empirical IC proxy drops.
+Shifted one-sided cutoff t=0.75,strong,0.5993439871890817,0.3786288514525772,-0.2207151357365044,This is the cleanest bridge to practice because many fitted ranges collapse to a one-sided cutoff.
+"Shifted interval [0.25, 1.25]",weak,0.5993439871890817,0.1858841456783892,-0.4134598415106925,"Correlation still contracts, but the exact zero-threshold mapping is gone and range placement becomes feature-specific."
+"Tail interval [1.0, 2.0]",weak,0.5993439871890817,0.2374656959398444,-0.3618782912492372,"The range is still contractive here, but low prevalence makes the practical bridge sample-fragile."
+Negative-side IC sweep near pole (rho=-0.30),fail,3.814585367951466,0.5621246768778267,-3.2524606910736398,"The empirical proxy may still improve, but the chapter's monotone positive-correlation proof no longer applies on this side of the discontinuity."
+Negative pair with complement feature,recovered,-0.4110443858729731,0.4110443858729731,0.8220887717459462,"Complement features convert the negative pair back into a positive-correlation representation, which is the practical repair noted in Chapter 06."

@@ -1,0 +1,5 @@
+Strict 2% policy compresses on: HAI attack_p2 (a1), HAI attack_p1p2 (a2), HAI attack_p3 (a3), HAI attack_p1p3 (a4)
+Strict 2% policy effectively refuses compression on: Ionosphere radar
+Strict 2% policy clears the configured held-out gate on: HAI attack_p2 (a1), HAI attack_p1p2 (a2)
+Strict 2% policy remains mixed under the configured held-out gate on: HAI attack_p3 (a3), HAI attack_p1p3 (a4), Ionosphere radar
+The full policy grid 1%, 2%, 5% is kept in the summary table to show how quickly some domains become over-compressed.

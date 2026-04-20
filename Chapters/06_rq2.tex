@@ -186,24 +186,125 @@ These caveats are consistent with prior reports that transformed and untransform
 
 \section{Empirical Boundary Checks Beyond the Theorem}
 
-The closed-form theorem is intentionally conservative. The dissertation therefore supplements it with empirical boundary checks that test how the mechanism behaves when its simplifying assumptions are relaxed. The corresponding threshold-perturbation studies, correlation-pattern sweeps, and negative-correlation summaries are reported in \texttt{<<< deficiency D003 >>>}.
-\begin{enumerate}
-    \item Correlation-pattern sweeps track how support stability changes as the design approaches known IC failure regimes.
-    \item Threshold-placement perturbation studies measure how robust rectification remains when practical critical ranges depart from the idealized zero-threshold setting.
-    \item Negative-correlation and complement-feature cases identify where correlation contraction weakens or becomes asymmetric.
-    \item Cross-dataset comparisons separate settings where the theorem's mechanism predicts observed gains from those where the benefits are primarily interpretability-driven.
-\end{enumerate}
+The closed-form theorem is intentionally conservative. The dissertation therefore supplements it with an explicit empirical boundary-condition package that tests how much of the IC-oriented mechanism survives once its simplifying assumptions are perturbed. These studies do not claim a second theorem. Their purpose is narrower and more useful: identify where the positive-correlation proof pathway is strongly supported, where it remains directionally informative but weaker, and where the chapter should stop making theorem-level claims.
+
+\subsection{Construction of the empirical boundary package}
+
+All studies presented use controlled synthetic covariance families rather than one fixed observed dataset. That choice is deliberate. RQ2 is about mechanism, so direct control is needed over the dependence geometry that drives IC behavior. The baseline construction fixes an active support of size $s=4$ and begins with one inactive feature. The active block is equicorrelated with parameter $\rho_{\text{active}}$, and the inactive-active coupling is controlled by a multiplier $c$, which induces
+\[
+\rho_{\text{cross}} = \operatorname{sign}(\rho_{\text{active}})\, c\sqrt{\frac{1+(s-1)\rho_{\text{active}}}{s}}.
+\]
+This scaling keeps the covariance construction positive definite while making it possible to increase off-support leakage strength systematically.
+
+For each $(\rho_{\text{active}}, c)$ configuration, the comparison draws multivariate Gaussian samples, constructs both the raw design and the zero-threshold sign-binarized design, estimates their sample correlation matrices, and evaluates the empirical IC proxy
+\[
+\theta_i = \left| \mathbf{c}_i G^{-1}\mathbf{1}\right|,
+\qquad
+\Theta = \max_{i\in S^c}\theta_i,
+\]
+where $G$ is the active-block sample correlation matrix, $\mathbf{c}_i$ is the correlation vector between inactive feature $i$ and the active block, and $\mathbf{1}$ is a fixed positive sign vector used as a simplified stand-in for $\operatorname{sign}(\boldsymbol{\beta}_S)$. A pseudoinverse is used for numerical robustness near poorly conditioned settings. The baseline sweep uses $n=6000$ samples and five random seeds; the harder cross-scale maps use $n=5000$ and three seeds per grid point; the inactive-count stress test uses $n=5000$ and five seeds while increasing the inactive pool from $1$ to $10$ at fixed $s=4$ relevant (active) features; and the threshold-bridge and complement studies use $250000$ draws so that threshold-placement effects are not dominated by Monte Carlo noise.
+
+These calculations still inherit simplifying assumptions and should be read accordingly:
+\begin{itemize}
+    \item Joint normality is retained so the zero-threshold sign case remains connected to the arcsin proof pathway.
+    \item The active support is treated as known. The package studies IC geometry, not full support discovery from unknown truth.
+    \item The baseline covariance toy begins with one explicit inactive feature for interpretability, then relaxes that simplification in the inactive-count sweep.
+    \item The proxy is correlation-based and finite-sample, so it is an empirical approximation to the theorem rather than a symbolic extension of it.
+\end{itemize}
+
+\subsection{Baseline sweep across the positive and negative regimes}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/boundary_ic_sweep.png}
+    \caption[RQ2 baseline IC boundary sweep.]{Baseline empirical IC boundary sweep over the active-block correlation. Upper-left: pairwise active correlation contracts toward the arcsin prediction after sign binarization. Upper-right: the inactive-active leakage proxy $\Theta$ drops after rectification. Lower-left: the empirical safe frequency $P(\Theta<1)$ rises in the positive-correlation regime. Lower-right: the active-block inverse norm falls after rectification. The crimson vertical line marks the negative-side pole, beyond which the theorem-scoped interpretation no longer applies cleanly.}
+    \label{fig:rq2_ic_sweep}
+\end{figure}
+
+Figure \ref{fig:rq2_ic_sweep} is the first empirical check on the theorem's logic. The upper-left panel asks whether the most basic proof-of-concept signature is present: does the transformed active block follow the arcsin contraction? The answer is yes on the positive side. At $\rho_{\text{active}}=0.60$, the raw mean active correlation is $0.600$ and the rectified mean active correlation is $0.415$, which sits close to the theoretical arcsin value of $0.410$. This matters because the theorem is not merely about lower correlation in the abstract; it is about lower correlation in the specific form predicted by sign binarization under joint normality.
+
+The upper-right panel then converts that pairwise contraction into the quantity that matters for support recovery: the inactive-active leakage proxy $\Theta$. In the moderate positive regime where the baseline slice is most informative, rectification moves the system from a raw near-failure state into a safer IC region. For example, at $\rho_{\text{active}}=0.10$, mean raw $\Theta$ is $1.060$, while mean rectified $\Theta$ falls to $0.753$. The lower-left panel shows why this is more than cosmetic: the empirical safe frequency $P(\Theta<1)$ changes from $0$ to $1$ at the same point. The lower-right panel provides the active-block counterpart. At $\rho_{\text{active}}=0.60$, the inverse norm falls from $3.633$ in the raw design to $2.383$ after rectification, indicating that the transformed active block is easier to invert and less likely to amplify nuisance correlations.
+
+The negative side of Figure \ref{fig:rq2_ic_sweep} is equally important because it defines the chapter's boundary language. At $\rho_{\text{active}}=-0.30$, raw $\Theta$ is $3.815$ and rectified $\Theta$ falls to $0.562$, so the empirical proxy can still improve numerically. However, the red pole marker at $(-1/(s-1)=-1/3)$ discontinuity signals that this region is not necessarily a clean extension of the positive-correlation theorem. While an interesting effect, the main theorem focus is on the segment of the plot with $\rho$ greater than zero.
+
+One limitation of Figure \ref{fig:rq2_ic_sweep} is intentional: it uses a moderate fixed coupling level $c=0.60$. Under that particular slice, rectified $\Theta$ remains below $1$ across the sweep. That is useful as a baseline, but it is too forgiving to establish a genuine failure boundary. The next figures make the coupling strength explicit.
+
+\subsection{Cross-scale maps: where the rectified mechanism fails}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/boundary_ic_stress_heatmaps.png}
+    \caption[RQ2 harder IC boundary heatmaps.]{Harder IC boundary maps over active-block correlation and inactive-active coupling. The top row shows mean $\Theta$ and the white contour marks the operative failure boundary $\Theta=1$. The bottom row reports the empirical safe frequency $P(\Theta<1)$. The dashed horizontal line marks the baseline coupling slice used in Figure \ref{fig:rq2_ic_sweep}. Rectification pushes the failure boundary outward but does not eliminate failure.}
+    \label{fig:rq2_ic_heatmaps}
+\end{figure}
+
+Figure \ref{fig:rq2_ic_heatmaps} addresses the most important objection to the baseline sweep: perhaps the original coupling level was simply too mild. The heatmaps vary both $\rho_{\text{active}}$ and $c_{\times}$ and therefore expose the actual rectified failure boundary. The top row shows mean $\Theta$ itself. In these panels, the white contour is the operational threshold $\Theta=1$. Everything below that contour is IC-favorable in the proxy sense, and everything above it is not. The visual comparison is therefore direct: the method with the larger dark region below the white contour retains IC favorability over more of the parameter space.
+
+The raw and rectified maps differ in exactly the way the theorem suggests. At $\rho_{\text{active}}=0.00$, raw $\Theta$ first crosses $1$ at $c=0.50$, whereas rectified $\Theta$ does not cross until $c=0.80$. At $\rho_{\text{active}}=0.20$, the crossings shift from $0.65$ to $0.85$. At $\rho_{\text{active}}=0.60$, they move from $0.85$ to $0.95$. The meaning of those numbers is concrete: rectification allows a stronger inactive-active coupling before the IC proxy breaks. The lower row restates the same fact as a frequency statement rather than a contour statement. The rectified safe region is not flat at $1.0$ anymore; it shrinks as coupling grows. That is exactly the right result for a scoped mechanism claim, because it shows boundary displacement rather than universal dominance.
+
+The negative side remains useful but must be described carefully. At $\rho_{\text{active}}=-0.20$, raw $\Theta$ crosses near $c=0.45$, while rectified $\Theta$ waits until about $0.80$. This still suggests that the transformed representation can be empirically less fragile, but Figure \ref{fig:rq2_ic_heatmaps} should not be cited as extending the theorem into the negative regime. It should be cited as evidence that the empirical boundary is asymmetric and that negative-side behavior must be framed as stress-test evidence rather than theorem-level support.
+
+\subsection{Inactive-pool scaling: the maximum over inactive features matters}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/boundary_inactive_count_sweep.png}
+    \caption[RQ2 fixed-support inactive-count sweep.]{Fixed-$s=4$ sweep over the size of the inactive pool. The left panel shows how the max-based leakage proxy $\Theta$ grows as more nuisance features are added. The right panel shows the corresponding empirical safe frequency $P(\Theta<1)$. Small vertical offsets at exact $0$ and $1$ in the right panel are display-only and are used solely to separate coincident curves visually.}
+    \label{fig:rq2_inactive_count}
+\end{figure}
+
+Figure \ref{fig:rq2_inactive_count} isolates a separate effect that the one-inactive toy model cannot show by itself: $\Theta$ is a maximum over inactive features. Even if each nuisance feature is only moderately aligned with the active block, increasing the number of inactive features creates more chances for one of them to become the worst offending leakage direction. This figure therefore keeps the active support fixed at $s=4$, fixes the coupling at $c=0.80$, and varies the inactive pool, increasing from $1$ to $10$.
+
+The left panel shows the max effect directly. At $\rho_{\text{active}}=0.20$, mean raw $\Theta$ rises from $1.188$ with one inactive feature to $1.230$ with ten, while mean rectified $\Theta$ rises from $0.920$ to $0.950$. The deterioration is not enormous because the active geometry is held constant, but it is systematic: more nuisance features make the worst-case leakage direction worse. The same pattern appears at $\rho_{\text{active}}=0.00$, where raw $\Theta$ rises from $1.389$ to $1.511$ and rectified $\Theta$ rises from $0.937$ to $1.007$.
+
+The right panel is the operational view. For $\rho_{\text{active}}=0.00$, the raw design is never safe in this sweep, while the rectified design stays at $P(\Theta<1)=1.0$ through eight inactive features before dropping to $0.8$ at nine and $0.4$ at ten. For $\rho_{\text{active}}=0.60$, both raw and rectified designs remain empirically safe across the sweep, but the left panel still shows that raw $\Theta$ is consistently higher. The lesson is not just that rectification helps. The lesson is that dimensionality on the inactive side still matters even after rectification, because the IC proxy is governed by the worst nuisance competitor rather than by an average competitor.
+
+\subsection{Threshold bridge: from exact sign theory to practical critical ranges}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.92\textwidth]{Figures/boundary_threshold_bridge.png}
+    \caption[RQ2 threshold bridge from theory to practice.]{Threshold bridge from exact zero-threshold sign binarization to practical critical ranges. The left panel varies a one-sided threshold and reports the resulting indicator correlation. The right panel compares interval-based critical ranges. The zero-threshold sign case is the exact theoretical anchor; shifted one-sided rules remain directionally contractive; interval rules are weaker and more prevalence-sensitive.}
+    \label{fig:rq2_threshold_bridge}
+\end{figure}
+
+Figure \ref{fig:rq2_threshold_bridge} connects the theorem to how rectification is actually used in practice. The exact theorem lives at the zero-threshold sign case, but deployed critical ranges are often shifted and may collapse one boundary to an observed extreme, making the operational rule behave more like a one-sided threshold than like a perfectly symmetric interval. The left panel therefore asks a focused question: if the threshold moves away from zero, how much of the correlation-contraction mechanism survives?
+
+The answer is that the bridge is strongest for one-sided rules and weaker for bounded intervals. In the underlying Gaussian pair with raw correlation $0.599$, the zero-threshold sign case produces indicator correlation $0.408$. At a moderately shifted one-sided threshold of $t=0.75$, the indicator correlation is still only $0.379$, which remains well below the raw correlation and therefore preserves the same directional story. The curve peaks near the exact sign case and tapers as the threshold moves deeper into either tail because prevalence drops and the indicator becomes increasingly extreme-event specific. That is why the strongest practical generalization is not ``all thresholds behave like the theorem.'' It is ``moderately shifted one-sided thresholds preserve the theorem's direction best.''
+
+The right panel explains why interval rules should be written up more cautiously. The shifted interval $[0.25,1.25]$ yields indicator correlation $0.186$, while the tail interval $[1.0,2.0]$ yields $0.237$. Both remain below the raw Pearson correlation, so the contractive direction survives empirically, but the exact arcsin mapping is gone and prevalence becomes a major driver of the result. In other words, once the rectifier becomes a bounded interval rather than a sign rule, placement and occupancy of the interval matter almost as much as the original covariance geometry.
+
+\subsection{Negative correlation and the complement-feature repair}
+
+Negative correlation is the regime where this work most clearly distinguishes theorem scope from engineering repair. In the complement study, the original sign pair remains negatively associated at $-0.411$, which leaves it outside the chapter's positive-correlation proof path. Complementing one of the features flips the same relationship to $+0.411$. This does not extend the theorem. Instead, it re-expresses the problematic relation in a form that the rectified representation can use more naturally. That is why complement features should be described as a practical repair strategy rather than as a hidden corollary of the zero-threshold proof.
 
 \section{Empirical Implications of RQ2}
 
-The theorem's implications appear in the dissertation results in three recurring patterns:
+\begin{table}[tbh]
+    \caption[RQ2 empirical boundary-condition summary.]{Summary of the empirical boundary package. ``Strong'' means the theorem's direction is well supported empirically; ``weak'' means the direction survives but the exact theorem does not; ``fail'' means that making theorem-level claims is not supported; ``recovered'' means a practical representation repair is available.}
+    \label{tab:rq2_boundary_summary}
+    \begin{center}
+        \small
+        \begin{tabular}{p{0.38\textwidth}p{0.11\textwidth}p{0.37\textwidth}}
+            Setting & Status & Key empirical evidence \\ \hline
+            Positive zero-threshold sign case ($\rho=0.60$) & strong & $\Theta: 0.719 \rightarrow 0.600$; active correlation: $0.600 \rightarrow 0.415$. \\ \hline
+            Shifted one-sided cutoff ($t=0.75$) & strong & Indicator correlation: $0.599 \rightarrow 0.379$. \\ \hline
+            Shifted interval $[0.25,1.25]$ & weak & Indicator correlation: $0.599 \rightarrow 0.186$. \\ \hline
+            Tail interval $[1.0,2.0]$ & weak & Indicator correlation: $0.599 \rightarrow 0.237$. \\ \hline
+            Negative-side IC sweep near the pole ($\rho=-0.30$) & fail & $\Theta: 3.815 \rightarrow 0.562$; empirical only, not theorem-scoped. \\ \hline
+            Negative pair with complement feature & recovered & Sign correlation: $-0.411 \rightarrow +0.411$. \\ \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+The theorem's implications are now presented as a structured empirically supported story rather than merely as a placeholder proof-of-concept claim.
 \begin{enumerate}
-    \item Under controlled dependence stress, transformed models show stronger support stability than their raw counterparts \texttt{<<< deficiency D003 >>>}.
-    \item In threshold-aligned regimes, false-positive lag selection drops as inactive-feature leakage is reduced.
-    \item Failure cases cluster where threshold mismatch or adverse covariance geometry breaks the conditions that make correlation contraction most helpful.
+    \item Within the theorem-scoped positive-correlation regime, the data show the same mechanism at each level of resolution: pairwise dependence contracts, inactive-active leakage drops, the active block is easier to invert, and the empirical safe frequency $P(\Theta<1)$ rises (Figures \ref{fig:rq2_ic_sweep} and \ref{fig:rq2_ic_heatmaps}).
+    \item Once off-support coupling or inactive-pool size grows, rectification remains helpful but does not guarantee safety. The failure boundary moves outward, but rectification may not remove failure altogether (Figures \ref{fig:rq2_ic_heatmaps} and \ref{fig:rq2_inactive_count}).
+    \item Once the threshold rule departs from the exact sign case, one-sided rules remain the strongest empirical bridge, interval rules become weaker and more prevalence-sensitive, and negative-correlation settings require either explicit out-of-scope language or a complement-feature repair (Figure \ref{fig:rq2_threshold_bridge} and Table \ref{tab:rq2_boundary_summary}).
 \end{enumerate}
 
-These empirical patterns convert RQ2 from an abstract theorem into a concrete explanation for the behavior observed in RQ1 and RQ3.
+These empirical patterns convert RQ2 from an abstract theorem into a concrete explanation for the behavior observed in RQ1 and RQ3. RQ1 reported better support concentration, lower false-positive lag selection, and more stable sparse attribution in threshold-aligned settings. The empirical studies explain why those gains should be expected in the favorable regime and, equally importantly, where they should not be overgeneralized.
 
 \section{Practical Significance}
 
@@ -213,4 +314,4 @@ For RQ2, the core result is a principled explanation for why a simple preprocess
     \item \textbf{Engineering:} it supports a modular pipeline design where preprocessing changes correlation geometry while downstream sparse solvers remain standard and efficient.
 \end{itemize}
 
-In summary, the theorem does not end the theoretical story, but it establishes a coherent bridge from binarization to IC favorability. That bridge is sufficient to support the dissertation's mechanistic claim while also identifying the boundary conditions that matter for later extensions.
+In summary, the theorem does not end the theoretical story, but it establishes a coherent bridge from binarization to IC favorability. That bridge is sufficient to support the mechanistic claim while also identifying the boundary conditions that matter for later extensions.

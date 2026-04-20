@@ -1,0 +1,6 @@
+In the positive zero-threshold regime, sign binarization reproduces the expected arcsin contraction and lowers the empirical IC leakage proxy.
+Harder cross-scale sweeps show that rectification does not eliminate failure; it pushes the Theta=1 boundary outward so stronger inactive-active coupling is required before the proxy breaks.
+With support fixed at s=4, enlarging the inactive pool from 1 to 10 raises the max-based IC proxy because more nuisance features create more chances for a worst-case leakage direction.
+Moderate one-sided nonzero thresholds preserve the same directional contraction, making them the clearest empirical bridge from the theorem to practical critical-range rules.
+Shifted and tail intervals remain directionally useful but weaker because the exact mapping disappears and low-prevalence ranges become sample-sensitive.
+Negative-correlation settings should be described as out of scope for the clean theorem; complement features are the practical repair when those relations matter.

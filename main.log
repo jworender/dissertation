@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  20 APR 2026 08:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  20 APR 2026 18:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1035,14 +1035,14 @@ ON FAM-
  [10
 
 
-] (main.lof)
+] (main.lof [11
+
+
+])
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
- [11
-
-
-] [12] (Chapters/01_introduction.tex
+ [12] (Chapters/01_introduction.tex
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
 .
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
@@ -1257,79 +1257,116 @@ ionosphere_protocol_comparison.png>]) (Chapters/06_rq2.tex [50 <./Figures/goose
 _bay_delta_j_protocols.png>] [51 <./Figures/goose_bay_quantile_sweep.png>] [52 
 <./Figures/goose_bay_c_sweep_scatter.png>] [53
 
-] [54] [55] [56] [57] [58] [59] [60] [61] [62])
-(Chapters/07_rq3.tex [63] [64
+] [54] [55] [56] [57] [58] [59] [60] [61] [62]
+<Figures/boundary_ic_sweep.png, id=404, 855.6768pt x 590.6868pt>
+File: Figures/boundary_ic_sweep.png Graphic file (type png)
+<use Figures/boundary_ic_sweep.png>
+Package pdftex.def Info: Figures/boundary_ic_sweep.png  used on input line 219.
 
-] [65] [66] [67]
-<Figures/synthetic_logical_J_vs_k.png, id=422, 491.436pt x 303.534pt>
+(pdftex.def)             Requested size: 469.75502pt x 324.28387pt.
+ [63]
+<Figures/boundary_ic_stress_heatmaps.png, id=408, 873.5034pt x 600.8046pt>
+File: Figures/boundary_ic_stress_heatmaps.png Graphic file (type png)
+<use Figures/boundary_ic_stress_heatmaps.png>
+Package pdftex.def Info: Figures/boundary_ic_stress_heatmaps.png  used on input
+ line 236.
+(pdftex.def)             Requested size: 469.75502pt x 323.10036pt.
+ [64]
+<Figures/boundary_inactive_count_sweep.png, id=412, 855.195pt x 354.6048pt>
+File: Figures/boundary_inactive_count_sweep.png Graphic file (type png)
+<use Figures/boundary_inactive_count_sweep.png>
+Package pdftex.def Info: Figures/boundary_inactive_count_sweep.png  used on inp
+ut line 251.
+(pdftex.def)             Requested size: 469.75502pt x 194.77892pt.
+
+[65]
+<Figures/boundary_threshold_bridge.png, id=416, 855.6768pt x 334.851pt>
+File: Figures/boundary_threshold_bridge.png Graphic file (type png)
+<use Figures/boundary_threshold_bridge.png>
+Package pdftex.def Info: Figures/boundary_threshold_bridge.png  used on input l
+ine 266.
+(pdftex.def)             Requested size: 432.17375pt x 169.1214pt.
+ [66]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 288.
+ [67] [68]) (Chapters/07_rq3.tex [69] [70 <./Figures/boundary_ic_sweep.png>] [7
+1 <./Figures/boundary_ic_stress_heatmaps.png>] [72 <./Figures/boundary_inactive
+_count_sweep.png>] [73 <./Figures/boundary_threshold_bridge.png>]
+[74
+
+] [75] [76]
+<Figures/rq3_real_data_frontiers.png, id=457, 1144.6765pt x 639.5895pt>
+File: Figures/rq3_real_data_frontiers.png Graphic file (type png)
+<use Figures/rq3_real_data_frontiers.png>
+Package pdftex.def Info: Figures/rq3_real_data_frontiers.png  used on input lin
+e 67.
+(pdftex.def)             Requested size: 469.75502pt x 262.47737pt.
+ [77] [78 <./Figures/rq3_real_data_frontiers.png>] [79]
+<Figures/synthetic_logical_J_vs_k.png, id=469, 491.436pt x 303.534pt>
 File: Figures/synthetic_logical_J_vs_k.png Graphic file (type png)
 <use Figures/synthetic_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/synthetic_logical_J_vs_k.png  used on input li
-ne 69.
+ne 99.
 (pdftex.def)             Requested size: 352.31625pt x 217.618pt.
- [68 <./Figures/synthetic_logical_J_vs_k.png>] [69]) (Chapters/88_futurework.te
-x [70] [71] [72
+ [80]
+[81 <./Figures/synthetic_logical_J_vs_k.png>] [82]) (Chapters/88_futurework.tex
+[83] [84
 
-] [73])
-(Chapters/89_conclusion.tex [74] [75
+] [85]) (Chapters/89_conclusion.tex [86] [87
 
-] [76] [77] [78]) [79] [80
+] [88] [89] [90]) [91]
+[92
 
 
-] [81] [82]
-[83] [84] [85]
+] [93] [94] [95] [96] [97]
 \openout2 = `Chapters/98_appendices.aux'.
 
  (Chapters/98_appendices.tex
 APPENDIX A
-[86
+[98
 
 
 
 ]
-<Figures/curve_generation_1.png, id=484, 715.92468pt x 139.27031pt>
+<Figures/curve_generation_1.png, id=532, 715.92468pt x 139.27031pt>
 File: Figures/curve_generation_1.png Graphic file (type png)
 <use Figures/curve_generation_1.png>
 Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 33.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.5363pt.
-<Figures/curve_generation_2.png, id=485, 711.4078pt x 137.7647pt>
+<Figures/curve_generation_2.png, id=533, 711.4078pt x 137.7647pt>
 File: Figures/curve_generation_2.png Graphic file (type png)
 <use Figures/curve_generation_2.png>
 Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 42.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.22841pt.
- [87 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
-<Figures/curve_generation_3.png, id=489, 718.93594pt x 136.25906pt>
+ [99 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
+<Figures/curve_generation_3.png, id=537, 718.93594pt x 136.25906pt>
 File: Figures/curve_generation_3.png Graphic file (type png)
 <use Figures/curve_generation_3.png>
 Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 53.
 
 (pdftex.def)             Requested size: 352.31625pt x 66.77583pt.
-[88 <./Figures/curve_generation_3.png>]
-<Figures/curve_flatten.png, id=493, 943.27406pt x 490.08093pt>
+[100 <./Figures/curve_generation_3.png>]
+<Figures/curve_flatten.png, id=541, 943.27406pt x 490.08093pt>
 File: Figures/curve_flatten.png Graphic file (type png)
 <use Figures/curve_flatten.png>
 Package pdftex.def Info: Figures/curve_flatten.png  used on input line 66.
 (pdftex.def)             Requested size: 352.31625pt x 183.04704pt.
- [89 <./Figures/curve_flatten.png>]
+ [101 <./Figures/curve_flatten.png>]
 APPENDIX B
-[90
+[102
 
-] [91]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 207.
- [92] [93] [94] [95] [96] [97] [98] [99] [100] [101] [102]) [103]
+] [103] [104] [105] [106] [107] [108] [109] [110] [111] [112] [113]
+[114]) [115]
 \openout2 = `Chapters/99_vita.aux'.
 
-
-(Chapters/99_vita.tex) [104
-
+ (Chapters/99_vita.tex) [116
 
 
 
-] (main.aux (Chapters/98_appendices.aux)
-(Chapters/99_vita.aux))
+
+] (main.aux (Chapters/98_appendices.aux) (Chapters/99_vita.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -1343,13 +1380,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19729 strings out of 467871
- 362977 string characters out of 5418376
- 1016955 words of memory out of 5000000
- 48257 multiletter control sequences out of 15000+600000
+ 19771 strings out of 467871
+ 364646 string characters out of 5418376
+ 1017140 words of memory out of 5000000
+ 48299 multiletter control sequences out of 15000+600000
  703475 words of font info for 167 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,10n,79p,2335b,1911s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,11n,79p,2335b,1956s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt
 1200.pk><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmex10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1364,9 +1401,9 @@ rs/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/User
 s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (116 pages, 2415487 bytes).
+Output written on main.pdf (128 pages, 3286017 bytes).
 PDF statistics:
- 648 PDF objects out of 1000 (max. 8388607)
+ 690 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 116 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

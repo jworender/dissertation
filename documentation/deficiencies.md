@@ -77,12 +77,57 @@ This file tracks places where prospectus-era language was rewritten into dissert
 
 ## D003 - RQ2 empirical boundary-condition package
 
-- Needed: empirical stress tests or summarized results for correlation sweeps, threshold perturbations, negative-correlation cases, and/or a bridge from the zero-threshold theorem to practical critical-range settings.
-- Affected files: `Chapters/06_rq2.tex`
-- Suggested backfill: one subsection with a figure or table showing where the theorem's mechanism holds strongly, weakly, or fails.
+- Status: Corrected on 2026-04-20. The boundary-condition notebook package was integrated into the main dissertation text, and the Chapter 06 D003 placeholders were replaced with a full empirical boundary-condition subsection.
+- Added notebook: `notebooks/boundary_conditions.ipynb`
+- Added notebook regeneration helper: `scripts/_generate_boundary_conditions_notebook.py`
+- Added cached result files:
+  - `notebooks/runs_new/boundary_conditions/ic_boundary_runs.csv`
+  - `notebooks/runs_new/boundary_conditions/ic_boundary_summary.csv`
+  - `notebooks/runs_new/boundary_conditions/ic_stress_runs.csv`
+  - `notebooks/runs_new/boundary_conditions/ic_stress_summary.csv`
+  - `notebooks/runs_new/boundary_conditions/ic_stress_crossing_summary.csv`
+  - `notebooks/runs_new/boundary_conditions/inactive_count_runs.csv`
+  - `notebooks/runs_new/boundary_conditions/inactive_count_summary.csv`
+  - `notebooks/runs_new/boundary_conditions/threshold_bridge_sweep.csv`
+  - `notebooks/runs_new/boundary_conditions/interval_bridge_summary.csv`
+  - `notebooks/runs_new/boundary_conditions/negative_complement_summary.csv`
+  - `notebooks/runs_new/boundary_conditions/boundary_conditions_summary.csv`
+  - `notebooks/runs_new/boundary_conditions/boundary_takeaways.txt`
+- Notebook-generated figures currently retained under `notebooks/Figures/`:
+  - `notebooks/Figures/boundary_ic_stress_profiles.png`
+- Boundary figures moved into the dissertation-wide `Figures/` directory for manuscript inclusion:
+  - `Figures/boundary_ic_sweep.png`
+  - `Figures/boundary_ic_stress_heatmaps.png`
+  - `Figures/boundary_inactive_count_sweep.png`
+  - `Figures/boundary_threshold_bridge.png`
+- Notebook scope delivered:
+  - positive and negative correlation sweeps using an empirical IC proxy,
+  - a harder cross-scale stress sweep showing where raw and rectified `\Theta` cross the IC boundary,
+  - a fixed-`s=4` inactive-count sweep showing how a larger off-support pool worsens the max-based IC proxy,
+  - a threshold bridge from exact zero-threshold sign binarization to shifted one-sided and interval critical ranges,
+  - a negative-correlation complement-feature check,
+  - a final strong/weak/fail summary table suitable for Chapter 06 backfill.
+- Main dissertation LaTeX edits taken:
+  - `Chapters/06_rq2.tex` now includes the full D003 backfill: synthetic dataset construction, IC proxy definition, baseline IC sweep interpretation, harder cross-scale boundary maps, fixed-`s=4` inactive-count scaling, threshold-bridge analysis, complement-feature repair, and a manuscript summary table.
+  - `Chapters/89_conclusion.tex` now summarizes the strong/weak/fail boundary interpretation in the RQ2 conclusion.
+- Net effect on the dissertation: D003 is now backed by a concrete empirical boundary-condition package inside the main document, with figures and a summary table that identify where the theorem is strongest, where it weakens, and where complement features or out-of-scope language are required.
 
 ## D004 - RQ3 real-data compression validation package
 
-- Needed: full real-data `J`-versus-`k` curves, equivalence or non-inferiority comparisons, and a prespecified adoption-policy summary for compressed rule models.
-- Affected files: `Chapters/07_rq3.tex`
-- Suggested backfill: one real-data anytime frontier figure, one equivalence table, and a short paragraph defining the deployment policy used to accept a compressed rule.
+- Status: Corrected on 2026-04-20. The real-data compression validation package was integrated into the main dissertation text, and the Chapter 07 D004 placeholders were replaced with a full real-data policy, frontier, and non-inferiority summary.
+- Added notebook: `notebooks/compression_validation.ipynb`
+- Added notebook regeneration helper: `scripts/_generate_compression_validation_notebook.py`
+- Added cached result files:
+  - `notebooks/runs_new/compression_validation/real_data_frontiers.csv`
+  - `notebooks/runs_new/compression_validation/compression_policy_summary.csv`
+  - `notebooks/runs_new/compression_validation/strict_policy_noninferiority_summary.csv`
+  - `notebooks/runs_new/compression_validation/compression_validation_takeaways.txt`
+  - `notebooks/runs_new/compression_validation/compression_validation_metadata.json`
+- Compression figure moved into the dissertation-wide `Figures/` directory for manuscript inclusion:
+  - `Figures/rq3_real_data_frontiers.png`
+- Main dissertation LaTeX edits taken:
+  - `Chapters/07_rq3.tex` now includes the prespecified strict deployment policy, Figure `fig:rq3_real_frontiers`, Table `tab:rq3_strict_policy`, a policy-sweep interpretation over `\epsilon \in \{0.01, 0.02, 0.05\}`, and a revised RQ3 answer tied to the held-out validation results.
+  - `Chapters/89_conclusion.tex` now summarizes the strict real-data RQ3 outcome in the dissertation conclusion.
+- Figure-location note:
+  - No additional D004 manuscript figure remained under `notebooks/Figures/`; the notebook already generated the retained RQ3 frontier plot directly into `Figures/`.
+- Net effect on the dissertation: D004 is now backed by a concrete real-data anytime-frontier package, an explicit non-inferiority table, and a deployment-policy summary inside the main document rather than a placeholder reference.
