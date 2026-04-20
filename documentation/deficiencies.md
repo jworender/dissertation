@@ -33,9 +33,47 @@ This file tracks places where prospectus-era language was rewritten into dissert
 
 ## D002 - RQ1 expanded baseline and cross-domain comparison package
 
-- Needed: consolidated comparisons against additional correlated-feature baselines and at least one broader cross-domain validation summary beyond the currently shown core case studies.
-- Affected files: `main.tex`, `Chapters/05_rq1.tex`
-- Suggested backfill: one benchmark table covering elastic net/adaptive/group/ordered/QP comparators plus a concise transferability discussion.
+- Status: Addressed on 2026-04-19.
+- Added notebooks:
+  - `notebooks/cross_domain.ipynb`
+  - `notebooks/goose_bay_robustness.ipynb`
+- Added notebook regeneration helpers:
+  - `scripts/_generate_cross_domain_notebook.py`
+  - `scripts/_generate_goose_bay_robustness_notebook.py`
+- Added cached result files:
+  - `notebooks/runs_new/cross_domain/synthetic_baseline_summary.csv`
+  - `notebooks/runs_new/cross_domain/synthetic_baseline_summary_formatted.csv`
+  - `notebooks/runs_new/cross_domain/cross_domain_transfer_summary.csv`
+  - `notebooks/runs_new/cross_domain/cross_domain_transfer_summary_formatted.csv`
+  - `notebooks/runs_new/cross_domain/ionosphere_protocol_comparison.csv`
+  - `notebooks/runs_new/cross_domain/ionosphere_protocol_comparison_formatted.csv`
+  - `notebooks/runs_new/cross_domain/cross_domain_takeaways.txt`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_protocol_summary.csv`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_protocol_summary_formatted.csv`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_quantile_sweep_summary.csv`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_quantile_sweep_summary_formatted.csv`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_c_sweep_summary.csv`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_c_sweep_cv_summary.csv`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_seed2345_decomposition.csv`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_seed2345_decomposition_formatted.csv`
+  - `notebooks/runs_new/goose_bay_robustness/goose_bay_takeaways.txt`
+- Moved notebook-generated figures into the manuscript `Figures/` directory:
+  - `Figures/cross_domain_transfer_deltas.png`
+  - `Figures/cross_domain_ionosphere_protocol_comparison.png`
+  - `Figures/goose_bay_delta_j_protocols.png`
+  - `Figures/goose_bay_quantile_sweep.png`
+  - `Figures/goose_bay_c_sweep_scatter.png`
+- Updated manuscript discussion in `Chapters/05_rq1.tex`:
+  - replaced both `<<< deficiency D002 >>>` placeholders,
+  - added Table `tab:d002_baselines` covering elastic net, adaptive lasso, group lasso, ordered-prefix, and QP-based comparators,
+  - added Figures `fig:d002_transfer_deltas`, `fig:d002_ionosphere_protocols`, `fig:d002_goose_bay_protocols`, `fig:d002_goose_bay_quantiles`, and `fig:d002_goose_bay_c_sweep`,
+  - added narrative on mixed cross-domain transferability under a standardized protocol,
+  - added a protocol audit explaining why the Goose Bay generic probe differs from the published 2022 result,
+  - added sensitivity discussion for split choice, rectifier quantiles, and penalty strength `C`, including the implication that the default `C=0.1` and default `25/75` cutlass quantiles understate Goose Bay performance.
+- Main dissertation LaTeX edits taken:
+  - `main.tex` required no direct change because `Chapters/05_rq1.tex` was already included in the build.
+  - `Chapters/05_rq1.tex` now contains the full D002 backfill used by the main dissertation document.
+- Net effect on the dissertation: D002 is now backed by a concrete expanded-baseline package, a broader cross-domain transfer panel, and an explicit explanation of why the Goose Bay ionosphere result changes under different protocol settings.
 
 ## D003 - RQ2 empirical boundary-condition package
 

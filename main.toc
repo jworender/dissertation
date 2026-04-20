@@ -58,77 +58,79 @@
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.3\hfil }\uppercase {Synthetic evidence with known ground truth}}{34}{}%
 \contentsline {subsection}{\numberline {5.3.1}\uppercase {Repeated-resample stability and stage-wise ablation}}{34}{}%
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.4\hfil }\uppercase {Comparison to competing feature-selection baselines}}{37}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.5\hfil }\uppercase {Real-world evidence and interpretability tradeoffs}}{39}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.6\hfil }\uppercase {Answer to RQ1}}{41}{}%
+\contentsline {subsection}{\numberline {5.4.1}\uppercase {Expanded correlated-feature baseline package}}{39}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.5\hfil }\uppercase {Real-world evidence and interpretability tradeoffs}}{40}{}%
+\contentsline {subsection}{\numberline {5.5.1}\uppercase {Cross-domain transfer and the Goose Bay protocol audit}}{43}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.6\hfil }\uppercase {Answer to RQ1}}{49}{}%
 \vspace {0.42cm}
-\contentsline {chapter}{\numberline {6.}\uppercase {Theoretical Analysis (RQ2)}}{47}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.1\hfil }\uppercase {Why RQ2 matters after RQ1 evidence}}{47}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.2\hfil }\uppercase {IC in computer-science terms}}{48}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.3\hfil }\uppercase {Tractable Setup and Assumptions}}{48}{}%
-\contentsline {paragraph}{Data and transformation.}{49}{}%
-\contentsline {paragraph}{Assumptions.}{49}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.4\hfil }\uppercase {Why sign binarization can reduce dependence}}{49}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.5\hfil }\uppercase {Lemma pathway (with intuition)}}{50}{}%
-\contentsline {subsection}{\numberline {6.5.1}\uppercase {Lemma 1: Correlation contraction after binarization}}{50}{}%
-\contentsline {subsection}{\numberline {6.5.2}\uppercase {Lemma 2: Controlled inverse behavior for active block}}{51}{}%
-\contentsline {subsection}{\numberline {6.5.3}\uppercase {Lemma 3: Lower inactive-active leakage}}{51}{}%
-\contentsline {subsection}{\numberline {6.5.4}\uppercase {Lemma 4: Easier IC satisfaction}}{51}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.6\hfil }\uppercase {Main theorem (probability form)}}{51}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.7\hfil }\uppercase {Proof sketch}}{52}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.8\hfil }\uppercase {Practical interpretation}}{53}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.9\hfil }\uppercase {A small interference example}}{53}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.10\hfil }\uppercase {How this differs from penalty-only fixes}}{54}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.11\hfil }\uppercase {What this theorem does not claim}}{55}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.12\hfil }\uppercase {Empirical Boundary Checks Beyond the Theorem}}{55}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.13\hfil }\uppercase {Empirical Implications of RQ2}}{56}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.14\hfil }\uppercase {Practical Significance}}{56}{}%
+\contentsline {chapter}{\numberline {6.}\uppercase {Theoretical Analysis (RQ2)}}{53}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.1\hfil }\uppercase {Why RQ2 matters after RQ1 evidence}}{53}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.2\hfil }\uppercase {IC in computer-science terms}}{54}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.3\hfil }\uppercase {Tractable Setup and Assumptions}}{54}{}%
+\contentsline {paragraph}{Data and transformation.}{55}{}%
+\contentsline {paragraph}{Assumptions.}{55}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.4\hfil }\uppercase {Why sign binarization can reduce dependence}}{55}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.5\hfil }\uppercase {Lemma pathway (with intuition)}}{56}{}%
+\contentsline {subsection}{\numberline {6.5.1}\uppercase {Lemma 1: Correlation contraction after binarization}}{56}{}%
+\contentsline {subsection}{\numberline {6.5.2}\uppercase {Lemma 2: Controlled inverse behavior for active block}}{57}{}%
+\contentsline {subsection}{\numberline {6.5.3}\uppercase {Lemma 3: Lower inactive-active leakage}}{57}{}%
+\contentsline {subsection}{\numberline {6.5.4}\uppercase {Lemma 4: Easier IC satisfaction}}{57}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.6\hfil }\uppercase {Main theorem (probability form)}}{57}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.7\hfil }\uppercase {Proof sketch}}{58}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.8\hfil }\uppercase {Practical interpretation}}{59}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.9\hfil }\uppercase {A small interference example}}{59}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.10\hfil }\uppercase {How this differs from penalty-only fixes}}{60}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.11\hfil }\uppercase {What this theorem does not claim}}{61}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.12\hfil }\uppercase {Empirical Boundary Checks Beyond the Theorem}}{61}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.13\hfil }\uppercase {Empirical Implications of RQ2}}{62}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.14\hfil }\uppercase {Practical Significance}}{62}{}%
 \vspace {0.42cm}
-\contentsline {chapter}{\numberline {7.}\uppercase {Anytime Rule Compression (RQ3)}}{58}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.1\hfil }\uppercase {Why RQ3 Matters After RQ1 and RQ2}}{58}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.2\hfil }\uppercase {From Rectified Sparse Models to Rule Space}}{59}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.3\hfil }\uppercase {Anytime Compression Objective}}{59}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.4\hfil }\uppercase {Algorithmic Pipeline}}{60}{}%
-\contentsline {subsection}{\numberline {7.4.1}\uppercase {1. Train Baseline Sparse Rectified Model}}{60}{}%
-\contentsline {subsection}{\numberline {7.4.2}\uppercase {2. Logic Polishing and Ordered Prefix Construction}}{60}{}%
-\contentsline {subsection}{\numberline {7.4.3}\uppercase {3. Vote Threshold Optimization}}{60}{}%
-\contentsline {subsection}{\numberline {7.4.4}\uppercase {4. Adoption Rule with Relative Tolerance}}{60}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.5\hfil }\uppercase {Why the Method Is ``Anytime''}}{61}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.6\hfil }\uppercase {Empirical Results}}{61}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.7\hfil }\uppercase {Statistical Framing of ``No Material Degradation''}}{62}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.8\hfil }\uppercase {Relationship to Adjacent Interpretable Methods}}{63}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.9\hfil }\uppercase {Motivation and Application Context}}{63}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.10\hfil }\uppercase {Limitations and Scope}}{64}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.11\hfil }\uppercase {Answer to RQ3}}{64}{}%
+\contentsline {chapter}{\numberline {7.}\uppercase {Anytime Rule Compression (RQ3)}}{64}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.1\hfil }\uppercase {Why RQ3 Matters After RQ1 and RQ2}}{64}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.2\hfil }\uppercase {From Rectified Sparse Models to Rule Space}}{65}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.3\hfil }\uppercase {Anytime Compression Objective}}{65}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.4\hfil }\uppercase {Algorithmic Pipeline}}{66}{}%
+\contentsline {subsection}{\numberline {7.4.1}\uppercase {1. Train Baseline Sparse Rectified Model}}{66}{}%
+\contentsline {subsection}{\numberline {7.4.2}\uppercase {2. Logic Polishing and Ordered Prefix Construction}}{66}{}%
+\contentsline {subsection}{\numberline {7.4.3}\uppercase {3. Vote Threshold Optimization}}{66}{}%
+\contentsline {subsection}{\numberline {7.4.4}\uppercase {4. Adoption Rule with Relative Tolerance}}{66}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.5\hfil }\uppercase {Why the Method Is ``Anytime''}}{67}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.6\hfil }\uppercase {Empirical Results}}{67}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.7\hfil }\uppercase {Statistical Framing of ``No Material Degradation''}}{68}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.8\hfil }\uppercase {Relationship to Adjacent Interpretable Methods}}{69}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.9\hfil }\uppercase {Motivation and Application Context}}{69}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.10\hfil }\uppercase {Limitations and Scope}}{70}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {7.11\hfil }\uppercase {Answer to RQ3}}{70}{}%
 \vspace {0.42cm}
-\contentsline {chapter}{\numberline {8.}\uppercase {Future Work}}{66}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.1\hfil }\uppercase {Extending the Theoretical Scope}}{66}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.2\hfil }\uppercase {Broader Empirical Validation}}{66}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.3\hfil }\uppercase {Richer Rule Families and Hybrid Models}}{67}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.4\hfil }\uppercase {Prospective Deployment and Human Evaluation}}{67}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.5\hfil }\uppercase {Tooling and Reproducibility}}{67}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.6\hfil }\uppercase {Closing Perspective}}{67}{}%
+\contentsline {chapter}{\numberline {8.}\uppercase {Future Work}}{72}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.1\hfil }\uppercase {Extending the Theoretical Scope}}{72}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.2\hfil }\uppercase {Broader Empirical Validation}}{72}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.3\hfil }\uppercase {Richer Rule Families and Hybrid Models}}{73}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.4\hfil }\uppercase {Prospective Deployment and Human Evaluation}}{73}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.5\hfil }\uppercase {Tooling and Reproducibility}}{73}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {8.6\hfil }\uppercase {Closing Perspective}}{73}{}%
 \vspace {0.42cm}
-\contentsline {chapter}{\numberline {9.}\uppercase {Conclusion}}{69}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.1\hfil }\uppercase {Research Program Summary}}{69}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.2\hfil }\uppercase {Conclusions by Research Question}}{70}{}%
-\contentsline {subsection}{\numberline {9.2.1}\uppercase {RQ1 conclusion: Rectification can improve attribution reliability in target regimes}}{70}{}%
-\contentsline {subsection}{\numberline {9.2.2}\uppercase {RQ2 conclusion: A scoped IC-based mechanism is theoretically defensible}}{70}{}%
-\contentsline {subsection}{\numberline {9.2.3}\uppercase {RQ3 conclusion: Anytime compression makes interpretability operational}}{71}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.3\hfil }\uppercase {Primary Dissertation Contributions}}{71}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.4\hfil }\uppercase {Positioning Relative to Prior Work}}{72}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.5\hfil }\uppercase {Scope Boundaries and Limitations}}{72}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.6\hfil }\uppercase {Practical Implications}}{73}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.7\hfil }\uppercase {Final Statement}}{73}{}%
+\contentsline {chapter}{\numberline {9.}\uppercase {Conclusion}}{75}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.1\hfil }\uppercase {Research Program Summary}}{75}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.2\hfil }\uppercase {Conclusions by Research Question}}{76}{}%
+\contentsline {subsection}{\numberline {9.2.1}\uppercase {RQ1 conclusion: Rectification can improve attribution reliability in target regimes}}{76}{}%
+\contentsline {subsection}{\numberline {9.2.2}\uppercase {RQ2 conclusion: A scoped IC-based mechanism is theoretically defensible}}{76}{}%
+\contentsline {subsection}{\numberline {9.2.3}\uppercase {RQ3 conclusion: Anytime compression makes interpretability operational}}{77}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.3\hfil }\uppercase {Primary Dissertation Contributions}}{77}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.4\hfil }\uppercase {Positioning Relative to Prior Work}}{78}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.5\hfil }\uppercase {Scope Boundaries and Limitations}}{78}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.6\hfil }\uppercase {Practical Implications}}{79}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {9.7\hfil }\uppercase {Final Statement}}{79}{}%
 \vspace *{12pt}
-\contentsline {chapter}{REFERENCES}{74}{}%
+\contentsline {chapter}{REFERENCES}{80}{}%
 \vspace *{0.42cm}
 \noindent APPENDICES
 
-\contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {A.\hfil }\uppercase {Synthetic Data Development}}{80}{}%
-\contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {B.\hfil }\uppercase {Lemmas}}{84}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.1\hfil }\uppercase {Lemma 1}}{84}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.2\hfil }\uppercase {Lemma 2}}{86}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.3\hfil }\uppercase {Lemma 3}}{89}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.4\hfil }\uppercase {Lemma 4}}{92}{}%
+\contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {A.\hfil }\uppercase {Synthetic Data Development}}{86}{}%
+\contentsline {section}{\hspace {0.7cm}\!\hbox to\@tempdima {B.\hfil }\uppercase {Lemmas}}{90}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.1\hfil }\uppercase {Lemma 1}}{90}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.2\hfil }\uppercase {Lemma 2}}{92}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.3\hfil }\uppercase {Lemma 3}}{95}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {B.4\hfil }\uppercase {Lemma 4}}{98}{}%
 \vspace *{0.42cm}
-\contentsline {chapter}{VITA}{98}{}%
+\contentsline {chapter}{VITA}{104}{}%

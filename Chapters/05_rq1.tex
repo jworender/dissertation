@@ -107,7 +107,7 @@ The dissertation evaluates RQ1 using three complementary evidence streams:
     \item \textbf{Real-world case studies} that test whether observed gains survive outside synthetic conditions.
 \end{itemize}
 
-The evaluation criteria are practical rather than purely theoretical: discriminatory performance (for example AUC and Youden's J), sparsity and support clarity, lag-level attribution fidelity, and end-to-end computational cost. This aligns with known limitations of penalty-only sparse methods under dependence, where prediction may remain strong while support recovery becomes unstable \autocites{PZhao2006model,freijeirogonzalez2022}. The repeated-resample stability and stage-wise ablation package is summarized in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling}. The expanded baseline and cross-domain comparison package is summarized in \texttt{<<< deficiency D002 >>>}.
+The evaluation criteria are practical rather than purely theoretical: discriminatory performance (for example AUC and Youden's J), sparsity and support clarity, lag-level attribution fidelity, and end-to-end computational cost. This aligns with known limitations of penalty-only sparse methods under dependence, where prediction may remain strong while support recovery becomes unstable \autocites{PZhao2006model,freijeirogonzalez2022}. The repeated-resample stability and stage-wise ablation package is summarized in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling}. The expanded baseline and cross-domain comparison package is summarized in Table \ref{tab:d002_baselines} and Figures \ref{fig:d002_transfer_deltas}--\ref{fig:d002_goose_bay_c_sweep}.
 
 \section{Synthetic evidence with known ground truth}
 
@@ -208,6 +208,31 @@ A focused comparator is the quadratic-programming selector of Katrutsa and Strij
 
 In the benchmark comparisons, the quadratic-programming approach often identifies related variables but may miss the correct lag localization and exhibits substantially higher computational cost. Observed runtime differences are on the order of roughly 100--200x relative to rectification plus lasso in the tested configuration. For RQ1, this matters because a "stable sparse baseline" is not only a statistical target; it must also be practical to run repeatedly across folds, ablations, and deployment refresh cycles.
 
+\subsection{Expanded correlated-feature baseline package}
+
+To broaden the comparator set beyond a single redundancy-oriented method, the dissertation adds a consolidated synthetic benchmark covering raw lasso, elastic net, adaptive lasso, group lasso, ordered-prefix selection, and the Katrutsa--Strijov quadratic-programming selector, alongside the rectified lasso baseline. All methods are evaluated on the same lag-expanded synthetic case used to stress attribution under multicollinearity.
+
+\begin{table}[tbh]
+    \caption[RQ1 expanded synthetic baseline benchmark.]{Expanded correlated-feature baseline benchmark on the synthetic Case 1 study. Exact-lag F1 evaluates whether the selected support lands on the planted variable-lag pairs rather than merely nearby correlated surrogates.}
+    \label{tab:d002_baselines}
+    \begin{center}
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{lccccc}
+            Method            & AUC   & Youden's $J$ & Exact-lag F1 & Nonzero & Runtime (s) \\ \hline
+            Rectified L1      & 0.997 & 0.946        & 0.571        & 344     & 2.947       \\ \hline
+            Raw L1            & 0.995 & 0.892        & 0.000        & 409     & 4.755       \\ \hline
+            Raw Elastic Net   & 0.991 & 0.888        & 0.000        & 364     & 5.176       \\ \hline
+            Raw Adaptive L1   & 0.982 & 0.835        & 0.000        & 53      & 2.110       \\ \hline
+            Raw Group Lasso   & 0.990 & 0.888        & 0.000        & 385     & 1.488       \\ \hline
+            Ordered Prefix    & 0.982 & 0.786        & 0.000        & 30      & 0.912       \\ \hline
+            QP + L1           & 0.894 & 0.603        & 0.000        & 15      & 2.843       \\ \hline
+        \end{tabular}
+        }
+    \end{center}
+\end{table}
+
+Table \ref{tab:d002_baselines} sharpens the baseline story. Raw lasso, elastic net, and group lasso all remain reasonably predictive, but none of them recover the planted lags exactly. Their support stays concentrated on correlated surrogates in the original continuous representation rather than on the true trigger lags. Adaptive lasso, ordered-prefix selection, and QP+\nobreakdash-L1 reduce model size more aggressively, but they do so by pruning within the same raw representation and therefore sacrifice discrimination without solving the attribution problem. The rectified baseline is the only method in this expanded package that simultaneously attains the best AUC, the best Youden's $J$, and nonzero exact-lag recovery. For RQ1, this matters more than a marginal runtime win because the question is not merely whether a sparse model predicts well; it is whether the selected support remains interpretable at the feature-lag level.
+
 \section{Real-world evidence and interpretability tradeoffs}
 
 Synthetic evidence is necessary but not sufficient. Real-world studies therefore evaluate whether the same pattern appears in operationally relevant longitudinal data. The HAI industrial control benchmark is particularly useful because it includes realistic multi-sensor temporal dynamics with labeled attack scenarios and known subsystem context \autocite{shin2020}. Additional evidence from historical ionospheric radar work supports the relevance of lagged signal discrimination settings where sparse attribution can complement raw predictive performance \autocite{sigillito1989}.
@@ -217,11 +242,12 @@ Synthetic evidence is necessary but not sufficient. Real-world studies therefore
     \label{tab:rw_results}
     \begin{center}
         \begin{tabular}{lllll}
-            Statistic        & HAI (Transformed) & HAI (Un-Trans) & UNICEF (Transformed) & UNICEF (Un-Trans) \\ \hline
-            ACC              & 0.987             & 0.939          & 0.902                & 0.963             \\ \hline
-            AUC              & 0.982             & 0.943          & 0.865                & 0.989             \\ \hline
-            F1               & 0.987             & 0.942          & 0.894                & 0.958             \\ \hline
-            Youden's J-Index & 0.974             & 0.878          & 0.815                & 0.925             \\ \hline
+            Statistic        & HAI           & HAI        & UNICEF        & UNICEF     \\
+                             & (Transformed) & (Un-Trans) & (Transformed) & (Un-Trans) \\ \hline
+            ACC              & 0.987         & 0.939      & 0.902         & 0.963      \\ \hline
+            AUC              & 0.982         & 0.943      & 0.865         & 0.989      \\ \hline
+            F1               & 0.987         & 0.942      & 0.894         & 0.958      \\ \hline
+            Youden's J-Index & 0.974         & 0.878      & 0.815         & 0.925      \\ \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -255,6 +281,55 @@ One subtle but important point in the HAI case is that residual nonzero coeffici
 
 Cross-dataset behavior is not uniform. In the UNICEF \autocite{unicef2023} case, untransformed models can achieve stronger raw discrimination metrics while transformed models remain substantially sparser and easier to interpret. This pattern is consistent with prior reports that rectification benefits are context dependent: strongest in threshold-and-lag aligned regimes, and more mixed when data-generating structure is less compatible with the assumed critical-range mechanism \autocite{JOrender2025Efficient}.
 
+\subsection{Cross-domain transfer and the Goose Bay protocol audit}
+
+The broader transfer package applies one standardized generic protocol across four HAI attack subsets and the UCI ionosphere radar benchmark, then compares raw and rectified lasso under the same train/test handling and fixed penalty settings. Figure \ref{fig:d002_transfer_deltas} shows that the transfer pattern is mixed rather than uniformly positive. Rectification clearly improves both AUC and Youden's $J$ on the HAI turbine-loop attack, improves $J$ substantially on the combined $P1/P2$ attack, is essentially neutral on one attack subset, and loses ground on another. The ionosphere row is also negative under this standardized protocol, with $\Delta J=-0.059$. This is informative rather than contradictory: it means the RQ1 claim must remain conditional on alignment between the rectification rule and the structure of the underlying domain.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.92\textwidth]{Figures/cross_domain_transfer_deltas.png}
+    \caption[RQ1 cross-domain transfer deltas.]{Cross-domain transfer deltas under one standardized generic protocol. Rectification improves some domains strongly, is neutral in others, and does not dominate uniformly across all settings.}
+    \label{fig:d002_transfer_deltas}
+\end{figure}
+
+The ionosphere result required a separate audit because, on its face, it appears to conflict with the positive Goose Bay result reported in the original case study \autocite{orender2022}. Figure \ref{fig:d002_ionosphere_protocols} resolves that apparent contradiction by keeping the two views distinct. The published 2022 Goose Bay reference moves from $J=0.695$ to $J=0.854$ after rectification, a gain of $0.159$. The standardized generic transfer probe instead moves from $J=0.775$ to $J=0.716$, a loss of $0.059$. These are not the same experiment. The published result used the original study protocol, while the generic transfer probe deliberately used the same portable defaults as the other cross-domain datasets.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/cross_domain_ionosphere_protocol_comparison.png}
+    \caption[Ionosphere protocol distinction.]{Ionosphere results separated into the published 2022 Goose Bay reference view and the standardized generic transfer probe. The negative generic-probe delta should therefore be read as a protocol-mismatch result, not as a replication of the original Goose Bay case study.}
+    \label{fig:d002_ionosphere_protocols}
+\end{figure}
+
+To determine why the Goose Bay views disagree, a repeated-split robustness audit was conducted that changes one protocol component at a time: train/test split, rectification rule, and penalty strength. Figure \ref{fig:d002_goose_bay_protocols} shows that the split itself is not the main driver. Across $101$ seeds, the mean rectified-minus-raw gain remains near zero when moving from the generic probe ($\Delta J=0.006$) to a split-matched cutlass protocol ($\Delta J=0.003$). The larger change appears when the rectifier semantics change from the default quantile rule to the positive-range min/max rule used in the earlier pipeline. Under the same $67/33$ split and $C=0.1$, the mean gain rises to $0.066$ and is positive on $85.1\%$ of seeds. Increasing the penalty parameter to $C=10$ under the same min/max rectifier raises the mean gain further to $0.148$ and makes it positive on every tested seed. On the original Goose Bay seed $2345$, the progression is $-0.033 \rightarrow 0.065 \rightarrow 0.109 \rightarrow 0.210$, which again indicates that rectifier semantics and penalty strength matter more than split matching alone.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.92\textwidth]{Figures/goose_bay_delta_j_protocols.png}
+    \caption[Goose Bay repeated-split protocol audit.]{Repeated-split Goose Bay robustness across protocol variants. Matching the split alone does not recover the published gain; most of the movement comes from changing the rectification rule and then relaxing the penalty.}
+    \label{fig:d002_goose_bay_protocols}
+\end{figure}
+
+The protocol audit then motivates a direct sensitivity analysis of the two main tuning choices left in the standardized cutlass path: quantile bounds and penalty strength. Figure \ref{fig:d002_goose_bay_quantiles} shows that the default $25/75$ quantile rectifier is close to neutral on Goose Bay ($\Delta J=0.003$ on average), while wider windows improve steadily: $20/80$ raises the mean to $0.063$ and $10/90$ to $0.082$. Narrower windows move in the wrong direction, with $30/70$ at $-0.083$ and $35/65$ at $-0.212$. The implication is not that one fixed quantile choice is universally optimal, but that the ionosphere case is unusually sensitive to the width of the positive-range window and behaves more favorably as the rule becomes more min/max-like.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/goose_bay_quantile_sweep.png}
+    \caption[Goose Bay quantile sensitivity.]{Sensitivity of Goose Bay performance to the quantile rectifier under the $67/33$ split with $C=0.1$. Wider positive-range windows improve performance relative to the default $25/75$ setting, while narrower windows degrade it sharply.}
+    \label{fig:d002_goose_bay_quantiles}
+\end{figure}
+
+Figure \ref{fig:d002_goose_bay_c_sweep} extends the same idea to the lasso penalty. A log-uniform sweep over $100$ values from $0.01$ to $100$ under the Goose Bay split and min/max rectification shows that the standardized choice near $C=0.1$ sits well below the robust high-$C$ plateau. Near $C=0.108$, the mean gain is only $0.077$. Over the broader $10$--$100$ range, the mean gain stabilizes between roughly $0.149$ and $0.157$, and almost every seed is positive. There is also a narrow low-$C$ sweet spot around $C \approx 0.025$ where the mean gain peaks near $0.200$, but the lower standard-deviation panel shows that this region is materially less stable than the broader high-$C$ plateau. The overlaid $10$-fold cross-validation curve likewise flattens in the larger-$C$ regime. For RQ1, the implication is practical: a standardized default such as $C=0.1$ can understate the value of rectification on Goose Bay even though the domain still supports a strong rectified solution under a nearby and more stable operating region.
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.96\textwidth]{Figures/goose_bay_c_sweep_scatter.png}
+    \caption[Goose Bay penalty sensitivity.]{Goose Bay sensitivity to the lasso penalty under the $67/33$ split with min/max rectification. The upper panel shows seed-level and mean $\Delta J$ values with an overlaid $10$-fold cross-validation mean-$J$ curve; the lower panel shows the standard deviation of $\Delta J$ at each $C$. The high-$C$ regime is not uniquely optimal, but it is substantially more favorable and more stable than the standardized $C=0.1$ setting.}
+    \label{fig:d002_goose_bay_c_sweep}
+\end{figure}
+
+Taken together, the cross-domain and Goose Bay results refine the empirical claim rather than weakening it. The standardized transfer panel shows that rectification does not dominate uniformly across every dataset when one portable protocol is imposed. The Goose Bay audit then shows why one apparent counterexample appears: the ionosphere benchmark is highly sensitive to how the positive range is defined and to how strongly the lasso penalty suppresses correlated signal fragments. That is a useful scientific boundary. It lends credence to the claim that rectification-first sparse learning is strongest in threshold-mediated regimes when the rectification semantics are aligned with the event structure, not that one untuned default will be optimal for all situations.  Further, these results are consistent with the hypothesis that, in threshold-mediated regimes, aligned rectification often improves the likelihood of more favorable irrepresentable-condition behavior. Empirically, once the rectifier definition and penalty are well matched to the domain, indicated by the cross-validation curve, rectification rarely hurts and usually helps.
+
 \section{Answer to RQ1}
 
 The answer to RQ1 is \textbf{yes, conditionally}. Critical-range rectification produces a more stable and interpretable sparse baseline in settings where events are driven by threshold-triggered lag interactions and raw lag expansion creates severe dependence. Evidence supporting this claim includes:
@@ -264,4 +339,4 @@ The answer to RQ1 is \textbf{yes, conditionally}. Critical-range rectification p
     \item and materially lower runtime than certain redundancy-oriented alternatives in tested configurations.
 \end{itemize}
 
-The repeated-resample stability and ablation results in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling} reinforce this conclusion, while the broader cross-domain comparison package in \texttt{<<< deficiency D002 >>>} remains a separate extension point. The result is not universal: gains weaken when the data-generating process departs from threshold-mediated structure, as the UNICEF case illustrates. Even so, the dissertation establishes that representation-level rectification is a practical and effective intervention point for sparse longitudinal selection in the target regime.
+The repeated-resample stability and ablation results in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling} reinforce this conclusion, while Table \ref{tab:d002_baselines} and Figures \ref{fig:d002_transfer_deltas}--\ref{fig:d002_goose_bay_c_sweep} show how the claim should be scoped. Expanded baseline coverage shows that penalty engineering alone does not recover exact lag attribution in the target synthetic regime. The cross-domain package shows that gains weaken or disappear when the data-generating process departs from threshold-mediated structure or when the rectification defaults are mismatched to the domain, as the UNICEF and generic Goose Bay probe illustrate. Even so, the dissertation establishes that representation-level rectification is a practical and effective intervention point for sparse longitudinal selection in the target regime.
