@@ -1,0 +1,4 @@
+- EBM has the strongest mean held-out AUC in this standardized package (1.000).
+- Greedy rule list is the fastest fit in the package at about 0.107 seconds total.
+- Greedy rule list has the smallest primitive-complexity proxy (4.7).
+- CUTLASS logic polishing reduces the average primitive count from 190.0 to 6.0, with mean AUC moving from 0.998 to 0.994.

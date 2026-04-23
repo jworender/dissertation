@@ -1,0 +1,4 @@
+- Raw branch loses to rectification on HAI a1: AUC 0.949 -> 0.989, J 0.574 -> 0.930.
+- The strict 2% compression policy selects k=14 from 39 active logical conditions (x2.79 compression).
+- Held-out deltas are delta AUC -0.011 and delta J +0.015.
+- Bootstrap lower bounds are AUC -0.016 and J -0.005; deployment recommendation = True.

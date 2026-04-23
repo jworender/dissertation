@@ -41,7 +41,7 @@ The procedure:
 	\centering
 	\includegraphics[width=0.75\textwidth]{Figures/curve_generation_2.png}
 	\caption[Synthetic Data Generation Step 2.]{The second step in the synthetic data curve generation process.}
-	\label{fig:curve_generation_1}
+	\label{fig:curve_generation_2}
 \end{figure}
 
 3.	To create a diversity of values a new range was selected using a pseudorandom normal distribution centered on zero, standard deviation of 0.05, and multiplied by 100. This produced a large enough diversity of magnitudes to demonstrate the range agnostic quality of the method.
@@ -52,7 +52,7 @@ The procedure:
 	\centering
 	\includegraphics[width=0.75\textwidth]{Figures/curve_generation_3.png}
 	\caption[Synthetic Data Generation Step 4.]{The fourth step in the synthetic data curve generation process.}
-	\label{fig:curve_generation_1}
+	\label{fig:curve_generation_3}
 \end{figure}
 
 5.	Assemble enough curves to have a large selection of potentially “relevant” and non-relevant curves.  Figure \ref{fig:tandl} shows how the relevant curves are interpreted to generate events.  Note that the shifted curves determine when the event occurs, while the unshifted curves are matched with the time step in which they occurred to compose the data.  
@@ -529,7 +529,7 @@ Similarly:
 
 Define function $ f(x) = \frac{x}{1 + x (s - 1)} $
 
-Due to the monotinicity of f(x), when $ x_1 < x_2 $, $ f(x_1) < f(x_2) $
+Due to the monotonicity of f(x), when $ x_1 < x_2 $, $ f(x_1) < f(x_2) $
 
 It follows that:
 
@@ -538,7 +538,7 @@ It follows that:
 	\begin{itemize}
 		\item $f(x)$ is \textit{increasing} wrt $ x $ on $\left(\frac{-1}{s-1}, 1\right)$.
 		\item $|\tilde{\rho}| \leq |\rho|$ (Lemma 2), and both are bounded by the interval $(-1,1)$
-		\item Since $ \tilde{\rho} \geq \rho $ when $ \tilde{\rho} $ and $ \rho $ are less than zero (meaning that $ \rho $ is *more* negative), the monotincity of f(x) implies that $ |f(\tilde{\rho})| \leq |f(\rho)| $
+		\item Since $ \tilde{\rho} \geq \rho $ when $ \tilde{\rho} $ and $ \rho $ are less than zero (meaning that $ \rho $ is *more* negative), the monotonicity of f(x) implies that $ |f(\tilde{\rho})| \leq |f(\rho)| $
 		\item Therefore, we have $|\tilde{\gamma}| = |f(\tilde{\rho})| \leq |f(\rho)| = |\gamma|$, with a discontinuity at $ x = \frac{-1}{s-1} $.
 		\item Furthermore, $ \tilde{\rho}, \rho, $ and hence $ \gamma $, $ \tilde{\gamma} $ will all be of the same sign in the interval $ \left[\frac{-1}{s-1}, 1 \right) $ for $ \tilde{\rho} $ and $ \rho $, and $ \gamma $ will be positive otherwise.
 	\end{itemize}
@@ -588,4 +588,96 @@ Since both terms examined in the expression for $ G^{-1} $ are greater than the 
 Furthermore, when $ s = 2 $ and $ \tilde{\rho}, \rho $ and $ \gamma $ are less than zero it can be shown that the reverse is guaranteed to be true. When $ s > 2 $ the answer is dependent upon where $\tilde{\rho}$ or $ \rho $ fall with respect to the interval $ \left[\frac{-1}{s-1}, 1 \right) $. When $ \rho $ is below the lower bound but $ \tilde{\rho} $ is above, the relative norm values will be ambiguous.  By constraining $ \rho $ and $ \tilde{\rho} $ to be greater than zero, the inequality is unambiguous.
 
 As a result, in the positive-correlation PoC regime the binarization process \textit{enhances positive correlation relationships} and, when $ \tilde{\rho} $ and $ \rho $ are on the same side of the discontinuity at $ \frac{-1}{s-1} $, it will also deemphasize negative correlation relationships (so, this will happen the vast majority of the time). Note that this seeming disadvantage can be mitigated by adding the complement to each binarized column into the feature matrix.
+
+\achapter{Reproducibility Map}
+\label{app:reproducibility_map}
+
+This appendix provides the direct manuscript-to-artifact map referenced in Chapter 4. Each row names the notebook-backed study package, its paired generator, the cached run directory preserved under \path{notebooks/runs_new/}, the principal manuscript artifact(s) supported by that package, and the chapter that consumes the result.
+
+From the repository root, the minimal regeneration pattern is:
+\begin{verbatim}
+python scripts/_generate_<study>_notebook.py
+jupyter nbconvert --to notebook --execute --inplace \
+  --ExecutePreprocessor.kernel_name=cutlass \
+  notebooks/<study>.ipynb
+\end{verbatim}
+where \path{<study>} is replaced by one of the notebook stems listed below. If the HAI parquet inputs are absent for the HAI-backed studies, run the preprocessing helper first:
+\begin{verbatim}
+python notebooks/build_hai_cutlass_data.py
+\end{verbatim}
+
+\begin{table}[p]
+    \caption[Reproducibility map for the Chapter 4--5 study packages.]{Direct regeneration map for the Chapter 4--5 study packages.}
+    \label{tab:repro_map_rq1}
+    \centering
+    {\scriptsize
+    \setlength{\tabcolsep}{3pt}
+    \renewcommand{\arraystretch}{0.97}
+    \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.37\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.14\textwidth}}
+        Study package, generator, cached outputs & Principal manuscript artifacts & Chapter(s) \\ \hline
+        \path{notebooks/stability_ablation.ipynb}\newline
+        \path{scripts/_generate_stability_ablation_notebook.py}\newline
+        \path{notebooks/runs_new/stability_ablation/}
+        &
+        Table \ref{tab:d001_stability}; Figures \ref{fig:d001_ablation}, \ref{fig:d001_pairwise_jaccard}, \ref{fig:d001_selection_frequency}, and \ref{fig:d001_runtime_scaling}.
+        &
+        Chapter 5 (RQ1). \\ \hline
+        \path{notebooks/cross_domain.ipynb}\newline
+        \path{scripts/_generate_cross_domain_notebook.py}\newline
+        \path{notebooks/runs_new/cross_domain/}
+        &
+        Table \ref{tab:d002_baselines}; Figures \ref{fig:d002_transfer_deltas} and \ref{fig:d002_ionosphere_protocols}.
+        &
+        Chapter 5 (RQ1). \\ \hline
+        \path{notebooks/goose_bay_robustness.ipynb}\newline
+        \path{scripts/_generate_goose_bay_robustness_notebook.py}\newline
+        \path{notebooks/runs_new/goose_bay_robustness/}
+        &
+        Figures \ref{fig:d002_goose_bay_protocols}, \ref{fig:d002_goose_bay_quantiles}, and \ref{fig:d002_goose_bay_c_sweep}.
+        &
+        Chapter 5 (RQ1). \\ \hline
+        \path{notebooks/interpretable_baselines.ipynb}\newline
+        \path{scripts/_generate_interpretable_baselines_notebook.py}\newline
+        \path{notebooks/runs_new/interpretable_baselines/}
+        &
+        Table \ref{tab:d010_interpretable}; Figures \ref{fig:d010_summary}, \ref{fig:d010_selection_frequency}, and \ref{fig:d010_tradeoff}.
+        &
+        Chapter 5 (RQ1). \\ \hline
+        \path{notebooks/walkthrough.ipynb}\newline
+        \path{scripts/_generate_walkthrough_notebook.py}\newline
+        \path{notebooks/runs_new/walkthrough/}
+        &
+        Worked HAI exemplar subsection in Chapter 4 and Table \ref{tab:workflow_hai_exemplar}.
+        &
+        Chapter 4. \\ \hline
+    \end{tabularx}
+    }
+\end{table}
+
+\begin{table}[p]
+    \caption[Reproducibility map for the Chapter 6--7 study packages.]{Direct regeneration map for the Chapter 6--7 study packages.}
+    \label{tab:repro_map_rq23}
+    \centering
+    {\scriptsize
+    \setlength{\tabcolsep}{3pt}
+    \renewcommand{\arraystretch}{0.97}
+    \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.37\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.14\textwidth}}
+        Study package, generator, cached outputs & Principal manuscript artifacts & Chapter(s) \\ \hline
+        \path{notebooks/boundary_conditions.ipynb}\newline
+        \path{scripts/_generate_boundary_conditions_notebook.py}\newline
+        \path{notebooks/runs_new/boundary_conditions/}
+        &
+        Table \ref{tab:rq2_boundary_summary}; Figures \ref{fig:rq2_ic_sweep}, \ref{fig:rq2_ic_heatmaps}, \ref{fig:rq2_inactive_count}, and \ref{fig:rq2_threshold_bridge}.
+        &
+        Chapter 6 (RQ2). \\ \hline
+        \path{notebooks/compression_validation.ipynb}\newline
+        \path{scripts/_generate_compression_validation_notebook.py}\newline
+        \path{notebooks/runs_new/compression_validation/}
+        &
+        Table \ref{tab:rq3_strict_policy} and Figure \ref{fig:rq3_real_frontiers}.
+        &
+        Chapter 7 (RQ3). \\ \hline
+    \end{tabularx}
+    }
+\end{table}
 

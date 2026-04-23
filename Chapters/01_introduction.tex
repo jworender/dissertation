@@ -3,14 +3,9 @@
 \chapter{Introduction}
 Longitudinal data contain repeated measurements of the same variables across time and are central to many scientific and operational problems. Examples include symptom progression in clinical cohorts, temporal variation in biological markers, and multi-wave surveys of human decision behavior \autocites{hiploylee2017,wong2010longitudinal,sorvali2021farmer}. Across these settings, outcomes are often triggered by threshold-and-lag mechanisms: a variable enters a critical range, then a target event appears after a delay as with Figure \ref{fig:tandl}. This structure is common in sensing and monitoring contexts where decision-makers need not only accurate predictions, but also clear explanations of which variables and lags drove the prediction.
 
-Specifically, several study areas that have shown a tendency to involve threshold-and-lag scenarios are:
+From a computer-science perspective, the primary technical readers for this dissertation are ML engineers working with sensor streams, ICS security analysts, and clinical-informatics researchers who need lag-aware models with explicit attribution and auditable deployment logic. The motivating technical setting is therefore not threshold-and-lag behavior in the abstract, but threshold-mediated longitudinal decision support under multicollinearity, where the practical questions are how to redesign representation, how to reuse mature sparse-learning software effectively, and how to convert the result into a model artifact that humans can review and deploy.
 
-\begin{itemize}
-	\item \textbf{Ecosystem Dynamics.} Ecosystems often exhibit threshold-dependent responses with lagged effects, such as delayed population shifts  \cite{hemraj2025ecosystem}.
-	\item \textbf{Epidemic Spreading.} The spread of infectious diseases depends on multiple thresholds (e.g., transmission, recovery, and vaccination rates) \cite{mata2015multiple}.
-	\item \textbf{Control Systems.} Many engineering systems feature threshold-driven lagged behaviors in response to control inputs or environmental changes \cite{peng2013event}.
-	\item \textbf{Financial Markets.} Market reactions to economic indicators, interest rates, or sentiment often follow threshold effects with delayed responses \cite{ters2020arbitrage}.
-\end{itemize}
+Related threshold-and-lag patterns also appear in broader scientific and operational domains, including ecosystem dynamics, epidemic spreading, control systems, and financial markets \autocites{hemraj2025ecosystem,mata2015multiple,peng2013event,ters2020arbitrage}. Those examples help motivate the general problem class, but the manuscript's main technical focus is on interpretable machine-learning workflows for sensing and monitoring settings.
 
 
 \begin{figure}[tbh]
@@ -26,7 +21,9 @@ A substantial body of work addresses these issues through penalty design and opt
 
 A second challenge is interpretability under high-stakes use. Post hoc explanations of complex models can be useful, but interpretable-model-first approaches are often preferable when transparency, auditability, and operational trust are mandatory \autocites{CRudin2019Stop,WJMurdoch2019Definitions}. Rule-structured models are especially relevant because they align with human review workflows and can be validated directly by domain experts \autocites{EAngelino2018Learning,EBoros1997Logical,EBoros2000implementation}. This dissertation therefore focuses on an inherently interpretable sparse pipeline rather than black-box prediction with after-the-fact explanation.
 
-This approach builds from prior work in this research line: a rectification-first longitudinal feature-selection method, a scoped theoretical analysis linking binarized transformation to improved irrepresentable-condition (IC) behavior, and an anytime rule-compression method that converts sparse models into compact logic-like forms \autocites{orender2022,JOrender2025Efficient,JOrender2025Anytime}. The dissertation unifies these components into one framework, strengthens the supporting analysis, broadens empirical evaluation, and emphasizes reproducible implementation.
+This approach builds from prior work in this research line: a rectification-first longitudinal feature-selection method, a scoped theoretical analysis linking binarized transformation to improved irrepresentable-condition (IC) behavior, and an anytime rule-compression method that converts sparse models into compact logic-like forms \autocites{orender2022,JOrender2025Efficient,JOrender2025Anytime}. The dissertation unifies these components into one framework, strengthens the supporting analysis, broadens empirical evaluation, and emphasizes public, notebook-backed reproducible implementation.
+
+Terminology note: throughout the dissertation, \emph{rectification} is the general pipeline term for converting continuous lagged measurements into threshold indicators. \emph{Zero-threshold sign binarization} is the theorem-scoped special case of rectification used in RQ2 because it yields a tractable closed-form analysis.
 
 \section{Problem}
 This work addresses three tensions that arise jointly in longitudinal feature learning:
@@ -39,17 +36,44 @@ This work addresses three tensions that arise jointly in longitudinal feature le
 
 The central research question is whether representation-level rectification can make sparse longitudinal selection more reliable before model fitting, and whether a principled post-selection compression step can preserve discrimination while improving human interpretability. In contrast to approaches that rely only on penalty modifications, this dissertation investigates a preprocessing-plus-selection-plus-compression pipeline designed to explicitly encode threshold behavior, reduce correlation burden, and expose causal hypotheses at the feature-lag level.
 
-Thesis statement: critical-range rectification improves reliability of sparse longitudinal feature recovery by contracting harmful dependence structures in lag-expanded data, and anytime rule compression converts resulting sparse models into compact, operationally usable rule forms with minimal loss in discriminative performance \autocites{JOrender2025Efficient,JOrender2025Anytime}. The scope emphasizes inherently interpretable sparse models with explicit attribution; deep learning appears only as contextual baselines where needed.
+Thesis statement: in threshold-and-lag aligned longitudinal settings, critical-range rectification can improve the reliability of sparse feature recovery by contracting harmful dependence structures in lag-expanded data, and anytime rule compression can convert the resulting sparse models into compact, operationally usable rule forms under explicit performance-tolerance policies \autocites{JOrender2025Efficient,JOrender2025Anytime}. The scope emphasizes inherently interpretable sparse models with explicit attribution; deep learning appears only as contextual baselines where needed.
 
 \section{Contributions}
-This dissertation makes four integrated contributions.
+This dissertation makes five integrated contributions.
 
 \begin{enumerate}
   \item \textbf{A unified rectification-first longitudinal pipeline.} Building on prior conference work, the dissertation consolidates critical-range transformation, sparse logistic selection, and downstream rule extraction into a single end-to-end framework \autocites{orender2022,JOrender2025Efficient}.
-  \item \textbf{Theory-informed analysis of correlation and selection behavior.} The dissertation extends tractable regime arguments relating transformed representations to improved support-recovery conditions, situating these results against established lasso consistency theory and dependence-aware critiques \autocites{PZhao2006model,freijeirogonzalez2022,JOrender2025Efficient}.
-  \item \textbf{Anytime compression to interpretable m-of-K style rules.} Sparse coefficient models are converted into compact rule forms that can be audited and deployed under time and complexity constraints, extending recent rule-compression results \autocites{JOrender2025Anytime,EAngelino2018Learning}.
-  \item \textbf{A broad empirical protocol for longitudinal evaluation.} The dissertation compares raw and rectified representations across synthetic and real longitudinal benchmarks, including signal-rich settings such as ICS anomaly data and ionospheric radar returns, with evaluation focused on both discrimination and attribution quality \autocites{shin2020,sigillito1989}.
+  \item \textbf{A scoped theoretical bridge to sparse-recovery conditions.} The dissertation extends tractable arguments linking transformed representations to improved sparse-support recovery and situates them against established lasso consistency theory and dependence-aware critiques \autocites{PZhao2006model,freijeirogonzalez2022,JOrender2025Efficient}.
+  \item \textbf{An anytime rule-compression stage for interpretable deployment.} Sparse coefficient models are converted into compact $m$-of-$K$ rule forms that can be audited and deployed under explicit performance-tolerance policies \autocites{JOrender2025Anytime,EAngelino2018Learning}.
+  \item \textbf{A dissertation-level empirical validation package.} Beyond the prior papers, the dissertation adds repeated-resample stability and ablation studies, expanded sparse and direct interpretable baselines, cross-domain transfer and protocol audits, empirical boundary-condition stress tests, and held-out policy-based compression validation \autocites{shin2020,sigillito1989}.
+  \item \textbf{A reproducible implementation pathway.} The reusable modeling core is exposed through the public \texttt{cutlass} package, while the dissertation repository supplies notebook-backed study regeneration and cached evaluation outputs for the reported studies.
 \end{enumerate}
+
+Table \ref{tab:dissertation_delta} makes the dissertation-level delta relative to the prior papers in this research line explicit.
+
+\begin{table}[tbh]
+    \caption[Dissertation delta relative to prior papers.]{How the dissertation extends the prior papers in this research line.}
+    \label{tab:dissertation_delta}
+    \begin{center}
+        {\renewcommand{\baselinestretch}{1}\small\selectfont
+        \begin{tabular}{p{0.18\textwidth}p{0.26\textwidth}p{0.42\textwidth}}
+            \raggedright \textbf{Source} & \raggedright \textbf{Prior-paper scope} & \raggedright \textbf{Dissertation-level additions} \tabularnewline \hline
+            \raggedright Initial rectification-first study \cite{orender2022}
+            & \raggedright Introduced critical-range rectification before sparse fitting and provided the first longitudinal case-study motivation.
+            & \raggedright Adds repeated-resample stability and ablation, broader sparse and direct interpretable comparators, and cross-domain transfer plus protocol auditing to better define the empirical applicability boundary. \tabularnewline \hline
+            \raggedright Efficient longitudinal feature-selection paper \cite{JOrender2025Efficient}
+            & \raggedright Added the scoped IC-oriented theory and a stronger empirical argument for dependence contraction under explicit assumptions.
+            & \raggedright Adds empirical boundary-condition stress tests, tighter scope calibration, and a practical diagnostic for when rectification is worth trying. \tabularnewline \hline
+            \raggedright Anytime rule-compression paper \cite{JOrender2025Anytime}
+            & \raggedright Introduced logic polishing and the anytime compression frontier for simplifying sparse rectified models.
+            & \raggedright Adds strict held-out deployment-policy validation, explicit non-inferiority framing for adoption, and integration with the full upstream dissertation pipeline. \tabularnewline \hline
+            \raggedright Dissertation synthesis
+            & \raggedright Unifies the prior threads into one research program.
+            & \raggedright Evaluates the combined pipeline under shared priorities of discrimination, attribution stability, interpretability complexity, efficiency, and reproducible implementation. \tabularnewline \hline
+        \end{tabular}
+        }
+    \end{center}
+\end{table}
 
 \section{Research Questions}
 
@@ -70,10 +94,34 @@ Across all three research questions, the dissertation evaluates the proposed fra
     \item \textbf{Attribution quality and stability:} support recovery behavior, lag localization fidelity, and stability across folds or resamples.
     \item \textbf{Interpretability complexity:} active-feature count, rule count, and rule length as direct proxies for human audit burden \autocites{WJMurdoch2019Definitions,EAngelino2018Learning}.
     \item \textbf{Efficiency:} end-to-end training and inference time, including preprocessing and compression overhead.
-    \item \textbf{Practical non-inferiority where needed:} when compressed rules are compared against upstream sparse baselines, the evaluation uses interval-based equivalence logic to determine whether performance loss is practically small \autocite{DJSchuirmann1987comparison}.
+    \item \textbf{Practical non-inferiority where needed:} when compressed rules are compared against upstream sparse baselines, the evaluation uses prespecified non-inferiority margins to determine whether performance loss is practically small \autocite{DJSchuirmann1987comparison}.
 \end{itemize}
 
+\section{Executive Map}
+
+For skimming readers, Table \ref{tab:executive_map} compresses the dissertation's core claim into one front-of-manuscript view: the target problem, the pipeline, the regime where the method is strongest, the main boundary cases, and the one-sentence answer to each research question. Later chapters unpack each row in detail.
+
+\begin{table}[p]
+    \caption[Executive map of the dissertation.]{One-page executive map of the dissertation for skimming readers.}
+    \label{tab:executive_map}
+    \centering
+    {\footnotesize
+    \setlength{\tabcolsep}{3pt}
+    \renewcommand{\arraystretch}{0.96}
+    \begin{tabularx}{0.96\textwidth}{>{\RaggedRight\arraybackslash}p{0.22\textwidth}>{\RaggedRight\arraybackslash}X}
+        Item & Executive summary \\ \hline
+        Target problem & High-dimensional lag-expanded longitudinal modeling under multicollinearity, where users need reliable feature-lag attribution and a deployable interpretable artifact rather than only strong raw prediction. \\ \hline
+        Pipeline & (1) Rectify lagged measurements into critical-range indicators, (2) fit a sparse L1-logistic baseline on the rectified representation, and (3) compress the active support into policy-controlled $m$-of-$K$ rule candidates when a simpler deployment artifact is needed. \\ \hline
+        Target regime & The method is strongest when events are at least partly threshold-mediated and lag-structured, raw sparse fits remain predictive but unstable, and plausible one-sided or interval event windows appear at meaningful lags. \\ \hline
+        Main boundary cases & Benefits weaken when threshold structure is weak, threshold sensitivity is erratic, post-threshold magnitude still carries important signal, or compression fails held-out non-inferiority gates. In those cases, the correct branch is often to stay raw, use hybrid features, or stop before compression. \\ \hline
+        RQ1 answer & \textbf{Yes, conditionally.} Rectification improves support concentration, lag localization, and compactness in threshold-aligned regimes, but not uniformly across all datasets or untuned default settings. \\ \hline
+        RQ2 answer & \textbf{Yes, in a scoped form.} Zero-threshold sign binarization provides a tractable IC-oriented mechanism for why rectification can help, while one-sided practical rules remain the strongest empirical bridge beyond the exact theorem and interval or negative-correlation cases require more caution. \\ \hline
+        RQ3 answer & \textbf{Yes, but policy-controlled.} Compression works cleanly in controlled threshold-mediated settings; in real-world data it should be accepted only when the nominated candidate clears the held-out non-inferiority gates and rejected otherwise. \\ \hline
+    \end{tabularx}
+    }
+\end{table}
+
 \section{Thesis Organization}
-Following this introduction, the dissertation is organized as follows. The background chapter formalizes longitudinal feature-learning assumptions, sparse regularization foundations, and interpretability criteria, and the related-work chapter positions competing methods in grouped, ordered, dependence-aware, and rule-based selection \autocites{fried2010,tay2023,yang2015}. The approach chapter then presents the rectification-first pipeline in unified notation, explains the intuition behind its design, and describes the theoretical pathway used later to justify the central claims.
+Following this introduction, the dissertation is organized as follows. The background chapter isolates the conceptual ingredients needed for the rest of the manuscript: lag expansion, sparse support recovery under dependence, and interpretability as a design requirement. The related-work chapter then shifts from concepts to literature comparison by positioning competing grouped, ordered, dependence-aware, and rule-based families relative to the dissertation's pipeline \autocites{fried2010,tay2023,yang2015}. The approach chapter then presents the rectification-first pipeline in unified notation, explains the intuition behind its design, and describes the theoretical pathway used later to justify the central claims.
 
 The subsequent chapters address the three research questions directly: empirical evidence for rectification, theoretical analysis of the mechanism, and anytime rule compression for deployment-ready interpretability. The final chapters summarize limitations, future extensions, and deployment implications for longitudinal decision support. Proof details are discussed at a high level in the main text and provided step-by-step in the appendices.

@@ -1,0 +1,122 @@
+{
+  "analysis_version": "d010_v6_dual_support_view",
+  "seeds": [
+    1234,
+    1235,
+    1236
+  ],
+  "synthetic": {
+    "num_examples": 1800,
+    "N": 100,
+    "S": 40,
+    "R": [
+      5,
+      6,
+      9,
+      10,
+      15,
+      25,
+      30
+    ],
+    "AB": [
+      "a",
+      "a",
+      "b",
+      "b",
+      "a",
+      "b",
+      "n"
+    ],
+    "gp": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "H": 10,
+    "train_fr": 0.7,
+    "disp": [
+      0,
+      0,
+      0,
+      0,
+      10,
+      6,
+      0,
+      10,
+      1,
+      0,
+      0,
+      0,
+      2,
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      3,
+      0,
+      0,
+      0,
+      0,
+      7,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "thresh_a": 0.3,
+    "thresh_b": 0.65,
+    "tr_frac": 0.25,
+    "pos_tol": 0.005,
+    "max_cycle_iters": 10,
+    "max_thresh_iters": 24,
+    "verbose": false
+  },
+  "support_k": 7,
+  "cutlass_model_kw": {
+    "cv": 3,
+    "cs": 7,
+    "c_lo": -3,
+    "c_hi": 3,
+    "solver": "saga",
+    "tol": 0.001,
+    "max_iter": 1200,
+    "cv_rule": "1se"
+  },
+  "cutlass_rule_k_max": 20,
+  "cutlass_rule_rel_tol": 0.005,
+  "ebm_kw": {
+    "interactions": 0,
+    "outer_bags": 4,
+    "inner_bags": 0,
+    "learning_rate": 0.03,
+    "max_rounds": 200,
+    "min_samples_leaf": 4,
+    "n_jobs": 1
+  },
+  "rulefit_kw": {
+    "include_linear": false,
+    "max_rules": 20,
+    "n_estimators": 30,
+    "tree_size": 4
+  },
+  "rulelist_kw": {
+    "max_depth": 5
+  }
+}

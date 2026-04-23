@@ -244,6 +244,38 @@
     \field{year}{2010}
   \endentry
 
+  \entry{friedman2008rulefit}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=FJ}{%
+         family={Friedman},
+         familyi={F\bibinitperiod},
+         given={J.H.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PB}{%
+         family={Popescu},
+         familyi={P\bibinitperiod},
+         given={B.E.},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FJPB1}
+    \strng{fullhash}{FJPB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \verb{doi}
+    \verb 10.1214/07-AOAS148
+    \endverb
+    \field{number}{3}
+    \field{pages}{916\bibrangedash 954}
+    \field{title}{Predictive learning via rule ensembles}
+    \field{volume}{2}
+    \field{journaltitle}{The Annals of Applied Statistics}
+    \field{year}{2008}
+  \endentry
+
   \entry{hemraj2025ecosystem}{article}{}{}
     \name{author}{3}{}{%
       {{hash=HD}{%
@@ -533,6 +565,43 @@
     \field{year}{2011}
   \endentry
 
+  \entry{lou2012intelligible}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=LY}{%
+         family={Lou},
+         familyi={L\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CR}{%
+         family={Caruana},
+         familyi={C\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=GJ}{%
+         family={Gehrke},
+         familyi={G\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LYCRGJ1}
+    \strng{fullhash}{LYCRGJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{booktitle}{Proceedings of the 18th ACM SIGKDD International
+  Conference on Knowledge Discovery and Data Mining}
+    \verb{doi}
+    \verb 10.1145/2339530.2339556
+    \endverb
+    \field{pages}{150\bibrangedash 158}
+    \field{title}{Intelligible models for classification and regression}
+    \field{year}{2012}
+  \endentry
+
   \entry{mata2015multiple}{article}{}{}
     \name{author}{2}{}{%
       {{hash=MAS}{%
@@ -665,6 +734,49 @@
     \field{title}{Feature selection, L1 vs. L2 regularization, and rotational
   invariance}
     \field{year}{2004}
+  \endentry
+
+  \entry{orender2026cutlass}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=OJ}{%
+         family={Orender},
+         familyi={O\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{OJ1}
+    \strng{fullhash}{OJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{note}{Python package on PyPI, version 0.1.0}
+    \field{title}{{cutlass}: Rectified {L1} Logistic Regression with
+  Critical-Range Encoding}
+    \field{year}{2026}
+  \endentry
+
+  \entry{orender2026dissertationrepo}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=OJ}{%
+         family={Orender},
+         familyi={O\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{OJ1}
+    \strng{fullhash}{OJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{note}{Public GitHub repository with notebooks, regeneration scripts,
+  cached outputs, and manuscript figures}
+    \field{title}{Dissertation Artifact Repository for Interpretable Sparse
+  Modeling of Longitudinal Signals}
+    \field{year}{2026}
   \endentry
 
   \entry{JOrender2025Anytime}{inproceedings}{}{}

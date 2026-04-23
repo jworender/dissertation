@@ -1,0 +1,126 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: biblatex.bst
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+Reallocating 'name_of_file' (item size: 1) to 4 items.
+I couldn't open database file ref.bib
+---line 5 of file main.aux
+ : \bibdata{main-blx,ref
+ :                      }
+I'm skipping whatever remains of this command
+Reallocating 'name_of_file' (item size: 1) to 27 items.
+A level-1 auxiliary file: Chapters/98_appendices.aux
+Reallocating 'name_of_file' (item size: 1) to 21 items.
+A level-1 auxiliary file: Chapters/99_vita.aux
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'field_info' (item size: 4) to 11860 items.
+Database file #1: main-blx.bib
+Warning--I didn't find a database entry for "hiploylee2017"
+Warning--I didn't find a database entry for "wong2010longitudinal"
+Warning--I didn't find a database entry for "sorvali2021farmer"
+Warning--I didn't find a database entry for "hemraj2025ecosystem"
+Warning--I didn't find a database entry for "mata2015multiple"
+Warning--I didn't find a database entry for "peng2013event"
+Warning--I didn't find a database entry for "ters2020arbitrage"
+Warning--I didn't find a database entry for "tibshirani1996"
+Warning--I didn't find a database entry for "AYNg2004Feature"
+Warning--I didn't find a database entry for "PZhao2006model"
+Warning--I didn't find a database entry for "freijeirogonzalez2022"
+Warning--I didn't find a database entry for "HZou2005Regularization"
+Warning--I didn't find a database entry for "HZou2006adaptive"
+Warning--I didn't find a database entry for "yuan2006"
+Warning--I didn't find a database entry for "meier2008"
+Warning--I didn't find a database entry for "RTibshirani2016ordered"
+Warning--I didn't find a database entry for "HZhu2021variable"
+Warning--I didn't find a database entry for "katrutsa2017"
+Warning--I didn't find a database entry for "yang2023model"
+Warning--I didn't find a database entry for "CRudin2019Stop"
+Warning--I didn't find a database entry for "WJMurdoch2019Definitions"
+Warning--I didn't find a database entry for "EAngelino2018Learning"
+Warning--I didn't find a database entry for "EBoros1997Logical"
+Warning--I didn't find a database entry for "EBoros2000implementation"
+Warning--I didn't find a database entry for "orender2022"
+Warning--I didn't find a database entry for "JOrender2025Efficient"
+Warning--I didn't find a database entry for "JOrender2025Anytime"
+Warning--I didn't find a database entry for "shin2020"
+Warning--I didn't find a database entry for "sigillito1989"
+Warning--I didn't find a database entry for "DJSchuirmann1987comparison"
+Warning--I didn't find a database entry for "fried2010"
+Warning--I didn't find a database entry for "tay2023"
+Warning--I didn't find a database entry for "yang2015"
+Warning--I didn't find a database entry for "RAHorn2012Matrix"
+Warning--I didn't find a database entry for "turlach2005"
+Warning--I didn't find a database entry for "MRejchel2020Rank"
+Warning--I didn't find a database entry for "kim2006"
+Warning--I didn't find a database entry for "roozbeh2018"
+Warning--I didn't find a database entry for "ladha2011"
+Warning--I didn't find a database entry for "kp2022feature"
+Warning--I didn't find a database entry for "lou2012intelligible"
+Warning--I didn't find a database entry for "friedman2008rulefit"
+Warning--I didn't find a database entry for "inoue2021"
+Warning--I didn't find a database entry for "orender2026cutlass"
+Warning--I didn't find a database entry for "orender2026dissertationrepo"
+Warning--I didn't find a database entry for "unicef2023"
+Warning--I didn't find a database entry for "Student1908probable"
+Warning--I didn't find a database entry for "WFeller1991Introduction"
+Biblatex version: 3.21
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+You've used 1 entry,
+            6402 wiz_defined-function locations,
+            1271 strings with 10111 characters,
+and the built_in function-call counts, 1646 in all, are:
+= -- 77
+> -- 82
+< -- 1
++ -- 61
+- -- 36
+* -- 36
+:= -- 390
+add.period$ -- 0
+call.type$ -- 1
+change.case$ -- 0
+chr.to.int$ -- 50
+cite$ -- 0
+duplicate$ -- 11
+empty$ -- 108
+format.name$ -- 0
+if$ -- 341
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 20
+num.names$ -- 0
+pop$ -- 47
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 82
+stack$ -- 0
+substring$ -- 170
+swap$ -- 1
+text.length$ -- 20
+text.prefix$ -- 0
+top$ -- 1
+type$ -- 22
+warning$ -- 0
+while$ -- 68
+width$ -- 0
+write$ -- 20
+(There was 1 error message)

@@ -1,0 +1,11 @@
+{
+  "domain": "HAI attack_p2 (a1)",
+  "chosen_branch": "rectify",
+  "rectify_supported": true,
+  "raw_auc": 0.9492283950617283,
+  "rectified_auc": 0.9894907407407407,
+  "raw_j": 0.574074074074074,
+  "rectified_j": 0.9296296296296296,
+  "raw_p2_share": 0.1941303641970873,
+  "rectified_p2_share": 0.5991092005773396
+}

@@ -24,7 +24,7 @@ This is the core intuition behind the dissertation's methods: if the phenomenon 
 
 \subsection{Toy-example intuition}
 
-The toy examples used later in the dissertation illustrate this idea in a controlled form. When raw continuous features are moderately correlated, lasso can distribute weight across irrelevant but similar variables. After binarization, the relevant features more closely match the event pattern while many irrelevant features collapse into less informative indicator sequences. In effect, the search problem shifts from ``which continuous columns best interpolate the outcome?'' to ``which threshold indicators best explain the event pattern?'' That shift is what motivates the full pipeline.
+The toy examples used later in the dissertation illustrate this idea in a controlled form. When raw continuous features are moderately correlated, lasso can distribute weight across irrelevant but similar variables. After rectification into indicator form, the relevant features more closely match the event pattern while many irrelevant features collapse into less informative sequences. In effect, the search problem shifts from ``which continuous columns best interpolate the outcome?'' to ``which threshold indicators best explain the event pattern?'' That shift is what motivates the full pipeline.
 
 \subsection{From sparse coefficients to usable decisions}
 
@@ -36,7 +36,7 @@ Even when rectification improves support concentration, the resulting sparse mod
 
 Starting from longitudinal measurements, the first step is to create a lag-expanded design matrix so that each predictor corresponds to a specific variable-lag pair. For each candidate feature, the method then estimates a \emph{critical range}: a range of observed values associated with event occurrence. The raw value is converted into a binary indicator that records whether the measurement falls inside or outside that range.
 
-In the simplest analyzed setting this is equivalent to zero-threshold sign binarization after standardization, which makes the theory analytically tractable. In the practical pipeline used for experiments, the thresholds need not be zero and the active condition can correspond to one-sided or interval-like ranges learned from the data. The practical objective is the same in both cases: replace noisy continuous variation with a signal that directly encodes threshold satisfaction.
+In the simplest analyzed setting, rectification reduces to zero-threshold sign binarization after standardization, which makes the theory analytically tractable. In the practical pipeline used for experiments, the thresholds need not be zero and the active condition can correspond to one-sided or interval-like ranges learned from the data. The practical objective is the same in both cases: replace noisy continuous variation with a signal that directly encodes threshold satisfaction.
 
 \subsection{Stage 2: Sparse baseline fitting}
 
@@ -49,6 +49,117 @@ The baseline is intentionally simple. More elaborate penalties exist and are tre
 The active sparse coefficients are then ordered by magnitude and compressed into progressively simpler rule candidates. Logic polishing assigns a common magnitude to retained terms, removes small residual coefficients, and evaluates nested prefixes as $m$-of-$K$ decision rules \autocite{JOrender2025Anytime}. Because each prefix yields a usable rule, the process is ``anytime'': it can stop as soon as complexity is low enough and performance is still acceptable for the deployment context.
 
 This stage is not an unrelated post-processing convenience. It is part of the dissertation's overall research approach because the project is motivated by interpretable deployment, not only by feature-selection accuracy. The sparse model creates a focused candidate set; the compression stage converts that candidate set into a form that humans can audit, challenge, and implement.
+
+\subsection{Applying the pipeline to a new dataset}
+
+Figure \ref{fig:new_dataset_workflow} turns the dissertation's method family into an ordered operational playbook. The sequence begins with a raw lag-expanded sparse baseline because the practical question is not whether rectification can be made to work in isolation, but whether it improves attribution quality or deployment usability relative to a standard sparse starting point. The first decision is therefore diagnostic: does the dataset show threshold-mediated structure strong enough to justify rectification? The empirical diagnostic refined in Chapter 5 is the guide here. Rectification is a strong candidate when event windows repeatedly occupy relatively narrow one-sided or interval ranges at plausible lags, raw sparse supports drift across folds or nearby tuning choices, the threshold has domain meaning, and a train-only pilot rectification preserves held-out discrimination while improving support concentration, lag localization, or compactness.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.93\textwidth]{Figures/new_dataset_pipeline_workflow.pdf}
+    \caption[Applying the pipeline to a new dataset.]{Operational workflow for applying the dissertation's pipeline to a new dataset. The sequence integrates the raw baseline, rectification diagnostic, optional compression stage, and explicit fallback outcomes into one ordered playbook.}
+    \label{fig:new_dataset_workflow}
+\end{figure}
+
+The default starting choices should be conservative and auditable. All rectifier thresholds should be estimated on training data only. When the domain already suggests an upper-tail, lower-tail, or interval trigger, that one-sided or interval rule should be the first candidate; when no such semantics are available, a simple train-only range rule is the appropriate pilot because it keeps the representation aligned with event membership rather than with arbitrary post hoc threshold search. Penalty strength should be selected by cross-validation or from a stable near-plateau region rather than from a brittle point optimum, and the same split and operating metric should be used when comparing raw and rectified fits. If rectification improves attribution behavior without unacceptable held-out loss, the rectified sparse model becomes the new baseline. If a simpler deployable artifact is required, the compression stage then applies the dissertation's strict default policy: choose the smallest prefix satisfying $J_{\text{train}}(k)\geq 0.98\,J_{\text{train,base}}$ on training, then require held-out paired-bootstrap lower bounds $\Delta \mathrm{AUC}>-0.02$ and $\Delta J>-0.02$ before treating the compressed rule as deployment-eligible.
+
+The fallback rules are equally important because the correct outcome is often ``do not switch'' rather than ``force the full pipeline.'' If threshold structure is weak, if performance changes erratically under small threshold adjustments, or if rectification degrades held-out fit without compensating gains in interpretability, then the analyst should keep the raw sparse baseline or use a hybrid representation that retains post-threshold magnitude information. Likewise, if the anytime frontier fails the held-out non-inferiority gate, the correct deployment artifact is the rectified sparse baseline itself rather than a more aggressively compressed rule. The workflow therefore does not require every dataset to be rectified and compressed; it provides a controlled procedure for deciding when to stay raw, when to switch to rectified features, and when to stop before simplification goes too far.
+
+The following quick-reference checklist condenses that branch logic, while Table \ref{tab:workflow_defaults} lists the conservative defaults used when first applying the pipeline to a new dataset.
+
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+    \item \textbf{Stay raw:} Choose this branch when threshold structure is weak, threshold sensitivity is erratic, or rectification hurts held-out fit without compensating attribution gains. Keep the raw sparse baseline and treat rectification as exploratory only.
+    \item \textbf{Rectify:} Choose this branch when train-only pilots produce plausible one-sided or interval event windows and improve support concentration, lag localization, or compactness without unacceptable held-out loss. Promote the rectified sparse fit to the new baseline for further analysis and deployment review.
+    \item \textbf{Use hybrid features:} Choose this branch when the threshold trigger is meaningful, but post-threshold magnitude still appears predictive or a pure indicator causes noticeable held-out loss. Keep the threshold indicator together with selected continuous magnitude terms rather than forcing an all-indicator representation.
+    \item \textbf{Stop before compression:} Choose this branch when the rectified sparse baseline is already interpretable enough, or the anytime frontier fails the held-out non-inferiority gate. Report or deploy the rectified sparse baseline rather than a more aggressively simplified rule.
+    \item \textbf{Compress:} Choose this branch when the rectified baseline is stronger than raw and a simpler artifact is required for deployment, audit, or communication. Run the anytime frontier and accept only the smallest rule that passes the prespecified held-out policy.
+\end{itemize}
+
+\begin{table}[p]
+    \caption[Conservative defaults for a new dataset.]{Conservative default settings for the first pass through the dissertation pipeline.}
+    \label{tab:workflow_defaults}
+    \centering
+        {\footnotesize
+        \setlength{\tabcolsep}{3pt}
+        \renewcommand{\arraystretch}{0.95}
+        \begin{tabularx}{0.96\textwidth}{>{\RaggedRight\arraybackslash}p{0.20\textwidth}>{\RaggedRight\arraybackslash}p{0.23\textwidth}>{\RaggedRight\arraybackslash}X}
+            Item & Default & Reason \\ \hline
+            Rectifier choice & Use the domain-aligned one-sided or interval rule when it is already meaningful; otherwise start with a simple train-only range rule. & Keeps the representation aligned with event membership while avoiding arbitrary post hoc threshold search. \\ \hline
+            Threshold estimation & Estimate all bounds on training data only. & Prevents leakage from validation or test labels into the representation. \\ \hline
+            Penalty selection & Select penalty strength by cross-validation or from a stable near-plateau region. & Avoids overinterpreting a brittle point optimum. \\ \hline
+            Raw-versus-rectified comparison & Use the same split and the same operating metric on both paths. & Makes the switch decision attributable to representation rather than to evaluation mismatch. \\ \hline
+            Compression tolerance & Choose the smallest prefix satisfying $J_{\text{train}}(k)\geq 0.98\,J_{\text{train,base}}$. & Imposes a conservative training-side simplification rule before held-out adoption is considered. \\ \hline
+            Held-out adoption margins & Require paired-bootstrap lower bounds $\Delta \mathrm{AUC}>-0.02$ and $\Delta J>-0.02$. & Provides an explicit non-inferiority gate before a compressed rule is treated as deployment-eligible. \\ \hline
+        \end{tabularx}
+        }
+\end{table}
+
+Three troubleshooting rules cover the most common failure modes:
+\begin{itemize}
+    \item If no stable lag-localized event ranges appear, keep the raw sparse baseline and do not force rectification.
+    \item If small threshold changes produce large swings in performance or support, treat the dataset as weakly aligned with the threshold-mediated regime and prefer raw or hybrid representations.
+    \item If the compressed rule is a near miss that fails the held-out gate, retain the rectified sparse baseline; the correct action is usually ``stop'' rather than ``relax the rule until it passes.''
+\end{itemize}
+
+\subsection{Worked HAI exemplar for the workflow}
+
+To make the branch logic concrete rather than purely schematic, the manuscript includes one executable worked example built from the HAI industrial-control benchmark already discussed in Chapters 5 and 7. The accompanying notebook \path{notebooks/walkthrough.ipynb}, available with the manuscript's public artifacts in the dissertation repository, uses the custom-built \texttt{cutlass} Python package to run the full Chapter 4 playbook on the HAI turbine-loop case \path{attack_p2 (a1)}: raw lag-expanded sparse baseline, train-only threshold-alignment pilot, branch selection, strict-policy anytime compression, and final deployment recommendation. The point of this exemplar is operational clarity rather than a new scientific claim.
+
+Table \ref{tab:workflow_hai_exemplar} compresses the worked example into one page. On this case, the raw baseline reaches test AUC $0.949$ and $J=0.574$, while the matched rectified pilot improves to AUC $0.989$ and $J=0.930$ and shifts absolute coefficient mass toward the attacked $P2$ subsystem ($0.194 \rightarrow 0.599$ share). The workflow therefore takes the ``rectify'' branch, promotes the rectified sparse fit to the new baseline, and then evaluates the anytime frontier under the dissertation's strict default policy. That policy selects $k=14$ from $39$ active logical conditions ($2.79\times$ compression); the held-out deltas are $\Delta \mathrm{AUC}=-0.011$ and $\Delta J=+0.015$, with paired-bootstrap lower bounds $-0.016$ and $-0.005$, both above the dissertation's $-0.02$ non-inferiority margins. The resulting deployment artifact is therefore the compressed rule rather than the full rectified sparse baseline.
+
+\begin{table}[tbh]
+    \caption[Worked HAI exemplar for the Chapter 4 workflow.]{Compact end-to-end HAI exemplar for the Chapter 4 workflow.}
+    \label{tab:workflow_hai_exemplar}
+    \centering
+        {\footnotesize
+        \setlength{\tabcolsep}{3pt}
+        \renewcommand{\arraystretch}{0.95}
+        \begin{tabularx}{0.97\textwidth}{>{\RaggedRight\arraybackslash}p{0.19\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.23\textwidth}}
+            Step & HAI \path{attack_p2 (a1)} outcome & Workflow implication \\ \hline
+            Raw baseline & Test AUC $0.949$ and $J=0.574$ on the raw lag-expanded sparse fit. & Start from the conventional sparse baseline and use it as the comparator. \\ \hline
+            Train-only rectified pilot & On the same split and penalty, test AUC improves to $0.989$, $J$ improves to $0.930$, and the attacked-$P2$ coefficient-mass share rises from $0.194$ to $0.599$. & Threshold alignment is strong enough to justify switching to rectified features. \\ \hline
+            Branch choice & Chosen branch = ``rectify.'' & Promote the rectified sparse fit to the new baseline. \\ \hline
+            Anytime compression & The strict $2\%$ policy selects $k=14$ from $39$ active logical conditions ($2.79\times$ compression). & The rectified baseline is compressible enough to consider a rule artifact. \\ \hline
+            Held-out adoption gate & $\Delta \mathrm{AUC}=-0.011$ and $\Delta J=+0.015$; paired-bootstrap lower bounds are $-0.016$ and $-0.005$, both above the dissertation's $-0.02$ margins. & The compressed candidate is deployment-eligible under the default policy. \\ \hline
+            Final deployment artifact & Deploy the compressed rule rather than the full rectified sparse baseline. & Full path: raw baseline $\rightarrow$ diagnostic $\rightarrow$ rectify $\rightarrow$ compress. \\ \hline
+        \end{tabularx}
+        }
+\end{table}
+
+\subsection{Public artifacts and regeneration path}
+
+The reproducibility path for this dissertation is already public rather than prospective. The reusable modeling core is distributed as the Python package \texttt{cutlass} \autocite{orender2026cutlass}, so the rectification, sparse fitting, and rule-compression primitives can be installed independently of this manuscript with \texttt{pip install cutlass}. The dissertation-specific study layer is hosted in the public GitHub repository \autocite{orender2026dissertationrepo}.
+
+That repository separates reusable software from study regeneration. The notebook layer under \path{notebooks/} includes the following study packages and workflow exemplar:
+\begin{itemize}
+    \item \path{stability_ablation.ipynb}
+    \item \path{cross_domain.ipynb}
+    \item \path{goose_bay_robustness.ipynb}
+    \item \path{boundary_conditions.ipynb}
+    \item \path{compression_validation.ipynb}
+    \item \path{interpretable_baselines.ipynb}
+    \item \path{walkthrough.ipynb}, the Chapter 4 HAI \path{attack_p2 (a1)} worked example implemented with the custom-built \texttt{cutlass} package
+\end{itemize}
+Paired generators under \path{scripts/_generate_*.py} rebuild these notebook packages and write cached run summaries under \path{notebooks/runs_new/}, while manuscript-ready figures are retained under \path{Figures/}. Appendix \ref{app:reproducibility_map} turns that artifact list into a direct study-regeneration map by naming, for each package, the notebook, generator, cached output directory, principal figures or tables, and the chapter that consumes the result. The public package therefore exposes the general method family, and the public dissertation repository exposes the exact empirical regeneration path for the reported figures and study summaries.
+
+From a computer-science perspective, the dissertation is therefore not only a domain-method narrative. It is a compact engineering pattern: change representation to improve statistical geometry, reuse mature sparse solvers rather than designing a custom optimizer, and then apply an auditable deployment policy through the anytime compression layer. Table \ref{tab:engineering_summary} summarizes that view and names the intended technical readership explicitly.
+
+\begin{table}[tbh]
+    \caption[CS-facing engineering summary of the pipeline.]{CS-facing engineering summary of the dissertation pipeline.}
+    \label{tab:engineering_summary}
+    \centering
+        {\scriptsize
+        \setlength{\tabcolsep}{2pt}
+        \renewcommand{\arraystretch}{0.95}
+        \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.18\textwidth}}
+            Stage & Computational role & Solver or artifact reuse & Runtime or complexity note & Intended technical user \\ \hline
+            Lag expansion + rectification & Convert variable-lag trajectories into threshold indicators aligned with event membership before sparse fitting. & Implemented in the public \texttt{cutlass} package; changes feature space without altering the downstream optimizer. & Rectification remains small in tested scaling: $0.015$--$0.034$ seconds as the lag-expanded design grows from $440$ to $840$ features. & ML engineers working with sensor streams, ICS analysts, and clinical-informatics researchers who need explicit event windows. \\ \hline
+            Sparse baseline fitting & Use L1-logistic sparse fitting to select feature-lag indicators after rectification and provide the baseline for resampling, audits, and downstream compression. & Reuses mature sparse generalized-linear-model tooling rather than a custom solver; the intervention is representation-first, not optimizer-first. & In tested scaling, the rectified fit remains faster than the raw fit: $1.19$ vs.\ $2.24$ seconds at $440$ features and $2.30$ vs.\ $4.35$ seconds at $840$. & Researchers and engineers who need stable lag attribution in addition to predictive discrimination. \\ \hline
+            Anytime rule compression & Order the active sparse coefficients, scan nested prefixes, and return the smallest passing $m$-of-$K$ rule under an explicit deployment policy. & Reuses the sparse support produced upstream and the public CUTLASS logic-polishing implementation instead of solving a global rule-list search problem from scratch. & Search is restricted to the active set rather than the full lag-expanded design; accepted real-data rules compress supports by about $2.8\times$--$4.3\times$ under the strict gate. & Deployment teams, model-governance reviewers, and domain operators who need auditable rules rather than coefficient vectors alone. \\ \hline
+            Public artifacts + regeneration & Separate reusable modeling code from dissertation-specific study regeneration and preserve an auditable path from package to figures. & Public \texttt{cutlass} package, notebook study bundles, \texttt{scripts/\_generate\_*} generators, cached summaries under \path{notebooks/runs_new/}, and manuscript-ready figures. & Cached run summaries lower rerun cost and make the empirical path inspectable without repeating every study from scratch. & Benchmark authors, replication researchers, and engineers extending the pipeline to new longitudinal domains. \\ \hline
+        \end{tabularx}
+        }
+\end{table}
 
 \section{How the Theoretical Case Is Built}
 
@@ -76,6 +187,8 @@ The theoretical structure is intentionally limited. It uses zero-threshold sign 
 This bounded strategy is important to the dissertation's argument. It allows the work to be rigorous without overclaiming. Because the theorem's mechanism aligns with the empirical behavior observed in synthetic and real data, the case for the approach remains strong even though full generalization beyond the analyzed regime is still an open research direction.
 
 \section{How the Approach Maps to the Research Questions}
+
+Table \ref{tab:executive_map} in Chapter 1 provides the skimmable front-of-manuscript summary of the dissertation's problem, pipeline, regime boundaries, and research-question answers. This section restates that map in the method's own terms.
 
 The integrated pipeline naturally defines the dissertation's three-question structure.
 \begin{itemize}

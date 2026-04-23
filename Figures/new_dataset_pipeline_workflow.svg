@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="1160" viewBox="0 0 920 1160" role="img" aria-labelledby="title desc">
+  <title id="title">Applying the Pipeline to a New Dataset</title>
+  <desc id="desc">Print-friendly workflow for deciding when to keep a raw sparse baseline, try rectification, and optionally compress to a deployable rule.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10.6" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#344055" />
+    </marker>
+    <style>
+      .title { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 27px; font-weight: 700; fill: #18324a; }
+      .box-title { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 22px; font-weight: 700; fill: #18324a; }
+      .body { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 18px; font-weight: 400; fill: #213547; }
+      .label { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 15px; font-weight: 700; fill: #6a5132; }
+      .main-box { fill: #f7fbff; stroke: #436b8f; stroke-width: 2.4; rx: 18; ry: 18; }
+      .decision-box { fill: #fff6df; stroke: #b37a1b; stroke-width: 2.4; rx: 18; ry: 18; }
+      .outcome-box { fill: #eef8f0; stroke: #3f7d4a; stroke-width: 2.4; rx: 18; ry: 18; }
+      .fallback-box { fill: #fff2ef; stroke: #b54e42; stroke-width: 2.4; rx: 18; ry: 18; }
+      .arrow { stroke: #344055; stroke-width: 2.6; fill: none; marker-end: url(#arrow); }
+      .stem { stroke: #344055; stroke-width: 2.6; fill: none; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="920" height="1160" fill="#ffffff" />
+
+  <text x="460" y="42" text-anchor="middle" class="title">Applying the Pipeline to a New Dataset</text>
+
+  <rect x="260" y="88" width="440" height="86" class="main-box" />
+  <text x="284" y="118" class="box-title">1. Fit a raw sparse baseline</text>
+  <text x="284" y="148" class="body">
+    <tspan x="284" dy="0">Keep the split, metric, and</tspan>
+    <tspan x="284" dy="22">operating threshold fixed.</tspan>
+  </text>
+
+  <rect x="260" y="222" width="440" height="140" class="main-box" />
+  <text x="284" y="252" class="box-title">2. Screen for threshold structure</text>
+  <text x="284" y="282" class="body">
+    <tspan x="284" dy="0">- narrow event ranges at plausible lags</tspan>
+    <tspan x="284" dy="22">- raw supports drift across</tspan>
+    <tspan x="302" dy="22">folds or nearby tuning</tspan>
+    <tspan x="284" dy="22">- pilot rectification sharpens support</tspan>
+  </text>
+
+  <rect x="260" y="410" width="440" height="94" class="decision-box" />
+  <text x="284" y="432" class="box-title">Decision A: Try rectification?</text>
+  <text x="284" y="462" class="body">
+    <tspan x="284" dy="0">Proceed only when the</tspan>
+    <tspan x="284" dy="22">threshold signal is meaningful.</tspan>
+  </text>
+
+  <rect x="0" y="416" width="210" height="368" class="fallback-box" />
+  <text x="18" y="446" class="box-title">Fallback lane</text>
+  <text x="18" y="478" class="body">
+    <tspan x="18" dy="0">If threshold structure</tspan>
+    <tspan x="18" dy="22">is weak or</tspan>
+    <tspan x="18" dy="22">rectification loses fit:</tspan>
+    <tspan x="18" dy="24">- keep raw features;</tspan>
+    <tspan x="18" dy="22">- use hybrid features</tspan>
+    <tspan x="18" dy="22">if magnitude matters.</tspan>
+  </text>
+
+  <rect x="260" y="552" width="440" height="92" class="main-box" />
+  <text x="284" y="582" class="box-title">3. Fit the rectified baseline</text>
+  <text x="284" y="612" class="body">
+    <tspan x="284" dy="0">Estimate thresholds on training data only, then refit.</tspan>
+  </text>
+
+  <rect x="260" y="692" width="440" height="100" class="decision-box" />
+  <text x="284" y="722" class="box-title">Decision B: Keep rectification?</text>
+  <text x="284" y="752" class="body">
+    <tspan x="284" dy="0">Require held-out fit to hold</tspan>
+    <tspan x="284" dy="24">and attribution to improve.</tspan>
+  </text>
+
+  <rect x="260" y="840" width="440" height="96" class="main-box" />
+  <text x="284" y="870" class="box-title">4. Optional rule compression</text>
+  <text x="284" y="900" class="body">
+    <tspan x="284" dy="0">Scan ordered prefixes of active terms.</tspan>
+    <tspan x="284" dy="24">Apply train tolerance, then the held-out gate.</tspan>
+  </text>
+
+  <rect x="550" y="1008" width="220" height="124" class="outcome-box" />
+  <text x="572" y="1038" class="box-title">Deploy rule</text>
+  <text x="572" y="1068" class="body">
+    <tspan x="572" dy="0">Use the smallest</tspan>
+    <tspan x="572" dy="24">rule that passes.</tspan>
+  </text>
+
+  <rect x="190" y="1008" width="320" height="124" class="outcome-box" />
+  <text x="214" y="1038" class="box-title">Deploy rectified</text>
+  <text x="214" y="1066" class="box-title">sparse baseline</text>
+  <text x="214" y="1094" class="body">
+    <tspan x="214" dy="0">Stop here when compression</tspan>
+    <tspan x="214" dy="24">is unnecessary or fails.</tspan>
+  </text>
+
+  <path class="arrow" d="M 480 174 L 480 222" />
+  <path class="arrow" d="M 480 362 L 480 410" />
+  <path class="arrow" d="M 480 504 L 480 552" />
+  <path class="arrow" d="M 480 644 L 480 692" />
+  <path class="arrow" d="M 480 792 L 480 840" />
+  <path class="stem" d="M 480 936 L 480 970" />
+  <path class="arrow" d="M 480 970 L 350 970 L 350 1008" />
+  <path class="arrow" d="M 480 970 L 660 970 L 660 1008" />
+  <path class="arrow" d="M 260 457 L 210 457" />
+  <path class="arrow" d="M 260 742 L 210 742" />
+
+  <text x="232" y="447" class="label">no</text>
+  <text x="492" y="530" class="label">yes</text>
+  <text x="232" y="732" class="label">no</text>
+  <text x="492" y="818" class="label">yes</text>
+  <text x="355" y="958" text-anchor="middle" class="label">not needed or fails gate</text>
+  <text x="660" y="958" text-anchor="middle" class="label">passes gate</text>
+</svg>

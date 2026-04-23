@@ -1,0 +1,16 @@
+{
+  "domain": "HAI attack_p2 (a1)",
+  "baseline_nonzero": 39,
+  "k_selected": 14,
+  "compression_ratio": 2.7857142857142856,
+  "delta_auc": -0.011243141289437597,
+  "delta_j": 0.014814814814814614,
+  "auc_ci_low": -0.01625838807345368,
+  "auc_ci_high": -0.006424962288086059,
+  "j_ci_low": -0.0052509994677099325,
+  "j_ci_high": 0.0357037402650144,
+  "auc_noninferior": true,
+  "j_noninferior": true,
+  "deployment_recommendation": true,
+  "signed_sum_threshold": -1.0
+}

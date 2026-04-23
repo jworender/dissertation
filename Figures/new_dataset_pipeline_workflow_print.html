@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Workflow Figure Print Wrapper</title>
+  <style>
+    @page {
+      size: 920px 1160px;
+      margin: 0;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 920px;
+      height: 1160px;
+      background: #ffffff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      overflow: hidden;
+    }
+
+    object {
+      display: block;
+      width: 920px;
+      height: 1160px;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <object data="new_dataset_pipeline_workflow.svg" type="image/svg+xml" aria-label="Applying the Pipeline to a New Dataset"></object>
+</body>
+</html>

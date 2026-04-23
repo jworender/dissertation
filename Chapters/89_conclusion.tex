@@ -21,7 +21,7 @@ Together, these questions move from empirical behavior (RQ1), to theoretical pla
 
 The accumulated evidence supports a conditional positive conclusion for RQ1. In threshold-and-lag aligned settings, critical-range rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity stress \autocite{orender2022,JOrender2025Efficient}. This finding is consistent with known dependence-related limits of penalty-only sparse selection, where prediction can remain acceptable while support identification degrades \autocite{PZhao2006model,freijeirogonzalez2022}.
 
-The dissertation does not claim universal dominance over all baseline families. Instead, it establishes that representation-level intervention is a viable and often effective alternative to penalty redesign alone, especially when events are naturally threshold-mediated.
+The dissertation does not claim universal dominance over all baseline families. Direct interpretable comparators clarify this boundary: EBM can achieve even stronger raw fit, but with substantially higher additive complexity and runtime, while RuleFit and greedy rule lists are faster yet materially weaker on exact-lag fidelity in the target synthetic regime. The resulting conclusion is therefore not that rectification wins every comparison, but that representation-level intervention provides the strongest compact attribution-performance tradeoff when events are naturally threshold-mediated.
 
 \subsection{RQ2 conclusion: A scoped IC-based mechanism is theoretically defensible}
 
@@ -32,24 +32,30 @@ This distinction is central to rigor. The chapter argues for a plausible structu
 
 \subsection{RQ3 conclusion: Anytime compression makes interpretability operational}
 
-For RQ3, this work concludes that sparse rectified models can often be compressed into substantially smaller rule representations while preserving practical discrimination quality under predefined tolerance policies \autocite{JOrender2025Anytime,JOrender2025Efficient}. This directly addresses deployment requirements in settings where explanation, auditability, and compact decision logic are non-negotiable \autocite{CRudin2019Stop,WJMurdoch2019Definitions}.
+For RQ3, this work reaches a two-part conclusion. In controlled threshold-mediated settings with explicit event logic, sparse rectified models can be compressed cleanly into substantially smaller rule representations without meaningful practical loss, showing that the compression phase itself works in the regime it targets \autocite{JOrender2025Anytime,JOrender2025Efficient}. In real-world data, however, threshold-triggered effects can coexist with smoother additive relationships and with measurement uncertainty, so the more important contribution is the explicit acceptance policy that determines when simplification should be adopted and when the upstream sparse model should be retained \autocite{CRudin2019Stop,WJMurdoch2019Definitions}.
 
-The key advance is the anytime framing itself: rule complexity can be reduced incrementally with explicit stop/adoption criteria, making the interpretability-performance tradeoff controllable rather than ad hoc. Equivalence-oriented evaluation framing further supports practical non-loss claims when simplification is the objective \autocite{DJSchuirmann1987comparison,Student1908probable}.
+The key advance is the anytime framing itself: rule complexity can be reduced incrementally with explicit stop/adoption criteria, making the interpretability-performance tradeoff controllable rather than ad hoc. Prespecified non-inferiority framing further supports practical non-loss claims when simplification is the objective and provides a baseline for accepting or rejecting compression in mixed real-world regimes \autocite{DJSchuirmann1987comparison,Student1908probable}.
 
 \section{Primary Dissertation Contributions}
 
 The dissertation contributes the following integrated advances:
 \begin{enumerate}
-	\item \textbf{A rectification-first longitudinal feature-learning pipeline} that preserves lag structure while mapping signals into critical-range indicators with clear operational semantics \autocite{orender2022,JOrender2025Efficient}.
+	\item \textbf{A unified rectification-first longitudinal pipeline} that preserves lag structure while mapping signals into critical-range indicators with clear operational semantics \autocite{orender2022,JOrender2025Efficient}.
 	\item \textbf{A scoped theoretical bridge to sparse-recovery conditions} showing how representation-level dependence contraction can increase IC favorability in a tractable regime \autocite{PZhao2006model,JOrender2025Efficient}.
-	\item \textbf{An anytime rule-compression stage} that converts sparse coefficients into compact $m$-of-$k$-style logic with tunable performance-complexity tradeoffs \autocite{JOrender2025Anytime}.
-	\item \textbf{A unified evaluation perspective} that balances discrimination, attribution stability, interpretability complexity, and computational efficiency rather than optimizing a single metric.
-	\item \textbf{A reproducible implementation pathway} for rectification, sparse fitting, and compression, enabling repeatable comparisons and practical extension in follow-on work.
+	\item \textbf{An anytime rule-compression stage for interpretable deployment} that converts sparse coefficients into compact $m$-of-$k$-style logic with tunable performance-complexity tradeoffs \autocite{JOrender2025Anytime}.
+	\item \textbf{A dissertation-level empirical validation package} that adds repeated-resample stability and ablation, expanded sparse and direct interpretable baselines, cross-domain transfer and protocol audits, empirical boundary-condition stress tests, and held-out policy-based compression validation.
+	\item \textbf{A reproducible implementation pathway} that exposes the reusable modeling core through the public \texttt{cutlass} package and preserves notebook-backed study regeneration in the dissertation repository.
 \end{enumerate}
+
+Beyond the prior papers in this research line, the dissertation-level delta lies in the repeated-resample stability and ablation package, the direct interpretable-model baselines, the cross-domain plus Goose Bay audit, the empirical boundary-condition package, and the strict held-out compression validation.
+
+From a computer-science perspective, the dissertation's distinct contribution is the combination of representation-first feature redesign, reuse of mature sparse solvers, and policy-controlled interpretable compression in one auditable longitudinal modeling pipeline.
 
 \section{Positioning Relative to Prior Work}
 
-This work extends, rather than replaces, prior sparse and interpretable modeling literature. Relative to classical L1 and elastic-net families \autocite{tibshirani1996,HZou2005Regularization,HZou2006adaptive,fried2010,tay2023}, the main difference is intervention point: representation is modified before sparse optimization. Relative to grouped and ordered penalties \autocite{turlach2005,yuan2006,meier2008,yang2015,RTibshirani2016ordered}, this work emphasizes threshold logic and lag-attribution clarity in a longitudinal context. Relative to direct rule-learning approaches \autocite{EAngelino2018Learning,EBoros1997Logical,EBoros2000implementation}, it uses sparse convex fitting as a scalable front end and performs structured rule simplification afterward.
+This work extends, rather than replaces, prior sparse and interpretable modeling literature. Relative to classical L1 and elastic-net families \autocite{tibshirani1996,HZou2005Regularization,HZou2006adaptive,fried2010,tay2023}, the main difference is intervention point: representation is modified before sparse optimization. Relative to grouped and ordered penalties \autocite{turlach2005,yuan2006,meier2008,yang2015,RTibshirani2016ordered}, this work emphasizes threshold logic and lag-attribution clarity in a longitudinal context. Relative to direct interpretable additive, rule-ensemble, and rule-list approaches \autocites{lou2012intelligible,friedman2008rulefit,EAngelino2018Learning}, it uses sparse convex fitting as a scalable front end and performs structured rule simplification afterward.
+
+Table \ref{tab:method_family_positioning} in Chapter 3 compresses this cross-family comparison into one view, making the dissertation's intervention point, output form, and deployment-policy distinction explicit rather than only descriptive.
 
 Accordingly, the work is best interpreted as a bridge architecture between sparse statistical learning and rule-level interpretability, not as a claim that one method family should replace all others.
 
@@ -67,7 +73,7 @@ These boundaries are consistent with broader evidence that no sparse-selection o
 
 \section{Practical Implications}
 
-This work's practical implication is straightforward: when longitudinal decisions require both predictive utility and audit-ready rationale, it can be more effective to restructure features around event-relevant critical ranges first, then apply mature sparse optimization, and finally compress to explicit rule logic. This design is particularly relevant in domains such as ICS monitoring and clinical trajectory analysis, where lag effects, threshold triggers, and traceable decision criteria are operationally important \autocite{shin2020,wong2010longitudinal,hiploylee2017}.
+This work's practical implication is straightforward: when longitudinal decisions require both predictive utility and audit-ready rationale, it can be more effective to restructure features around event-relevant critical ranges first, then apply mature sparse optimization, and finally compress to explicit rule logic. From a computer-science perspective, the primary technical users are ML engineers building sensor-stream classifiers, ICS security analysts, and clinical-informatics researchers who need lag-aware models with explicit deployment rules rather than only high raw fit. This design is particularly relevant in domains such as ICS monitoring and clinical trajectory analysis, where lag effects, threshold triggers, and traceable decision criteria are operationally important \autocite{shin2020,wong2010longitudinal,hiploylee2017}.
 
 \section{Final Statement}
 

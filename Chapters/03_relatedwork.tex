@@ -2,7 +2,7 @@
 
 \chapter{Related Work}
 
-This chapter reviews method families most relevant to the problem identified in this work: sparse longitudinal feature selection under strong dependence, with interpretable downstream decision logic. The discussion is organized to move from core sparse-learning foundations to structured penalties, dependence-aware alternatives, and rule-based interpretability frameworks. The final sections position this work relative to prior work in the same method lineage.
+This chapter reviews method families most relevant to the problem identified in this work: sparse longitudinal feature selection under strong dependence, with interpretable downstream decision logic. Unlike Chapter 2, which established the conceptual background needed to read the dissertation, this chapter focuses on literature comparison and positioning. The discussion is organized to move from core sparse-learning foundations to structured penalties, dependence-aware alternatives, and rule-based interpretability frameworks. The final sections position this work relative to prior work in the same method lineage.
 
 \section{Sparse Regularization Foundations}
 
@@ -28,19 +28,19 @@ From a matrix-analysis viewpoint, these selection instabilities reflect conditio
 
 Structured penalties were developed to stabilize selection when predictors have known organization. Early simultaneous-selection formulations for multiresponse models and later grouped penalties introduced mechanisms that select predictors at the block level rather than coefficient-by-coefficient \autocites{turlach2005,yuan2006}. This is relevant in longitudinal settings where features can be grouped by channel, basis expansion, or lag family.
 
-Subsequent work extended grouped sparsity to logistic settings and improved practical optimization. Group lasso for logistic regression, blockwise sparse regression, and unified majorization-descent solvers significantly improved feasibility for high-dimensional non-orthonormal designs \autocites{meier2008,kim2006,yang2015}. These methods remain strong comparators because they encode structural assumptions directly in the objective while retaining convexity in many cases.
+Subsequent work extended grouped sparsity to logistic settings and improved practical optimization. Group lasso for logistic regression and blockwise sparse regression improved feasibility in high-dimensional designs, while unified majorization-descent solvers strengthened practical convergence \autocites{meier2008,kim2006,yang2015}. These methods remain strong comparators because they encode structural assumptions directly in the objective while retaining convexity in many cases.
 
 Temporal structure has also been added explicitly through ordered penalties. Ordered lasso introduces monotonicity constraints across lag coefficients, reflecting assumptions such as decaying lag influence and yielding interpretable lag profiles when those assumptions hold \autocite{RTibshirani2016ordered}. This is a particularly relevant baseline for relevant experiments because it targets time-lagged sparsity directly.
 
 Despite these advances, structured penalties still operate in the original correlated representation. They can improve stability and interpretability relative to plain lasso, but they do not inherently convert continuous trajectories into explicit threshold logic. This work positions its rectification step as complementary to these methods: change the representation first, then apply sparse learning.
 
-\section{Correlation-Aware and Alternative Feature Selection Families}
+\section[Correlation-Aware Feature Selection Families]{Correlation-Aware and Alternative Feature Selection Families}
 
 Beyond penalized linear models, several approaches attempt to reduce redundancy through direct relevance-redundancy criteria. Katrutsa and Strijov proposed a quadratic-programming feature-selection framework where pairwise similarity and target relevance are balanced in a convex relaxation \autocite{katrutsa2017}. This strategy can reduce redundant supports, but it is primarily pairwise in construction and does not natively express lag-threshold rules.
 
 Robust multicollinearity-focused estimators provide another pathway. Methods combining robust regression ideas with conditioning-oriented penalties can improve estimation under contamination and ill-conditioning \autocite{roozbeh2018}. These approaches are useful for robustness analysis but typically prioritize fit stability over compact, human-auditable sparse logic.
 
-Filter, wrapper, and embedded selection families remain widely used in practice because they are flexible and model-agnostic \autocite{ladha2011}. Recent hybrid ranking-plus-search approaches also show good empirical performance in domain-specific pipelines \autocite{kp2022feature}. Still, these families can be sensitive to search heuristics, may yield unstable subsets under resampling, and usually do not produce direct temporal-threshold semantics without additional modeling layers.
+Filter, wrapper, and embedded selection families remain widely used because they are flexible and model agnostic \autocite{ladha2011}. Recent hybrid ranking-plus-search pipelines also perform well in domain-specific settings \autocite{kp2022feature}. Even so, these methods can depend on search heuristics, can yield unstable subsets under resampling, and often need extra modeling layers to express temporal threshold rules.
 
 Accordingly, this work includes these methods primarily as conceptual comparators rather than as primary interpretability baselines. Their strengths are pragmatic feature screening and broad applicability; their limitations are weaker guarantees for sparse lag attribution and logic-level interpretability.
 
@@ -48,7 +48,9 @@ Accordingly, this work includes these methods primarily as conceptual comparator
 
 Interpretability-focused literature increasingly argues that high-stakes deployments should prefer inherently interpretable models over post hoc explanations of black boxes whenever performance is competitive \autocites{CRudin2019Stop,WJMurdoch2019Definitions}. This framing strongly influences the design choices in this work: interpretability is treated as a primary objective, not a secondary (post-hoc) reporting artifact.
 
-Rule-based models are central to this viewpoint. Classical Logical Analysis of Data (LAD) frameworks formalize binarization and logic-pattern extraction, including optimization-based treatment of cut-point selection and pattern construction \autocites{EBoros1997Logical,EBoros2000implementation}. These methods establish the value of explicit threshold logic for decision support, but can face combinatorial scaling limits in large, highly correlated feature spaces.
+Interpretable additive and rule-ensemble models are especially relevant comparators under this framing. Generalized additive boosting approaches can retain direct per-feature inspection while remaining highly competitive in classification settings \autocite{lou2012intelligible}. Rule-ensemble methods such as RuleFit occupy a different middle ground: they fit sparse linear weights over conjunction rules extracted from shallow trees, trading a small number of auditable rules against the full complexity of unrestricted tree ensembles \autocite{friedman2008rulefit}. Alongside rule lists, these families are the most direct alternatives when a method claims improvement in operational interpretability rather than only in coefficient sparsity.
+
+Rule-based models are central to this viewpoint. Classical Logical Analysis of Data (LAD) frameworks formalize binarization and logic-pattern extraction, including optimization-based cut-point selection and pattern construction \autocites{EBoros1997Logical,EBoros2000implementation}. These methods establish the value of explicit threshold logic for decision support, but can face combinatorial scaling limits in large, highly correlated feature spaces.
 
 Modern rule-list methods demonstrate that transparent models can be both accurate and principled when optimization is carefully designed. Certifiably optimal rule-list learning shows that exact or bounded-search approaches can produce compact, auditable models with competitive predictive performance on structured tasks \autocite{EAngelino2018Learning}. This work does not replicate global rule-list optimization, but it draws from the same interpretability objective and complexity-aware evaluation philosophy.
 
@@ -71,6 +73,28 @@ Subsequent work added a scoped theoretical analysis and broader case studies. Th
 The companion 2025 anytime rule-compression paper addressed the remaining interpretability gap: sparse coefficients are often still too numerous for direct human use. The anytime compression stage converts sparse rectified models into compact m-of-K style rule behavior with controlled discrimination tradeoffs and early-stop practicality \autocite{JOrender2025Anytime}. This contribution aligns the pipeline with interpretable-model deployment requirements discussed earlier in this chapter.
 
 Compared with related work, the dissertation's distinguishing emphasis is integration. Rather than proposing only a new penalty, only a new binarizer, or only a new rule learner, it unifies all three stages and evaluates them as one longitudinal decision-support pipeline. The key comparative hypothesis is that representation-level rectification plus sparse selection plus anytime compression better balances support reliability, interpretability, and compute constraints than any single-stage alternative.
+Table \ref{tab:method_family_positioning} compresses that cross-family positioning into one view so the dissertation's intervention point and output target can be compared against the main competing families at a glance.
+
+\begin{table}[p]
+    \caption[Cross-family positioning of the dissertation pipeline.]{Cross-family positioning of the dissertation pipeline relative to the main competing method families discussed in this chapter.}
+    \label{tab:method_family_positioning}
+    \centering
+    {\scriptsize
+    \setlength{\tabcolsep}{2pt}
+    \renewcommand{\arraystretch}{0.95}
+    \begin{tabularx}{0.98\textwidth}{>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}p{0.11\textwidth}>{\RaggedRight\arraybackslash}p{0.16\textwidth}>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}X}
+        Method family & Intervention point & Representation change? & Typical output form & Deployment-policy support & Dissertation's intended advantage \\ \hline
+        L1 / elastic-net / adaptive lasso & Coefficient regularization & No & Sparse weighted coefficients & Indirect; usually analyst-defined & Changes representation before fitting rather than relying only on penalty tuning under the original dependence structure. \\ \hline
+        Grouped / ordered sparsity & Structured coefficient regularization & No & Grouped or ordered sparse coefficients & Indirect; usually analyst-defined & Targets threshold logic and lag semantics through feature redesign rather than only through coefficient constraints. \\ \hline
+        Dependence-aware / QP / robust selectors & Redundancy control or robust objective & Usually no & Selected subsets or weighted coefficients & Indirect; usually analyst-defined & Couples redundancy reduction to explicit threshold semantics and a downstream interpretable rule path. \\ \hline
+        Interpretable additive / rule-ensemble models (EBM / RuleFit) & Model-class redesign & Mixed & Additive terms or sparse rule-weight mixtures & Partial; model-specific & Produces a shared rectified sparse baseline and, when justified, a smaller policy-screened rule artifact rather than leaving rule complexity mostly model-specific. \\ \hline
+        Direct rule-list / LAD-style methods & Combinatorial rule search & Yes & Explicit rule lists or logical patterns & Often direct, but search-heavy & Reuses mature sparse solvers and restricts logic compression to the active support rather than searching the full lag-expanded space from scratch. \\ \hline
+        This dissertation & Representation-first pipeline with sparse front end and post-fit compression & Yes & Rectified sparse baseline plus optional policy-controlled $m$-of-$K$ rule & Explicit held-out policy & Balances support reliability, interpretability, solver reuse, and auditable deployment decisions in one longitudinal pipeline. \\ \hline
+    \end{tabularx}
+    }
+\end{table}
+
+Table \ref{tab:dissertation_delta} in Chapter 1 makes the dissertation-level delta relative to these prior papers explicit.
 
 \section{Summary of Gaps in Prior Work}
 

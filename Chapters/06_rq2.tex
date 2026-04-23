@@ -2,9 +2,9 @@
 
 \chapter{Theoretical Analysis (RQ2)}
 
-RQ2 asks why rectification helps and how broadly that mechanism can be generalized. This chapter provides a tractable theoretical justification for the binarization step using the irrepresentable condition (IC) as the central lens. The analysis is intentionally scoped: it focuses on zero-threshold sign binarization under joint normal feature assumptions, where correlation behavior is analytically tractable \autocites{PZhao2006model,JOrender2025Efficient}.
+RQ2 asks why rectification helps and how broadly that mechanism can be generalized. This chapter provides a tractable theoretical justification for the zero-threshold sign-binarized special case of the broader rectification step, using the irrepresentable condition (IC) as the central lens. The analysis is intentionally scoped: it focuses on zero-threshold sign binarization under joint normal feature assumptions, where correlation behavior is analytically tractable \autocites{PZhao2006model,JOrender2025Efficient}.
 
-The point of this chapter is not to claim a universal theorem for every thresholding scheme. Instead, it establishes a defensible mechanism: if binarization contracts dependence in the right way, the IC becomes easier to satisfy, and sparse support recovery becomes more likely. That mechanism aligns with both prior empirical evidence in this line of inquiry and broader observations that lasso-style selection can be unstable under strong dependence \autocites{freijeirogonzalez2022,JOrender2025Efficient}.
+The point of this chapter is not to claim a universal theorem for every thresholding scheme. Instead, it establishes a defensible mechanism: if sign binarization contracts dependence in the right way, the IC becomes easier to satisfy, and sparse support recovery becomes more likely. That mechanism aligns with both prior empirical evidence in this line of inquiry and broader observations that lasso-style selection can be unstable under strong dependence \autocites{freijeirogonzalez2022,JOrender2025Efficient}.
 
 \section{Why RQ2 matters after RQ1 evidence}
 
@@ -41,13 +41,15 @@ Let $\mathbf{X}\in\mathbb{R}^{n\times d}$ be standardized continuous features an
 with threshold at zero.
 For derivations, the appendix sometimes uses an equivalent $\{0,1\}$ encoding; after centering, it preserves the same correlation-ordering arguments up to constant scaling.
 
+In the dissertation's broader terminology, this is the theorem-scoped sign-binarized special case of the empirical rectification step.
+
 \paragraph{Assumptions.}
 \begin{itemize}
     \item Continuous features are jointly normal after standardization.
     \item The support set $S$ is fixed in the local analysis.
     \item Correlation summaries are interpreted through large-sample covariance approximations.
-    \item The goal is comparative: raw versus binarized IC satisfaction probability.
-    \item The zero-threshold is meaningful and retains the signal components relevant to the analyzed mechanism in the target regime (e.g. modeling a threshold-based phenomena).
+    \item The goal is comparative: raw versus sign-binarized IC satisfaction probability.
+    \item The zero-threshold is meaningful and retains the signal components relevant to the analyzed mechanism in the target regime (e.g. modeling a threshold-based phenomenon).
 \end{itemize}
 
 Joint normality and zero-threshold meaningfulness are modeling assumptions introduced for tractable analysis; they are not empirically verified prerequisites for using the full pipeline.
@@ -314,4 +316,4 @@ For RQ2, the core result is a principled explanation for why a simple preprocess
     \item \textbf{Engineering:} it supports a modular pipeline design where preprocessing changes correlation geometry while downstream sparse solvers remain standard and efficient.
 \end{itemize}
 
-In summary, the theorem does not end the theoretical story, but it establishes a coherent bridge from binarization to IC favorability. That bridge is sufficient to support the mechanistic claim while also identifying the boundary conditions that matter for later extensions.
+In summary, the theorem does not end the theoretical story, but it establishes a coherent bridge from sign binarization to IC favorability. That bridge is sufficient to support the mechanistic claim while also identifying the boundary conditions that matter for later extensions.

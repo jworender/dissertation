@@ -6,24 +6,29 @@ RQ1 asks whether critical-range rectification can produce a stable sparse baseli
 
 The evidence is anchored in prior work from the same method lineage, beginning with the rectification-first lasso logic framework and extending to later theory-backed case studies \autocites{orender2022,JOrender2025Efficient}. Across studies, the central empirical pattern is consistent: when the data generating process has threshold-and-lag structure, rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity pressure.
 
-\section{A Simple Example to Aid Intuition Development}
+The chapter's main empirical case comes later. The synthetic studies test whether rectification improves exact-lag recovery and support stability under planted ground truth, the expanded baseline packages test whether that effect survives stronger comparators, and the real-world audits identify where the gains weaken or become protocol-sensitive. The toy example at the start is included as a local intuition bridge for that later evidence: it shows, in miniature, how a threshold-aligned representation can separate true trigger lags from correlated surrogates before the chapter turns to the full benchmark results.
 
-Consider a \emph{toy example} showing how continuous features can obscure true relationships. Let \(\mathbf{X}\) be a $10$-feature matrix with columns \(\text{A}, \dots, \text{J}\). Suppose only \(\text{A}\) and \(\text{D}\) determine the outcome \(y\). Fitting LASSO on raw continuous data can yield spurious coefficients (Figure~\ref{fig:toy_example}, top). After \emph{binarizing} features by marking each as $+1$ or $-1$ based on a range, irrelevant columns disappear, and \(\text{A}\) and \(\text{D}\) stand out (Figure~\ref{fig:toy_example}, bottom).
+\section{A Simple Example for Intuition}
+
+Consider a \emph{toy example} showing how continuous features can obscure true relationships. Let \(\mathbf{X}\) be a $10$-feature matrix with columns \(\text{A}, \dots, \text{J}\). Suppose only \(\text{A}\) and \(\text{D}\) determine the outcome \(y\). Fitting LASSO on raw continuous data can yield spurious coefficients (Figure~\ref{fig:toy_example}, top). After \emph{rectifying} features into $+1/-1$ indicators based on a range, irrelevant columns disappear, and \(\text{A}\) and \(\text{D}\) stand out (Figure~\ref{fig:toy_example}, bottom).
 
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Figures/toy_example.pdf}
-	\caption[Toy Example Coefficient Vectors.]{Coefficient vectors for LASSO on the same data before (top) and after (bottom) binarization. The non-zero feature coefficients indicate the selected features. These particular coefficient sets were calculated using the "glmnet" package from the R programming language, but similar results occur using LASSO implementations in other ecosystems.}
+		\caption[Toy Example Coefficient Vectors.]{Coefficient vectors for LASSO on the same data before (top) and after (bottom) rectification. The non-zero feature coefficients indicate the selected features. These particular coefficient sets were calculated using the "glmnet" package from the R programming language, but similar results occur using LASSO implementations in other ecosystems.}
 	\label{fig:toy_example}
 \end{figure}
 
-Binarization effectively “flattens” continuous variations that inflate feature correlations. Intuitively, columns with moderate overlap in continuous space can appear overly correlated. Mapping to $\{\pm1\}$ reduces correlation unless columns are identical or scalar multiples, preserving meaningful relationships.
+Rectification effectively flattens continuous variations that can inflate feature correlations in this toy setting. Intuitively, columns with moderate overlap in continuous space can appear overly correlated. In the simplest sign-binarized setting, mapping to $\{\pm1\}$ can reduce harmful linear dependence unless columns are identical or scalar multiples, while preserving coarse event structure. Chapter 6 later provides a tractable theoretical case for that mechanism under explicit assumptions; it is intended as an explanatory bridge rather than as a claim that every empirical benefit in the dissertation must arise only through that exact regime.
 
 \subsection{Toy Example Data}
 The toy example data demonstrates the behavior of a simple set of instrument readings. A matrix with features 'A' through 'J' shows that even with only 10 features, the coefficients become muddled and tend to gravitate toward spurious correlations rather than the true support. Columns A and D were designed to produce the result vector, while the others were largely random, with top elements intentionally adjusted to ensure they are \textbf{not} optimal for producing the result vector.
 
-\[ \mathbf{X} =
-\scriptsize
+\begingroup
+\footnotesize
+\setlength{\arraycolsep}{3pt}
+\[
+\mathbf{X} =
 \left[ \begin{array}{rrrrrrrrrr}
 	\text{A} & \text{B} & \text{C} & \text{D} & \text{E} & \text{F} & \text{G} & \text{H} & \text{I} & \text{J} \\
 	0.49 &  0.48 &  0.42 & 0.13 & 0.45 & 0.48 & 0.42 & 0.48 & 0.43 & 0.46 \\
@@ -38,12 +43,16 @@ The toy example data demonstrates the behavior of a simple set of instrument rea
 	0.34 & 0.49 & 0.66 &  0.51 &  0.48 & 0.79 & 0.84 & 0.53 & 0.73 & 0.67 \\
 \end{array} \right]
 \]
+\endgroup
 
 \subsection{Input Data Transformation}
-After transformation, the matrix is encoded with ones and negative ones. The encoding rule in this case was simple: values between 0.4 and 0.6 (inclusive) were encoded as ones; others were encoded as negative ones. Details regarding how to come up with this \textit{critical range} are in the other sections. For now, a summarized version of the result is that if both features A and D were between 0.4 and 0.6 simultaneously, an event occurred.
+After transformation, the matrix is encoded using $\{1,-1\}$. In this toy example, values between 0.4 and 0.6 (inclusive) are mapped to $1$, and all other values are mapped to $-1$. The procedure for estimating this \textit{critical range} is discussed later in the chapter. For present purposes, the key point is that an event occurs when both features A and D lie simultaneously in the interval $[0.4,0.6]$.
 
-\[ \mathbf{X} =
-\scriptsize
+\begingroup
+\footnotesize
+\setlength{\arraycolsep}{3pt}
+\[
+\mathbf{X} =
 \left[ \begin{array}{rrrrrrrrrr}
 	\text{A} & \text{B} & \text{C} & \text{D} & \text{E} & \text{F} & \text{G} & \text{H} & \text{I} & \text{J} \\
 	1 &  1 &  1 & -1 &  1 &  1 &  1 &  1 &  1 &  1 \\
@@ -58,8 +67,9 @@ After transformation, the matrix is encoded with ones and negative ones. The enc
 	-1 &  1 & -1 &  1 &  1 & -1 & -1 &  1 & -1 & -1 \\
 \end{array} \right]
 \]
+\endgroup
 
-Here is the boolean response vector:
+The corresponding Boolean response vector is:
 \[
 y^T = 
 \begin{bmatrix}
@@ -67,36 +77,38 @@ y^T =
 \end{bmatrix} 
 \]
 
-It can be shown that the only possible logical AND combination of these features which would produce the response vector shown would be the 1st and 4th columns.  %This can also be revealed by plotting the coefficients (see Figure \ref{fig:toy_example})
+It can be shown that any minimal logical AND combination of these features that produces the response vector shown must contain the 1st and 4th columns, since the first non-event row is excluded only by column D and the second non-event row is excluded only by column A.  %This can also be revealed by plotting the coefficients (see Figure \ref{fig:toy_example})
 
-\subsubsection{Intuition Development}
+\subsubsection{Intuition}
 
-In the following examples, I show an easy way to visualize the logical process that helps develop an intuition for what types of problems this solution method works well for.  A binary outcome is derived from a continuous feature measured over time. Events occur when the feature enters a specific range, shown as the shaded area in Figure \ref{fig:first_irrelevant}. This behavior is common in physical phenomena that depend upon temperature or pressure,  with phase changes being an obvious example. Collecting more data refines the event range. Even if only one relevant feature exists among many, defining binary values for all features highlights the causative feature. By replacing continuous measurements with binary values, the relevant features become more likely to have a larger coefficient and the non-relevant features less. In the trivial case, if only one feature is relevant and fully describes the phenomenon, its binary vector will match the result vector.
+The next two figures provide a compact intuition for the regime targeted by the method. Consider a binary event derived from a continuous feature measured over time. Events occur when the feature enters a specific range, shown as the shaded area in Figure \ref{fig:first_irrelevant}. This pattern is common in threshold-driven physical systems, where entering an operating region matters more than preserving every continuous fluctuation. As additional observations are collected, the event-associated range can be estimated more precisely. If only one feature is relevant, its rectified indicator aligns closely with the response vector, whereas irrelevant features either span too much of the observed range or fail to separate event times from non-event times.
 
-Figure \ref{fig:first_irrelevant} illustrates a relevant and an irrelevant measurement. The orange curve (bottom) cannot be the sole cause since no clear relationship exists between its values and event occurrences. Applying this logic to all features, only the one defining all events without including non-events can be the sole cause.  
+Figure \ref{fig:first_irrelevant} contrasts a relevant and an irrelevant measurement. The orange curve in the lower panel cannot explain the event pattern on its own because its event-time values overlap too broadly with non-event values. Applied across features, the same logic helps distinguish event-aligned variables from variables that merely fluctuate alongside them.
 
-The \textbf{critical range} (CR) of a feature is defined here as the range where specific events might occur based on prior behavior. The max and min values of the range correspond to feature values observed only during events. Feature combinations that fully explain events are included, while excluding non-events.
+The \textbf{critical range} (CR) of a feature is defined here as the event-associated value interval estimated from the observations. In the simplest version, it is bounded by the minimum and maximum values observed during event times. A useful critical range is one that helps include event rows while excluding non-event rows, either alone or in combination with other features.
 
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Figures/first_irrelevant.pdf}
-	\caption[Intuition Developement for One Relevant Curve.]{Measurement of two hypothetical features over sixteen time steps.  Events are demarcated by the “T” over the curve, with the shaded area spanning the highest and lowest values at which the feature is measured during an event. Hypothetical ranges of interest are shown for an event. If the procedure for finding the critical range is performed on the orange curve (the critical range is shown by the orange shaded region on the bottom curve), it encompasses nearly the entire range of all measured values; this is an indicator that the feature represented by the orange curve is not relevant to event occurrence.}
+	\caption[Intuition Development for One Relevant Curve.]{Measurement of two hypothetical features over sixteen time steps. Events are demarcated by the "T" over the curve, with the shaded area spanning the highest and lowest values at which the feature is measured during an event. Hypothetical ranges of interest are shown for an event. If the procedure for finding the critical range is performed on the orange curve (the critical range is shown by the orange shaded region on the bottom curve), it encompasses nearly the entire range of all measured values; this indicates that the feature represented by the orange curve is not relevant to event occurrence.}
 	\label{fig:first_irrelevant}
 \end{figure}
 
-\subsection{Expanding the solution to include multiple triggers}
-Generalizing this procedure to include situations in which an unknown number of features are required to simultaneously be within their own critical ranges for an event to occur is where the LASSO algorithm is useful.
+\subsection{Extending the intuition to multiple triggers}
+The same logic extends naturally to settings in which an event occurs only when several features simultaneously lie within their own critical ranges. In that regime, LASSO becomes useful because it can identify a sparse conjunction of candidate feature indicators rather than relying on one feature alone.
 
-Each feature's CR spans from the max value during an event to the min. Figure \ref{fig:both_relevant} shows two features where events occur only if both are in their CR.
+For illustration, each feature's CR is estimated from its event-time observations. Figure \ref{fig:both_relevant} shows a two-feature case in which events occur only when both features lie in their respective critical ranges.
 
-The observer knows only the response vector showing when events occurred and the feature measurements across 17 time steps. In Figure \ref{fig:both_relevant}, an event is possible when the top curve is in the upper shaded region and the bottom curve is in the lower shaded region. When both curves fall outside their respective ranges, the event probability is zero. Time steps 10 and 13 define the lower shaded region's boundaries for the bottom curve (similar logic for the top curve).
+The observer sees only the response vector and the feature measurements across 17 time steps. In Figure \ref{fig:both_relevant}, an event is possible when the top curve lies in the upper shaded region and the bottom curve lies in the lower shaded region. When one or both curves fall outside their respective ranges, the event is not supported. Time steps 10 and 13 define the lower shaded region's boundaries for the bottom curve; analogous event-time observations define the range for the top curve.
 
 \begin{figure}[htbp!]
-	\centering
-	\includegraphics[width=0.75\textwidth]{Figures/both_relevant.pdf}
-	\caption[Intuition Developement for Two Relevant Curves.]{Hypothetical event occurrence in a more complex scenario. The occurrence of four events, each of which is labeled by the “T” symbol, is fully described by the two feature curves shown.  For an event to occur, the top curve is required to be within the upper shaded region at the same time that the bottom curve is within the lower shaded region.}
-	\label{fig:both_relevant}
+		\centering
+		\includegraphics[width=0.75\textwidth]{Figures/both_relevant.pdf}
+		\caption[Intuition Development for Two Relevant Curves.]{Hypothetical event occurrence in a more complex scenario. The occurrence of four events, each labeled by the "T" symbol, is fully described by the two feature curves shown. For an event to occur, the top curve must be within the upper shaded region at the same time that the bottom curve is within the lower shaded region.}
+		\label{fig:both_relevant}
 \end{figure}
+
+With that local intuition in place, the chapter now turns from hand-constructed examples to formal evidence. The next section defines the RQ1 evaluation framework, after which the repeated-resample synthetic studies test whether the same attribution-sharpening effect holds under planted ground truth rather than only in an illustrative toy case.
 
 \section{RQ1 Evaluation Framework}
 
@@ -206,14 +218,14 @@ A focused comparator is the quadratic-programming selector of Katrutsa and Strij
     \label{fig:katrutsa_coeff}
 \end{figure}
 
-In the benchmark comparisons, the quadratic-programming approach often identifies related variables but may miss the correct lag localization and exhibits substantially higher computational cost. Observed runtime differences are on the order of roughly 100--200x relative to rectification plus lasso in the tested configuration. For RQ1, this matters because a "stable sparse baseline" is not only a statistical target; it must also be practical to run repeatedly across folds, ablations, and deployment refresh cycles.
+In earlier comparisons using the original Katrutsa--Strijov reference code in R, the quadratic-programming approach often identified related variables but missed the correct lag localization and exhibited substantially higher computational cost, with runtime differences on the order of roughly 100--200x relative to rectification plus lasso in that software configuration. The consolidated benchmark reported later in this chapter uses a Python reimplementation of the same selector so that all methods can be compared on a more level software footing. Under that normalized setting, the runtime gap narrows substantially, but the attribution result does not change: the quadratic-programming route may identify related variables while still missing the correct lag localization. For RQ1, this matters because a "stable sparse baseline" is not only a statistical target; it must also remain practical to run repeatedly across folds, ablations, and deployment refresh cycles.
 
 \subsection{Expanded correlated-feature baseline package}
 
-To broaden the comparator set beyond a single redundancy-oriented method, the dissertation adds a consolidated synthetic benchmark covering raw lasso, elastic net, adaptive lasso, group lasso, ordered-prefix selection, and the Katrutsa--Strijov quadratic-programming selector, alongside the rectified lasso baseline. All methods are evaluated on the same lag-expanded synthetic case used to stress attribution under multicollinearity.
+To broaden the comparator set beyond a single redundancy-oriented method, the dissertation adds a consolidated synthetic benchmark covering raw lasso, elastic net, adaptive lasso, group lasso, ordered-prefix selection, and the Katrutsa--Strijov quadratic-programming selector, alongside the rectified lasso baseline. All methods are evaluated on the same lag-expanded synthetic case used to stress attribution under multicollinearity. For comparability, the Katrutsa--Strijov selector is run here through a Python reimplementation rather than through the original R reference code used in earlier one-off timing checks. This table uses a separate normalized single-run benchmark on one fixed $70/30$ split of Case 1 ($rseed=1234$), so its values should not be compared row-for-row with the repeated-resample mean $\pm$ standard deviation summaries in Table \ref{tab:d001_stability}.
 
 \begin{table}[tbh]
-    \caption[RQ1 expanded synthetic baseline benchmark.]{Expanded correlated-feature baseline benchmark on the synthetic Case 1 study. Exact-lag F1 evaluates whether the selected support lands on the planted variable-lag pairs rather than merely nearby correlated surrogates.}
+    \caption[RQ1 expanded synthetic baseline benchmark.]{Expanded correlated-feature baseline benchmark on the synthetic Case 1 study (normalized single-run benchmark on a fixed $70/30$ split, $rseed=1234$). Exact-lag F1 evaluates whether the selected support lands on the planted variable-lag pairs rather than merely nearby correlated surrogates.}
     \label{tab:d002_baselines}
     \begin{center}
         \resizebox{\textwidth}{!}{
@@ -233,9 +245,57 @@ To broaden the comparator set beyond a single redundancy-oriented method, the di
 
 Table \ref{tab:d002_baselines} sharpens the baseline story. Raw lasso, elastic net, and group lasso all remain reasonably predictive, but none of them recover the planted lags exactly. Their support stays concentrated on correlated surrogates in the original continuous representation rather than on the true trigger lags. Adaptive lasso, ordered-prefix selection, and QP+\nobreakdash-L1 reduce model size more aggressively, but they do so by pruning within the same raw representation and therefore sacrifice discrimination without solving the attribution problem. The rectified baseline is the only method in this expanded package that simultaneously attains the best AUC, the best Youden's $J$, and nonzero exact-lag recovery. For RQ1, this matters more than a marginal runtime win because the question is not merely whether a sparse model predicts well; it is whether the selected support remains interpretable at the feature-lag level.
 
+\subsection{Direct interpretable-model baseline package}
+
+Because RQ1 is partly an interpretability claim rather than only a sparse-selection claim, a second synthetic benchmark was added against three inherently interpretable model families: an additive Explainable Boosting Machine (EBM), a RuleFit rule ensemble, and a greedy rule-list baseline. All methods were evaluated on the same Case 1 generator across the same three repeated resamples used for the stability study. The fit summary reports held-out discrimination, execution time, and structural complexity, while the selection-frequency heatmap records the top-$K$ exact variable-lag locations ($K=7$) so lag-recovery behavior can be compared on the same visual scale. That top-$K$ view is a benchmark comparison device, not a direct measure of model utility when the true number of relevant variables is unknown. In this synthetic package, $K$ is known only because the planted support is known. This distinction matters because EBM, RuleFit, and the greedy rule list do not natively tell the analyst how many active locations should be retained for interpretation, whereas the CUTLASS logic-compression step returns a rule size $k$ as part of the fitted output.
+
+\begin{table}[tbh]
+    \caption[RQ1 direct interpretable-model baseline benchmark.]{Direct interpretable-model baseline benchmark on the synthetic Case 1 study. Values are mean $\pm$ standard deviation across three independent resamples. \texttt{Features used} counts active additive terms or unique lagged features directly referenced by the fitted model, while \texttt{primitive conditions} counts the final auditable atomic conditions.}
+    \label{tab:d010_interpretable}
+    \begin{center}
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{lcccccc}
+            Method            & AUC               & AP                & Youden's $J$      & Runtime (s)        & Features Used        & Primitive Conditions \\ \hline
+            CUTLASS Sparse    & $0.998 \pm 0.002$ & $0.994 \pm 0.006$ & $0.971 \pm 0.019$ & $12.50 \pm 1.30$   & $190.0 \pm 117.8$    & $190.0 \pm 117.8$    \\ \hline
+            CUTLASS Logic     & $0.994 \pm 0.003$ & $0.983 \pm 0.012$ & $0.974 \pm 0.015$ & $12.50 \pm 1.30$   & $6.0 \pm 3.5$        & $6.0 \pm 3.5$        \\ \hline
+            RuleFit           & $0.974 \pm 0.026$ & $0.955 \pm 0.035$ & $0.803 \pm 0.112$ & $1.55 \pm 0.03$    & $28.7 \pm 7.6$       & $51.3 \pm 7.8$       \\ \hline
+            Greedy Rule List  & $0.785 \pm 0.054$ & $0.484 \pm 0.111$ & $0.092 \pm 0.067$ & $0.11 \pm 0.03$    & $4.7 \pm 0.6$        & $4.7 \pm 0.6$        \\ \hline
+            EBM               & $1.000 \pm 0.000$ & $1.000 \pm 0.000$ & $0.987 \pm 0.004$ & $32.96 \pm 3.34$   & $440.0 \pm 0.0$      & $440.0 \pm 0.0$      \\ \hline
+        \end{tabular}
+        }
+    \end{center}
+\end{table}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.92\textwidth]{Figures/interpretable_baselines_case1_summary.png}
+    \caption[RQ1 direct interpretable-model summary.]{Direct interpretable-model summary on synthetic Case 1. EBM gives the strongest raw fit, but the CUTLASS logic-polished model achieves competitive discrimination with far lower complexity than EBM and materially stronger fidelity than RuleFit or the greedy rule list.}
+    \label{fig:d010_summary}
+\end{figure}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{Figures/interpretable_baselines_dual_support_frequency.png}
+    \caption[RQ1 direct interpretable-model lag-recovery heatmaps.]{Dual-view exact-lag selection frequency across the direct interpretable baseline package. The left column shows the top-$K$ comparison view, while the right column shows each model's full active support. Red boxes mark the planted variable-lag pairs. The top-$K$ panes show that EBM and CUTLASS logic repeatedly return to the planted neighborhoods, but the full-support panes reveal the interpretive difference: EBM retains dense additive chatter across the lag-expanded design, whereas CUTLASS logic remains compact because its deployed support is already selected by the compression stage. RuleFit is faster and moderately predictive, yet its support drifts more often away from the exact planted lags, while the greedy rule list rarely recovers the planted structure.}
+    \label{fig:d010_selection_frequency}
+\end{figure}
+
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.78\textwidth]{Figures/interpretable_baselines_case1_tradeoff.png}
+    \caption[RQ1 direct interpretable-model tradeoff.]{Fit-complexity tradeoff for the direct interpretable baseline package on synthetic Case 1. Bubble size is proportional to runtime. EBM occupies the high-fit but high-complexity end, the greedy rule list the low-complexity but weak-fit end, RuleFit a faster but less faithful middle position, and CUTLASS logic the most favorable compact operating point in this threshold-aligned regime.}
+    \label{fig:d010_tradeoff}
+\end{figure}
+
+Table \ref{tab:d010_interpretable} and Figures \ref{fig:d010_summary}--\ref{fig:d010_tradeoff} sharpen the interpretability comparison. EBM achieves the strongest mean discrimination and, in the top-$K$ pane of the dual-view heatmap, repeatedly returns to the planted lag neighborhoods. However, that top-$K$ display should be read as a controlled comparison device rather than as a direct statement of what a practitioner would know to inspect in advance. The full-support pane shows why the distinction matters: for EBM and the other non-CUTLASS baselines, the analyst must still decide how many active locations to keep, and EBM in particular remains dense across the lag-expanded design. CUTLASS logic contributes an additional piece of information by selecting a deployable rule size $k$ natively through its compression policy. Even with that advantage, EBM in the purely additive configuration used here keeps all $440$ exact-lag additive terms active and requires roughly $33$ seconds, about $2.6\times$ the runtime of the CUTLASS pipeline. Runtime comparisons here should be read as end-to-end package timings rather than implementation-neutral complexity measurements. The current CUTLASS prototype is implemented in Python/Numpy, whereas EBM relies on a compiled native backend, so a production-grade compiled CUTLASS implementation would likely widen CUTLASS's observed speed advantage over EBM rather than narrow it. The issue in this benchmark is therefore not combinatorial rule growth, but dense additive growth: as the lag-expanded feature set increases, the model can retain a large number of nonzero term functions whose combined chatter obscures attribution. If pairwise or higher-order interactions were enabled, this complexity would grow more aggressively, becoming at least quadratic and eventually combinatorial in the number of lagged inputs.
+
+At the other extreme, the greedy rule list is extremely fast and small, yet its discrimination collapses and its heatmap almost never lands on the exact planted lags. RuleFit is a more serious compact baseline: it remains fast at about $1.5$ seconds and predictive enough to be plausible in practice. Even so, it trails materially on Youden's $J$, averages about $29$ unique lagged features and $51$ primitive conditions, and its support heatmap misses several planted lags across seeds.
+
+The CUTLASS direct-comparator result is therefore not that it dominates every interpretable family on raw fit. EBM wins that comparison. The relevant finding is instead that, in the threshold-aligned synthetic regime, CUTLASS logic achieves the best compact attribution-performance tradeoff: mean AUC $0.994$, mean $J$ $0.974$, and only six primitive conditions on average. In the top-$K$ pane used for controlled comparison, both CUTLASS logic and EBM recover about five of the seven planted lags on average, but the full-support pane makes clear that CUTLASS does so with a deployable rule-sized representation and with a natively selected rule size $k$, rather than a 440-term additive model that still requires the analyst to decide how much of the active support to inspect. This direct comparator package therefore strengthens rather than weakens the RQ1 claim: there are strong transparent alternatives, but the rectification-plus-compression pipeline remains the most favorable compact method in the exact threshold-and-lag regime it was designed to address.
+
 \section{Real-world evidence and interpretability tradeoffs}
 
-Synthetic evidence is necessary but not sufficient. Real-world studies therefore evaluate whether the same pattern appears in operationally relevant longitudinal data. The HAI industrial control benchmark is particularly useful because it includes realistic multi-sensor temporal dynamics with labeled attack scenarios and known subsystem context \autocite{shin2020}. Additional evidence from historical ionospheric radar work supports the relevance of lagged signal discrimination settings where sparse attribution can complement raw predictive performance \autocite{sigillito1989}.
+Synthetic evidence is necessary but not sufficient. The real-world studies test whether the same pattern appears in operationally relevant longitudinal data. The HAI industrial control benchmark is particularly useful because it includes realistic multi-sensor temporal dynamics with labeled attack scenarios and known subsystem context \autocite{shin2020}. Additional evidence from historical ionospheric radar work supports the relevance of lagged signal discrimination settings where sparse attribution can complement raw predictive performance \autocite{sigillito1989}.
 
 \begin{table}[tbh]
     \caption[Real-world transformed vs. untransformed results.]{Real-world case studies: transformed vs untransformed comparisons from the dissertation experiments.}
@@ -252,21 +312,21 @@ Synthetic evidence is necessary but not sufficient. Real-world studies therefore
     \end{center}
 \end{table}
 
-As shown in Table \ref{tab:rw_results}, HAI results favor transformed models on both discrimination and attribution-oriented interpretation. In this setting, transformed models concentrate coefficients on turbine-related channels aligned with known attack context, while untransformed models spread attribution more diffusely.
+Table \ref{tab:rw_results} shows that the HAI case favors transformed models on both discrimination and attribution clarity. In this setting, transformed models concentrate coefficients on turbine-related channels aligned with known attack context, whereas untransformed models spread attribution more diffusely.
 
 One subtle but important point in the HAI case is that residual nonzero coefficients in the $P4$ block should not automatically be interpreted as attribution failure. In HAI 1.0, $P4$ is the hardware-in-the-loop simulator that explicitly couples the boiler, turbine, and water-treatment subsystems at the signal level, so a turbine-focused attack can legitimately induce secondary responses in simulator steam-side variables rather than remaining perfectly isolated within $P2$ \autocite{shin2020}. For that reason, a transformed sparse model whose largest concentration remains in $P2$ but which retains a smaller, coherent set of $P4$ terms is more plausibly reflecting real cross-process dynamics than exposing a solver bug. In this benchmark, the appropriate attribution standard is therefore dominant concentration on the attacked subsystem with only limited, physically interpretable spillover into the coupled simulator block, not literal exclusivity of every nonzero coefficient.
 
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=0.75\textwidth]{Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png}
-    \caption[HAI Results.]{Real-world coefficient concentration and performance: HAI turbine-loop selection vs untransformed spread. Note that what is shown are the results after the "logic polishing" stage. Note the concentration of coefficients in the P2 region, with only one spike in the P1 region. The P4 region shows some response, but it is the software component of the HIL simulator and contains elements which tie into to the Turbine (P2) response.}
+    \caption[HAI Results.]{Real-world coefficient concentration and performance for the HAI turbine-loop case after logic polishing. Coefficients concentrate primarily in the P2 region, with only limited spillover outside the attacked subsystem. A smaller coherent P4 response is plausible because P4 is the HIL simulator block and contains signals coupled to the turbine-loop (P2) response.}
     \label{fig:hai_coeff}
 \end{figure}
 
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Figures/hai_attack_p2_sm_roc_comparison.png}
-	\caption[HAI ROC.]{The Receiver Operating Characteristic (ROC) of several HAI analyses using different methods. While the logic polished version is slightly below the other transformed data curves in terms of the area under the curve (AUC), it is highly interpretable and is still superior to the model created from the un-transformed data.}
+	\caption[HAI ROC.]{Receiver operating characteristic (ROC) curves for several HAI analyses. The logic-polished model lies slightly below the other transformed-data curves in AUC, but remains highly interpretable and still outperforms the model fit on untransformed data.}
 	\label{fig:hai_roc}
 \end{figure}
 
@@ -274,7 +334,7 @@ One subtle but important point in the HAI case is that residual nonzero coeffici
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width=0.75\textwidth]{Figures/hai_attack_p2_sm_logical_J_vs_k.png}
-	\caption[HAI J vs. K.]{The Youden's J-Index is plotted against the features sorted by coefficient weight (pre logic-polish). Note that using a mere eight features achieves nearly as much at 0.88 as the maximum J-Index value of 0.9 at 19 features. Thus, the "anytime" nature of process reflects that a small group of highly relevant features can be used to create a simple logical rule which captures nearly all of the predictive power of the full model.}
+	\caption[HAI J vs. K.]{Youden's $J$ is plotted against retained features sorted by coefficient weight before logic polishing. Retaining only eight features achieves nearly the same $J$ ($0.88$) as the maximum value of $0.90$ at 19 features. This illustrates the anytime property of the compression path: a small set of highly relevant features can produce a simple logical rule while preserving nearly all of the full model's predictive value.}
 	\label{fig:hai_Jvsk}
 \end{figure}
 
@@ -283,9 +343,11 @@ Cross-dataset behavior is not uniform. In the UNICEF \autocite{unicef2023} case,
 
 \subsection{Cross-domain transfer and the Goose Bay protocol audit}
 
+The practical point of this subsection is narrow: Goose Bay should be read as a protocol-sensitivity case, not as evidence that the earlier positive result and the later generic transfer probe are substantively contradictory.
+
 The broader transfer package applies one standardized generic protocol across four HAI attack subsets and the UCI ionosphere radar benchmark, then compares raw and rectified lasso under the same train/test handling and fixed penalty settings. Figure \ref{fig:d002_transfer_deltas} shows that the transfer pattern is mixed rather than uniformly positive. Rectification clearly improves both AUC and Youden's $J$ on the HAI turbine-loop attack, improves $J$ substantially on the combined $P1/P2$ attack, is essentially neutral on one attack subset, and loses ground on another. The ionosphere row is also negative under this standardized protocol, with $\Delta J=-0.059$. This is informative rather than contradictory: it means the RQ1 claim must remain conditional on alignment between the rectification rule and the structure of the underlying domain.
 
-\begin{figure}[tbh]
+\begin{figure}[tbh] 
     \centering
     \includegraphics[width=0.92\textwidth]{Figures/cross_domain_transfer_deltas.png}
     \caption[RQ1 cross-domain transfer deltas.]{Cross-domain transfer deltas under one standardized generic protocol. Rectification improves some domains strongly, is neutral in others, and does not dominate uniformly across all settings.}
@@ -328,7 +390,23 @@ Figure \ref{fig:d002_goose_bay_c_sweep} extends the same idea to the lasso penal
     \label{fig:d002_goose_bay_c_sweep}
 \end{figure}
 
-Taken together, the cross-domain and Goose Bay results refine the empirical claim rather than weakening it. The standardized transfer panel shows that rectification does not dominate uniformly across every dataset when one portable protocol is imposed. The Goose Bay audit then shows why one apparent counterexample appears: the ionosphere benchmark is highly sensitive to how the positive range is defined and to how strongly the lasso penalty suppresses correlated signal fragments. That is a useful scientific boundary. It lends credence to the claim that rectification-first sparse learning is strongest in threshold-mediated regimes when the rectification semantics are aligned with the event structure, not that one untuned default will be optimal for all situations.  Further, these results are consistent with the hypothesis that, in threshold-mediated regimes, aligned rectification often improves the likelihood of more favorable irrepresentable-condition behavior. Empirically, once the rectifier definition and penalty are well matched to the domain, indicated by the cross-validation curve, rectification rarely hurts and usually helps.
+Taken together, the cross-domain and Goose Bay results refine the empirical claim rather than weakening it. The standardized transfer panel shows that rectification does not dominate uniformly across every dataset when one portable protocol is imposed. The Goose Bay audit then shows why one apparent counterexample appears: the ionosphere benchmark is highly sensitive to how the positive range is defined and to how strongly the lasso penalty suppresses correlated signal fragments. That is a useful scientific boundary. It lends credence to the claim that rectification-first sparse learning is strongest in threshold-mediated regimes when the rectification semantics are aligned with the event structure, not that one untuned default will be optimal for all situations. Further, these results are consistent with the hypothesis that, in threshold-mediated regimes, aligned rectification often improves the likelihood of more favorable irrepresentable-condition behavior. Empirically, once the rectifier definition and penalty are well matched to the domain, indicated by the cross-validation curve, rectification rarely hurts and usually helps.
+
+The practical takeaway is therefore specific. Goose Bay does not negate the earlier positive case study; it shows that a portable default can obscure a strong rectified solution when the positive-range semantics and penalty are mismatched to the domain. The correct operational reading is to treat Goose Bay as evidence for sensitivity-aware rectification, not as a blanket negative result for the rectification-first approach.
+
+\subsection{A practical diagnostic for when rectification is worth trying}
+ 
+The results in this work suggest that rectification is most useful when the underlying event process is at least partly threshold-mediated and lag-structured. This diagnostic is intended as an empirical operating heuristic, not as a theorem-based prerequisite. Its purpose is not to prove in advance that rectification must help, but to identify whether a dataset exhibits the kind of structure in which the method is most likely to improve attribution reliability.
+
+In practice, rectification is a strong candidate when several of the following hold:
+\begin{itemize}
+    \item event windows repeatedly occupy a relatively narrow one-sided or interval range for some variables at plausible lags;
+    \item raw sparse fits remain reasonably predictive but selected supports drift across folds, seeds, or nearby tuning values;
+    \item the threshold corresponds to a meaningful event-related regime in the domain, not merely to a convenient numerical split in the data;
+    \item a train-only pilot rectification preserves held-out discrimination while improving support concentration, lag localization, or model compactness.
+\end{itemize}
+
+By contrast, rectification should be treated cautiously when no stable lag-localized event ranges appear, when performance changes erratically under small shifts in the rectifier definition, or when the transformed model shows clear held-out degradation without compensating gains in interpretability. Such cases do not mean the method is invalid; they indicate that the dataset may be only weakly aligned with the threshold-mediated regime, and that raw or hybrid representations may be more appropriate.
 
 \section{Answer to RQ1}
 
@@ -339,4 +417,5 @@ The answer to RQ1 is \textbf{yes, conditionally}. Critical-range rectification p
     \item and materially lower runtime than certain redundancy-oriented alternatives in tested configurations.
 \end{itemize}
 
-The repeated-resample stability and ablation results in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling} reinforce this conclusion, while Table \ref{tab:d002_baselines} and Figures \ref{fig:d002_transfer_deltas}--\ref{fig:d002_goose_bay_c_sweep} show how the claim should be scoped. Expanded baseline coverage shows that penalty engineering alone does not recover exact lag attribution in the target synthetic regime. The cross-domain package shows that gains weaken or disappear when the data-generating process departs from threshold-mediated structure or when the rectification defaults are mismatched to the domain, as the UNICEF and generic Goose Bay probe illustrate. Even so, the dissertation establishes that representation-level rectification is a practical and effective intervention point for sparse longitudinal selection in the target regime.
+The repeated-resample stability and ablation results in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling} reinforce this conclusion, while Table \ref{tab:d002_baselines}, Table \ref{tab:d010_interpretable}, Figures \ref{fig:d010_summary}--\ref{fig:d010_tradeoff}, and Figures \ref{fig:d002_transfer_deltas}--\ref{fig:d002_goose_bay_c_sweep} show how the claim should be scoped. Expanded baseline coverage shows that penalty engineering alone does not recover exact lag attribution in the target synthetic regime. The direct interpretable comparator package shows that EBM can exceed the pipeline on raw fit, but only with much higher additive complexity and runtime, whereas RuleFit and greedy rule lists are faster yet materially weaker on exact-lag fidelity in the same regime. The cross-domain package shows that gains weaken or disappear when the data-generating process departs from threshold-mediated structure or when the rectification defaults are mismatched to the domain, as the UNICEF and generic Goose Bay probe illustrate. Even so, the dissertation establishes that representation-level rectification is a practical and effective intervention point for sparse longitudinal selection in the target regime.
+

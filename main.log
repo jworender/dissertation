@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  20 APR 2026 18:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  23 APR 2026 00:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -518,6 +518,27 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@headsep=\skip106
 \dth@everypar=\toks40
 )
+(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+
+(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen187
+\ar@mcellbox=\box64
+\extrarowheight=\dimen188
+\NC@list=\toks41
+\extratabsurround=\skip107
+\backup@length=\skip108
+\ar@cellbox=\box65
+)
+\TX@col@width=\dimen189
+\TX@old@table=\dimen190
+\TX@old@col=\dimen191
+\TX@target=\dimen192
+\TX@delta=\dimen193
+\TX@cols=\count345
+\TX@ftn=\toks42
+)
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.sty
 Package: biblatex 2025/07/10 v3.21 programmable bibliographies (PK/MW)
 
@@ -544,68 +565,68 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )) (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count345
+\lrq@indent=\count346
 
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 ))
-\c@tabx@nest=\count346
-\c@listtotal=\count347
-\c@listcount=\count348
-\c@liststart=\count349
-\c@liststop=\count350
-\c@citecount=\count351
-\c@citetotal=\count352
-\c@multicitecount=\count353
-\c@multicitetotal=\count354
-\c@instcount=\count355
-\c@maxnames=\count356
-\c@minnames=\count357
-\c@maxitems=\count358
-\c@minitems=\count359
-\c@citecounter=\count360
-\c@maxcitecounter=\count361
-\c@savedcitecounter=\count362
-\c@uniquelist=\count363
-\c@uniquename=\count364
-\c@refsection=\count365
-\c@refsegment=\count366
-\c@maxextratitle=\count367
-\c@maxextratitleyear=\count368
-\c@maxextraname=\count369
-\c@maxextradate=\count370
-\c@maxextraalpha=\count371
-\c@abbrvpenalty=\count372
-\c@highnamepenalty=\count373
-\c@lownamepenalty=\count374
-\c@maxparens=\count375
-\c@parenlevel=\count376
-\blx@tempcnta=\count377
-\blx@tempcntb=\count378
-\blx@tempcntc=\count379
-\c@blx@maxsection=\count380
-\blx@maxsegment@0=\count381
-\blx@notetype=\count382
-\blx@parenlevel@text=\count383
-\blx@parenlevel@foot=\count384
-\blx@sectionciteorder@0=\count385
-\blx@sectionciteorderinternal@0=\count386
-\blx@entrysetcounter=\count387
-\blx@biblioinstance=\count388
-\labelnumberwidth=\skip107
-\labelalphawidth=\skip108
-\biblabelsep=\skip109
-\bibitemsep=\skip110
-\bibnamesep=\skip111
-\bibinitsep=\skip112
-\bibparsep=\skip113
-\bibhang=\skip114
+\c@tabx@nest=\count347
+\c@listtotal=\count348
+\c@listcount=\count349
+\c@liststart=\count350
+\c@liststop=\count351
+\c@citecount=\count352
+\c@citetotal=\count353
+\c@multicitecount=\count354
+\c@multicitetotal=\count355
+\c@instcount=\count356
+\c@maxnames=\count357
+\c@minnames=\count358
+\c@maxitems=\count359
+\c@minitems=\count360
+\c@citecounter=\count361
+\c@maxcitecounter=\count362
+\c@savedcitecounter=\count363
+\c@uniquelist=\count364
+\c@uniquename=\count365
+\c@refsection=\count366
+\c@refsegment=\count367
+\c@maxextratitle=\count368
+\c@maxextratitleyear=\count369
+\c@maxextraname=\count370
+\c@maxextradate=\count371
+\c@maxextraalpha=\count372
+\c@abbrvpenalty=\count373
+\c@highnamepenalty=\count374
+\c@lownamepenalty=\count375
+\c@maxparens=\count376
+\c@parenlevel=\count377
+\blx@tempcnta=\count378
+\blx@tempcntb=\count379
+\blx@tempcntc=\count380
+\c@blx@maxsection=\count381
+\blx@maxsegment@0=\count382
+\blx@notetype=\count383
+\blx@parenlevel@text=\count384
+\blx@parenlevel@foot=\count385
+\blx@sectionciteorder@0=\count386
+\blx@sectionciteorderinternal@0=\count387
+\blx@entrysetcounter=\count388
+\blx@biblioinstance=\count389
+\labelnumberwidth=\skip109
+\labelalphawidth=\skip110
+\biblabelsep=\skip111
+\bibitemsep=\skip112
+\bibnamesep=\skip113
+\bibinitsep=\skip114
+\bibparsep=\skip115
+\bibhang=\skip116
 \blx@bcfin=\read3
 \blx@bcfout=\write3
 \blx@langwohyphens=\language80
-\c@mincomprange=\count389
-\c@maxcomprange=\count390
-\c@mincompwidth=\count391
+\c@mincomprange=\count390
+\c@maxcomprange=\count391
+\c@mincompwidth=\count392
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
@@ -616,88 +637,88 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'ieee.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count392
-\c@savedafterword=\count393
-\c@annotator=\count394
-\c@savedannotator=\count395
-\c@author=\count396
-\c@savedauthor=\count397
-\c@bookauthor=\count398
-\c@savedbookauthor=\count399
-\c@commentator=\count400
-\c@savedcommentator=\count401
-\c@editor=\count402
-\c@savededitor=\count403
-\c@editora=\count404
-\c@savededitora=\count405
-\c@editorb=\count406
-\c@savededitorb=\count407
-\c@editorc=\count408
-\c@savededitorc=\count409
-\c@foreword=\count410
-\c@savedforeword=\count411
-\c@holder=\count412
-\c@savedholder=\count413
-\c@introduction=\count414
-\c@savedintroduction=\count415
-\c@namea=\count416
-\c@savednamea=\count417
-\c@nameb=\count418
-\c@savednameb=\count419
-\c@namec=\count420
-\c@savednamec=\count421
-\c@translator=\count422
-\c@savedtranslator=\count423
-\c@shortauthor=\count424
-\c@savedshortauthor=\count425
-\c@shorteditor=\count426
-\c@savedshorteditor=\count427
-\c@labelname=\count428
-\c@savedlabelname=\count429
-\c@institution=\count430
-\c@savedinstitution=\count431
-\c@lista=\count432
-\c@savedlista=\count433
-\c@listb=\count434
-\c@savedlistb=\count435
-\c@listc=\count436
-\c@savedlistc=\count437
-\c@listd=\count438
-\c@savedlistd=\count439
-\c@liste=\count440
-\c@savedliste=\count441
-\c@listf=\count442
-\c@savedlistf=\count443
-\c@location=\count444
-\c@savedlocation=\count445
-\c@organization=\count446
-\c@savedorganization=\count447
-\c@origlocation=\count448
-\c@savedoriglocation=\count449
-\c@origpublisher=\count450
-\c@savedorigpublisher=\count451
-\c@publisher=\count452
-\c@savedpublisher=\count453
-\c@language=\count454
-\c@savedlanguage=\count455
-\c@origlanguage=\count456
-\c@savedoriglanguage=\count457
-\c@pageref=\count458
-\c@savedpageref=\count459
-\shorthandwidth=\skip115
-\shortjournalwidth=\skip116
-\shortserieswidth=\skip117
-\shorttitlewidth=\skip118
-\shortauthorwidth=\skip119
-\shorteditorwidth=\skip120
-\locallabelnumberwidth=\skip121
-\locallabelalphawidth=\skip122
-\localshorthandwidth=\skip123
-\localshortjournalwidth=\skip124
-\localshortserieswidth=\skip125
-\localshorttitlewidth=\skip126
-\localshortauthorwidth=\skip127
-\localshorteditorwidth=\skip128
+\c@afterword=\count393
+\c@savedafterword=\count394
+\c@annotator=\count395
+\c@savedannotator=\count396
+\c@author=\count397
+\c@savedauthor=\count398
+\c@bookauthor=\count399
+\c@savedbookauthor=\count400
+\c@commentator=\count401
+\c@savedcommentator=\count402
+\c@editor=\count403
+\c@savededitor=\count404
+\c@editora=\count405
+\c@savededitora=\count406
+\c@editorb=\count407
+\c@savededitorb=\count408
+\c@editorc=\count409
+\c@savededitorc=\count410
+\c@foreword=\count411
+\c@savedforeword=\count412
+\c@holder=\count413
+\c@savedholder=\count414
+\c@introduction=\count415
+\c@savedintroduction=\count416
+\c@namea=\count417
+\c@savednamea=\count418
+\c@nameb=\count419
+\c@savednameb=\count420
+\c@namec=\count421
+\c@savednamec=\count422
+\c@translator=\count423
+\c@savedtranslator=\count424
+\c@shortauthor=\count425
+\c@savedshortauthor=\count426
+\c@shorteditor=\count427
+\c@savedshorteditor=\count428
+\c@labelname=\count429
+\c@savedlabelname=\count430
+\c@institution=\count431
+\c@savedinstitution=\count432
+\c@lista=\count433
+\c@savedlista=\count434
+\c@listb=\count435
+\c@savedlistb=\count436
+\c@listc=\count437
+\c@savedlistc=\count438
+\c@listd=\count439
+\c@savedlistd=\count440
+\c@liste=\count441
+\c@savedliste=\count442
+\c@listf=\count443
+\c@savedlistf=\count444
+\c@location=\count445
+\c@savedlocation=\count446
+\c@organization=\count447
+\c@savedorganization=\count448
+\c@origlocation=\count449
+\c@savedoriglocation=\count450
+\c@origpublisher=\count451
+\c@savedorigpublisher=\count452
+\c@publisher=\count453
+\c@savedpublisher=\count454
+\c@language=\count455
+\c@savedlanguage=\count456
+\c@origlanguage=\count457
+\c@savedoriglanguage=\count458
+\c@pageref=\count459
+\c@savedpageref=\count460
+\shorthandwidth=\skip117
+\shortjournalwidth=\skip118
+\shortserieswidth=\skip119
+\shorttitlewidth=\skip120
+\shortauthorwidth=\skip121
+\shorteditorwidth=\skip122
+\locallabelnumberwidth=\skip123
+\locallabelalphawidth=\skip124
+\localshorthandwidth=\skip125
+\localshortjournalwidth=\skip126
+\localshortserieswidth=\skip127
+\localshorttitlewidth=\skip128
+\localshortauthorwidth=\skip129
+\localshorteditorwidth=\skip130
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
@@ -718,19 +739,19 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.def
 File: biblatex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
-\c@textcitecount=\count460
-\c@textcitetotal=\count461
-\c@textcitemaxnames=\count462
-\c@biburlbigbreakpenalty=\count463
-\c@biburlbreakpenalty=\count464
-\c@biburlnumpenalty=\count465
-\c@biburlucpenalty=\count466
-\c@biburllcpenalty=\count467
+\c@textcitecount=\count461
+\c@textcitetotal=\count462
+\c@textcitemaxnames=\count463
+\c@biburlbigbreakpenalty=\count464
+\c@biburlbreakpenalty=\count465
+\c@biburlnumpenalty=\count466
+\c@biburlucpenalty=\count467
+\c@biburllcpenalty=\count468
 \biburlbigskip=\muskip19
 \biburlnumskip=\muskip20
 \biburlucskip=\muskip21
 \biburllcskip=\muskip22
-\c@smartand=\count468
+\c@smartand=\count469
 )
 Package biblatex Info: Trying to load bibliography style 'ieee'...
 Package biblatex Info: ... file 'ieee.bbx' found.
@@ -755,8 +776,8 @@ Package biblatex Info: ... file 'standard.bbx' found.
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\standard.b
 bx
 File: standard.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count469
-\c@bbx:relatedtotal=\count470
+\c@bbx:relatedcount=\count470
+\c@bbx:relatedtotal=\count471
 ))))
 Package biblatex Info: Trying to load citation style 'numeric-comp'...
 Package biblatex Info: ... file 'numeric-comp.cbx' found.
@@ -764,10 +785,10 @@ Package biblatex Info: ... file 'numeric-comp.cbx' found.
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/cbx\numeric-co
 mp.cbx
 File: numeric-comp.cbx 2025/07/10 v3.21 biblatex citation style (PK/MW)
-\c@cbx@tempcnta=\count471
-\c@cbx@tempcntb=\count472
-\c@cbx@tempcntc=\count473
-\c@cbx@tempcntd=\count474
+\c@cbx@tempcnta=\count472
+\c@cbx@tempcntb=\count473
+\c@cbx@tempcntc=\count474
+\c@cbx@tempcntd=\count475
 Package biblatex Info: Redefining '\cite'.
 Package biblatex Info: Redefining '\parencite'.
 Package biblatex Info: Redefining '\footcite'.
@@ -795,7 +816,7 @@ Package: expl3 2025-12-24 L3 programming layer (loader)
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count475
+\l__color_backend_stack_int=\count476
 ))
 Package biblatex Info: ... and expl3
 (biblatex)             2025-12-24 L3 programming layer (loader) 
@@ -814,64 +835,57 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 40
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 41
 .
 
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-(main.aux (Chapters/98_appendices.aux
-
-LaTeX Warning: Label `fig:curve_generation_1' multiply defined.
-
-
-LaTeX Warning: Label `fig:curve_generation_1' multiply defined.
-
-) (Chapters/99_vita.aux))
+(main.aux (Chapters/98_appendices.aux) (Chapters/99_vita.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: changepage package is loaded.
-\caption@adjustwidth@hsize=\dimen187
-\caption@adjustwidth@linewidth=\dimen188
+\caption@adjustwidth@hsize=\dimen194
+\caption@adjustwidth@linewidth=\dimen195
 Package caption Info: listings package is loaded.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/floatrow\fr-subfig.sty
 Package: fr-subfig 2007/12/24 v0.1g (beta) floatrow: additions for subfig
-\FBsc@max=\skip129
-\FBso@max=\skip130
+\FBsc@max=\skip131
+\FBso@max=\skip132
 )
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count476
-\scratchdimen=\dimen189
-\scratchbox=\box64
-\nofMPsegments=\count477
-\nofMParguments=\count478
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count479
-\MPscratchDim=\dimen190
-\MPnumerator=\count480
-\makeMPintoPDFobject=\count481
-\everyMPtoPDFconversion=\toks42
+\scratchcounter=\count477
+\scratchdimen=\dimen196
+\scratchbox=\box66
+\nofMPsegments=\count478
+\nofMParguments=\count479
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count480
+\MPscratchDim=\dimen197
+\MPnumerator=\count481
+\makeMPintoPDFobject=\count482
+\everyMPtoPDFconversion=\toks44
 )
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -883,7 +897,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c@lstlisting=\count482
+\c@lstlisting=\count483
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -939,30 +953,30 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (main.bbl)
-Package biblatex Info: Reference section=0 on input line 40.
-Package biblatex Info: Reference segment=0 on input line 40.
+Package biblatex Info: Reference section=0 on input line 41.
+Package biblatex Info: Reference segment=0 on input line 41.
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--105
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 105--105
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--105
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--105
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--105
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
 
  []
 
@@ -1016,11 +1030,6 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
 
-Overfull \hbox (15.26695pt too wide) in paragraph at lines 29--29
- [][]  []\T1/ptm/m/n/12 CORRELATION-AWARE AND AL-TER-NA-TIVE FEA-TURE SE-LEC-TI
-ON FAM- 
- []
-
 [7
 
 
@@ -1043,367 +1052,361 @@ ON FAM-
 \openout6 = `main.lof'.
 
  [12] (Chapters/01_introduction.tex
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 9
-.
-(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
 <Figures/threshold_and_lag.pdf, id=41, 850.45892pt x 1254.08516pt>
 File: Figures/threshold_and_lag.pdf Graphic file (type pdf)
 <use Figures/threshold_and_lag.pdf>
-Package pdftex.def Info: Figures/threshold_and_lag.pdf  used on input line 18.
+Package pdftex.def Info: Figures/threshold_and_lag.pdf  used on input line 13.
 (pdftex.def)             Requested size: 352.31625pt x 519.53627pt.
-
 [1
 
 
-] [2] [3] [4] [5]) (Chapters/02_background.tex [6] [7 <./Figures/threshold_and_
-lag.pdf>]
-Overfull \hbox (13.42902pt too wide) in paragraph at lines 5--6
-[]\T1/ptm/m/n/12 Sparse mod-el-ing with L1 penal-ties is a stan-dard ap-proach 
-for fea-ture se-lec-tion in high-dimensional
- []
+] [2]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
+2.
 
-[8
+(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+[3] [4]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
+ [5] [6] [7] [8]) (Chapters/02_background.tex [9] [10 <./Figures/threshold_and_
+lag.pdf>] [11
 
-] [9] [10]
-Overfull \hbox (15.09836pt too wide) in paragraph at lines 38--39
-[]\T1/ptm/m/n/12 Wrapper and fil-ter se-lec-tion meth-ods re-main prag-matic ba
-se-lines, es-pe-cially in do-main pipelines
- []
+] [12] [13]) (Chapters/03_relatedwork.tex [14] [15
 
-) (Chapters/03_relatedwork.tex
-Overfull \hbox (3.75694pt too wide) in paragraph at lines 43--2
-[]\T1/ptm/m/n/12 Taken to-gether, this lit-er-a-ture mo-ti-vates the de-sign ch
-oice for this work: com-bine representation-
- []
+]
+[16] [17] [18] [19] [20] [21]) (Chapters/04_approach.tex [22] [23] [24
 
-[11] [12
+]
+[25] [26] [27]
+<Figures/new_dataset_pipeline_workflow.pdf, id=183, 692.5875pt x 873.2625pt>
+File: Figures/new_dataset_pipeline_workflow.pdf Graphic file (type pdf)
+<use Figures/new_dataset_pipeline_workflow.pdf>
+Package pdftex.def Info: Figures/new_dataset_pipeline_workflow.pdf  used on inp
+ut line 59.
+(pdftex.def)             Requested size: 436.86871pt x 550.85118pt.
+ [28] [29] [30] [31] [32] [33] [34] [35]) (Chapters/05_rq1.tex
+[36] [37 <./Figures/new_dataset_pipeline_workflow.pdf>] [38] [39] [40
 
-] [13]
-Overfull \hbox (4.04805pt too wide) in paragraph at lines 31--32
-\T1/ptm/m/n/12 miza-tion. Group lasso for lo-gis-tic re-gres-sion, block-wise s
-parse re-gres-sion, and uni-fied majorization-
- []
-
-[14] [15]
-Overfull \hbox (0.9277pt too wide) in paragraph at lines 51--52
-\T1/ptm/m/n/12 frame-works for-mal-ize bi-na-riza-tion and logic-pattern ex-tra
-c-tion, in-clud-ing optimization-based treat-
- []
-
-[16] [17] [18]) (Chapters/04_approach.tex [19] [20
-
-] [21] [22] [23] [24]
-[25]) (Chapters/05_rq1.tex [26]
-<Figures/toy_example.pdf, id=179, 578.16pt x 433.62pt>
+]
+<Figures/toy_example.pdf, id=244, 578.16pt x 433.62pt>
 File: Figures/toy_example.pdf Graphic file (type pdf)
 <use Figures/toy_example.pdf>
-Package pdftex.def Info: Figures/toy_example.pdf  used on input line 15.
+Package pdftex.def Info: Figures/toy_example.pdf  used on input line 17.
 (pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
- [27
-
-] [28 <./Figures/toy_example.pdf>]
-
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 26.
-
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 28.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 28.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 28.
-
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 46.
-
-[29] [30]
+ [41 <./Figures/toy_example.pdf>] [42] [43]
 
 pdfTeX warning: pdflatex.exe (file ./Figures/first_irrelevant.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
-<Figures/first_irrelevant.pdf, id=201, 963.6pt x 542.025pt>
+<Figures/first_irrelevant.pdf, id=262, 963.6pt x 542.025pt>
 File: Figures/first_irrelevant.pdf Graphic file (type pdf)
 <use Figures/first_irrelevant.pdf>
-Package pdftex.def Info: Figures/first_irrelevant.pdf  used on input line 82.
+Package pdftex.def Info: Figures/first_irrelevant.pdf  used on input line 92.
 (pdftex.def)             Requested size: 352.31625pt x 198.17244pt.
-
+[44] [45 <./Figures/first_irrelevant.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./Figures/both_relevant.pdf): PDF inclusion:
  found PDF version <1.7>, but at most version <1.5> allowed
-<Figures/both_relevant.pdf, id=202, 963.6pt x 542.025pt>
+<Figures/both_relevant.pdf, id=279, 963.6pt x 542.025pt>
 File: Figures/both_relevant.pdf Graphic file (type pdf)
 <use Figures/both_relevant.pdf>
-Package pdftex.def Info: Figures/both_relevant.pdf  used on input line 96.
+Package pdftex.def Info: Figures/both_relevant.pdf  used on input line 106.
 (pdftex.def)             Requested size: 352.31625pt x 198.17244pt.
-[31] [32 <./Figures/first_irrelevant.pdf>] [33 <./Figures/both_relevant.pdf>]
-<Figures/Coefficient_Comparison_Raw_vs._Rectified.png, id=232, 1011.78pt x 549.
+[46 <./Figures/both_relevant.pdf>] [47]
+<Figures/Coefficient_Comparison_Raw_vs._Rectified.png, id=295, 1011.78pt x 549.
 252pt>
 File: Figures/Coefficient_Comparison_Raw_vs._Rectified.png Graphic file (type p
 ng)
 <use Figures/Coefficient_Comparison_Raw_vs._Rectified.png>
 Package pdftex.def Info: Figures/Coefficient_Comparison_Raw_vs._Rectified.png  
-used on input line 136.
+used on input line 148.
 (pdftex.def)             Requested size: 422.77664pt x 229.51094pt.
-
-[34]
-<Figures/stability_ablation_summary.png, id=237, 855.195pt x 567.5604pt>
+ [48]
+<Figures/stability_ablation_summary.png, id=300, 855.195pt x 567.5604pt>
 File: Figures/stability_ablation_summary.png Graphic file (type png)
 <use Figures/stability_ablation_summary.png>
 Package pdftex.def Info: Figures/stability_ablation_summary.png  used on input 
-line 164.
+line 176.
 (pdftex.def)             Requested size: 399.29463pt x 264.99539pt.
- [35]
-<Figures/stability_pairwise_jaccard.png, id=241, 855.195pt x 312.6882pt>
+ [49 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
+<Figures/stability_pairwise_jaccard.png, id=306, 855.195pt x 312.6882pt>
 File: Figures/stability_pairwise_jaccard.png Graphic file (type png)
 <use Figures/stability_pairwise_jaccard.png>
 Package pdftex.def Info: Figures/stability_pairwise_jaccard.png  used on input 
-line 173.
+line 185.
 (pdftex.def)             Requested size: 352.31625pt x 128.81847pt.
-<Figures/stability_selection_frequency.png, id=242, 1161.6198pt x 586.3506pt>
+<Figures/stability_selection_frequency.png, id=307, 1161.6198pt x 586.3506pt>
 File: Figures/stability_selection_frequency.png Graphic file (type png)
 <use Figures/stability_selection_frequency.png>
 Package pdftex.def Info: Figures/stability_selection_frequency.png  used on inp
-ut line 180.
+ut line 192.
 (pdftex.def)             Requested size: 469.75502pt x 237.12175pt.
-<Figures/lag_runtime_scaling.png, id=243, 638.8668pt x 385.44pt>
+<Figures/lag_runtime_scaling.png, id=308, 638.8668pt x 385.44pt>
 File: Figures/lag_runtime_scaling.png Graphic file (type png)
 <use Figures/lag_runtime_scaling.png>
-Package pdftex.def Info: Figures/lag_runtime_scaling.png  used on input line 18
-9.
+Package pdftex.def Info: Figures/lag_runtime_scaling.png  used on input line 20
+1.
 (pdftex.def)             Requested size: 352.31625pt x 212.56314pt.
- [36 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
-[37]
-<Figures/katrutsa_figure.pdf, id=252, 592.08078pt x 516.98706pt>
+ [50] [51 <./Figures/stability_ablation_summary.png>]
+<Figures/katrutsa_figure.pdf, id=316, 592.08078pt x 516.98706pt>
 File: Figures/katrutsa_figure.pdf Graphic file (type pdf)
 <use Figures/katrutsa_figure.pdf>
-Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 204.
+Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 216.
 (pdftex.def)             Requested size: 352.31625pt x 307.63872pt.
- [38 <./Figures/stability_ablation_summary.png>] [39 <./Figures/stability_pairw
-ise_jaccard.png>]
-Overfull \hbox (2.82085pt too wide) in paragraph at lines 238--239
-[]\T1/ptm/m/n/12 Synthetic ev-i-dence is nec-es-sary but not suf-fi-cient. Real
--world stud-ies there-fore eval-u-ate whether
+ [52 <./Figures/stability_pairwise_jaccard.png>] [53 <./Figures/stability_selec
+tion_frequency.png>] [54 <./Figures/lag_runtime_scaling.png>] [55 <./Figures/ka
+trutsa_figure.pdf>] [56]
+<Figures/interpretable_baselines_case1_summary.png, id=384, 1281.43744pt x 369.
+93207pt>
+File: Figures/interpretable_baselines_case1_summary.png Graphic file (type png)
+
+<use Figures/interpretable_baselines_case1_summary.png>
+Package pdftex.def Info: Figures/interpretable_baselines_case1_summary.png  use
+d on input line 271.
+(pdftex.def)             Requested size: 432.17375pt x 124.76483pt.
+<Figures/interpretable_baselines_dual_support_frequency.png, id=385, 873.56363p
+t x 953.964pt>
+File: Figures/interpretable_baselines_dual_support_frequency.png Graphic file (
+type png)
+<use Figures/interpretable_baselines_dual_support_frequency.png>
+Package pdftex.def Info: Figures/interpretable_baselines_dual_support_frequency
+.png  used on input line 278.
+(pdftex.def)             Requested size: 327.58556pt x 357.73563pt.
+<Figures/interpretable_baselines_case1_tradeoff.png, id=386, 564.60938pt x 420.
+06938pt>
+File: Figures/interpretable_baselines_case1_tradeoff.png Graphic file (type png
+)
+<use Figures/interpretable_baselines_case1_tradeoff.png>
+Package pdftex.def Info: Figures/interpretable_baselines_case1_tradeoff.png  us
+ed on input line 285.
+(pdftex.def)             Requested size: 366.40834pt x 272.61241pt.
+
+Overfull \hbox (5.25694pt too wide) in paragraph at lines 290--291
+[]\T1/ptm/m/n/12 Table 10[] and Fig-ures 12[]--14[] sharpen the in-ter-pretabil
+-ity com-par-i-son. EBM achieves the strongest
  []
 
-[40 <./Figures/stability_selection_frequency.png>]
-Overfull \hbox (12.78098pt too wide) in paragraph at lines 255--256
-[]\T1/ptm/m/n/12 As shown in Ta-ble 4[], HAI re-sults fa-vor trans-formed mod-e
-ls on both dis-crim-i-na-tion and attribution-
- []
-
-[41 <./Figures/lag_runtime_scaling.png>]
+[57] [58 <./Figures/interpretable_baselines_case1_summary.png>] [59] [60]
 <Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png
-, id=269, 840.86145pt x 638.8668pt>
+, id=400, 840.86145pt x 638.8668pt>
 File: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficient
 s.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients
 .png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_p
-ipeline_coefficients.png  used on input line 261.
+ipeline_coefficients.png  used on input line 321.
 (pdftex.def)             Requested size: 352.31625pt x 267.67883pt.
-<Figures/hai_attack_p2_sm_roc_comparison.png, id=270, 606.70665pt x 462.16666pt
+<Figures/hai_attack_p2_sm_roc_comparison.png, id=401, 606.70665pt x 462.16666pt
 >
 File: Figures/hai_attack_p2_sm_roc_comparison.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_roc_comparison.png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_roc_comparison.png  used on i
-nput line 268.
+nput line 328.
 (pdftex.def)             Requested size: 352.31625pt x 268.38829pt.
-<Figures/hai_attack_p2_sm_logical_J_vs_k.png, id=271, 643.203pt x 461.0826pt>
+<Figures/hai_attack_p2_sm_logical_J_vs_k.png, id=402, 643.203pt x 461.0826pt>
 File: Figures/hai_attack_p2_sm_logical_J_vs_k.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_logical_J_vs_k.png  used on i
-nput line 276.
+nput line 336.
 (pdftex.def)             Requested size: 352.31625pt x 252.56198pt.
- [42 <./Figures/katrutsa_figure.pdf>]
-[43]
-<Figures/cross_domain_transfer_deltas.png, id=327, 848.72081pt x 341.47575pt>
+
+[61]
+<Figures/cross_domain_transfer_deltas.png, id=407, 848.72081pt x 341.47575pt>
 File: Figures/cross_domain_transfer_deltas.png Graphic file (type png)
 <use Figures/cross_domain_transfer_deltas.png>
 Package pdftex.def Info: Figures/cross_domain_transfer_deltas.png  used on inpu
-t line 290.
+t line 352.
 (pdftex.def)             Requested size: 432.17375pt x 173.88458pt.
-<Figures/cross_domain_ionosphere_protocol_comparison.png, id=328, 1072.30612pt 
+<Figures/cross_domain_ionosphere_protocol_comparison.png, id=408, 1072.30612pt 
 x 341.92744pt>
 File: Figures/cross_domain_ionosphere_protocol_comparison.png Graphic file (typ
 e png)
 <use Figures/cross_domain_ionosphere_protocol_comparison.png>
 Package pdftex.def Info: Figures/cross_domain_ionosphere_protocol_comparison.pn
-g  used on input line 299.
+g  used on input line 361.
 (pdftex.def)             Requested size: 469.75502pt x 149.79114pt.
- [44] [45 <./Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coef
-ficients.png>]
-<Figures/goose_bay_delta_j_protocols.png, id=337, 858.65794pt x 422.7795pt>
+<Figures/goose_bay_delta_j_protocols.png, id=409, 858.65794pt x 422.7795pt>
 File: Figures/goose_bay_delta_j_protocols.png Graphic file (type png)
 <use Figures/goose_bay_delta_j_protocols.png>
 Package pdftex.def Info: Figures/goose_bay_delta_j_protocols.png  used on input
- line 308.
+ line 370.
 (pdftex.def)             Requested size: 432.17375pt x 212.79556pt.
- [46 <./Figures/hai_attack_p2_sm_roc_comparison.png>]
-<Figures/goose_bay_quantile_sweep.png, id=342, 800.84193pt x 409.68056pt>
+ [62]
+<Figures/goose_bay_quantile_sweep.png, id=413, 800.84193pt x 409.68056pt>
 File: Figures/goose_bay_quantile_sweep.png Graphic file (type png)
 <use Figures/goose_bay_quantile_sweep.png>
 Package pdftex.def Info: Figures/goose_bay_quantile_sweep.png  used on input li
-ne 317.
+ne 379.
 (pdftex.def)             Requested size: 422.77664pt x 216.2795pt.
-
-[47 <./Figures/hai_attack_p2_sm_logical_J_vs_k.png>]
-<Figures/goose_bay_c_sweep_scatter.png, id=347, 733.0888pt x 461.62462pt>
+<Figures/goose_bay_c_sweep_scatter.png, id=414, 733.0888pt x 461.62462pt>
 File: Figures/goose_bay_c_sweep_scatter.png Graphic file (type png)
 <use Figures/goose_bay_c_sweep_scatter.png>
 Package pdftex.def Info: Figures/goose_bay_c_sweep_scatter.png  used on input l
-ine 326.
+ine 388.
 (pdftex.def)             Requested size: 450.96797pt x 283.97844pt.
- [48 <./Figures/cross_domain_transfer_deltas.png>] [49 <./Figures/cross_domain_
-ionosphere_protocol_comparison.png>]) (Chapters/06_rq2.tex [50 <./Figures/goose
-_bay_delta_j_protocols.png>] [51 <./Figures/goose_bay_quantile_sweep.png>] [52 
-<./Figures/goose_bay_c_sweep_scatter.png>] [53
+ [63] [64] [65]) (Chapters/06_rq2.tex [66] [67 <./Figures/interpretable_baselin
+es_dual_support_frequency.png>] [68 <./Figures/interpretable_baselines_case1_tr
+adeoff.png>] [69 <./Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeli
+ne_coefficients.png>] [70 <./Figures/hai_attack_p2_sm_roc_comparison.png>] [71 
+<./Figures/hai_attack_p2_sm_logical_J_vs_k.png>] [72 <./Figures/cross_domain_tr
+ansfer_deltas.png> <./Figures/cross_domain_ionosphere_protocol_comparison.png>]
+ [73 <./Figures/goose_bay_delta_j_protocols.png> <./Figures/goose_bay_quantile_
+sweep.png>] [74 <./Figures/goose_bay_c_sweep_scatter.png>] [75
 
-] [54] [55] [56] [57] [58] [59] [60] [61] [62]
-<Figures/boundary_ic_sweep.png, id=404, 855.6768pt x 590.6868pt>
+]
+[76] [77] [78] [79] [80] [81] [82] [83] [84]
+<Figures/boundary_ic_sweep.png, id=497, 855.6768pt x 590.6868pt>
 File: Figures/boundary_ic_sweep.png Graphic file (type png)
 <use Figures/boundary_ic_sweep.png>
-Package pdftex.def Info: Figures/boundary_ic_sweep.png  used on input line 219.
+Package pdftex.def Info: Figures/boundary_ic_sweep.png  used on input line 221.
 
 (pdftex.def)             Requested size: 469.75502pt x 324.28387pt.
- [63]
-<Figures/boundary_ic_stress_heatmaps.png, id=408, 873.5034pt x 600.8046pt>
+ [85]
+<Figures/boundary_ic_stress_heatmaps.png, id=502, 873.5034pt x 600.8046pt>
 File: Figures/boundary_ic_stress_heatmaps.png Graphic file (type png)
 <use Figures/boundary_ic_stress_heatmaps.png>
 Package pdftex.def Info: Figures/boundary_ic_stress_heatmaps.png  used on input
- line 236.
+ line 238.
 (pdftex.def)             Requested size: 469.75502pt x 323.10036pt.
- [64]
-<Figures/boundary_inactive_count_sweep.png, id=412, 855.195pt x 354.6048pt>
+ [86]
+<Figures/boundary_inactive_count_sweep.png, id=506, 855.195pt x 354.6048pt>
 File: Figures/boundary_inactive_count_sweep.png Graphic file (type png)
 <use Figures/boundary_inactive_count_sweep.png>
 Package pdftex.def Info: Figures/boundary_inactive_count_sweep.png  used on inp
-ut line 251.
+ut line 253.
 (pdftex.def)             Requested size: 469.75502pt x 194.77892pt.
-
-[65]
-<Figures/boundary_threshold_bridge.png, id=416, 855.6768pt x 334.851pt>
+ [87]
+<Figures/boundary_threshold_bridge.png, id=510, 855.6768pt x 334.851pt>
 File: Figures/boundary_threshold_bridge.png Graphic file (type png)
 <use Figures/boundary_threshold_bridge.png>
 Package pdftex.def Info: Figures/boundary_threshold_bridge.png  used on input l
-ine 266.
+ine 268.
 (pdftex.def)             Requested size: 432.17375pt x 169.1214pt.
- [66]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 288.
- [67] [68]) (Chapters/07_rq3.tex [69] [70 <./Figures/boundary_ic_sweep.png>] [7
-1 <./Figures/boundary_ic_stress_heatmaps.png>] [72 <./Figures/boundary_inactive
-_count_sweep.png>] [73 <./Figures/boundary_threshold_bridge.png>]
-[74
+ [88] [89] [90])
+(Chapters/07_rq3.tex [91] [92 <./Figures/boundary_ic_sweep.png>] [93 <./Figures
+/boundary_ic_stress_heatmaps.png>] [94 <./Figures/boundary_inactive_count_sweep
+.png>] [95 <./Figures/boundary_threshold_bridge.png>] [96
 
-] [75] [76]
-<Figures/rq3_real_data_frontiers.png, id=457, 1144.6765pt x 639.5895pt>
+] [97] [98] [99]
+<Figures/rq3_real_data_frontiers.png, id=554, 1144.6765pt x 639.5895pt>
 File: Figures/rq3_real_data_frontiers.png Graphic file (type png)
 <use Figures/rq3_real_data_frontiers.png>
 Package pdftex.def Info: Figures/rq3_real_data_frontiers.png  used on input lin
-e 67.
+e 70.
 (pdftex.def)             Requested size: 469.75502pt x 262.47737pt.
- [77] [78 <./Figures/rq3_real_data_frontiers.png>] [79]
-<Figures/synthetic_logical_J_vs_k.png, id=469, 491.436pt x 303.534pt>
+
+[100] [101 <./Figures/rq3_real_data_frontiers.png>] [102]
+<Figures/synthetic_logical_J_vs_k.png, id=565, 491.436pt x 303.534pt>
 File: Figures/synthetic_logical_J_vs_k.png Graphic file (type png)
 <use Figures/synthetic_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/synthetic_logical_J_vs_k.png  used on input li
-ne 99.
+ne 104.
 (pdftex.def)             Requested size: 352.31625pt x 217.618pt.
- [80]
-[81 <./Figures/synthetic_logical_J_vs_k.png>] [82]) (Chapters/88_futurework.tex
-[83] [84
+ [103] [104 <./Figures/synthetic_logical_J_vs_k.png>] [105]) (Chapters/88_futur
+ework.tex [106]
+[107
 
-] [85]) (Chapters/89_conclusion.tex [86] [87
+] [108]) (Chapters/89_conclusion.tex [109] [110
 
-] [88] [89] [90]) [91]
-[92
+] [111] [112] [113] [114])
+[115] [116
 
 
-] [93] [94] [95] [96] [97]
+] [117] [118] [119] [120] [121]
 \openout2 = `Chapters/98_appendices.aux'.
 
  (Chapters/98_appendices.tex
 APPENDIX A
-[98
+[122
 
 
 
 ]
-<Figures/curve_generation_1.png, id=532, 715.92468pt x 139.27031pt>
+<Figures/curve_generation_1.png, id=631, 715.92468pt x 139.27031pt>
 File: Figures/curve_generation_1.png Graphic file (type png)
 <use Figures/curve_generation_1.png>
 Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 33.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.5363pt.
-<Figures/curve_generation_2.png, id=533, 711.4078pt x 137.7647pt>
+<Figures/curve_generation_2.png, id=632, 711.4078pt x 137.7647pt>
 File: Figures/curve_generation_2.png Graphic file (type png)
 <use Figures/curve_generation_2.png>
 Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 42.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.22841pt.
- [99 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
-<Figures/curve_generation_3.png, id=537, 718.93594pt x 136.25906pt>
+ [123 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
+<Figures/curve_generation_3.png, id=636, 718.93594pt x 136.25906pt>
 File: Figures/curve_generation_3.png Graphic file (type png)
 <use Figures/curve_generation_3.png>
 Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 53.
 
 (pdftex.def)             Requested size: 352.31625pt x 66.77583pt.
-[100 <./Figures/curve_generation_3.png>]
-<Figures/curve_flatten.png, id=541, 943.27406pt x 490.08093pt>
+ [124 <./Figures/curve_generation_3.png>]
+<Figures/curve_flatten.png, id=640, 943.27406pt x 490.08093pt>
 File: Figures/curve_flatten.png Graphic file (type png)
 <use Figures/curve_flatten.png>
 Package pdftex.def Info: Figures/curve_flatten.png  used on input line 66.
 (pdftex.def)             Requested size: 352.31625pt x 183.04704pt.
- [101 <./Figures/curve_flatten.png>]
+ [125 <./Figures/curve_flatten.png>]
 APPENDIX B
-[102
+[126
 
-] [103] [104] [105] [106] [107] [108] [109] [110] [111] [112] [113]
-[114]) [115]
+] [127] [128] [129] [130] [131] [132] [133] [134] [135] [136] [137]
+[138] [139]
+APPENDIX C
+) [140
+
+] [141] [142]
 \openout2 = `Chapters/99_vita.aux'.
 
- (Chapters/99_vita.tex) [116
+ (Chapters/99_vita.tex) [143
 
 
 
 
-] (main.aux (Chapters/98_appendices.aux) (Chapters/99_vita.aux))
+] (main.aux
+(Chapters/98_appendices.aux) (Chapters/99_vita.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19771 strings out of 467871
- 364646 string characters out of 5418376
- 1017140 words of memory out of 5000000
- 48299 multiletter control sequences out of 15000+600000
- 703475 words of font info for 167 fonts, out of 8000000 for 9000
+ 19999 strings out of 467871
+ 370068 string characters out of 5418376
+ 1019451 words of memory out of 5000000
+ 48512 multiletter control sequences out of 15000+600000
+ 718387 words of font info for 195 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,11n,79p,2335b,1956s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,15n,79p,2736b,1956s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt
-1200.pk><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmex10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmmi10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jason/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/jason/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/User
-s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/rsfs/rsfs10.pfb><C:/Us
-ers/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Use
-rs/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/User
-s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/User
-s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/User
-s/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (128 pages, 3286017 bytes).
+0800.pk> <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
+0\ectt1000.pk> <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+/dpi600\ectt1200.pk><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmex10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/jason/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jason/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jason/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/
+jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/rsfs/rsfs1
+0.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr
+.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.
+pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.
+pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.
+pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on main.pdf (155 pages, 3737831 bytes).
 PDF statistics:
- 690 PDF objects out of 1000 (max. 8388607)
+ 854 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 141 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
