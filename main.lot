@@ -11,7 +11,10 @@
 \contentsline {table}{\numberline {9.}{\ignorespaces RQ1 expanded synthetic baseline benchmark.}}{56}{}%
 \contentsline {table}{\numberline {10.}{\ignorespaces RQ1 direct interpretable-model baseline benchmark.}}{57}{}%
 \contentsline {table}{\numberline {11.}{\ignorespaces Real-world transformed vs. untransformed results.}}{60}{}%
-\contentsline {table}{\numberline {12.}{\ignorespaces RQ2 empirical boundary-condition summary.}}{90}{}%
-\contentsline {table}{\numberline {13.}{\ignorespaces RQ3 strict real-data compression policy summary.}}{102}{}%
-\contentsline {table}{\numberline {14.}{\ignorespaces Reproducibility map for the Chapter 4--5 study packages.}}{141}{}%
-\contentsline {table}{\numberline {15.}{\ignorespaces Reproducibility map for the Chapter 6--7 study packages.}}{142}{}%
+\contentsline {table}{\numberline {12.}{\ignorespaces Metric and notation guide.}}{66}{}%
+\contentsline {table}{\numberline {13.}{\ignorespaces RQ2 empirical boundary-condition summary.}}{91}{}%
+\contentsline {table}{\numberline {14.}{\ignorespaces RQ3 strict real-data compression policy summary.}}{103}{}%
+\contentsline {table}{\numberline {15.}{\ignorespaces Reproducibility map for the Chapter 4--5 study packages.}}{142}{}%
+\contentsline {table}{\numberline {16.}{\ignorespaces Reproducibility map for the Chapter 6--7 study packages.}}{143}{}%
+\contentsline {table}{\numberline {17.}{\ignorespaces Rule-card template: identity, rule logic, and intended use.}}{145}{}%
+\contentsline {table}{\numberline {18.}{\ignorespaces Rule-card template: validation, risks, and monitoring.}}{146}{}%

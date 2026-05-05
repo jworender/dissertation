@@ -1,0 +1,32 @@
+name: cutlass
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip=25.2
+  - ipykernel=7.1.0
+  - jupyter_client=8.6.3
+  - matplotlib=3.10.7
+  - numpy=2.4.4
+  - openpyxl=3.1.5
+  - pandas=2.3.3
+  - plotly=6.7.0
+  - pyarrow=23.0.1
+  - requests=2.32.5
+  - scikit-learn=1.8.0
+  - scipy=1.17.1
+  - seaborn=0.13.2
+  - tqdm=4.67.1
+  - pip:
+      - copt==0.9.1
+      - cutlass==0.4.0
+      - groupyr==0.3.4
+      - imodels==2.0.4
+      - interpret-core==0.7.8
+      - jupyter==1.1.1
+      - mlxtend==0.24.0
+      - nbconvert==7.17.0
+      - notebook==7.5.4
+      - qp-feature-selection==0.1.0
+      - scikit-optimize==0.9.0

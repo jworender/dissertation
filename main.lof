@@ -12,23 +12,23 @@
 \contentsline {figure}{\numberline {10.}{\ignorespaces RQ1 runtime scaling under lag expansion.}}{54}{}%
 \contentsline {figure}{\numberline {11.}{\ignorespaces Katrutsa and Strijov Method Results.}}{55}{}%
 \contentsline {figure}{\numberline {12.}{\ignorespaces RQ1 direct interpretable-model summary.}}{58}{}%
-\contentsline {figure}{\numberline {13.}{\ignorespaces RQ1 direct interpretable-model lag-recovery heatmaps.}}{67}{}%
-\contentsline {figure}{\numberline {14.}{\ignorespaces RQ1 direct interpretable-model tradeoff.}}{68}{}%
-\contentsline {figure}{\numberline {15.}{\ignorespaces HAI Results.}}{69}{}%
-\contentsline {figure}{\numberline {16.}{\ignorespaces HAI ROC.}}{70}{}%
-\contentsline {figure}{\numberline {17.}{\ignorespaces HAI J vs. K.}}{71}{}%
-\contentsline {figure}{\numberline {18.}{\ignorespaces RQ1 cross-domain transfer deltas.}}{72}{}%
-\contentsline {figure}{\numberline {19.}{\ignorespaces Ionosphere protocol distinction.}}{72}{}%
-\contentsline {figure}{\numberline {20.}{\ignorespaces Goose Bay repeated-split protocol audit.}}{73}{}%
-\contentsline {figure}{\numberline {21.}{\ignorespaces Goose Bay quantile sensitivity.}}{73}{}%
-\contentsline {figure}{\numberline {22.}{\ignorespaces Goose Bay penalty sensitivity.}}{74}{}%
-\contentsline {figure}{\numberline {23.}{\ignorespaces RQ2 baseline IC boundary sweep.}}{92}{}%
-\contentsline {figure}{\numberline {24.}{\ignorespaces RQ2 harder IC boundary heatmaps.}}{93}{}%
-\contentsline {figure}{\numberline {25.}{\ignorespaces RQ2 fixed-support inactive-count sweep.}}{94}{}%
-\contentsline {figure}{\numberline {26.}{\ignorespaces RQ2 threshold bridge from theory to practice.}}{95}{}%
-\contentsline {figure}{\numberline {27.}{\ignorespaces RQ3 real-data anytime compression frontiers.}}{101}{}%
-\contentsline {figure}{\numberline {28.}{\ignorespaces Anytime Compression (RQ3) Results.}}{104}{}%
-\contentsline {figure}{\numberline {29.}{\ignorespaces Synthetic Data Generation Step 1.}}{123}{}%
-\contentsline {figure}{\numberline {30.}{\ignorespaces Synthetic Data Generation Step 2.}}{123}{}%
-\contentsline {figure}{\numberline {31.}{\ignorespaces Synthetic Data Generation Step 4.}}{124}{}%
-\contentsline {figure}{\numberline {32.}{\ignorespaces Synthetic Data Generation Step 7, Curve Flattening.}}{125}{}%
+\contentsline {figure}{\numberline {13.}{\ignorespaces RQ1 direct interpretable-model lag-recovery heatmaps.}}{68}{}%
+\contentsline {figure}{\numberline {14.}{\ignorespaces RQ1 direct interpretable-model tradeoff.}}{69}{}%
+\contentsline {figure}{\numberline {15.}{\ignorespaces HAI Results.}}{70}{}%
+\contentsline {figure}{\numberline {16.}{\ignorespaces HAI ROC.}}{71}{}%
+\contentsline {figure}{\numberline {17.}{\ignorespaces HAI J vs. K.}}{72}{}%
+\contentsline {figure}{\numberline {18.}{\ignorespaces RQ1 cross-domain transfer deltas.}}{73}{}%
+\contentsline {figure}{\numberline {19.}{\ignorespaces Ionosphere protocol distinction.}}{73}{}%
+\contentsline {figure}{\numberline {20.}{\ignorespaces Goose Bay repeated-split protocol audit.}}{74}{}%
+\contentsline {figure}{\numberline {21.}{\ignorespaces Goose Bay quantile sensitivity.}}{74}{}%
+\contentsline {figure}{\numberline {22.}{\ignorespaces Goose Bay penalty sensitivity.}}{75}{}%
+\contentsline {figure}{\numberline {23.}{\ignorespaces RQ2 baseline IC boundary sweep.}}{93}{}%
+\contentsline {figure}{\numberline {24.}{\ignorespaces RQ2 harder IC boundary heatmaps.}}{94}{}%
+\contentsline {figure}{\numberline {25.}{\ignorespaces RQ2 fixed-support inactive-count sweep.}}{95}{}%
+\contentsline {figure}{\numberline {26.}{\ignorespaces RQ2 threshold bridge from theory to practice.}}{96}{}%
+\contentsline {figure}{\numberline {27.}{\ignorespaces RQ3 real-data anytime compression frontiers.}}{102}{}%
+\contentsline {figure}{\numberline {28.}{\ignorespaces Anytime Compression (RQ3) Results.}}{105}{}%
+\contentsline {figure}{\numberline {29.}{\ignorespaces Synthetic base oscillatory component.}}{123}{}%
+\contentsline {figure}{\numberline {30.}{\ignorespaces Synthetic composite sensor channel.}}{124}{}%
+\contentsline {figure}{\numberline {31.}{\ignorespaces Synthetic lagged event mechanism.}}{125}{}%
+\contentsline {figure}{\numberline {32.}{\ignorespaces Synthetic lag flattening.}}{126}{}%

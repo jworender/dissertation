@@ -860,3 +860,200 @@ From 2026-04-20 onward, this file also records open manuscript-review findings d
   - Added a generic rerun command pattern in the appendix and a preprocessing note for the HAI-backed notebooks via `notebooks/build_hai_cutlass_data.py`.
   - Added a short cross-reference sentence in `Chapters/04_approach.tex` so the public-artifacts subsection now points readers directly to Appendix `\ref{app:reproducibility_map}` for the study-regeneration map.
   - This closes the manuscript-facing portion of D036 because the dissertation now maps each notebook-backed study package to its generator, cached outputs, manuscript artifacts, and consuming chapter.
+
+## D037 - The appendix proof conclusion overstates what the RQ2 theory establishes
+
+- Status: Closed in manuscript on 2026-04-24.
+- Severity: High.
+- Evidence:
+  - `Chapters/98_appendices.tex:590`
+  - `Chapters/06_rq2.tex:178`
+  - `Chapters/06_rq2.tex:279`-`Chapters/06_rq2.tex:286`
+- Issue:
+  - The main RQ2 chapter now frames the theorem carefully as a scoped positive-correlation result with boundary checks for weaker regimes.
+  - The appendix conclusion still says binarization "enhances positive correlation relationships" and will also deemphasize negative correlation relationships in "the vast majority of the time."
+  - That language is stronger and less precise than the main chapter's caveated result, and it risks making the proof sound like a broader monotonic guarantee than the dissertation actually defends.
+- Recommended correction:
+  - Rewrite the appendix conclusion so it matches the main text: positive-correlation PoC regime only, with negative-correlation behavior treated as a boundary-condition stress case.
+  - Replace "enhances positive correlation relationships" with a matrix-norm or IC-oriented statement that directly follows from the derived inequality.
+  - Describe complement features as an engineering mitigation explored empirically, not as a theorem-level fix for all negative-correlation cases.
+- Expected report-card impact:
+  - Improves clarity and novelty rigor by making the theoretical claim harder to misread or overchallenge.
+- Changes made:
+  - Rewrote the appendix proof conclusion in `Chapters/98_appendices.tex` so the result is stated as the IC-oriented matrix-norm inequality `\|\tilde{G}^{-1}\|_\infty \leq \|G^{-1}\|_\infty` in the positive-correlation PoC regime.
+  - Replaced the overbroad "enhances positive correlation relationships" and "vast majority of the time" language with the weak RQ2 probability claim under zero-threshold, jointly normal, positive-correlation assumptions.
+  - Reframed negative-correlation behavior as a boundary-condition stress case and complement features as an empirical engineering mitigation, not a theorem-level fix.
+
+## D038 - The synthetic-data appendix still contains old-draft prose and encoding artifacts
+
+- Status: Closed in manuscript on 2026-04-24.
+- Severity: Medium.
+- Evidence:
+  - `Chapters/98_appendices.tex:9`
+  - `Chapters/98_appendices.tex:14`
+  - `Chapters/98_appendices.tex:24`
+  - `Chapters/98_appendices.tex:29`
+  - `Chapters/98_appendices.tex:38`
+  - `Chapters/98_appendices.tex:58`
+- Issue:
+  - The synthetic-data appendix reads less polished than the main dissertation, with informal phrases such as "Something like the following curve is generated" and "Note that."
+  - It also contains malformed quote encoding around words such as `relevant` and `True`, plus local usage issues such as `discernable`.
+  - Because Appendix C now carries an important reproducibility role, this older prose lowers the perceived finish quality of the artifact-backed story.
+- Recommended correction:
+  - Rewrite the synthetic-data appendix as a concise formal method description with `enumerate` steps and consistent terminology.
+  - Remove informal filler, correct encoding artifacts, and standardize wording around data sets, relevant features, labels, and lag flattening.
+  - Keep the figures, but make each step state the generated object, why it is generated, and how it supports the threshold-and-lag experiments.
+- Expected report-card impact:
+  - Improves clarity and professional polish, especially for readers who inspect the appendices to verify reproducibility.
+- Changes made:
+  - Rewrote the synthetic-data appendix opening in `Chapters/98_appendices.tex` as a concise `enumerate` procedure.
+  - Removed informal phrasing such as "Something like..." and "Note that," corrected `discernable`, and replaced malformed quote/label wording with ASCII-safe terminology.
+  - Standardized the description around bounded sensor-like channels, relevant features, binary `True`/`False` labels, lag-shifted event generation, lag flattening, row randomization, and the 70/30 train/test split while preserving the existing figure labels and replacing old step-number captions with descriptive captions.
+
+## D039 - The manuscript lacks one compact metric and notation quick reference for the RQ chapters
+
+- Status: Closed in manuscript on 2026-04-24.
+- Severity: Medium.
+- Evidence:
+  - `Chapters/01_introduction.tex:89`-`Chapters/01_introduction.tex:97`
+  - `Chapters/05_rq1.tex:122`
+  - `Chapters/05_rq1.tex:160`-`Chapters/05_rq1.tex:165`
+  - `Chapters/07_rq3.tex:29`
+  - `Chapters/07_rq3.tex:53`-`Chapters/07_rq3.tex:55`
+- Issue:
+  - The dissertation defines its evaluation terms locally, but the definitions are scattered across the introduction, RQ1, and RQ3.
+  - Dense empirical sections use AUC, Youden's J, exact-lag F1, pairwise Jaccard, nonzero support size, `k^\star`, `m`, and held-out deployment gates without one nearby reference table.
+  - Readers can reconstruct the terms, but the extra lookup burden is exactly the kind of density that kept the reconciled clarity score below a perfect score.
+- Recommended correction:
+  - Add a compact "Metric and notation guide" near the end of Chapter 1 or at the start of Chapter 5.
+  - Include AUC, Youden's J, exact-lag F1, pairwise Jaccard, total nonzero, active support, `k^\star`, `m`, compression ratio, `Deploy?`, and the paired-bootstrap non-inferiority lower-bound checks.
+  - Keep it brief and point readers back to the detailed chapter-specific definitions where needed.
+- Expected report-card impact:
+  - Improves clarity by reducing reader load across the empirical and deployment chapters.
+- Changes made:
+  - Added a near-end Chapter 5 section, `Metric and Notation Guide`, with Table `tab:metric_notation_guide`.
+  - Included compact definitions and dissertation roles for AUC, Youden's `J`, exact-lag F1, pairwise Jaccard, total nonzero, active support, `k^\star`, `m`, compression ratio, `Deploy?`, and paired-bootstrap non-inferiority lower-bound checks.
+  - Positioned the guide immediately before `Answer to RQ1` so readers encounter the shared empirical vocabulary before moving into the RQ2 and RQ3 chapters.
+
+## D040 - The repository README still presents the project as a template before it presents the dissertation artifact
+
+- Status: Closed in repository documentation on 2026-04-24.
+- Severity: Medium.
+- Evidence:
+  - `README.md:1`
+  - `README.md:6`-`README.md:12`
+  - `README.md:115`-`README.md:138`
+  - `README.md:154`
+- Issue:
+  - The new reproduction quickstart is useful, but the README title remains `ODU College of Sciences LaTeX ETD Template`.
+  - A reader landing on the repository can still mistake the project for a generic LaTeX template rather than the dissertation manuscript, notebooks, cached outputs, and reproduction instructions.
+  - The retained template instructions also include template-specific links and one visible encoding artifact in the document-class line.
+- Recommended correction:
+  - Retitle the README around the dissertation and reproduction artifact.
+  - Move retained ODU template material under a clearly marked "ODU Template Notes" or "LaTeX Template Reference" section.
+  - Fix the remaining README encoding artifact and remove or qualify template-only guidance that is no longer accurate for this repository.
+- Expected report-card impact:
+  - Improves external clarity and utility by making the repository's purpose immediately legible.
+- Changes made:
+  - Completely rewrote `README.md` around the dissertation repository rather than the inherited LaTeX starter material.
+  - Added dissertation-specific sections for repository structure, environment setup, data inputs, PDF building, representative workflow execution, study-package regeneration, runtime expectations, and manuscript-to-artifact audit flow.
+  - Removed the generic ODU template instructions, Overleaf links, front-matter instructions, and template-specific examples from the body of the README.
+  - Confined credit for the `ODU College of Sciences LaTeX ETD Template` to the final paragraph, as requested.
+
+## D041 - The data manifest still leaves HAI acquisition under-specified for external readers
+
+- Status: Closed in repository documentation on 2026-04-24.
+- Severity: Medium.
+- Evidence:
+  - `README.md:65`-`README.md:89`
+  - `references/shin2020.md:21`-`references/shin2020.md:33`
+- Issue:
+  - The README now names the HAI 1.0 dataset and the required local filenames, but it does not provide a direct source URL, version note, expected archive or CSV names, or integrity checks.
+  - The Ionosphere row is more actionable because it includes the UCI download URL, while the HAI row still requires the reader to locate the public source independently.
+  - That gap is small for an insider but material for an external CS reader trying to reproduce the real-data notebooks with minimal friction.
+- Recommended correction:
+  - Add the verified HAI 1.0 source page or download URL, the expected raw files, and any version/date information available from the Shin et al. dataset release.
+  - Add optional file sizes or checksums for `train1.csv`, `train2.csv`, `test1.csv`, and `test2.csv` after verifying the public artifacts.
+  - State whether processed parquet outputs are generated deterministically from those raw CSVs and where they will be written.
+- Expected report-card impact:
+  - Improves utility by closing the largest remaining real-data setup gap in the README.
+- Changes made:
+  - Added the HAI upstream repository, `https://github.com/icsdataset/hai`, to the README data manifest and to `references/shin2020.md`.
+  - Added the HAI 20.07 / HAI1.0 version note from the upstream repository, including the relationship to the original February 2020 HAI v1.0 release.
+  - Listed the expected raw local files (`train1.csv`, `train2.csv`, `test1.csv`, and `test2.csv`) and recorded local byte sizes plus SHA-256 checksums in `references/shin2020.md`.
+  - Stated that `notebooks/build_hai_cutlass_data.py` writes deterministic derived outputs under `notebooks/processed_data/`, including `hai_manifest.json` and balanced parquet files consumed by the HAI-backed notebooks.
+
+## D042 - Environment capture and smoke verification are not yet turnkey enough for a fresh external setup
+
+- Status: Closed in repository documentation on 2026-04-24.
+- Severity: Medium.
+- Evidence:
+  - `README.md:42`-`README.md:63`
+  - `requirements.txt:1`
+  - `scripts/_generate_walkthrough_notebook.py:52`
+  - No `environment.yml`, `environment.yaml`, or smoke-test script was found by `rg --files`.
+- Issue:
+  - The `requirements.txt` file is useful, but the authoritative working setup is a conda environment named `cutlass`.
+  - A pip-only requirements file may not recreate the notebook kernel consistently across machines, especially for packages with compiled dependencies.
+  - There is also no fast smoke command that checks the environment, raw data paths, kernel registration, and a minimal study artifact before a reader launches long-running notebooks.
+- Recommended correction:
+  - Add a conda-native `environment.yml` generated from the working `cutlass` environment or a carefully curated equivalent.
+  - Add a short smoke script such as `scripts/smoke_reproduction.py` that verifies core imports, package versions, `cutlass` kernel availability, required raw data files when real-data notebooks are requested, and presence/readability of cached outputs under `notebooks/runs_new/`.
+  - Document a one-command or two-command readiness check in the README before the full notebook regeneration commands.
+- Expected report-card impact:
+  - Improves utility and professional relevance by making the artifact path more robust for outside CS readers.
+- Changes made:
+  - Added `environment.yml` as the preferred conda setup path for the `cutlass` notebook environment, using conda for the compiled scientific stack and pip for dissertation-specific packages.
+  - Added `scripts/smoke_reproduction.py`, which checks core imports, package versions against `requirements.txt`, the registered `cutlass` Jupyter kernel, representative cached outputs under `notebooks/runs_new/`, and optional real-data plus processed HAI artifacts.
+  - Updated `README.md` to document `conda env create -f environment.yml`, kernel registration, the default cached-artifact smoke command, and the `--with-real-data` readiness check for full real-data regeneration.
+
+## D043 - The current LaTeX log shows a manuscript overfull-box regression after the prior typography item was closed
+
+- Status: Closed in manuscript on 2026-04-24.
+- Severity: Low.
+- Evidence:
+  - `main.log:959`
+  - `main.log:964`
+  - `main.log:969`
+  - `main.log:974`
+  - `main.log:979`
+  - `main.log:1189`
+  - `Chapters/05_rq1.tex:290`-`Chapters/05_rq1.tex:291`
+- Issue:
+  - D025 documented that the remaining warnings were template-level underfull boxes only.
+  - The current log again reports an overfull box in manuscript chapter text, apparently in the dense direct-interpretable-baseline discussion around Chapter 5 lines 290--291.
+  - This is not a substantive correctness problem, but it is a final-polish regression that contradicts the earlier closure note.
+- Recommended correction:
+  - Reflow or locally shorten the Chapter 5 paragraph around the reported line pair, then rebuild.
+  - Confirm that the only remaining warnings are the documented template-level underfull boxes, or update D025/D043 with the exact remaining source.
+- Expected report-card impact:
+  - Improves professional polish and prevents a reviewer from interpreting the build log as unfinished cleanup.
+- Changes made:
+  - Shortened and split the dense direct-interpretable-baseline paragraph in `Chapters/05_rq1.tex`, replacing the long opening reference chain with a shorter sentence and moving the runtime/backend caveat into its own paragraph.
+  - Rebuilt with `pdflatex -synctex=1 -interaction=nonstopmode -halt-on-error main.tex`.
+  - Confirmed that the Chapter 5 overfull-box warning is gone. The remaining box warnings are the five already documented template-level underfull boxes at `main.tex:106`; the log also retains the existing biblatex fallback warning and PDF-version inclusion warnings for `Figures/first_irrelevant.pdf` and `Figures/both_relevant.pdf`, which are not overfull-box regressions.
+
+## D044 - The project lacks a rule-card template for deployed compressed rules
+
+- Status: Closed in manuscript and repository documentation on 2026-04-24.
+- Severity: Medium.
+- Evidence:
+  - `documentation/report_card_03.md:78`
+  - `Chapters/04_approach.tex:108`-`Chapters/04_approach.tex:124`
+  - `Chapters/07_rq3.tex:53`-`Chapters/07_rq3.tex:55`
+  - `notebooks/runs_new/walkthrough/hai_a1_walkthrough_selected_rule.csv`
+  - `notebooks/runs_new/walkthrough/hai_a1_walkthrough_deployment_summary.csv`
+- Issue:
+  - The manuscript now explains when a compressed rule is deployment-eligible, and the walkthrough writes selected-rule and deployment-summary artifacts.
+  - What is still missing is a standardized rule-card template that tells a practitioner exactly what to record when a compressed rule is accepted.
+  - Without that schema, the utility story remains research-facing: the rule exists, but the handoff artifact for audit, monitoring, and operational review is not yet defined.
+- Recommended correction:
+  - Add a rule-card template to the README, appendix, or documentation folder.
+  - Include selected feature-lag conditions, threshold ranges, vote threshold `m`, retained prefix `k`, baseline metrics, validation deltas, non-inferiority margins, intended use, known failure modes, retraining trigger, and monitoring trigger.
+  - Optionally make the walkthrough notebook emit a filled example rule card for HAI `attack_p2 (a1)` alongside the existing CSV outputs.
+- Expected report-card impact:
+  - Improves utility by turning the accepted compressed rule from an experimental output into a reviewable deployment artifact.
+- Changes made:
+  - Added a repository-facing `Rule-Card Template For Accepted Compressed Rules` section to `README.md`.
+  - Added Appendix `Rule-Card Template for Accepted Compressed Rules` to `Chapters/98_appendices.tex`, including fields for selected feature-lag conditions, critical-range bounds, vote threshold `m`, retained prefix `k`, baseline and rule metrics, validation deltas, non-inferiority margins, intended use, known failure modes, monitoring triggers, retraining triggers, and artifact links.
+  - Added manuscript cross-references from the Chapter 4 worked HAI exemplar and the Chapter 7 strict deployment policy to Appendix `\ref{app:rule_card_template}` so readers know where to find the handoff template.

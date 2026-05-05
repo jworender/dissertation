@@ -287,7 +287,9 @@ Because RQ1 is partly an interpretability claim rather than only a sparse-select
     \label{fig:d010_tradeoff}
 \end{figure}
 
-Table \ref{tab:d010_interpretable} and Figures \ref{fig:d010_summary}--\ref{fig:d010_tradeoff} sharpen the interpretability comparison. EBM achieves the strongest mean discrimination and, in the top-$K$ pane of the dual-view heatmap, repeatedly returns to the planted lag neighborhoods. However, that top-$K$ display should be read as a controlled comparison device rather than as a direct statement of what a practitioner would know to inspect in advance. The full-support pane shows why the distinction matters: for EBM and the other non-CUTLASS baselines, the analyst must still decide how many active locations to keep, and EBM in particular remains dense across the lag-expanded design. CUTLASS logic contributes an additional piece of information by selecting a deployable rule size $k$ natively through its compression policy. Even with that advantage, EBM in the purely additive configuration used here keeps all $440$ exact-lag additive terms active and requires roughly $33$ seconds, about $2.6\times$ the runtime of the CUTLASS pipeline. Runtime comparisons here should be read as end-to-end package timings rather than implementation-neutral complexity measurements. The current CUTLASS prototype is implemented in Python/Numpy, whereas EBM relies on a compiled native backend, so a production-grade compiled CUTLASS implementation would likely widen CUTLASS's observed speed advantage over EBM rather than narrow it. The issue in this benchmark is therefore not combinatorial rule growth, but dense additive growth: as the lag-expanded feature set increases, the model can retain a large number of nonzero term functions whose combined chatter obscures attribution. If pairwise or higher-order interactions were enabled, this complexity would grow more aggressively, becoming at least quadratic and eventually combinatorial in the number of lagged inputs.
+The direct-comparator package sharpens the interpretability comparison. EBM achieves the strongest mean discrimination and, in the top-$K$ pane of the dual-view heatmap, repeatedly returns to the planted lag neighborhoods. However, that top-$K$ display should be read as a controlled comparison device rather than as a direct statement of what a practitioner would know to inspect in advance. The full-support pane shows why the distinction matters: for EBM and the other non-CUTLASS baselines, the analyst must still decide how many active locations to keep, and EBM in particular remains dense across the lag-expanded design. CUTLASS logic contributes an additional piece of information by selecting a deployable rule size $k$ natively through its compression policy.
+
+Even with that advantage, EBM in the purely additive configuration used here keeps all $440$ exact-lag additive terms active and requires roughly $33$ seconds, about $2.6\times$ the runtime of the CUTLASS pipeline. Runtime comparisons here are package timings rather than implementation-neutral complexity measurements: the current CUTLASS prototype is implemented in Python and NumPy, whereas EBM relies on a compiled native backend. The issue in this benchmark is therefore not combinatorial rule growth, but dense additive growth: as the lag-expanded feature set increases, the model can retain many nonzero term functions whose combined chatter obscures attribution. If pairwise or higher-order interactions were enabled, this complexity would grow more aggressively, becoming at least quadratic and eventually combinatorial in the number of lagged inputs.
 
 At the other extreme, the greedy rule list is extremely fast and small, yet its discrimination collapses and its heatmap almost never lands on the exact planted lags. RuleFit is a more serious compact baseline: it remains fast at about $1.5$ seconds and predictive enough to be plausible in practice. Even so, it trails materially on Youden's $J$, averages about $29$ unique lagged features and $51$ primitive conditions, and its support heatmap misses several planted lags across seeds.
 
@@ -407,6 +409,34 @@ In practice, rectification is a strong candidate when several of the following h
 \end{itemize}
 
 By contrast, rectification should be treated cautiously when no stable lag-localized event ranges appear, when performance changes erratically under small shifts in the rectifier definition, or when the transformed model shows clear held-out degradation without compensating gains in interpretability. Such cases do not mean the method is invalid; they indicate that the dataset may be only weakly aligned with the threshold-mediated regime, and that raw or hybrid representations may be more appropriate.
+
+\section{Metric and Notation Guide}
+
+Table \ref{tab:metric_notation_guide} provides a compact reference for the main empirical metrics and notation used across the RQ chapters. Chapter-specific sections give the detailed protocol context; this table is intended as a nearby lookup point for the dense result tables and deployment-policy language that follow.
+
+\begin{table}[p]
+    \caption[Metric and notation guide.]{Metric and notation guide for the RQ chapters.}
+    \label{tab:metric_notation_guide}
+    \centering
+    {\scriptsize
+    \setlength{\tabcolsep}{4pt}
+    \renewcommand{\arraystretch}{0.92}
+    \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.23\textwidth}>{\RaggedRight\arraybackslash}X}
+        Term & Meaning and dissertation role \\ \hline
+        AUC & Area under the ROC curve; threshold-independent discrimination used to check whether rectification or compression preserves held-out ranking quality. \\ \hline
+        Youden's $J$ & $J=\mathrm{TPR}+\mathrm{TNR}-1$ at an operating threshold; reports operating-point utility when both sensitivity and specificity matter. \\ \hline
+        Exact-lag F1 & F1 against planted feature-lag ground truth; used in synthetic studies to assess recovery of true lagged triggers. \\ \hline
+        Pairwise Jaccard & Mean overlap between selected supports across seed pairs or resamples; summarizes support stability. \\ \hline
+        Total nonzero & Count of nonzero coefficients or active primitive terms before downstream compression; reports sparse-baseline size. \\ \hline
+        Active support & Selected nonzero feature-lag set; the attribution object inspected for interpretability and stability. \\ \hline
+        $k^\star$ & Smallest training-side prefix satisfying the RQ3 compression screen; candidate rule size, not an automatic deployment decision. \\ \hline
+        $m$ & Vote threshold in an $m$-of-$k$ rule; number of retained conditions that must be active for event prediction. \\ \hline
+        Compression ratio & Baseline active-support size divided by retained size, usually $\mathrm{nz}/k^\star$; simplification factor. \\ \hline
+        Deploy? & Held-out accept/reject flag for a nominated compressed rule; ``No'' means retain the sparse baseline. \\ \hline
+        Paired-bootstrap lower bounds & Lower confidence bounds for held-out $\Delta\mathrm{AUC}$ and $\Delta J$; RQ3 deployment requires both to exceed the prespecified non-inferiority margins. \\ \hline
+    \end{tabularx}
+    }
+\end{table}
 
 \section{Answer to RQ1}
 

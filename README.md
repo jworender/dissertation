@@ -1,253 +1,243 @@
-# ODU College of Sciences LaTeX ETD Template
+# Dissertation Repository: Critical-Range Rectification and Anytime Rule Compression
 
-> [!IMPORTANT]
-> **Last Updated: July 16, 2025**
+This repository contains the manuscript, figures, notebooks, cached study
+outputs, and regeneration scripts for the dissertation *Interpretable Sparse
+Modeling of Longitudinal Signals via Critical-Range Rectification and Anytime
+Rule Compression*.
 
-Welcome to the LaTeX Electronic Thesis and Dissertation (ETD) template for the College of Sciences at Old Dominion University. This template is designed to assist students in formatting their theses and dissertations according to the guidelines provided by the university. Those using this template must still abide by the guidelines and formatting requirements found in the [ODU Guide for Preparation of Theses and Dissertations](https://www.odu.edu/graduateschool/thesis-dissertation-preparation-submission) ([PDF](https://www.odu.edu/sites/default/files/2024/documents/thesis-dissertation-guide-03-2024.pdf), last updated March 2024).
+The dissertation studies a representation-first pipeline for longitudinal event
+modeling:
 
-Note that using this template removes the requirement that you submit a "journal model" with your thesis or dissertation, as noted on the College of Sciences [Check-in Sheet](https://www.odu.edu/sites/default/files/documents/check-in.pdf). You just need to check the box on the form that you have used the LaTeX template.
+1. Convert lag-expanded continuous measurements into critical-range indicators.
+2. Fit sparse L1-regularized logistic models on the rectified representation.
+3. Compress accepted sparse supports into auditable `m`-of-`k` rule candidates
+   when a simpler deployment artifact is appropriate.
 
-For more information on the review process, see the [College of Sciences Thesis & Dissertation Review Procedures](https://www.odu.edu/sci/students/graduate/thesis).
+The repository is meant to support manuscript review and result auditability. It
+is not a generic LaTeX starter project. The main entry points are the compiled
+dissertation PDF, the LaTeX source, the notebook-backed study packages, and the
+cached outputs under `notebooks/runs_new/`.
 
-## Before You Begin
+## Repository Map
 
-- Please refrain from altering the spacing on any of the pages, as it is specified according to the guidelines provided by the College of Science.
-- You may add any packages that you require for your ETD, but the base template may encounter issues when adding conflicting packages. Keep an eye out for errors and warnings that may arise during each compilation, especially when introducing new packages or implementing significant modifications.
+| Path | Purpose |
+| --- | --- |
+| `main.tex` | Dissertation root file. |
+| `main.pdf` | Current compiled dissertation PDF. |
+| `Chapters/` | Chapter and appendix LaTeX source files. |
+| `Figures/` | Manuscript figures generated or copied from the study notebooks. |
+| `notebooks/` | Executable notebooks for the dissertation experiments and figures. |
+| `notebooks/runs_new/` | Cached CSV, JSON, and text outputs used to audit reported results. |
+| `scripts/` | Notebook generator scripts and supporting experiment scripts. |
+| `references/` | Source papers and extracted notes used while writing the dissertation. |
+| `documentation/` | Internal audit notes, deficiency tracking, report cards, and planning documents. |
+| `environment.yml` | Conda environment specification for the notebook and smoke-check stack. |
+| `requirements.txt` | Focused Python dependencies for the dissertation notebooks. |
+| `ref.bib` | Bibliography used by the manuscript. |
+| `odusci.sty` | Local style file used by the dissertation build. |
 
-## Template Structure
+The appendix section `Reproducibility Map` in `Chapters/98_appendices.tex`
+maps the notebook-backed study packages to the figures, tables, cached outputs,
+and chapters they support.
 
-The template repository contains the following files and directories:
+## Recommended Environment
 
-- [odusci.sty](odusci.sty): Style file for the College of Sciences Electronic Thesis and Dissertation (ETD)
-- [main.tex](main.tex): Main LaTeX document file, demonstrating various cases
-- [main.pdf](main.pdf): PDF generated with `main.tex`
-- [minimal.tex](minimal.tex): LaTeX document file containing the minimal working example
-- [minimal.pdf](main.pdf): PDF generated with `minimal.tex`
-- [ref.bib](ref.bib): BibTeX bibliography file
-- [Chapters/](Chapters): Folder containing .tex files for individual chapters
-- [Figures/](Figures): Folder for storing figures
-- README.md: This README file providing instructions for using the template.
+The notebooks were developed against a local Miniconda environment named
+`cutlass` with Python 3.11. On this machine, use:
 
-## ETD LaTeX Template on Overleaf
-
-This template is also hosted on [Overleaf](https://www.overleaf.com/), an online LaTeX editor.
-
-You can view both the source and generated PDF of the ETD LaTeX template on Overleaf at <https://www.overleaf.com/read/srctgbpbygzp#51ddaa>
-
-See ["Copying a project"](https://www.overleaf.com/learn/how-to/Copying_a_project) at Overleaf for instructions on how to copy the project into your own space.
-
-## Using the Template
-
-Most of the customization you need to make is isolated to `main.tex`. Do not edit `odusci.sty` unless absolutely necessary.
-
-### Font Size, Document Class, and Margins
-- The font size throughout the document is set to 12 points, as required by the College of Sciences.
-- The document class used is ‘report’, suitable for longer documents like dissertations.
-- The margin is set uniformly to 1 inch around the document
-
-### `odusci` Package options
-
-- For a Master's thesis, you can use the `thesis` option  
-  `\usepackage[thesis]{odusci}`
-
-- For PhD dissertations, you can use the `diss` option  
-  `\usepackage[diss]{odusci}`
-
-### References
-
-#### Bibliography
-
-- Ensure that your bibliography file, [ref.bib](ref.bib), contains all the necessary references for your document.
-
-- If you want to use a different filename for your references, you must change the file referenced in [`\addbibresource{ref.bib}`](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L22) in `main.tex`.     
-
-#### Reference Citation Style
-   
-- The style file uses the `biblatex` Package for formatting references. See ["Bibliography management with biblatex"](https://www.overleaf.com/learn/latex/Bibliography_management_with_biblatex) for more information. Here are a few other references for biblatex:
-    - [The biblatex Package](https://mirrors.rit.edu/CTAN/macros/latex/contrib/biblatex/doc/biblatex.pdf) - in particular, see "3.9 Citation Commands" (pg 110)
-    - [A very quick introduction to managing citations in LaTeX](https://andreasmhallberg.github.io/managing-citations-in-latex/)
-
-- The College of Sciences is allowing 3 different options for bibliography styles (see ["Biblatex bibliography styles"](https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles) for examples of each of these):
-    - IEEE - commonly used by Computer Science, Physics, Math
-    - APA - commonly used by Psychology
-    - Science - commonly used by other sciences
-
-- Select the appropriate bibliography style for your field by uncommenting one of the following lines in `main.tex`:
-
-    [`% \usepackage[style=ieee, sorting=nyt, citestyle=numeric-comp, maxnames=10, minnames=10]{biblatex}`](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L15)  
-    [`% \usepackage[style=apa, sorting=nyt, maxnames=10, minnames=10]{biblatex}`](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L17)  
-    [`% \usepackage[style=science, sorting=nyt, maxnames=10, minnames=10]{biblatex}`](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L19)
-
-- If you want your references to be listed in the order they are cited in your text rather than alphabetically by first author's last name, change `sorting=nyt` to `sorting=none` in the `biblatex` options line.
-- If you are using IEEE style and do not want multiple citations placed in the same brackets (i.e., [1, 3, 7]), then remove `citestyle=numeric-comp,` from the options.
-
-### Front Matter
-
-#### Title Page
-
-- Add the title, author name, prior degrees, department, submit date, and committee, starting on [line 39](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L39) in `main.tex`
-   
-- If the prior degrees are outside of the US, use the following format. (University and country must be on the same line.)
-  ```
-  \degrees{B.S. July 2017, University of Oxford, United Kingdom \\
-  M.S. July 2020, University of Oxford, United Kingdom}
-  ```
-
-- The submit date must use either "May", "August", or "December" for the month:
-  ```
-  \submitdate{May 2024} - Submit date for May (Spring) graduates
-  \submitdate{August 2024} - Submit date for August (Summer) graduates
-  \submitdate{December 2024} - Submit date for December (Fall) graduates
-  ```
-
-- If you have co-advisers, you must make adjustments in both `main.tex` and `odusci.sty`
-  * In `main.tex`, comment out [lines 64-67](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L64-L67) and uncomment [lines 70-74](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L70-L74):
-  ```
-  \coadvisers{Director Name}
-  \coadvisers{Director Name}
-  \member{Member Name}
-  \member{Member Name}
-  \member{Member Name}
-  ```
-     
-  * In `odusci.sty`, comment out `\onedirectortrue` ([line 82](https://github.com/oduwsdl/odusci-etd-template/blob/main/odusci.sty#L82)) and uncomment `\onedirectorfalse` ([line 83](https://github.com/oduwsdl/odusci-etd-template/blob/main/odusci.sty#L83))
-   
-#### Abstract 
-- In `main.tex`, insert your abstract starting on [line 81](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L81), ensuring it does not exceed a maximum of 350 words.
-- The upper sections of the page, including the title, author, university, and director information, will be automatically generated based on the input provided on the title page. You do not need to make any modifications to the template regarding this section.
-  
-#### Copyrights
-- This page will be automatically generated based on the input of the author's name on the title page. You do not need to make any modifications to the template regarding this section.
-     
-#### Dedication 
-- In `main.tex`, include your dedication starting on [line 84](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L84). Ensure that it does not exceed one page in length.
-- This section is used to recognize those who have supported you during your graduate studies.
-     
-#### Acknowledgments 
-- In `main.tex`, include your acknowledgements starting on [line 87](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L87)
-- This section is for recognition of individuals who contributed to your academic research should be provided here.
-- Note that if you want multiple paragraphs, you must explicitly add newline and indent commands: `\\ \indent`
-     
-#### Table of Contents, List of Tables, and List of Figures
-- These sections will be automatically generated based on the content of your document. You do not need to make any modifications to the template regarding these sections. LaTeX will handle the generation of the table of contents, list of tables, and list of figures for you.
-     
-#### Nomenclature
-  If you need to add a Nomenclature list, you must made adjustments in both `main.tex` and `odusci.sty`
-
-- In `main.tex`
-
-  The nomenclature page provides a comprehensive list of symbols and abbreviations used throughout the document, along with their corresponding definitions or explanations. Add your nomenclature in the provided format in the template ([lines 93-100](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L93-L100)). The inclusion of a nomenclature page is optional.
-
-- In `odusci.sty`, comment out `\nomenclaturefalse` ([line 75](https://github.com/oduwsdl/odusci-etd-template/blob/main/odusci.sty#L75)) and uncomment `\nomenclaturetrue` ([line 76](https://github.com/oduwsdl/odusci-etd-template/blob/main/odusci.sty#L76))
-
-### Chapters and Sections
-
-- It is recommended to put the contents of each chapter in a separate .tex file in the "Chapters" folder.
-- Then use the `\input` command to insert the chapters into your main file, as shown in [lines 112-119](https://github.com/oduwsdl/odusci-etd-template/blob/main/main.tex#L112-L119)
-- Start a new chapter with `\chapter{Chapter Title}`
-- Sections and subsections can be created as normal with `\section{Section Title}` and `\subsection{Section Title}`.
-
-### Figures and Tables
-
-- Figures, tables, and equations can be added as normal. There are several examples of these throughout the example document:
-
-  - figure - [01_introduction.tex](https://github.com/oduwsdl/odusci-etd-template/blob/main/Chapters/01_introduction.tex#L10)
-  - subfigure - [02_background.tex](https://github.com/oduwsdl/odusci-etd-template/blob/main/Chapters/02_background.tex#L28)
-  - landscape figure - [02_background.tex](https://github.com/oduwsdl/odusci-etd-template/blob/main/Chapters/02_background.tex#L50)
-  - equation - [02_background.tex](https://github.com/oduwsdl/odusci-etd-template/blob/main/Chapters/02_background.tex#L40)
-  - table - [03_relatedwork.tex](https://github.com/oduwsdl/odusci-etd-template/blob/main/Chapters/03_relatedwork.tex#L17)
-  - long table - [06_concordia.tex](https://github.com/oduwsdl/odusci-etd-template/blob/main/Chapters/06_concordia.tex#L84)
- 
-- To achieve an optimal fit for figures and tables in your LaTeX document, you can adjust their width using percentages of either `\linewidth` (or `\textwidth`)
-
-  ```
-  \begin{figure}[tbh]
-  \centering
-  % Adjust the width here by setting a percentage of \linewidth
-  \includegraphics[width=0.5\linewidth]{Figures/cos1.jpeg}
-  \caption[The figure title goes here.]{The figure title goes here.}
-  \label{fig:cos1}
-  \end{figure} 
-  ```
-  
-  In this example, `width=0.5\linewidth` scales the image to 50% of the current text width (`\linewidth`). You can change 0.5 to any decimal to adjust the image size relative to the line width (e.g., `0.3\linewidth` for 30% or `0.8\linewidth` for 80%).
-
-  You can also use options to `includegraphics` to crop images.
-  * format: `\includegraphics[trim=left bottom right top, clip]{file}`
-  * example: `\includegraphics[trim=100 40 150 150,clip,width=\linewidth]{crab}`
-
-> [!IMPORTANT]
-> **Known Issue**: When figure or table captions are too long to fit on a single line in the TOC, the wrapping behavior may differ from the university's sample page.  
-> **Current Workaround**: Define a **short figure or table caption specifically for the TOC** using the `\caption[Short caption for TOC]{The full caption to be displayed in the document goes here}` syntax.
-
-
-### Adding Code as Listing
-
-You can display code in your LaTeX document using the `listings` package, which allows you to customize the appearance of your code. Below is an example of how to include Python code with specific syntax highlighting. The custom settings applied here ensure that certain parts of the code are highlighted in red.
-
-```
-\begin{lstlisting}[caption = Python Code Example]
-def hello_world():
-    @This part will be highlighted in red@
-    print("Hello, world!")
-hello_world()
-\end{lstlisting}
+```powershell
+conda activate cutlass
 ```
 
-In `main.tex`, you can customize the formatting of the code listings on `\lstset` as desired.
+For a fresh environment, create an equivalent setup and register the notebook
+kernel:
 
-```
-\lstset{
-  basicstyle=\sffamily,        % Use a sans-serif font for the code
-  columns=fullflexible,        % Make the code formatting more flexible
-  frame=single,                % Add a frame around the code
-  breaklines=true,             % Enable line wrapping
-  moredelim=**[is][\color{red}]{@}{@}, % Highlight text between '@' symbols in red
-  escapechar=\%                % Define '%' as an escape character for special formatting
-}
-```
-### Adding URLs
-
-To add URLs to your document, you can use the `\url` command provided by the `url` package in LaTeX. This command formats the URL in a typewriter font and enables line-breaking for long URLs that do not fit on a single line.
-
-```
-For more information, visit \url{https://github.com/oduwsdl/odusci-etd-template/blob/main/README.md}
-```
-### Adding Equations
-
-To include equations in your LaTeX document, you can use the `equation` environment for numbered equations and the `\ref` command to reference them later in the text.
-
-```
-Equation \ref{eq:1} exemplifies a standard power series, demonstrating how to include equations in your document.
-
-\begin{equation} \label{eq:1}
-\sum_{i=0}^{\infty} a_i x^i
-\end{equation}
+```powershell
+conda env create -f environment.yml
+conda activate cutlass
+python -m ipykernel install --user --name cutlass --display-name cutlass
 ```
 
-### Appendix
+The `environment.yml` file is the preferred setup path because it captures the
+compiled scientific stack through conda and the dissertation-specific packages
+through pip. `requirements.txt` remains as the pinned package manifest checked by
+the smoke script.
 
-- [`Chapters/98_appendices.tex`](https://github.com/oduwsdl/odusci-etd-template/blob/main/Chapters/98_appendices.tex) contains an example of specifying the appendices. Each new appendix should begin with the line `\achapter{Title of Appendix}`.
+After creating or updating the environment, run the cached-artifact readiness
+check:
 
-- If your appendices are too long or require significant management, you can split them across multiple `.tex` files and then include them in `main.tex`.
-
-```
-\begin{Appendices}
-\include{Chapters/98_appendices}           % First appendix file
-\include{Chapters/98_appendices2}          % Second appendix file
-% You can add more .tex files as needed
-\end{Appendices}
+```powershell
+python scripts/smoke_reproduction.py
 ```
 
+After placing the real-data inputs and building the HAI parquet files, run the
+full data-readiness variant:
 
-### Vita
+```powershell
+python scripts/smoke_reproduction.py --with-real-data
+```
 
-- [`Chapters/99_vita.tex`](https://github.com/oduwsdl/odusci-etd-template/blob/main/Chapters/99_vita.tex) contains an example of specifying the vita page. All of the content must be placed inside the `\vita{}` command, and the last line should be `\vitapage`. It is important to note that the vita is limited to a maximum of 1 page.
+The smoke script checks core imports, pinned package versions, the registered
+`cutlass` Jupyter kernel, readability of representative cached outputs under
+`notebooks/runs_new/`, and, when requested, the raw HAI/UCI inputs plus processed
+HAI parquet artifacts.
 
-## Support
+## Data Inputs
 
-- College of Sciences Guidelines for Submitting a Thesis/Dissertation for Review:
-<https://www.odu.edu/sci/students/graduate/thesis>
+Most study packages are synthetic or use cached outputs already committed under
+`notebooks/runs_new/`. The real-data notebooks require public datasets to be
+placed in the expected local paths before full regeneration.
 
-- Overleaf Documentation:
-<https://www.overleaf.com/learn>
+| Dataset or study family | Source/version | Local input path | Preparation |
+| --- | --- | --- | --- |
+| Synthetic RQ1 studies | Generated by this repository. | No external input required. | Run the relevant generator and notebook. |
+| RQ2 boundary-condition studies | Generated by this repository. | No external input required. | Run `scripts/_generate_boundary_conditions_notebook.py`, then execute `notebooks/boundary_conditions.ipynb`. |
+| HAI 1.0 industrial-control data | HAI repository: `https://github.com/icsdataset/hai`; use the HAI 20.07 / HAI1.0 release family referenced from Shin et al. | `notebooks/raw_data/train1.csv`, `train2.csv`, `test1.csv`, `test2.csv` | Clone or download the repository, decompress the HAI 20.07 CSV files if needed, copy the four files to `notebooks/raw_data/`, then run `python notebooks/build_hai_cutlass_data.py`. |
+| Ionosphere / Goose Bay radar data | UCI Ionosphere dataset. | `notebooks/raw_data/ionosphere.data` | The cross-domain notebook can download/cache this file. For explicit setup, place `https://archive.ics.uci.edu/ml/machine-learning-databases/ionosphere/ionosphere.data` at the listed path. |
+
+Processed HAI parquet files are local derived artifacts. If an HAI-backed
+notebook reports missing balanced HAI parquet inputs, rebuild them with:
+
+```powershell
+python notebooks/build_hai_cutlass_data.py
+```
+
+The HAI preprocessing writes deterministic derived outputs to
+`notebooks/processed_data/`, including `train_<tag>_sm_hai.parquet`,
+`test_<tag>_sm_hai.parquet`, and `hai_manifest.json`. The target tags used by
+the dissertation are `a1`, `a2`, `a3`, and `a4`; `a0` is also generated by the
+helper.
+
+Once the raw files are present and the helper has completed, verify the real-data
+path with:
+
+```powershell
+python scripts/smoke_reproduction.py --with-real-data
+```
+
+## Building The Dissertation
+
+The manuscript root is `main.tex`. A normal local build is:
+
+```powershell
+latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+```
+
+If `latexmk` is not available, `pdflatex` also works for a basic build:
+
+```powershell
+pdflatex -synctex=1 -interaction=nonstopmode -halt-on-error main.tex
+```
+
+The generated PDF is `main.pdf`. Depending on citation or cross-reference
+changes, multiple LaTeX passes may be required.
+
+## Running A Representative Workflow
+
+The fastest end-to-end real-data workflow check is the HAI `attack_p2 (a1)`
+walkthrough:
+
+```powershell
+python scripts/_generate_walkthrough_notebook.py
+jupyter nbconvert --to notebook --execute --inplace `
+  --ExecutePreprocessor.kernel_name=cutlass `
+  notebooks/walkthrough.ipynb
+```
+
+The walkthrough writes its principal outputs under
+`notebooks/runs_new/walkthrough/` and supports the worked HAI exemplar in
+Chapter 4.
+
+## Rule-Card Template For Accepted Compressed Rules
+
+When a compressed `m`-of-`k` rule passes the held-out adoption gate, record it as
+a rule card before treating it as a deployment artifact. The dissertation
+appendix contains the manuscript version of this template; the repository-facing
+copy is:
+
+| Section | Record |
+| --- | --- |
+| Rule identifier | Dataset, outcome, model version, training window, evaluation split, author/reviewer, and date. |
+| Intended use | The operational decision the rule supports, the population or subsystem it applies to, and any explicit out-of-scope uses. |
+| Selected conditions | Each retained feature-lag condition, including variable name, lag/window, sign or direction, critical-range lower and upper bounds, and whether the condition is one-sided or interval-like. |
+| Vote rule | Retained prefix `k`, vote threshold `m`, tie handling, class predicted when the vote passes, and the upstream sparse baseline from which the rule was compressed. |
+| Baseline metrics | Baseline active-support size, held-out AUC, held-out Youden's `J`, sensitivity, specificity, and operating threshold. |
+| Rule metrics | Rule held-out AUC, held-out Youden's `J`, sensitivity, specificity, support size, and compression ratio. |
+| Validation deltas | `Delta AUC`, `Delta J`, paired-bootstrap confidence or lower bounds, and the non-inferiority margins used for acceptance. |
+| Acceptance decision | Whether both held-out gates passed, who approved the rule, and whether the deployed artifact is the compressed rule or the upstream sparse baseline. |
+| Known failure modes | Weak threshold structure, unstable threshold windows, meaningful post-threshold magnitude effects, concept drift, sensor changes, missing channels, or failed compression gates. |
+| Monitoring trigger | Metric, data-quality, drift, or domain-event conditions that require review before continued use. |
+| Retraining trigger | Time-based, sample-size, performance-loss, sensor-maintenance, or process-change conditions that require rebuilding the baseline and rule. |
+| Artifact links | Paths to selected-rule CSV, deployment-summary CSV, notebook, generator script, cached output directory, and manuscript table or figure using the result. |
+
+## Regenerating Study Packages
+
+Each generated study package follows the same pattern: run its generator, then
+execute the notebook with the `cutlass` kernel.
+
+```powershell
+python scripts/_generate_<study>_notebook.py
+jupyter nbconvert --to notebook --execute --inplace `
+  --ExecutePreprocessor.kernel_name=cutlass `
+  notebooks/<study>.ipynb
+```
+
+Replace `<study>` with one of these notebook stems:
+
+| Study stem | Notebook | Main output directory |
+| --- | --- | --- |
+| `stability_ablation` | `notebooks/stability_ablation.ipynb` | `notebooks/runs_new/stability_ablation/` |
+| `cross_domain` | `notebooks/cross_domain.ipynb` | `notebooks/runs_new/cross_domain/` |
+| `goose_bay_robustness` | `notebooks/goose_bay_robustness.ipynb` | `notebooks/runs_new/goose_bay_robustness/` |
+| `interpretable_baselines` | `notebooks/interpretable_baselines.ipynb` | `notebooks/runs_new/interpretable_baselines/` |
+| `walkthrough` | `notebooks/walkthrough.ipynb` | `notebooks/runs_new/walkthrough/` |
+| `boundary_conditions` | `notebooks/boundary_conditions.ipynb` | `notebooks/runs_new/boundary_conditions/` |
+| `compression_validation` | `notebooks/compression_validation.ipynb` | `notebooks/runs_new/compression_validation/` |
+
+Generated figures are written or copied into `Figures/` when they support the
+manuscript directly. Cached CSV, JSON, and text outputs remain under
+`notebooks/runs_new/<study>/` so reported values can be audited without rerunning
+every experiment.
+
+## Runtime Expectations
+
+The walkthrough and cached-output inspection paths are comparatively fast. Full
+regeneration of the larger empirical packages can take much longer because they
+run repeated resampling, cross-domain comparisons, robustness sweeps, or
+bootstrap-style validation. Use the cached outputs when the goal is to audit
+reported values, and rerun full notebooks when the goal is to reproduce the
+generation process itself.
+
+## Manuscript And Artifact Relationship
+
+The manuscript is the authoritative narrative. The notebooks and cached outputs
+are the executable audit layer behind the narrative. In broad terms:
+
+- Chapter 4 explains the workflow and points to the worked HAI exemplar.
+- Chapter 5 uses the RQ1 synthetic, baseline, cross-domain, and HAI study
+  packages.
+- Chapter 6 uses the RQ2 boundary-condition study package.
+- Chapter 7 uses the RQ3 compression-validation study package.
+- The appendices provide synthetic-data details, proof material, and the
+  manuscript-to-artifact reproducibility map.
+- Accepted compressed rules should be documented with the rule-card template in
+  the appendix before they are treated as deployable artifacts.
+
+When checking a claim, start with the chapter table or figure, then consult the
+appendix reproducibility map to find the supporting notebook, generator script,
+and cached output directory.
+
+## Development Notes
+
+This repository has accumulated generated artifacts such as `main.pdf`,
+`main.log`, `main.synctex.gz`, LaTeX auxiliary files, notebook outputs, and
+cached study results. These are intentionally useful for local auditability, but
+they also mean that running a build or notebook can update several generated
+files at once. Review diffs carefully before committing if the goal is to isolate
+a manuscript prose change from regenerated artifacts.
+
+This dissertation repository uses the ODU College of Sciences LaTeX ETD Template
+as its formatting starting point. Credit for the original thesis/dissertation
+formatting scaffold belongs to the maintainers of that template; this README now
+documents the dissertation-specific manuscript, experiments, and reproducibility
+artifacts in this repository.

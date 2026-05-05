@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  23 APR 2026 00:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  1 MAY 2026 10:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1185,13 +1185,7 @@ File: Figures/interpretable_baselines_case1_tradeoff.png Graphic file (type png
 Package pdftex.def Info: Figures/interpretable_baselines_case1_tradeoff.png  us
 ed on input line 285.
 (pdftex.def)             Requested size: 366.40834pt x 272.61241pt.
-
-Overfull \hbox (5.25694pt too wide) in paragraph at lines 290--291
-[]\T1/ptm/m/n/12 Table 10[] and Fig-ures 12[]--14[] sharpen the in-ter-pretabil
--ity com-par-i-son. EBM achieves the strongest
- []
-
-[57] [58 <./Figures/interpretable_baselines_case1_summary.png>] [59] [60]
+ [57] [58 <./Figures/interpretable_baselines_case1_summary.png>] [59] [60]
 <Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png
 , id=400, 840.86145pt x 638.8668pt>
 File: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficient
@@ -1199,28 +1193,27 @@ s.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients
 .png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_p
-ipeline_coefficients.png  used on input line 321.
+ipeline_coefficients.png  used on input line 323.
 (pdftex.def)             Requested size: 352.31625pt x 267.67883pt.
 <Figures/hai_attack_p2_sm_roc_comparison.png, id=401, 606.70665pt x 462.16666pt
 >
 File: Figures/hai_attack_p2_sm_roc_comparison.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_roc_comparison.png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_roc_comparison.png  used on i
-nput line 328.
+nput line 330.
 (pdftex.def)             Requested size: 352.31625pt x 268.38829pt.
 <Figures/hai_attack_p2_sm_logical_J_vs_k.png, id=402, 643.203pt x 461.0826pt>
 File: Figures/hai_attack_p2_sm_logical_J_vs_k.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_logical_J_vs_k.png  used on i
-nput line 336.
+nput line 338.
 (pdftex.def)             Requested size: 352.31625pt x 252.56198pt.
-
-[61]
+ [61]
 <Figures/cross_domain_transfer_deltas.png, id=407, 848.72081pt x 341.47575pt>
 File: Figures/cross_domain_transfer_deltas.png Graphic file (type png)
 <use Figures/cross_domain_transfer_deltas.png>
 Package pdftex.def Info: Figures/cross_domain_transfer_deltas.png  used on inpu
-t line 352.
+t line 354.
 (pdftex.def)             Requested size: 432.17375pt x 173.88458pt.
 <Figures/cross_domain_ionosphere_protocol_comparison.png, id=408, 1072.30612pt 
 x 341.92744pt>
@@ -1228,143 +1221,145 @@ File: Figures/cross_domain_ionosphere_protocol_comparison.png Graphic file (typ
 e png)
 <use Figures/cross_domain_ionosphere_protocol_comparison.png>
 Package pdftex.def Info: Figures/cross_domain_ionosphere_protocol_comparison.pn
-g  used on input line 361.
+g  used on input line 363.
 (pdftex.def)             Requested size: 469.75502pt x 149.79114pt.
 <Figures/goose_bay_delta_j_protocols.png, id=409, 858.65794pt x 422.7795pt>
 File: Figures/goose_bay_delta_j_protocols.png Graphic file (type png)
 <use Figures/goose_bay_delta_j_protocols.png>
 Package pdftex.def Info: Figures/goose_bay_delta_j_protocols.png  used on input
- line 370.
+ line 372.
 (pdftex.def)             Requested size: 432.17375pt x 212.79556pt.
  [62]
 <Figures/goose_bay_quantile_sweep.png, id=413, 800.84193pt x 409.68056pt>
 File: Figures/goose_bay_quantile_sweep.png Graphic file (type png)
 <use Figures/goose_bay_quantile_sweep.png>
 Package pdftex.def Info: Figures/goose_bay_quantile_sweep.png  used on input li
-ne 379.
+ne 381.
 (pdftex.def)             Requested size: 422.77664pt x 216.2795pt.
 <Figures/goose_bay_c_sweep_scatter.png, id=414, 733.0888pt x 461.62462pt>
 File: Figures/goose_bay_c_sweep_scatter.png Graphic file (type png)
 <use Figures/goose_bay_c_sweep_scatter.png>
 Package pdftex.def Info: Figures/goose_bay_c_sweep_scatter.png  used on input l
-ine 388.
+ine 390.
 (pdftex.def)             Requested size: 450.96797pt x 283.97844pt.
- [63] [64] [65]) (Chapters/06_rq2.tex [66] [67 <./Figures/interpretable_baselin
-es_dual_support_frequency.png>] [68 <./Figures/interpretable_baselines_case1_tr
-adeoff.png>] [69 <./Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeli
-ne_coefficients.png>] [70 <./Figures/hai_attack_p2_sm_roc_comparison.png>] [71 
-<./Figures/hai_attack_p2_sm_logical_J_vs_k.png>] [72 <./Figures/cross_domain_tr
-ansfer_deltas.png> <./Figures/cross_domain_ionosphere_protocol_comparison.png>]
- [73 <./Figures/goose_bay_delta_j_protocols.png> <./Figures/goose_bay_quantile_
-sweep.png>] [74 <./Figures/goose_bay_c_sweep_scatter.png>] [75
+ [63] [64] [65] [66]) (Chapters/06_rq2.tex
+[67] [68 <./Figures/interpretable_baselines_dual_support_frequency.png>]
+[69 <./Figures/interpretable_baselines_case1_tradeoff.png>] [70 <./Figures/hai_
+attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png>] [71 <./Fig
+ures/hai_attack_p2_sm_roc_comparison.png>] [72 <./Figures/hai_attack_p2_sm_logi
+cal_J_vs_k.png>] [73 <./Figures/cross_domain_transfer_deltas.png> <./Figures/cr
+oss_domain_ionosphere_protocol_comparison.png>] [74 <./Figures/goose_bay_delta_
+j_protocols.png> <./Figures/goose_bay_quantile_sweep.png>] [75 <./Figures/goose
+_bay_c_sweep_scatter.png>] [76
 
-]
-[76] [77] [78] [79] [80] [81] [82] [83] [84]
-<Figures/boundary_ic_sweep.png, id=497, 855.6768pt x 590.6868pt>
+] [77] [78] [79] [80] [81] [82] [83] [84]
+[85]
+<Figures/boundary_ic_sweep.png, id=501, 855.6768pt x 590.6868pt>
 File: Figures/boundary_ic_sweep.png Graphic file (type png)
 <use Figures/boundary_ic_sweep.png>
 Package pdftex.def Info: Figures/boundary_ic_sweep.png  used on input line 221.
 
 (pdftex.def)             Requested size: 469.75502pt x 324.28387pt.
- [85]
-<Figures/boundary_ic_stress_heatmaps.png, id=502, 873.5034pt x 600.8046pt>
+ [86]
+<Figures/boundary_ic_stress_heatmaps.png, id=505, 873.5034pt x 600.8046pt>
 File: Figures/boundary_ic_stress_heatmaps.png Graphic file (type png)
 <use Figures/boundary_ic_stress_heatmaps.png>
 Package pdftex.def Info: Figures/boundary_ic_stress_heatmaps.png  used on input
  line 238.
 (pdftex.def)             Requested size: 469.75502pt x 323.10036pt.
- [86]
-<Figures/boundary_inactive_count_sweep.png, id=506, 855.195pt x 354.6048pt>
+ [87]
+<Figures/boundary_inactive_count_sweep.png, id=509, 855.195pt x 354.6048pt>
 File: Figures/boundary_inactive_count_sweep.png Graphic file (type png)
 <use Figures/boundary_inactive_count_sweep.png>
 Package pdftex.def Info: Figures/boundary_inactive_count_sweep.png  used on inp
 ut line 253.
 (pdftex.def)             Requested size: 469.75502pt x 194.77892pt.
- [87]
-<Figures/boundary_threshold_bridge.png, id=510, 855.6768pt x 334.851pt>
+ [88]
+<Figures/boundary_threshold_bridge.png, id=513, 855.6768pt x 334.851pt>
 File: Figures/boundary_threshold_bridge.png Graphic file (type png)
 <use Figures/boundary_threshold_bridge.png>
 Package pdftex.def Info: Figures/boundary_threshold_bridge.png  used on input l
 ine 268.
 (pdftex.def)             Requested size: 432.17375pt x 169.1214pt.
- [88] [89] [90])
-(Chapters/07_rq3.tex [91] [92 <./Figures/boundary_ic_sweep.png>] [93 <./Figures
-/boundary_ic_stress_heatmaps.png>] [94 <./Figures/boundary_inactive_count_sweep
-.png>] [95 <./Figures/boundary_threshold_bridge.png>] [96
+ [89] [90] [91]) (Chapters/07_rq3.tex [92] [93 <./Figures/boundary_ic_sweep.png
+>] [94 <./Figures/boundary_ic_stress_heatmaps.png>] [95 <./Figures/boundary_ina
+ctive_count_sweep.png>] [96 <./Figures/boundary_threshold_bridge.png>] [97
 
-] [97] [98] [99]
-<Figures/rq3_real_data_frontiers.png, id=554, 1144.6765pt x 639.5895pt>
+] [98] [99] [100]
+<Figures/rq3_real_data_frontiers.png, id=557, 1144.6765pt x 639.5895pt>
 File: Figures/rq3_real_data_frontiers.png Graphic file (type png)
 <use Figures/rq3_real_data_frontiers.png>
 Package pdftex.def Info: Figures/rq3_real_data_frontiers.png  used on input lin
 e 70.
 (pdftex.def)             Requested size: 469.75502pt x 262.47737pt.
-
-[100] [101 <./Figures/rq3_real_data_frontiers.png>] [102]
-<Figures/synthetic_logical_J_vs_k.png, id=565, 491.436pt x 303.534pt>
+ [101] [102 <./Figures/rq3_real_data_frontiers.png>] [103]
+<Figures/synthetic_logical_J_vs_k.png, id=569, 491.436pt x 303.534pt>
 File: Figures/synthetic_logical_J_vs_k.png Graphic file (type png)
 <use Figures/synthetic_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/synthetic_logical_J_vs_k.png  used on input li
 ne 104.
 (pdftex.def)             Requested size: 352.31625pt x 217.618pt.
- [103] [104 <./Figures/synthetic_logical_J_vs_k.png>] [105]) (Chapters/88_futur
-ework.tex [106]
-[107
+ [104] [105 <./Figures/synthetic_logical_J_vs_k.png>] [106])
+(Chapters/88_futurework.tex [107] [108
 
-] [108]) (Chapters/89_conclusion.tex [109] [110
+] [109]) (Chapters/89_conclusion.tex
+[110] [111
 
-] [111] [112] [113] [114])
-[115] [116
+] [112] [113] [114] [115]) [116] [117
 
 
-] [117] [118] [119] [120] [121]
+] [118] [119] [120] [121]
+[122]
 \openout2 = `Chapters/98_appendices.aux'.
 
  (Chapters/98_appendices.tex
 APPENDIX A
-[122
-
-
-
-]
 <Figures/curve_generation_1.png, id=631, 715.92468pt x 139.27031pt>
 File: Figures/curve_generation_1.png Graphic file (type png)
 <use Figures/curve_generation_1.png>
-Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 33.
+Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 14.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.5363pt.
-<Figures/curve_generation_2.png, id=632, 711.4078pt x 137.7647pt>
+[123
+
+
+
+ <./Figures/curve_generation_1.png>]
+<Figures/curve_generation_2.png, id=635, 711.4078pt x 137.7647pt>
 File: Figures/curve_generation_2.png Graphic file (type png)
 <use Figures/curve_generation_2.png>
-Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 42.
+Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 23.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.22841pt.
- [123 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
 <Figures/curve_generation_3.png, id=636, 718.93594pt x 136.25906pt>
 File: Figures/curve_generation_3.png Graphic file (type png)
 <use Figures/curve_generation_3.png>
-Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 53.
+Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 34.
 
 (pdftex.def)             Requested size: 352.31625pt x 66.77583pt.
- [124 <./Figures/curve_generation_3.png>]
+ [124 <./Figures/curve_generation_2.png>]
 <Figures/curve_flatten.png, id=640, 943.27406pt x 490.08093pt>
 File: Figures/curve_flatten.png Graphic file (type png)
 <use Figures/curve_flatten.png>
-Package pdftex.def Info: Figures/curve_flatten.png  used on input line 66.
+Package pdftex.def Info: Figures/curve_flatten.png  used on input line 45.
 (pdftex.def)             Requested size: 352.31625pt x 183.04704pt.
- [125 <./Figures/curve_flatten.png>]
+ [125 <./Figures/curve_generation_3.png>] [126 <./Figures/curve_flatten.png>]
 APPENDIX B
-[126
+[127
 
-] [127] [128] [129] [130] [131] [132] [133] [134] [135] [136] [137]
-[138] [139]
+] [128] [129] [130] [131] [132] [133] [134] [135] [136] [137] [138]
+[139] [140]
 APPENDIX C
-) [140
+[141
 
-] [141] [142]
+] [142] [143]
+APPENDIX D
+) [144
+
+] [145] [146]
 \openout2 = `Chapters/99_vita.aux'.
 
- (Chapters/99_vita.tex) [143
+ (Chapters/99_vita.tex) [147
 
 
 
@@ -1380,13 +1375,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19999 strings out of 467871
- 370068 string characters out of 5418376
- 1019451 words of memory out of 5000000
- 48512 multiletter control sequences out of 15000+600000
+ 20005 strings out of 467871
+ 370225 string characters out of 5418376
+ 1019556 words of memory out of 5000000
+ 48518 multiletter control sequences out of 15000+600000
  718387 words of font info for 195 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,15n,79p,2736b,1956s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,15n,79p,2722b,1956s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt
 0800.pk> <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
 0\ectt1000.pk> <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
@@ -1404,9 +1399,9 @@ pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.
 pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.
 pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a
 .pfb>
-Output written on main.pdf (155 pages, 3737831 bytes).
+Output written on main.pdf (159 pages, 3745855 bytes).
 PDF statistics:
- 854 PDF objects out of 1000 (max. 8388607)
+ 868 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
