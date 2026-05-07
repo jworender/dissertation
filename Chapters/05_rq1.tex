@@ -6,7 +6,40 @@ RQ1 asks whether critical-range rectification can produce a stable sparse baseli
 
 The evidence is anchored in prior work from the same method lineage, beginning with the rectification-first lasso logic framework and extending to later theory-backed case studies \autocites{orender2022,JOrender2025Efficient}. Across studies, the central empirical pattern is consistent: when the data generating process has threshold-and-lag structure, rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity pressure.
 
-The chapter's main empirical case comes later. The synthetic studies test whether rectification improves exact-lag recovery and support stability under planted ground truth, the expanded baseline packages test whether that effect survives stronger comparators, and the real-world audits identify where the gains weaken or become protocol-sensitive. The toy example at the start is included as a local intuition bridge for that later evidence: it shows, in miniature, how a threshold-aligned representation can separate true trigger lags from correlated surrogates before the chapter turns to the full benchmark results.
+The chapter's main empirical case comes later. The synthetic studies test whether rectification improves exact-lag recovery and support stability under planted ground truth, the expanded baseline packages test whether that effect survives stronger comparators, and the real-world audits identify where the gains weaken or become protocol-sensitive. The toy example that follows the approach section is included as a local intuition bridge for that later evidence: it shows, in miniature, how a threshold-aligned representation can separate true trigger lags from correlated surrogates before the chapter turns to the full benchmark results.
+
+\section{Approach}
+
+The RQ1 approach tests the first two stages of the dissertation pipeline: lag-expanded critical-range rectification followed by sparse baseline fitting. Starting from longitudinal measurements, the method creates a supervised design matrix in which each column corresponds to a specific variable-lag pair. For each candidate column, the rectifier estimates an event-associated range on training data only and converts the raw measurement into an indicator denoting whether that lagged measurement lies inside or outside the learned range. This produces a threshold-aligned representation before any sparse optimization is performed.
+
+The sparse learner is intentionally ordinary: an L1-regularized logistic model is fit on the rectified design and compared against a matched raw lag-expanded sparse baseline \autocites{tibshirani1996,fried2010,tay2023}. This keeps the empirical question focused. RQ1 is not asking whether a custom optimizer can be built for every longitudinal domain; it asks whether changing the representation makes a standard sparse learner recover more stable, lag-localized, and compact support under multicollinearity pressure. Nonzero coefficients in the rectified fit are therefore interpreted as candidate feature-lag triggers, subject to the stability, attribution, and held-out discrimination checks reported below.
+
+The diagnostic for using rectification is empirical. Rectification is a strong candidate when event windows repeatedly occupy relatively narrow one-sided or interval ranges at plausible lags, raw sparse supports drift across folds or nearby tuning values, the threshold has domain meaning, and a train-only pilot preserves held-out discrimination while improving support concentration, lag localization, or compactness. When no stable event ranges appear, when small threshold shifts produce large performance swings, or when the transformed model loses held-out performance without interpretability gains, RQ1 treats the raw or a hybrid representation as the correct branch rather than forcing rectification.
+
+\subsection{Worked HAI exemplar for the workflow}
+
+To make the branch logic concrete, the manuscript includes one executable worked example built from the HAI industrial-control benchmark used later in this chapter and in the RQ3 chapter. The accompanying notebook \path{notebooks/walkthrough.ipynb}, available with the manuscript artifacts in the dissertation repository, uses the custom-built \texttt{cutlass} Python package to run the full workflow on the HAI turbine-loop case \path{attack_p2 (a1)}: raw lag-expanded sparse baseline, train-only threshold-alignment pilot, branch selection, strict-policy anytime compression, and final deployment recommendation. The point of this exemplar is operational clarity rather than a separate scientific claim.
+
+Table \ref{tab:workflow_hai_exemplar} compresses the worked example into one page. On this case, the raw baseline reaches test AUC $0.949$ and $J=0.574$, while the matched rectified pilot improves to AUC $0.989$ and $J=0.930$ and shifts absolute coefficient mass toward the attacked $P2$ subsystem ($0.194 \rightarrow 0.599$ share). The workflow therefore takes the ``rectify'' branch, promotes the rectified sparse fit to the new baseline, and then evaluates the anytime frontier under the dissertation's strict default policy. That policy selects $k=14$ from $39$ active logical conditions ($2.79\times$ compression); the held-out deltas are $\Delta \mathrm{AUC}=-0.011$ and $\Delta J=+0.015$, with paired-bootstrap lower bounds $-0.016$ and $-0.005$, both above the dissertation's $-0.02$ non-inferiority margins. The resulting deployment artifact is therefore the compressed rule rather than the full rectified sparse baseline. Appendix \ref{app:rule_card_template} provides the rule-card template that should be filled out before an accepted compressed rule is handed to an operational reviewer.
+
+\begin{table}[tbh]
+    \caption[Worked HAI exemplar for the rectification workflow.]{Compact end-to-end HAI exemplar for the dissertation workflow.}
+    \label{tab:workflow_hai_exemplar}
+    \centering
+        {\footnotesize
+        \setlength{\tabcolsep}{3pt}
+        \renewcommand{\arraystretch}{0.95}
+        \begin{tabularx}{0.97\textwidth}{>{\RaggedRight\arraybackslash}p{0.19\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.23\textwidth}}
+            Step & HAI \path{attack_p2 (a1)} outcome & Workflow implication \\ \hline
+            Raw baseline & Test AUC $0.949$ and $J=0.574$ on the raw lag-expanded sparse fit. & Start from the conventional sparse baseline and use it as the comparator. \\ \hline
+            Train-only rectified pilot & On the same split and penalty, test AUC improves to $0.989$, $J$ improves to $0.930$, and the attacked-$P2$ coefficient-mass share rises from $0.194$ to $0.599$. & Threshold alignment is strong enough to justify switching to rectified features. \\ \hline
+            Branch choice & Chosen branch = ``rectify.'' & Promote the rectified sparse fit to the new baseline. \\ \hline
+            Anytime compression & The strict $2\%$ policy selects $k=14$ from $39$ active logical conditions ($2.79\times$ compression). & The rectified baseline is compressible enough to consider a rule artifact. \\ \hline
+            Held-out adoption gate & $\Delta \mathrm{AUC}=-0.011$ and $\Delta J=+0.015$; paired-bootstrap lower bounds are $-0.016$ and $-0.005$, both above the dissertation's $-0.02$ margins. & The compressed candidate is deployment-eligible under the default policy. \\ \hline
+            Final deployment artifact & Deploy the compressed rule rather than the full rectified sparse baseline. & Full path: raw baseline $\rightarrow$ diagnostic $\rightarrow$ rectify $\rightarrow$ compress. \\ \hline
+        \end{tabularx}
+        }
+\end{table}
 
 \section{A Simple Example for Intuition}
 
@@ -19,7 +52,7 @@ Consider a \emph{toy example} showing how continuous features can obscure true r
 	\label{fig:toy_example}
 \end{figure}
 
-Rectification effectively flattens continuous variations that can inflate feature correlations in this toy setting. Intuitively, columns with moderate overlap in continuous space can appear overly correlated. In the simplest sign-binarized setting, mapping to $\{\pm1\}$ can reduce harmful linear dependence unless columns are identical or scalar multiples, while preserving coarse event structure. Chapter 6 later provides a tractable theoretical case for that mechanism under explicit assumptions; it is intended as an explanatory bridge rather than as a claim that every empirical benefit in the dissertation must arise only through that exact regime.
+Rectification effectively flattens continuous variations that can inflate feature correlations in this toy setting. Intuitively, columns with moderate overlap in continuous space can appear overly correlated. In the simplest sign-binarized setting, mapping to $\{\pm1\}$ can reduce harmful linear dependence unless columns are identical or scalar multiples, while preserving coarse event structure. The RQ2 chapter later provides a tractable theoretical case for that mechanism under explicit assumptions; it is intended as an explanatory bridge rather than as a claim that every empirical benefit in the dissertation must arise only through that exact regime.
 
 \subsection{Toy Example Data}
 The toy example data demonstrates the behavior of a simple set of instrument readings. A matrix with features 'A' through 'J' shows that even with only 10 features, the coefficients become muddled and tend to gravitate toward spurious correlations rather than the true support. Columns A and D were designed to produce the result vector, while the others were largely random, with top elements intentionally adjusted to ensure they are \textbf{not} optimal for producing the result vector.
@@ -46,7 +79,7 @@ The toy example data demonstrates the behavior of a simple set of instrument rea
 \endgroup
 
 \subsection{Input Data Transformation}
-After transformation, the matrix is encoded using $\{1,-1\}$. In this toy example, values between 0.4 and 0.6 (inclusive) are mapped to $1$, and all other values are mapped to $-1$. The procedure for estimating this \textit{critical range} is discussed later in the chapter. For present purposes, the key point is that an event occurs when both features A and D lie simultaneously in the interval $[0.4,0.6]$.
+After transformation, the matrix is encoded using $\{1,-1\}$. In this toy example, values between 0.4 and 0.6 (inclusive) are mapped to $1$, and all other values are mapped to $-1$. For present purposes, the key point is that an event occurs when both features A and D lie simultaneously in the interval $[0.4,0.6]$.
 
 \begingroup
 \footnotesize
@@ -398,17 +431,7 @@ The practical takeaway is therefore specific. Goose Bay does not negate the earl
 
 \subsection{A practical diagnostic for when rectification is worth trying}
  
-The results in this work suggest that rectification is most useful when the underlying event process is at least partly threshold-mediated and lag-structured. This diagnostic is intended as an empirical operating heuristic, not as a theorem-based prerequisite. Its purpose is not to prove in advance that rectification must help, but to identify whether a dataset exhibits the kind of structure in which the method is most likely to improve attribution reliability.
-
-In practice, rectification is a strong candidate when several of the following hold:
-\begin{itemize}
-    \item event windows repeatedly occupy a relatively narrow one-sided or interval range for some variables at plausible lags;
-    \item raw sparse fits remain reasonably predictive but selected supports drift across folds, seeds, or nearby tuning values;
-    \item the threshold corresponds to a meaningful event-related regime in the domain, not merely to a convenient numerical split in the data;
-    \item a train-only pilot rectification preserves held-out discrimination while improving support concentration, lag localization, or model compactness.
-\end{itemize}
-
-By contrast, rectification should be treated cautiously when no stable lag-localized event ranges appear, when performance changes erratically under small shifts in the rectifier definition, or when the transformed model shows clear held-out degradation without compensating gains in interpretability. Such cases do not mean the method is invalid; they indicate that the dataset may be only weakly aligned with the threshold-mediated regime, and that raw or hybrid representations may be more appropriate.
+The RQ1 approach section stated the operational diagnostic before the evidence: rectification should be tried when train-only event windows are stable, domain-meaningful, and associated with better support concentration, lag localization, or compactness without unacceptable held-out loss. The results in this chapter refine that diagnostic rather than replacing it. Synthetic Case 1 satisfies the diagnostic cleanly; the HAI turbine-loop case satisfies it strongly; UNICEF and the generic ionosphere probe show why the branch rules matter. In those weaker or protocol-sensitive cases, the correct operational conclusion is not that rectification is invalid, but that raw or hybrid representations may be the more defensible baseline unless the rectifier semantics and penalty regime can be aligned with the domain.
 
 \section{Metric and Notation Guide}
 

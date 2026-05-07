@@ -27,8 +27,6 @@ A Heuristic Approach to Combat Multicollinearity in Regression (Roozbeh et al., 
 ## Competitive Method Assessment
 This paper does not present the main competing algorithmic pipeline. It is most useful for problem framing, benchmark selection, and identifying contexts where interpretable lag-aware rules are preferable to opaque alternatives.
 
-
 ## Dissertation Citation Traceability
 
-- Chapter: `Background`; Section: `Competing approaches`; Line: `Chapters/02_background.tex:39`; Relevance: Cited to support the statement that item Robust multicollinearity-focused estimators and heuristics can improve fit under contamination and ill-conditioning, but may prioritize prediction stability over sparse interpretability.
-- Chapter: `Related Work`; Section: `Correlation-Aware and Alternative Feature Selection Families`; Line: `Chapters/03_relatedwork.tex:41`; Relevance: Cited to support the statement that Robust multicollinearity-focused estimators provide another pathway. Methods combining robust regression ideas with conditioning-oriented penalties can improve estimation under contamination and ill-conditioning . These approaches are useful for robustness analysis but typically prioritize fit stability over compact, human-auditable sparse logic.
+- Chapter: `Related Work`; Section: `Correlation-Aware and Alternative Feature Selection Families`; Line: `Chapters/03_relatedwork.tex:41`; Relevance: Cited to support the statement that Methods combining robust regression ideas with conditioning-oriented penalties can improve estimation under contamination and ill-conditioning.

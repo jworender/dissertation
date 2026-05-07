@@ -10,7 +10,11 @@ RQ1 and RQ2 establish two foundations: first, binarization plus sparse learning 
 
 This is important for longitudinal and event-focused domains where users need a concrete trigger logic rather than a dense weight vector. In healthcare monitoring, safety surveillance, and maintenance settings, end users often need to know which few conditions jointly trigger escalation, and they need that logic in a form that is stable under repeated deployment \autocite{wong2010longitudinal,hiploylee2017,shin2020}. In interpretability terms, this chapter focuses on the transition from post hoc explanations to inherently interpretable rule structure \autocite{CRudin2019Stop,WJMurdoch2019Definitions}.
 
-\section{From Rectified Sparse Models to Rule Space}
+\section{Approach}
+
+The RQ3 approach treats sparse fitting as an intermediate representation rather than as the final deployment artifact. Even when rectification improves support concentration, a weighted linear score with dozens of nonzero lag terms can still be too large for direct human use. The compression stage therefore starts from the active support recovered upstream and searches for a smaller explicit rule that preserves practical operating performance.
+
+This stage is part of the dissertation's method rather than an unrelated post-processing convenience. The sparse model creates a focused candidate set; logic polishing converts that candidate set into a form that humans can audit, challenge, implement, and monitor. The approach preserves the front-end efficiency of convex sparse learning while recovering a model form closer to how domain experts reason about triggers and deployment criteria.
 
 Given a rectified design matrix and an L1-regularized logistic model, the baseline predictor can be written as
 \begin{equation}
@@ -20,7 +24,7 @@ where $\tilde{x}_{ij}$ is the binarized/rectified feature and $\beta_j$ is spars
 
 The compression idea is to map the active coefficients to a shared magnitude (logic polishing), keep their signs, and evaluate truncated models along an ordered path. Ordering is by absolute effect size from the trained sparse model so that early steps prioritize the most influential terms \autocite{JOrender2025Anytime}.
 
-\section{Anytime Compression Objective}
+\subsection{Anytime Compression Objective}
 
 The objective is to optimize a practical trade-off:
 \begin{equation}
@@ -30,23 +34,23 @@ where $J$ is Youden's statistic ($J=\mathrm{TPR}+\mathrm{TNR}-1$), and complexit
 
 This aligns with a deployment reality: in some environments, a 1--2\% relative loss may be acceptable if complexity falls by an order of magnitude; in others, compression is only accepted at near-zero loss. The framework supports either case by explicitly parameterizing the tolerance \autocite{JOrender2025Anytime}.
 
-\section{Algorithmic Pipeline}
+\subsection{Algorithmic Pipeline}
 
 The compression process can be summarized in four stages \autocite{JOrender2025Anytime}.
 
-\subsection{1. Train Baseline Sparse Rectified Model}
+\subsubsection{1. Train Baseline Sparse Rectified Model}
 
 Fit L1-regularized logistic regression on the rectified matrix and compute baseline operating metrics (AUC, $J$, sensitivity, specificity) at the chosen operating threshold. This baseline defines the reference quality floor for compression \autocite{tibshirani1996,fried2010,tay2023,JOrender2025Anytime}.
 
-\subsection{2. Logic Polishing and Ordered Prefix Construction}
+\subsubsection{2. Logic Polishing and Ordered Prefix Construction}
 
 Restrict to active features $\mathcal{A}$ and sort them by $|\beta_j|$ descending. For prefix length $k$, keep the top-$k$ signed indicators and assign common magnitude $K$ (or equivalently use signed votes). This yields candidate rule families of increasing complexity, each nested in the next \autocite{JOrender2025Anytime}.
 
-\subsection{3. Vote Threshold Optimization}
+\subsubsection{3. Vote Threshold Optimization}
 
 For each prefix, evaluate an $m$-of-$k$ decision threshold. Intuitively, $m$ controls how many supportive conditions are required before predicting the positive class. Sweeping $m$ gives a local complexity-performance frontier at fixed $k$; sweeping $k$ gives the global anytime frontier \autocite{JOrender2025Anytime}.
 
-\subsection{4. Dissertation Strict Policy: Candidate Prefix Then Deployment Decision}
+\subsubsection{4. Dissertation Strict Policy: Candidate Prefix Then Deployment Decision}
 
 The anytime frontier supplies the candidate family, but the dissertation's implemented real-data policy is stricter than the generic relative-tolerance rule alone:
 \begin{enumerate}

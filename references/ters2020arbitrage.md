@@ -27,7 +27,6 @@ Estimating Unknown Arbitrage Costs: Evidence from a 3-Regime Threshold Vector Er
 ## Competitive Method Assessment
 This paper does not present the dissertation's main competing algorithmic pipeline. It is most useful for domain grounding and for supporting the claim that financial responses can be governed by multiple threshold regimes.
 
-
 ## Dissertation Citation Traceability
 
-- Chapter: `Introduction`; Section: `Chapter context (no explicit section)`; Line: `Chapters/01_introduction.tex:12`; Relevance: Cited to support the statement that financial-market reactions can follow multiple threshold effects with delayed responses.
+- Chapter: `Introduction`; Section: `Chapter opening`; Line: `Chapters/01_introduction.tex:8`; Relevance: Cited to support the statement that Related threshold-and-lag patterns also appear in broader scientific and operational domains, including ecosystem dynamics, epidemic spreading, control systems, and financial markets.

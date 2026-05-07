@@ -27,7 +27,6 @@ Relations Between Two Sets of Variates (Hotelling, 1936) is relevant as theoreti
 ## Competitive Method Assessment
 This is not a competing prediction method. It provides mathematical/inferential foundations that can strengthen or weaken claims depending on assumption fit to the dissertation data.
 
-
 ## Dissertation Citation Traceability
 
-- No direct citation occurrences were found in the current dissertation chapter files.
+- No active citation found in the current dissertation source (`main.tex` and included chapter/appendix files).

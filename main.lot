@@ -1,20 +1,19 @@
 \babel@toc {english}{}\relax 
 \noindent Table\hfill Page\par 
-\contentsline {table}{\numberline {1.}{\ignorespaces Dissertation delta relative to prior papers.}}{5}{}%
-\contentsline {table}{\numberline {2.}{\ignorespaces Executive map of the dissertation.}}{8}{}%
-\contentsline {table}{\numberline {3.}{\ignorespaces Cross-family positioning of the dissertation pipeline.}}{23}{}%
-\contentsline {table}{\numberline {4.}{\ignorespaces Conservative defaults for a new dataset.}}{31}{}%
-\contentsline {table}{\numberline {5.}{\ignorespaces Worked HAI exemplar for the Chapter 4 workflow.}}{38}{}%
-\contentsline {table}{\numberline {6.}{\ignorespaces CS-facing engineering summary of the pipeline.}}{39}{}%
-\contentsline {table}{\numberline {7.}{\ignorespaces Synthetic data case study results.}}{48}{}%
-\contentsline {table}{\numberline {8.}{\ignorespaces RQ1 repeated-resample stability and ablation summary.}}{50}{}%
-\contentsline {table}{\numberline {9.}{\ignorespaces RQ1 expanded synthetic baseline benchmark.}}{56}{}%
-\contentsline {table}{\numberline {10.}{\ignorespaces RQ1 direct interpretable-model baseline benchmark.}}{57}{}%
-\contentsline {table}{\numberline {11.}{\ignorespaces Real-world transformed vs. untransformed results.}}{60}{}%
-\contentsline {table}{\numberline {12.}{\ignorespaces Metric and notation guide.}}{66}{}%
-\contentsline {table}{\numberline {13.}{\ignorespaces RQ2 empirical boundary-condition summary.}}{91}{}%
-\contentsline {table}{\numberline {14.}{\ignorespaces RQ3 strict real-data compression policy summary.}}{103}{}%
-\contentsline {table}{\numberline {15.}{\ignorespaces Reproducibility map for the Chapter 4--5 study packages.}}{142}{}%
-\contentsline {table}{\numberline {16.}{\ignorespaces Reproducibility map for the Chapter 6--7 study packages.}}{143}{}%
-\contentsline {table}{\numberline {17.}{\ignorespaces Rule-card template: identity, rule logic, and intended use.}}{145}{}%
-\contentsline {table}{\numberline {18.}{\ignorespaces Rule-card template: validation, risks, and monitoring.}}{146}{}%
+\contentsline {table}{\numberline {1.}{\ignorespaces Conservative defaults for a new dataset.}}{6}{}%
+\contentsline {table}{\numberline {2.}{\ignorespaces Dissertation delta relative to prior papers.}}{8}{}%
+\contentsline {table}{\numberline {3.}{\ignorespaces Executive map of the dissertation.}}{11}{}%
+\contentsline {table}{\numberline {4.}{\ignorespaces Cross-family positioning of the dissertation pipeline.}}{27}{}%
+\contentsline {table}{\numberline {5.}{\ignorespaces Worked HAI exemplar for the rectification workflow.}}{54}{}%
+\contentsline {table}{\numberline {6.}{\ignorespaces Synthetic data case study results.}}{55}{}%
+\contentsline {table}{\numberline {7.}{\ignorespaces RQ1 repeated-resample stability and ablation summary.}}{55}{}%
+\contentsline {table}{\numberline {8.}{\ignorespaces RQ1 expanded synthetic baseline benchmark.}}{56}{}%
+\contentsline {table}{\numberline {9.}{\ignorespaces RQ1 direct interpretable-model baseline benchmark.}}{57}{}%
+\contentsline {table}{\numberline {10.}{\ignorespaces Real-world transformed vs. untransformed results.}}{57}{}%
+\contentsline {table}{\numberline {11.}{\ignorespaces Metric and notation guide.}}{66}{}%
+\contentsline {table}{\numberline {12.}{\ignorespaces RQ2 empirical boundary-condition summary.}}{83}{}%
+\contentsline {table}{\numberline {13.}{\ignorespaces RQ3 strict real-data compression policy summary.}}{95}{}%
+\contentsline {table}{\numberline {14.}{\ignorespaces Reproducibility map for the introduction and RQ1 study packages.}}{135}{}%
+\contentsline {table}{\numberline {15.}{\ignorespaces Reproducibility map for the RQ2 and RQ3 study packages.}}{136}{}%
+\contentsline {table}{\numberline {16.}{\ignorespaces Rule-card template: identity, rule logic, and intended use.}}{138}{}%
+\contentsline {table}{\numberline {17.}{\ignorespaces Rule-card template: validation, risks, and monitoring.}}{139}{}%

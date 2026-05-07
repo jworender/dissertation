@@ -38,6 +38,46 @@ The central research question is whether representation-level rectification can 
 
 Thesis statement: in threshold-and-lag aligned longitudinal settings, critical-range rectification can improve the reliability of sparse feature recovery by contracting harmful dependence structures in lag-expanded data, and anytime rule compression can convert the resulting sparse models into compact, operationally usable rule forms under explicit performance-tolerance policies \autocites{JOrender2025Efficient,JOrender2025Anytime}. The scope emphasizes inherently interpretable sparse models with explicit attribution; deep learning appears only as contextual baselines where needed.
 
+\section{Approach}
+
+The dissertation's approach is representation-first. Rather than asking a sparse learner to disentangle raw continuous trajectories directly, the method first changes the feature space so that each candidate variable-lag pair asks a threshold-oriented question: did the measurement fall inside an event-associated operating range? Sparse fitting then operates on indicators that are closer to the target event logic, and downstream compression converts the resulting sparse support into a rule artifact when deployment requires a simpler object.
+
+The pipeline has three main stages. First, it expands longitudinal measurements over lags and rectifies them into critical-range indicators using thresholds estimated from training data only. In the theorem-scoped special case used for RQ2, this step reduces to zero-threshold sign binarization after standardization; in the empirical pipeline, the thresholds can be shifted one-sided or interval-like ranges learned from event-aligned training observations. Second, an L1-regularized logistic baseline is fitted on the rectified design, so nonzero coefficients identify candidate feature-lag triggers after the representation has already encoded threshold structure \autocites{tibshirani1996,fried2010,tay2023}. Third, when operational interpretability requires an even simpler artifact, the active sparse coefficients are ordered and compressed into nested $m$-of-$K$ rule candidates by the anytime logic-polishing procedure \autocite{JOrender2025Anytime}.
+
+This design separates representation engineering from optimizer engineering. Penalty-level methods change the coefficient-space objective; rectification changes the statistical geometry of the feature space before a standard sparse solver is used. That distinction matters for reuse: the method can be layered onto mature sparse-learning software while targeting the dependence patterns that make raw lag-expanded support recovery unstable. It also keeps the deployment interface explicit. A coefficient vector can be useful for analysis, but a compact rule is often easier for an operator, clinician, or model-governance reviewer to audit.
+
+Figure \ref{fig:new_dataset_workflow} summarizes the operational playbook for applying the pipeline to a new dataset. The sequence starts from a raw lag-expanded sparse baseline because the practical question is whether rectification improves attribution quality, compactness, or deployment usability relative to a conventional sparse starting point. Rectification is promoted only when train-only pilots show threshold-mediated structure and preserve held-out discrimination while improving support concentration, lag localization, or model compactness. Compression is accepted only when the nominated rule clears the held-out policy described in RQ3.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.93\textwidth]{Figures/new_dataset_pipeline_workflow.pdf}
+    \caption[Applying the pipeline to a new dataset.]{Operational workflow for applying the dissertation's pipeline to a new dataset. The sequence integrates the raw baseline, rectification diagnostic, optional compression stage, and explicit fallback outcomes into one ordered playbook.}
+    \label{fig:new_dataset_workflow}
+\end{figure}
+
+The workflow is intentionally branchable rather than mandatory. If threshold structure is weak, if performance changes erratically under small threshold adjustments, or if rectification degrades held-out fit without compensating interpretability gains, the appropriate branch is to keep the raw sparse baseline or use a hybrid representation that retains selected continuous terms. If the rectified sparse baseline is already interpretable enough, or if the anytime frontier fails the held-out non-inferiority gate, the appropriate branch is to stop before compression. Table \ref{tab:workflow_defaults} lists the conservative defaults used for the first pass through a new dataset.
+
+\begin{table}[p]
+    \caption[Conservative defaults for a new dataset.]{Conservative default settings for the first pass through the dissertation pipeline.}
+    \label{tab:workflow_defaults}
+    \centering
+        {\footnotesize
+        \setlength{\tabcolsep}{3pt}
+        \renewcommand{\arraystretch}{0.95}
+        \begin{tabularx}{0.96\textwidth}{>{\RaggedRight\arraybackslash}p{0.20\textwidth}>{\RaggedRight\arraybackslash}p{0.23\textwidth}>{\RaggedRight\arraybackslash}X}
+            Item & Default & Reason \\ \hline
+            Rectifier choice & Use the domain-aligned one-sided or interval rule when it is already meaningful; otherwise start with a simple train-only range rule. & Keeps the representation aligned with event membership while avoiding arbitrary post hoc threshold search. \\ \hline
+            Threshold estimation & Estimate all bounds on training data only. & Prevents leakage from validation or test labels into the representation. \\ \hline
+            Penalty selection & Select penalty strength by cross-validation or from a stable near-plateau region. & Avoids overinterpreting a brittle point optimum. \\ \hline
+            Raw-versus-rectified comparison & Use the same split and the same operating metric on both paths. & Makes the switch decision attributable to representation rather than to evaluation mismatch. \\ \hline
+            Compression tolerance & Choose the smallest prefix satisfying $J_{\text{train}}(k)\geq 0.98\,J_{\text{train,base}}$. & Imposes a conservative training-side simplification rule before held-out adoption is considered. \\ \hline
+            Held-out adoption margins & Require paired-bootstrap lower bounds $\Delta \mathrm{AUC}>-0.02$ and $\Delta J>-0.02$. & Provides an explicit non-inferiority gate before a compressed rule is treated as deployment-eligible. \\ \hline
+        \end{tabularx}
+        }
+\end{table}
+
+The reusable modeling core is exposed through the public \texttt{cutlass} package \autocite{orender2026cutlass}, while the dissertation repository preserves the study layer: notebooks, paired \path{scripts/_generate_*.py} generators, cached run summaries under \path{notebooks/runs_new/}, and manuscript-ready figures under \path{Figures/} \autocite{orender2026dissertationrepo}. Appendix \ref{app:reproducibility_map} maps those artifacts to the figures, tables, and RQ chapters they support.
+
 \section{Contributions}
 This dissertation makes five integrated contributions.
 
@@ -122,6 +162,6 @@ For skimming readers, Table \ref{tab:executive_map} compresses the dissertation'
 \end{table}
 
 \section{Thesis Organization}
-Following this introduction, the dissertation is organized as follows. The background chapter isolates the conceptual ingredients needed for the rest of the manuscript: lag expansion, sparse support recovery under dependence, and interpretability as a design requirement. The related-work chapter then shifts from concepts to literature comparison by positioning competing grouped, ordered, dependence-aware, and rule-based families relative to the dissertation's pipeline \autocites{fried2010,tay2023,yang2015}. The approach chapter then presents the rectification-first pipeline in unified notation, explains the intuition behind its design, and describes the theoretical pathway used later to justify the central claims.
+Following this introduction, the dissertation is organized as follows. The background chapter isolates the conceptual ingredients needed for the rest of the manuscript: lag expansion, sparse support recovery under dependence, and interpretability as a design requirement. The related-work chapter then shifts from concepts to literature comparison by positioning competing grouped, ordered, dependence-aware, and rule-based families relative to the dissertation's pipeline \autocites{fried2010,tay2023,yang2015}.
 
-The subsequent chapters address the three research questions directly: empirical evidence for rectification, theoretical analysis of the mechanism, and anytime rule compression for deployment-ready interpretability. The final chapters summarize limitations, future extensions, and deployment implications for longitudinal decision support. Proof details are discussed at a high level in the main text and provided step-by-step in the appendices.
+The subsequent chapters address the three research questions directly, and each now includes the approach details specific to that question: empirical evidence for rectification, theoretical analysis of the mechanism, and anytime rule compression for deployment-ready interpretability. The final chapters summarize limitations, future extensions, and deployment implications for longitudinal decision support. Proof details are discussed at a high level in the main text and provided step-by-step in the appendices.

@@ -89,7 +89,7 @@ We binarize $ X $ and $ Y $ using the threshold zero:
 	0 & \text{if } Y \leq 0
 \end{cases}
 \]
-This $0/1$ encoding is affine-equivalent to the $\{\pm1\}$ sign encoding used in Chapter 06; after centering, the correlation-ordering arguments are unchanged up to constant scaling.
+This $0/1$ encoding is affine-equivalent to the $\{\pm1\}$ sign encoding used in the RQ2 chapter; after centering, the correlation-ordering arguments are unchanged up to constant scaling.
 
 \textbf{Step 3. }
 \textit{Calculate Means and Variances of Binarized Variables.}
@@ -575,7 +575,7 @@ The negative-correlation cases above should be read as boundary conditions rathe
 \achapter{Reproducibility Map}
 \label{app:reproducibility_map}
 
-This appendix provides the direct manuscript-to-artifact map referenced in Chapter 4. Each row names the notebook-backed study package, its paired generator, the cached run directory preserved under \path{notebooks/runs_new/}, the principal manuscript artifact(s) supported by that package, and the chapter that consumes the result.
+This appendix provides the direct manuscript-to-artifact map referenced in the introduction and RQ chapters. Each row names the notebook-backed study package, its paired generator, the cached run directory preserved under \path{notebooks/runs_new/}, the principal manuscript artifact(s) supported by that package, and the chapter that consumes the result.
 
 From the repository root, the minimal regeneration pattern is:
 \begin{verbatim}
@@ -590,7 +590,7 @@ python notebooks/build_hai_cutlass_data.py
 \end{verbatim}
 
 \begin{table}[p]
-    \caption[Reproducibility map for the Chapter 4--5 study packages.]{Direct regeneration map for the Chapter 4--5 study packages.}
+    \caption[Reproducibility map for the introduction and RQ1 study packages.]{Direct regeneration map for the introduction and RQ1 study packages.}
     \label{tab:repro_map_rq1}
     \centering
     {\scriptsize
@@ -604,41 +604,41 @@ python notebooks/build_hai_cutlass_data.py
         &
         Table \ref{tab:d001_stability}; Figures \ref{fig:d001_ablation}, \ref{fig:d001_pairwise_jaccard}, \ref{fig:d001_selection_frequency}, and \ref{fig:d001_runtime_scaling}.
         &
-        Chapter 5 (RQ1). \\ \hline
+        RQ1 chapter. \\ \hline
         \path{notebooks/cross_domain.ipynb}\newline
         \path{scripts/_generate_cross_domain_notebook.py}\newline
         \path{notebooks/runs_new/cross_domain/}
         &
         Table \ref{tab:d002_baselines}; Figures \ref{fig:d002_transfer_deltas} and \ref{fig:d002_ionosphere_protocols}.
         &
-        Chapter 5 (RQ1). \\ \hline
+        RQ1 chapter. \\ \hline
         \path{notebooks/goose_bay_robustness.ipynb}\newline
         \path{scripts/_generate_goose_bay_robustness_notebook.py}\newline
         \path{notebooks/runs_new/goose_bay_robustness/}
         &
         Figures \ref{fig:d002_goose_bay_protocols}, \ref{fig:d002_goose_bay_quantiles}, and \ref{fig:d002_goose_bay_c_sweep}.
         &
-        Chapter 5 (RQ1). \\ \hline
+        RQ1 chapter. \\ \hline
         \path{notebooks/interpretable_baselines.ipynb}\newline
         \path{scripts/_generate_interpretable_baselines_notebook.py}\newline
         \path{notebooks/runs_new/interpretable_baselines/}
         &
         Table \ref{tab:d010_interpretable}; Figures \ref{fig:d010_summary}, \ref{fig:d010_selection_frequency}, and \ref{fig:d010_tradeoff}.
         &
-        Chapter 5 (RQ1). \\ \hline
+        RQ1 chapter. \\ \hline
         \path{notebooks/walkthrough.ipynb}\newline
         \path{scripts/_generate_walkthrough_notebook.py}\newline
         \path{notebooks/runs_new/walkthrough/}
         &
-        Worked HAI exemplar subsection in Chapter 4 and Table \ref{tab:workflow_hai_exemplar}.
+        Worked HAI exemplar subsection in the RQ1 chapter and Table \ref{tab:workflow_hai_exemplar}.
         &
-        Chapter 4. \\ \hline
+        RQ1 chapter. \\ \hline
     \end{tabularx}
     }
 \end{table}
 
 \begin{table}[p]
-    \caption[Reproducibility map for the Chapter 6--7 study packages.]{Direct regeneration map for the Chapter 6--7 study packages.}
+    \caption[Reproducibility map for the RQ2 and RQ3 study packages.]{Direct regeneration map for the RQ2 and RQ3 study packages.}
     \label{tab:repro_map_rq23}
     \centering
     {\scriptsize
@@ -652,14 +652,14 @@ python notebooks/build_hai_cutlass_data.py
         &
         Table \ref{tab:rq2_boundary_summary}; Figures \ref{fig:rq2_ic_sweep}, \ref{fig:rq2_ic_heatmaps}, \ref{fig:rq2_inactive_count}, and \ref{fig:rq2_threshold_bridge}.
         &
-        Chapter 6 (RQ2). \\ \hline
+        RQ2 chapter. \\ \hline
         \path{notebooks/compression_validation.ipynb}\newline
         \path{scripts/_generate_compression_validation_notebook.py}\newline
         \path{notebooks/runs_new/compression_validation/}
         &
         Table \ref{tab:rq3_strict_policy} and Figure \ref{fig:rq3_real_frontiers}.
         &
-        Chapter 7 (RQ3). \\ \hline
+        RQ3 chapter. \\ \hline
     \end{tabularx}
     }
 \end{table}
@@ -708,5 +708,5 @@ This appendix defines the handoff template for a compressed rule that passes the
     }
 \end{table}
 
-For the worked HAI exemplar in Chapter 4, the selected-rule and deployment-summary artifacts are written under \path{notebooks/runs_new/walkthrough/}. A completed rule card would combine those files with the validation policy in Chapter 7 and the intended-use notes from the domain review before the compressed rule is treated as deployable.
+For the worked HAI exemplar in the RQ1 chapter, the selected-rule and deployment-summary artifacts are written under \path{notebooks/runs_new/walkthrough/}. A completed rule card would combine those files with the validation policy in the RQ3 chapter and the intended-use notes from the domain review before the compressed rule is treated as deployable.
 

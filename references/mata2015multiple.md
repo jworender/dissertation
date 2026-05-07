@@ -27,7 +27,6 @@ Multiple Transitions of the Susceptible-Infected-Susceptible Epidemic Model on C
 ## Competitive Method Assessment
 This paper does not present the main competing algorithmic pipeline. It is most useful for domain grounding and for supporting the claim that complex longitudinal dynamics can involve multiple distinct thresholds.
 
-
 ## Dissertation Citation Traceability
 
-- Chapter: `Introduction`; Section: `Chapter context (no explicit section)`; Line: `Chapters/01_introduction.tex:10`; Relevance: Cited to support the statement that epidemic spreading can depend on multiple thresholds rather than a single transition point.
+- Chapter: `Introduction`; Section: `Chapter opening`; Line: `Chapters/01_introduction.tex:8`; Relevance: Cited to support the statement that Related threshold-and-lag patterns also appear in broader scientific and operational domains, including ecosystem dynamics, epidemic spreading, control systems, and financial markets.

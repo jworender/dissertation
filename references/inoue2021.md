@@ -27,7 +27,6 @@ Ductile-to-Brittle Transition and Brittle Fracture Stress of Ultrafine-Grained L
 ## Competitive Method Assessment
 This paper does not present the main competing algorithmic pipeline. It is most useful for problem framing, benchmark selection, and identifying contexts where interpretable lag-aware rules are preferable to opaque alternatives.
 
-
 ## Dissertation Citation Traceability
 
-- Chapter: `Related Work`; Section: `Longitudinal High-Dimensional Modeling Context`; Line: `Chapters/03_relatedwork.tex:63`; Relevance: Cited to support the statement that Benchmark infrastructure also matters for evaluating longitudinal methods. Public anomaly and signal datasets used in this line of inquiry, such as HAI ICS telemetry and ionospheric radar-return data, provide realistic stress tests for lag attribution, sparse recovery, and interpretability tradeoffs . Related engineering contexts with threshold-driven transitions likewise support the relevance of range-based temporal reasoning.
+- Chapter: `Related Work`; Section: `Longitudinal High-Dimensional Modeling Context`; Line: `Chapters/03_relatedwork.tex:65`; Relevance: Cited to support the statement that Related engineering contexts with threshold-driven transitions likewise support the relevance of range-based temporal reasoning.

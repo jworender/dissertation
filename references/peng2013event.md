@@ -27,7 +27,6 @@ Event-Triggered Communication and H-Infinity Control Co-Design for Networked Con
 ## Competitive Method Assessment
 This paper does not present the dissertation's main competing algorithmic pipeline. It is most useful as domain grounding that control applications often involve explicit threshold triggers plus lag effects.
 
-
 ## Dissertation Citation Traceability
 
-- Chapter: `Introduction`; Section: `Chapter context (no explicit section)`; Line: `Chapters/01_introduction.tex:11`; Relevance: Cited to support the statement that control systems frequently exhibit threshold-driven lagged behavior in response to inputs and environmental conditions.
+- Chapter: `Introduction`; Section: `Chapter opening`; Line: `Chapters/01_introduction.tex:8`; Relevance: Cited to support the statement that Related threshold-and-lag patterns also appear in broader scientific and operational domains, including ecosystem dynamics, epidemic spreading, control systems, and financial markets.

@@ -6,6 +6,14 @@ RQ2 asks why rectification helps and how broadly that mechanism can be generaliz
 
 The point of this chapter is not to claim a universal theorem for every thresholding scheme. Instead, it establishes a defensible mechanism: if sign binarization contracts dependence in the right way, the IC becomes easier to satisfy, and sparse support recovery becomes more likely. That mechanism aligns with both prior empirical evidence in this line of inquiry and broader observations that lasso-style selection can be unstable under strong dependence \autocites{freijeirogonzalez2022,JOrender2025Efficient}.
 
+\section{Approach}
+
+The RQ2 approach begins from the empirical failure mode studied in RQ1: lag-expanded predictors are strongly dependent, so sparse support recovery can be unstable even when prediction is acceptable. The theoretical task is not to prove that every learned critical range helps every sparse model. It is narrower: show, in a tractable regime, that binarization can reduce the inactive-active interference that drives lasso support mistakes.
+
+The proof therefore uses zero-threshold sign binarization under joint normal assumptions. This special case gives a closed-form arcsin relationship between raw and transformed correlations, allowing the chapter to track how representation changes affect the active Gram block, inactive-active leakage, and the IC margin. The argument proceeds from pairwise correlation contraction to matrix-level control and then to a probability statement about IC satisfaction.
+
+This scoped strategy is deliberate. The empirical rectification step used elsewhere in the dissertation can use nonzero, one-sided, or interval-like critical ranges, but the theorem uses the zero-threshold case because it is analytically transparent. The chapter then supplements the theorem with boundary checks that test shifted one-sided thresholds, interval ranges, inactive-pool growth, strong off-support coupling, and negative-correlation repairs. In that sense, RQ2 separates three claims: theorem-level support for the positive zero-threshold case, empirical bridge evidence for nearby practical rules, and explicit out-of-scope language for regimes where theorem-level claims would overreach.
+
 \section{Why RQ2 matters after RQ1 evidence}
 
 RQ1 showed that rectification improves support concentration and lag attribution in threshold-aligned settings. However, empirical success alone is insufficient for the central claim. Without a credible mechanism, improvements could be dismissed as dataset-specific tuning effects.

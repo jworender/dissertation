@@ -146,7 +146,7 @@ jupyter nbconvert --to notebook --execute --inplace `
 
 The walkthrough writes its principal outputs under
 `notebooks/runs_new/walkthrough/` and supports the worked HAI exemplar in
-Chapter 4.
+the RQ1 chapter.
 
 ## Rule-Card Template For Accepted Compressed Rules
 
@@ -213,11 +213,11 @@ generation process itself.
 The manuscript is the authoritative narrative. The notebooks and cached outputs
 are the executable audit layer behind the narrative. In broad terms:
 
-- Chapter 4 explains the workflow and points to the worked HAI exemplar.
-- Chapter 5 uses the RQ1 synthetic, baseline, cross-domain, and HAI study
+- Chapter 1 explains the overall workflow and conservative defaults.
+- The RQ1 chapter uses the synthetic, baseline, cross-domain, HAI, and walkthrough
   packages.
-- Chapter 6 uses the RQ2 boundary-condition study package.
-- Chapter 7 uses the RQ3 compression-validation study package.
+- The RQ2 chapter uses the boundary-condition study package.
+- The RQ3 chapter uses the compression-validation study package.
 - The appendices provide synthetic-data details, proof material, and the
   manuscript-to-artifact reproducibility map.
 - Accepted compressed rules should be documented with the rule-card template in

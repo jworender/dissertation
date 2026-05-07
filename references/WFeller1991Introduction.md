@@ -27,8 +27,7 @@ An Introduction to Probability Theory and Its Applications (Feller) is relevant 
 ## Competitive Method Assessment
 This is not a competing prediction method. It provides mathematical/inferential foundations that can strengthen or weaken claims depending on assumption fit to the dissertation data.
 
-
 ## Dissertation Citation Traceability
 
-- Chapter: `Appendices`; Section: `Lemma 1`; Line: `Chapters/98_appendices.tex:130`; Relevance: Cited to support the statement that For standard normal variables and with correlation an expression of the Gaussian Copula Formula holds :.
-- Chapter: `Appendices`; Section: `Lemma 3`; Line: `Chapters/98_appendices.tex:318`; Relevance: Cited to support the statement that For jointly standard normal variables, this joint probability is given by :.
+- Chapter: `Lemmas`; Section: `Lemma 1`; Line: `Chapters/98_appendices.tex:127`; Relevance: Cited to support the statement that For standard normal variables X and Y with correlation rho an expression of the Gaussian Copula Formula holds.
+- Chapter: `Lemmas`; Section: `Lemma 3`; Line: `Chapters/98_appendices.tex:315`; Relevance: Cited to support the statement that For jointly standard normal variables, this joint probability is given by.

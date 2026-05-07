@@ -27,8 +27,6 @@ Feature Selection Using Efficient Fusion of Fisher Score and Greedy Searching fo
 ## Competitive Method Assessment
 This paper does not present the main competing algorithmic pipeline. It is most useful for problem framing, benchmark selection, and identifying contexts where interpretable lag-aware rules are preferable to opaque alternatives.
 
-
 ## Dissertation Citation Traceability
 
-- Chapter: `Background`; Section: `Competing approaches`; Line: `Chapters/02_background.tex:38`; Relevance: Cited to support the statement that item Wrapper and filter selection methods remain pragmatic baselines, especially in domain pipelines where model families vary, but they are often heuristic and may provide weaker attribution consistency across resamples.
-- Chapter: `Related Work`; Section: `Correlation-Aware and Alternative Feature Selection Families`; Line: `Chapters/03_relatedwork.tex:43`; Relevance: Cited to support the statement that Filter, wrapper, and embedded selection families remain widely used in practice because they are flexible and model-agnostic . Recent hybrid ranking-plus-search approaches also show good empirical performance in domain-specific pipelines . Still, these families can be sensitive to search heuristics, may yield unstable subsets under resampling, and usually do not produce direct temporal-threshold semantics without additional modeling layers.
+- Chapter: `Related Work`; Section: `Correlation-Aware and Alternative Feature Selection Families`; Line: `Chapters/03_relatedwork.tex:43`; Relevance: Cited to support the statement that Recent hybrid ranking-plus-search pipelines also perform well in domain-specific settings.
