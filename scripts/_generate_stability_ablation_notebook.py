@@ -61,6 +61,7 @@ cells = [
         from pathlib import Path
 
         import matplotlib.pyplot as plt
+        import matplotlib.ticker as mticker
         import numpy as np
         import pandas as pd
         from matplotlib.patches import Rectangle
@@ -611,6 +612,15 @@ cells = [
             ax.set_title(label)
             if metric == "t_stage":
                 ax.set_yscale("log")
+                runtime_lower = float((grouped["mean"] - grouped["std"].fillna(0.0)).clip(lower=0.0).min())
+                runtime_upper = float((grouped["mean"] + grouped["std"].fillna(0.0)).max())
+                runtime_step = 5
+                tick_start = max(runtime_step, math.floor(runtime_lower / runtime_step) * runtime_step)
+                tick_stop = max(tick_start + runtime_step, math.ceil(runtime_upper / runtime_step) * runtime_step)
+                ax.set_ylim(max(runtime_lower * 0.95, 0.1), tick_stop * 1.05)
+                ax.set_yticks(np.arange(tick_start, tick_stop + runtime_step, runtime_step))
+                ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%g"))
+                ax.yaxis.set_minor_formatter(mticker.NullFormatter())
             ax.grid(True, axis="y", alpha=0.3)
 
         fig.suptitle("RQ1 Stability / Fidelity Ablation Summary", fontsize=16, y=0.98)
@@ -671,6 +681,19 @@ cells = [
         fig.savefig(out_path, dpi=150, bbox_inches="tight")
         plt.show()
         print("Saved:", out_path)
+        """
+    ),
+    md_cell(
+        """
+        ### Interpreting Pairwise Support Jaccard
+
+        Pairwise support Jaccard measures how much two runs agree on the selected feature-lag support. For two resamples with selected supports $S_a$ and $S_b$, the score is
+        $$
+        J(S_a,S_b)=\\frac{|S_a \\cap S_b|}{|S_a \\cup S_b|}.
+        $$
+        A value of 1 means the two runs selected the same support, while 0 means they selected disjoint supports. The near-lag version applies the same idea after allowing a selected lag to match a neighboring lag within the reported tolerance.
+
+        This matters because RQ1 is about reliable attribution, not just discrimination. A model can achieve high AUC while selecting different correlated lag surrogates on each resample; that would make the support difficult to trust, audit, or compress into a stable rule. Higher pairwise Jaccard indicates that the pipeline repeatedly returns to the same explanatory feature-lag structure, which is the behavior expected when rectification reduces support ambiguity in the threshold-and-lag setting.
         """
     ),
     code_cell(

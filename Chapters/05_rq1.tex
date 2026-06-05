@@ -4,13 +4,38 @@
 
 RQ1 asks whether critical-range rectification can produce a stable sparse baseline with reliable feature and lag attribution in longitudinal settings. This chapter answers that question by showing where and why rectification improves sparse longitudinal selection.
 
-The evidence is anchored in prior work from the same method lineage, beginning with the rectification-first lasso logic framework and extending to later theory-backed case studies \autocites{orender2022,JOrender2025Efficient}. Across studies, the central empirical pattern is consistent: when the data generating process has threshold-and-lag structure, rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity pressure.
+We create a rectification-first lasso logic framework and extending to later theory-backed case studies \autocites{orender2022,JOrender2025Efficient}. Across studies, the central empirical pattern is consistent: when the data generating process has threshold-and-lag structure, rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity pressure.
 
 The chapter's main empirical case comes later. The synthetic studies test whether rectification improves exact-lag recovery and support stability under planted ground truth, the expanded baseline packages test whether that effect survives stronger comparators, and the real-world audits identify where the gains weaken or become protocol-sensitive. The toy example that follows the approach section is included as a local intuition bridge for that later evidence: it shows, in miniature, how a threshold-aligned representation can separate true trigger lags from correlated surrogates before the chapter turns to the full benchmark results.
 
-\section{Approach}
+\section{Method}
 
-The RQ1 approach tests the first two stages of the dissertation pipeline: lag-expanded critical-range rectification followed by sparse baseline fitting. Starting from longitudinal measurements, the method creates a supervised design matrix in which each column corresponds to a specific variable-lag pair. For each candidate column, the rectifier estimates an event-associated range on training data only and converts the raw measurement into an indicator denoting whether that lagged measurement lies inside or outside the learned range. This produces a threshold-aligned representation before any sparse optimization is performed.
+First, two stages of the dissertation pipeline will be tested: lag-expanded critical-range rectification followed by sparse baseline fitting. Starting from longitudinal measurements, the method creates a supervised design matrix in which each column corresponds to a specific variable-lag pair. For each feature column, the rectifier estimates an event-associated range on training data only and converts the raw measurement into an indicator denoting whether that lagged measurement lies inside or outside the learned range. This produces a threshold-aligned representation before any sparse optimization is performed.
+
+The following algorithm formalizes the process described in pseudocode.
+
+\begin{algorithm}
+	\caption{Critical-Range Rectification and Sparse Baseline Fitting}
+	\begin{algorithmic}[1] % The [1] means every line is numbered
+		\Require $ \mathbf{X},y,\lambda $
+		\Ensure $ \mathbf{A},\hat{y},r_j \left[b,c\right] $
+		\State Let $ r_j \left[b,c\right] $ be the critical range for feature vector $ \mathbf{X_j} $ , where $ b $ is the minimum and $ c $ is maximum defining that range.
+		\Procedure{Binarization}{$ \mathbf{X},y $}
+		\State Find $ Z $ , which is the subset of $ \mathbf{X} $ for which $ y $ is one of the outcomes (which will be defined as TRUE),  $ Z \subseteq \mathbf{X} $ , where $ Z = \left\{ \mathbf{X} \vert y = \mathbf{TRUE} \right\} $
+		\State Compute $ r_{j=1..d} = \left[ min(Z_j), max(Z_j) \right] $ . 
+		\State Compute $ \mathbf{A} $ , the matrix of transformed feature columns, such that:
+		\Statex $ a_{ij} = 
+		\begin{cases}
+			+1 \text{ when } x_{ij} \geq r_j[b] \text{ and } x_{ij} \leq r_j[c] \\
+			-1 \text{ when } x_{ij} < r_j[b] \text{ or } x_{ij} > r_j[c]
+		\end{cases}
+		$
+		\EndProcedure
+		\State Finally, compute the LASSO solution on the transformed data:
+		\Statex $ \hat{y} = LASSO(\mathbf{A},y,\lambda) $
+	\end{algorithmic}
+	\label{alg:binarization}
+\end{algorithm}
 
 The sparse learner is intentionally ordinary: an L1-regularized logistic model is fit on the rectified design and compared against a matched raw lag-expanded sparse baseline \autocites{tibshirani1996,fried2010,tay2023}. This keeps the empirical question focused. RQ1 is not asking whether a custom optimizer can be built for every longitudinal domain; it asks whether changing the representation makes a standard sparse learner recover more stable, lag-localized, and compact support under multicollinearity pressure. Nonzero coefficients in the rectified fit are therefore interpreted as candidate feature-lag triggers, subject to the stability, attribution, and held-out discrimination checks reported below.
 
@@ -60,7 +85,7 @@ The toy example data demonstrates the behavior of a simple set of instrument rea
 \begingroup
 \footnotesize
 \setlength{\arraycolsep}{3pt}
-\[
+\begin{equation}\label{eq:rq1-toy-raw-feature-matrix}
 \mathbf{X} =
 \left[ \begin{array}{rrrrrrrrrr}
 	\text{A} & \text{B} & \text{C} & \text{D} & \text{E} & \text{F} & \text{G} & \text{H} & \text{I} & \text{J} \\
@@ -75,7 +100,7 @@ The toy example data demonstrates the behavior of a simple set of instrument rea
 	0.33 & 0.22 &  0.59 & 0.49 &  0.47 & 0.49 &  0.59 & 0.47 & 0.91 & 0.57\\
 	0.34 & 0.49 & 0.66 &  0.51 &  0.48 & 0.79 & 0.84 & 0.53 & 0.73 & 0.67 \\
 \end{array} \right]
-\]
+\end{equation}
 \endgroup
 
 \subsection{Input Data Transformation}
@@ -84,7 +109,7 @@ After transformation, the matrix is encoded using $\{1,-1\}$. In this toy exampl
 \begingroup
 \footnotesize
 \setlength{\arraycolsep}{3pt}
-\[
+\begin{equation}\label{eq:rq1-toy-rectified-feature-matrix}
 \mathbf{X} =
 \left[ \begin{array}{rrrrrrrrrr}
 	\text{A} & \text{B} & \text{C} & \text{D} & \text{E} & \text{F} & \text{G} & \text{H} & \text{I} & \text{J} \\
@@ -99,16 +124,16 @@ After transformation, the matrix is encoded using $\{1,-1\}$. In this toy exampl
 	-1 & -1 &  1 &  1 &  1 &  1 &  1 &  1 & -1 &  1 \\
 	-1 &  1 & -1 &  1 &  1 & -1 & -1 &  1 & -1 & -1 \\
 \end{array} \right]
-\]
+\end{equation}
 \endgroup
 
 The corresponding Boolean response vector is:
-\[
+\begin{equation}\label{eq:rq1-toy-response-vector}
 y^T = 
 \begin{bmatrix}
 	F & F & F & \mathbf{T} & F & \mathbf{T} & F & \mathbf{T} & F & F
 \end{bmatrix} 
-\]
+\end{equation}
 
 It can be shown that any minimal logical AND combination of these features that produces the response vector shown must contain the 1st and 4th columns, since the first non-event row is excluded only by column D and the second non-event row is excluded only by column A.  %This can also be revealed by plotting the coefficients (see Figure \ref{fig:toy_example})
 
@@ -460,6 +485,8 @@ Table \ref{tab:metric_notation_guide} provides a compact reference for the main 
     \end{tabularx}
     }
 \end{table}
+
+\FloatBarrier
 
 \section{Answer to RQ1}
 

@@ -29,5 +29,4 @@ This is not a competing prediction method. It provides mathematical/inferential 
 
 ## Dissertation Citation Traceability
 
-- Chapter: `Lemmas`; Section: `Lemma 1`; Line: `Chapters/98_appendices.tex:127`; Relevance: Cited to support the statement that For standard normal variables X and Y with correlation rho an expression of the Gaussian Copula Formula holds.
-- Chapter: `Lemmas`; Section: `Lemma 3`; Line: `Chapters/98_appendices.tex:315`; Relevance: Cited to support the statement that For jointly standard normal variables, this joint probability is given by.
+- No active citation found in the current dissertation source (`main.tex` and included chapter/appendix files).

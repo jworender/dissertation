@@ -29,4 +29,4 @@ This paper does not present the main competing algorithmic pipeline. It is most 
 
 ## Dissertation Citation Traceability
 
-- Chapter: `Related Work`; Section: `Correlation-Aware and Alternative Feature Selection Families`; Line: `Chapters/03_relatedwork.tex:41`; Relevance: Cited to support the statement that Methods combining robust regression ideas with conditioning-oriented penalties can improve estimation under contamination and ill-conditioning.
+- Chapter: `Related Work`; Section: `Group, Block, and Ordered Sparsity`; Line: `Chapters/03_relatedwork.tex:41`; Relevance: Cited to support the statement that Methods combining robust regression ideas with conditioning-oriented penalties can improve estimation under contamination and ill-conditioning.

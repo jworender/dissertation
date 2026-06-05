@@ -29,4 +29,4 @@ This paper does not present the main competing algorithmic pipeline. It is most 
 
 ## Dissertation Citation Traceability
 
-- Chapter: `Related Work`; Section: `Correlation-Aware and Alternative Feature Selection Families`; Line: `Chapters/03_relatedwork.tex:43`; Relevance: Cited to support the statement that Filter, wrapper, and embedded selection families remain widely used because they are flexible and model agnostic.
+- Chapter: `Related Work`; Section: `Group, Block, and Ordered Sparsity`; Line: `Chapters/03_relatedwork.tex:43`; Relevance: Cited to support the statement that Filter, wrapper, and embedded selection families remain widely used because they are flexible and model agnostic.

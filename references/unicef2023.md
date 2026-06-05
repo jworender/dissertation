@@ -37,4 +37,4 @@ This is not a competing method. It is a dataset used to stress-test the disserta
 
 ## Dissertation Citation Traceability
 
-- Chapter: `Rectification Improves Sparse Longitudinal Selection (RQ1)`; Section: `Real-world evidence and interpretability tradeoffs`; Line: `Chapters/05_rq1.tex:377`; Relevance: Cited to support the statement that In the UNICEF case, untransformed models can achieve stronger raw discrimination metrics while transformed models remain substantially sparser and easier to interpret.
+- Chapter: `Rectification Improves Sparse Longitudinal Selection (RQ1)`; Section: `Real-world evidence and interpretability tradeoffs`; Line: `Chapters/05_rq1.tex:402`; Relevance: Cited to support the statement that In the UNICEF case, untransformed models can achieve stronger raw discrimination metrics while transformed models remain substantially sparser and easier to interpret.

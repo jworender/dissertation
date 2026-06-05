@@ -1,0 +1,94 @@
+% !TeX root = ../main.tex
+
+\clearpage
+
+\achapter{Acronym Definitions}
+\label{app:acronym_definitions}
+
+This appendix defines acronyms and recurring shorthand used in the dissertation. Some entries, such as package names or benchmark labels, are included because they function as acronyms in the manuscript even when they are proper names rather than fully expanded initialisms.
+
+\begin{description}[style=nextline,leftmargin=0pt,labelsep=0pt]
+    \item[ACC] Accuracy; the fraction of predictions classified correctly.
+
+    \item[AP] Average precision; a summary of precision-recall behavior used as a discrimination metric in the direct interpretable-model comparison.
+
+    \item[AUC] Area under the receiver operating characteristic curve; a threshold-independent measure of ranking discrimination.
+
+    \item[B.S.] Bachelor of Science.
+
+    \item[BDAA] Big Data Analytics and Applications; used in the vita as part of the conference name ``International Conference on Big Data Analytics \& Applications.''
+
+    \item[CDF] Cumulative distribution function; used in the appendix derivation of the bivariate normal quadrant identity.
+
+    \item[CI] Confidence interval; used in held-out compression summaries to report uncertainty around performance differences.
+
+    \item[CR] Critical range; an event-associated value interval estimated from training observations.
+
+    \item[CS] Computer science; used when describing a computer-science-oriented interpretation of the theoretical argument.
+
+    \item[CUTLASS] The dissertation's public Python package and method label for critical-range rectified L1 logistic modeling with optional logic compression. It is used as a package/model name rather than as a separately expanded acronym.
+
+    \item[EBM] Explainable Boosting Machine; an additive model used as an interpretable comparator in the RQ1 direct baseline study.
+
+    \item[F1] The harmonic mean of precision and recall; used for exact-lag recovery and classification summaries.
+
+    \item[HAI] HIL-based Augmented ICS; the industrial-control security benchmark used in the real-world studies.
+
+    \item[HIL] Hardware-in-the-loop; a simulation-and-control setup that couples physical or realistic process components with simulated dynamics.
+
+    \item[IC] Irrepresentable condition; a lasso support-recovery condition used as the central theoretical lens in RQ2.
+
+    \item[ICS] Industrial control system; the operational domain represented by the HAI benchmark and discussed in the dissertation's practical implications.
+
+    \item[IEEE] Institute of Electrical and Electronics Engineers; used in the vita for conference presentations.
+
+    \item[KKT] Karush-Kuhn-Tucker; first-order optimality conditions used when discussing sparse-solver screening behavior.
+
+    \item[L1] The ell-one norm or penalty; used for sparse logistic regression and lasso-style feature selection.
+
+    \item[L2] The ell-two norm or penalty; used when contrasting L1 sparse penalties with rotationally invariant or ridge-like alternatives.
+
+    \item[LAD] Logical Analysis of Data; a rule-learning tradition used as an interpretable-model comparator.
+
+    \item[LASSO] Least Absolute Shrinkage and Selection Operator; the L1-penalized sparse modeling method used as the dissertation's main sparse-learning baseline.
+
+    \item[M.B.A.] Master of Business Administration.
+
+    \item[M.S.] Master of Science.
+
+    \item[ML] Machine learning; used when identifying the dissertation's technical audience and application context.
+
+    \item[NumPy] Numerical Python; the Python array-computing library named in the runtime comparison discussion.
+
+    \item[nz] Nonzero; shorthand used in compression-ratio notation and table headings for the number of nonzero active terms.
+
+    \item[P1--P4] HAI process-area identifiers. In this dissertation, P2 denotes the turbine-loop subsystem in the HAI discussion, and P4 denotes the HIL simulator block that can legitimately couple to the turbine-loop response.
+
+    \item[PoC] Proof of concept; used for the scoped assumptions and boundary of the RQ2 theoretical analysis.
+
+    \item[PyPI] Python Package Index; the public package index where the \texttt{cutlass} implementation is released.
+
+    \item[QP] Quadratic programming; used for a dependence-aware sparse-selection comparator.
+
+    \item[ROC] Receiver operating characteristic; the curve underlying the AUC metric.
+
+    \item[RQ] Research question; used for the dissertation's organizing questions and chapter labels.
+
+    \item[RQ1] Research Question 1; asks whether critical-range rectification improves sparse longitudinal selection and feature-lag attribution.
+
+    \item[RQ2] Research Question 2; asks why rectification can help and how far that mechanism can be generalized.
+
+    \item[RQ3] Research Question 3; asks whether sparse rectified models can be compressed into compact logical rules without unacceptable loss in operating performance.
+
+    \item[TNR] True negative rate; specificity, used in Youden's $J=\mathrm{TPR}+\mathrm{TNR}-1$.
+
+    \item[TOST] Two one-sided tests; an equivalence-testing framework discussed in the RQ3 non-inferiority framing.
+
+    \item[TPR] True positive rate; sensitivity or recall, used in Youden's $J=\mathrm{TPR}+\mathrm{TNR}-1$.
+
+    \item[U.S.] United States.
+
+    \item[UCI] University of California, Irvine; used for the UCI ionosphere benchmark.
+
+    \item[UNICEF] United Nations Children's Fund; the cross-domain real-world data source used as a boundary-condition case.
+\end{description}

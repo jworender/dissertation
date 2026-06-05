@@ -29,5 +29,5 @@ This is not a competing prediction method. It provides mathematical/inferential 
 
 ## Dissertation Citation Traceability
 
-- Chapter: `Anytime Rule Compression (RQ3)`; Section: `Statistical Framing of "No Material Degradation"`; Line: `Chapters/07_rq3.tex:115`; Relevance: Cited to support the statement that Prior work in this line used an equivalence framing (TOST-style logic) with a predeclared margin (for example, +/- 0.01 AUC) to justify practical non-loss claims.
+- Chapter: `Anytime Rule Compression (RQ3)`; Section: `Statistical Framing of "No Material Degradation"`; Line: `Chapters/07_rq3.tex:128`; Relevance: Cited to support the statement that Prior work in this line used an equivalence framing (TOST-style logic) with a predeclared margin (for example, $+/- 0.01$ AUC) to justify practical non-loss claims.
 - Chapter: `Conclusion`; Section: `Conclusions by Research Question > RQ3 conclusion: Anytime compression makes interpretability operational`; Line: `Chapters/89_conclusion.tex:37`; Relevance: Cited to support the statement that Prespecified non-inferiority framing further supports practical non-loss claims when simplification is the objective and provides a baseline for accepting or rejecting compression in mixed real-world regimes.

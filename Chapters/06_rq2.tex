@@ -6,9 +6,9 @@ RQ2 asks why rectification helps and how broadly that mechanism can be generaliz
 
 The point of this chapter is not to claim a universal theorem for every thresholding scheme. Instead, it establishes a defensible mechanism: if sign binarization contracts dependence in the right way, the IC becomes easier to satisfy, and sparse support recovery becomes more likely. That mechanism aligns with both prior empirical evidence in this line of inquiry and broader observations that lasso-style selection can be unstable under strong dependence \autocites{freijeirogonzalez2022,JOrender2025Efficient}.
 
-\section{Approach}
+\section{Method}
 
-The RQ2 approach begins from the empirical failure mode studied in RQ1: lag-expanded predictors are strongly dependent, so sparse support recovery can be unstable even when prediction is acceptable. The theoretical task is not to prove that every learned critical range helps every sparse model. It is narrower: show, in a tractable regime, that binarization can reduce the inactive-active interference that drives lasso support mistakes.
+We begin from the empirical failure mode studied in RQ1: lag-expanded predictors are strongly dependent, so sparse support recovery can be unstable even when prediction is acceptable. The theoretical task is not to prove that every learned critical range helps every sparse model. It is narrower: show, in a tractable regime, that binarization can reduce the inactive-active interference that drives lasso support mistakes.
 
 The proof therefore uses zero-threshold sign binarization under joint normal assumptions. This special case gives a closed-form arcsin relationship between raw and transformed correlations, allowing the chapter to track how representation changes affect the active Gram block, inactive-active leakage, and the IC margin. The argument proceeds from pairwise correlation contraction to matrix-level control and then to a probability statement about IC satisfaction.
 
@@ -23,9 +23,9 @@ For sparse selection methods, this concern is especially important. Lasso is a s
 \section{IC in computer-science terms}
 
 The IC can be read as an interference constraint in a sparse-recovery system. Let $S$ be the true active-feature set and $S^c$ the inactive set (the complement). For lasso to recover the right support, inactive features should not be too well explained by active features after accounting for active-feature geometry. Formally, one common sufficient condition is:
-\[
+\begin{equation}\label{eq:rq2-irrepresentable-condition}
 \left\|\mathbf{X}_{S^c}^{\top}\mathbf{X}_S(\mathbf{X}_S^{\top}\mathbf{X}_S)^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right\|_\infty < 1.
-\]
+\end{equation}
 
 A CS-oriented interpretation is useful:
 \begin{itemize}
@@ -43,15 +43,15 @@ To keep the analysis explicit, this chapter uses the tractable zero-threshold se
 
 \paragraph{Data and transformation.}
 Let $\mathbf{X}\in\mathbb{R}^{n\times d}$ be standardized continuous features and $\tilde{\mathbf{X}}\in\{\pm 1\}^{n\times d}$ the sign-binarized version:
-\[
+\begin{equation}\label{eq:rq2-sign-binarization}
 \tilde{x}_{ij}=\operatorname{sign}(x_{ij}),
-\]
+\end{equation}
 with threshold at zero.
 For derivations, the appendix sometimes uses an equivalent $\{0,1\}$ encoding; after centering, it preserves the same correlation-ordering arguments up to constant scaling.
 
 In the dissertation's broader terminology, this is the theorem-scoped sign-binarized special case of the empirical rectification step.
 
-\paragraph{Assumptions.}
+\paragraph{Proof of Concept (PoC) Assumptions.}
 \begin{itemize}
     \item Continuous features are jointly normal after standardization.
     \item The support set $S$ is fixed in the local analysis.
@@ -66,10 +66,10 @@ These assumptions are restrictive by design. They allow closed-form dependence m
 
 \section{Why sign binarization can reduce dependence}
 
-Under bivariate normality, sign-binarized correlation is a deterministic function of raw Pearson correlation $(\rho)$:
-\[
+Under bivariate normality, sign-binarized correlation is a deterministic function of raw Pearson correlation $(\rho)$, as shown in lemma 1:
+\begin{equation}\label{eq:rq2-arcsin-correlation-map}
 \tilde{\rho} = \frac{2}{\pi}\arcsin(\rho).
-\]
+\end{equation}
 For $\rho\in(-1,1)$, this mapping contracts magnitude in most of the interior, while preserving sign and endpoint behavior. Intuitively, sign mapping removes amplitude information and retains only direction, which can weaken linear coupling caused by shared scale variation. All binarized equivalent values will be annotated with a tilde (e.g. "$\tilde{\rho}$" for the binarized Pearson correlation).
 
 From an IC viewpoint, this contraction can help in two places:
@@ -80,73 +80,128 @@ From an IC viewpoint, this contraction can help in two places:
 
 The second point should not be read as a universal monotone guarantee for every design. It is a regime-level effect supported in the analyzed setting and tied to matrix-conditioning arguments \autocites{JOrender2025Efficient,RAHorn2012Matrix}.
 
-\section{Lemma pathway (with intuition)}
+\section{Formal Lemma Pathway}
 
-This section summarizes the proof structure. Full derivations are moved to the appendix.
+This section states the proof pathway in theorem-style form. Appendix B provides the longer algebraic derivations; the main text gives the assumptions, conclusions, and proof logic needed to support the chapter's theorem.
 
-\subsection{Lemma 1: Correlation contraction after binarization}
-\[
+\begin{lemma}[Arcsin correlation map]\label{lem:rq2-arcsin-map}
+Let $(X,Y)$ be a centered, variance-one bivariate normal pair with correlation $\rho$, and define $\tilde{X}=\operatorname{sign}(X)$ and $\tilde{Y}=\operatorname{sign}(Y)$. Then the transformed correlation follows the classical arcsine relation \autocite{WFSheppard1899Application}:
+\begin{equation}\label{eq:rq2-lemma1-arcsin-map}
 \tilde{\rho} = \frac{2}{\pi}\arcsin(\rho).
-\]
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Because $(X,Y)$ is bivariate normal and centered, the classical quadrant formula gives \autocite{WFSheppard1899Application}
+\begin{equation}\label{eq:rq2-proof-positive-quadrant-probability}
+P(X>0,Y>0)=\frac{1}{4}+\frac{\arcsin(\rho)}{2\pi}.
+\end{equation}
+For sign variables, $E[\tilde{X}]=E[\tilde{Y}]=0$ and
+$E[\tilde{X}\tilde{Y}]=P(\tilde{X}=\tilde{Y})-P(\tilde{X}\neq\tilde{Y})$.
+By symmetry, substituting the quadrant probability gives
+$E[\tilde{X}\tilde{Y}]=4P(X>0,Y>0)-1=(2/\pi)\arcsin(\rho)$.
+Since the sign variables have unit variance, this expectation is their correlation. Appendix B.1 gives the step-by-step derivation, including the equivalent $0/1$ encoding.
+\end{proof}
 
 \textbf{Interpretation:} Under the PoC assumptions, sign binarization induces a deterministic arcsine mapping from raw correlation to transformed correlation. In practical terms, the representation keeps polarity while suppressing magnitude information that drives linear coupling.
 
-\subsection{Lemma 2: Controlled inverse behavior for active block}
-\[
-|\tilde{\rho}| \leq |\rho|.
-\]
+\begin{lemma}[Pairwise contraction]\label{lem:rq2-correlation-contraction}
+Under the assumptions of Lemma~\ref{lem:rq2-arcsin-map},
+\begin{equation}\label{eq:rq2-lemma2-correlation-contraction}
+|\tilde{\rho}| \leq |\rho|,
+\end{equation}
+with equality only at $\rho\in\{-1,0,1\}$ in the closed interval.
+\end{lemma}
 
-\textbf{Interpretation:} The transformed correlation magnitude is bounded by the raw magnitude (with equality at endpoints). This bound is the key contraction property used downstream to control active-block inversion effects and reduce amplification risk in de-mixing.
+\begin{proof}
+The map $\arcsin(\rho)$ is odd, so it is enough to consider $0\leq\rho\leq1$. Let $\alpha=\arcsin(\rho)$, so $\rho=\sin(\alpha)$ with $\alpha\in[0,\pi/2]$. Concavity of sine on this interval implies $\sin(\alpha)\geq 2\alpha/\pi$, the chord from $(0,0)$ to $(\pi/2,1)$. Therefore $(2/\pi)\arcsin(\rho)\leq\rho$. Odd symmetry gives the same magnitude bound for negative $\rho$. Appendix B.2 gives the expanded case analysis.
+\end{proof}
 
-\subsection{Lemma 3: Lower inactive-active leakage}
-\[
+\textbf{Interpretation:} The transformed correlation magnitude is bounded by the raw magnitude. This bound is the key contraction property used downstream to control leakage and reduce amplification risk in de-mixing.
+
+\begin{lemma}[Inactive-active leakage contraction]\label{lem:rq2-leakage-contraction}
+Let $x_{{S^c}i}$ be an inactive standardized Gaussian feature and $x_{Sj}$ an active standardized Gaussian feature satisfying the pairwise assumptions above. For their sign-binarized counterparts,
+\begin{equation}\label{eq:rq2-lemma3-leakage-contraction}
 \left| \operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) \right|
 \leq
 \left| \operatorname{Cov}(x_{{S^c}i}, x_{Sj}) \right|.
-\]
+\end{equation}
+\end{lemma}
 
-\textbf{Interpretation:} For each inactive-active pair, binarization weakens covariance leakage (or leaves it unchanged in edge cases). In sparse-selection terms, inactive features become less able to mimic the active span.
-
-\subsection{Lemma 4: Easier IC satisfaction}
-\[
-\|\tilde{G}^{-1}\|_\infty \leq \|G^{-1}\|_\infty
-\quad \text{(positive-correlation analyzed regime)}.
-\]
-
-\textbf{Interpretation:} The transformed active block requires no greater inverse amplification than the raw block in the target regime. Combined with Lemma 3, this yields a smaller IC interference term and therefore a higher chance of satisfying the IC margin.
-
-\section{Main theorem (probability form)}
-
-Let
-\[
-\Theta(\mathbf{X}) = \left\|\mathbf{X}_{S^c}^{\top}\mathbf{X}_S(\mathbf{X}_S^{\top}\mathbf{X}_S)^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right\|_\infty,
-\]
-and define $\Theta(\tilde{\mathbf{X}})$ analogously for binarized features. In the analyzed setting, the target inequality is
-\[
-P\big(\Theta(\mathbf{X})<1\big) \leq P\big(\Theta(\tilde{\mathbf{X}})<1\big).
-\]
-
-This theorem states a probabilistic improvement claim, not deterministic per-instance dominance. The claim is that transformed designs are at least as likely to lie in an IC-favorable region. Strict improvement is expected only in stylized regimes.
-
-\section{Proof sketch}
-
-A concise proof sketch is given below; full derivations remain in the appendix.
-
-\begin{proof}[Sketch]
-For each inactive feature index $i\in S^c$, define
-\[
-\theta_i = \left|\mathbf{c}_i\mathbf{G}^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right|,
-\]
-where $\mathbf{c}_i$ is its covariance vector with active features and $\mathbf{G}$ is the active Gram matrix.
-
-In large-sample approximation, replace sample quantities by population correlation blocks. For raw and binarized designs this gives comparable expressions based on $(\boldsymbol{\rho}_{iS},\boldsymbol{\rho}_{SS})$ and $(\tilde{\boldsymbol{\rho}}_{iS},\tilde{\boldsymbol{\rho}}_{SS})$ respectively.
-
-By Lemma 1, the transformed inactive-active block contracts in norm under the analyzed regime. By Lemma 2, inverse amplification from the active block is controlled. Using submultiplicative norm bounds,
-\[
-\theta_i^{\text{bin}} \lesssim \|\tilde{\boldsymbol{\rho}}_{iS}\|\,\|\tilde{\boldsymbol{\rho}}_{SS}^{-1}\|\,\|\operatorname{sign}(\boldsymbol{\beta}_S)\|,
-\]
-with an analogous bound for $\theta_i$ in the raw domain. The transformed upper bound is tighter under the lemma conditions, which implies a weakly higher probability that each inactive-feature interference score stays below 1. Taking the maximum over $i\in S^c$ yields the stated IC-probability improvement.
+\begin{proof}
+The raw variables are standardized, so their covariance equals their correlation. The sign-binarized variables are centered and have unit variance under the symmetric Gaussian assumption, so their covariance also equals their correlation. Applying Lemma~\ref{lem:rq2-correlation-contraction} to each inactive-active pair gives the stated covariance bound. Appendix B.3 expands this pairwise argument for the inactive-active covariance block.
 \end{proof}
+
+\textbf{Interpretation:} For each inactive-active pair, binarization weakens covariance leakage or leaves it unchanged in edge cases. In sparse-selection terms, inactive features become less able to mimic the active span.
+
+\begin{lemma}[Active-block inverse control]\label{lem:rq2-active-inverse-control}
+In the positive-correlation analyzed regime, assume the active block is equicorrelated with support size $s$ and correlation $0\leq\rho<1$:
+
+\begin{equation}\label{eq:rq2-active-equicorrelation-gram}
+G=(1-\rho)I_s+\rho J_s.
+\end{equation}
+
+Let $\tilde{G}=(1-\tilde{\rho})I_s+\tilde{\rho}J_s$ with $\tilde{\rho}=(2/\pi)\arcsin(\rho)$.
+
+Then,
+
+\begin{equation}\label{eq:rq2-lemma4-active-inverse-bound}
+\|\tilde{G}^{-1}\|_\infty \leq \|G^{-1}\|_\infty.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For an equicorrelation matrix, Sherman-Morrison gives
+\begin{equation}\label{eq:rq2-equicorrelation-inverse}
+G^{-1}=\frac{1}{1-\rho}I_s-\frac{\rho}{(1-\rho)(1+(s-1)\rho)}J_s,
+\end{equation}
+and the same expression holds for $\tilde{G}^{-1}$ after replacing $\rho$ with $\tilde{\rho}$. In the positive-correlation regime, the resulting row-sum norm is monotone increasing in $\rho$ on $[0,1)$. Lemma~\ref{lem:rq2-correlation-contraction} gives $0\leq\tilde{\rho}\leq\rho$, so the transformed inverse row-sum norm is no larger than the raw one. Appendix B.4 contains the expanded matrix calculation.
+\end{proof}
+
+\textbf{Interpretation:} The transformed active block requires no greater inverse amplification than the raw block in the target regime. Combined with Lemma~\ref{lem:rq2-leakage-contraction}, this yields a smaller IC interference term and therefore a higher chance of satisfying the IC margin.
+
+\section{Theorem and Proof}
+
+\begin{theorem}[Sufficient IC-bound probability under sign binarization]\label{thm:rq2-ic-probability}
+Let
+\begin{equation}\label{eq:rq2-theta-definition}
+\Theta(\mathbf{X}) = \left\|\mathbf{X}_{S^c}^{\top}\mathbf{X}_S(\mathbf{X}_S^{\top}\mathbf{X}_S)^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right\|_\infty,
+\end{equation}
+and define $\Theta(\tilde{\mathbf{X}})$ analogously for the sign-binarized design. For each $i\in S^c$, let
+\begin{align}
+B_i
+&=\|\mathbf{c}_i\|\,\|\mathbf{G}^{-1}\|\,\|\operatorname{sign}(\boldsymbol{\beta}_S)\|,
+\label{eq:rq2-raw-ic-bound}\\
+\tilde{B}_i
+&=\|\tilde{\mathbf{c}}_i\|\,\|\tilde{\mathbf{G}}^{-1}\|\,\|\operatorname{sign}(\boldsymbol{\beta}_S)\|.
+\label{eq:rq2-binarized-ic-bound}
+\end{align}
+and set $B_\star=\max_{i\in S^c}B_i$ and $\tilde{B}_\star=\max_{i\in S^c}\tilde{B}_i$.
+Assume the PoC conditions, the positive equicorrelation regime of Lemma~\ref{lem:rq2-active-inverse-control}, and the large-sample covariance approximation used in this chapter. Then sign binarization weakly improves the probability that this sufficient IC bound certifies the margin:
+\begin{equation}\label{eq:rq2-theta-probability-improvement}
+P\big(B_\star<1\big) \leq P\big(\tilde{B}_\star<1\big).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+For each inactive feature index $i\in S^c$, define its IC interference score
+\begin{equation}\label{eq:rq2-proof-inactive-interference-score}
+\theta_i = \left|\mathbf{c}_i\mathbf{G}^{-1}\operatorname{sign}(\boldsymbol{\beta}_S)\right|,
+\end{equation}
+where $\mathbf{c}_i$ is its covariance vector with the active features and $\mathbf{G}$ is the active Gram matrix. In the large-sample regime, sample Gram and covariance blocks concentrate around their population counterparts, so raw and binarized designs can be compared through $(\boldsymbol{\rho}_{iS},\boldsymbol{\rho}_{SS})$ and $(\tilde{\boldsymbol{\rho}}_{iS},\tilde{\boldsymbol{\rho}}_{SS})$.
+
+Lemma~\ref{lem:rq2-leakage-contraction} contracts each inactive-active covariance term, giving a no-larger transformed leakage vector in the analyzed norm. Lemma~\ref{lem:rq2-active-inverse-control} gives no greater active-block inverse amplification in the positive/equicorrelated regime. Therefore, by submultiplicativity,
+\begin{equation}\label{eq:rq2-proof-binarized-interference-bound}
+\theta_i^{\text{bin}}
+\leq
+\|\tilde{\mathbf{c}}_i\|\,\|\tilde{\mathbf{G}}^{-1}\|\,\|\operatorname{sign}(\boldsymbol{\beta}_S)\|
+\leq
+\|\mathbf{c}_i\|\,\|\mathbf{G}^{-1}\|\,\|\operatorname{sign}(\boldsymbol{\beta}_S)\|,
+\end{equation}
+using the same compatible norm on both sides. Thus $\tilde{B}_i\leq B_i$ for each inactive feature in the theorem-scoped regime. Taking the maximum over $i\in S^c$ preserves the weak inequality, giving $\tilde{B}_\star\leq B_\star$. Therefore the event $\{B_\star<1\}$ is contained in $\{\tilde{B}_\star<1\}$ up to the finite-sample concentration error, which gives the probability inequality in \eqref{eq:rq2-theta-probability-improvement}. Because $\Theta(\mathbf{X})\leq B_\star$ and $\Theta(\tilde{\mathbf{X}})\leq\tilde{B}_\star$, $B_\star<1$ and $\tilde{B}_\star<1$ are sufficient certificates for the raw and transformed IC margins, respectively.
+\end{proof}
+
+The theorem states a scoped probabilistic improvement claim for a sufficient IC bound, not deterministic per-instance dominance of the exact IC score. Strict improvement is expected only in stylized regimes; the empirical boundary checks below identify where the theorem's direction survives and where theorem-level claims should stop.
 
 \section{Practical interpretation}
 
@@ -200,18 +255,18 @@ The closed-form theorem is intentionally conservative. The dissertation therefor
 
 \subsection{Construction of the empirical boundary package}
 
-All studies presented use controlled synthetic covariance families rather than one fixed observed dataset. That choice is deliberate. RQ2 is about mechanism, so direct control is needed over the dependence geometry that drives IC behavior. The baseline construction fixes an active support of size $s=4$ and begins with one inactive feature. The active block is equicorrelated with parameter $\rho_{\text{active}}$, and the inactive-active coupling is controlled by a multiplier $c$, which induces
-\[
+All studies presented use controlled synthetic covariance families rather than one fixed observed dataset. That choice is deliberate. RQ2 is about mechanism, so direct control is needed over the dependence geometry that drives IC behavior. The baseline construction fixes an active support of size $s=4$ (except in the case of the heat map in figure \ref{fig:rq2_ic_heatmaps}, in which case $s$ is expanded to 25 in order to remain consistent with the HAI dataset that is plotted over it) and begins with one inactive feature. The active block is equicorrelated with parameter $\rho_{\text{active}}$, and the inactive-active coupling is controlled by a multiplier $c$, which induces
+\begin{equation}\label{eq:rq2-boundary-cross-correlation-scaling}
 \rho_{\text{cross}} = \operatorname{sign}(\rho_{\text{active}})\, c\sqrt{\frac{1+(s-1)\rho_{\text{active}}}{s}}.
-\]
+\end{equation}
 This scaling keeps the covariance construction positive definite while making it possible to increase off-support leakage strength systematically.
 
 For each $(\rho_{\text{active}}, c)$ configuration, the comparison draws multivariate Gaussian samples, constructs both the raw design and the zero-threshold sign-binarized design, estimates their sample correlation matrices, and evaluates the empirical IC proxy
-\[
+\begin{equation}\label{eq:rq2-boundary-ic-proxy}
 \theta_i = \left| \mathbf{c}_i G^{-1}\mathbf{1}\right|,
 \qquad
 \Theta = \max_{i\in S^c}\theta_i,
-\]
+\end{equation}
 where $G$ is the active-block sample correlation matrix, $\mathbf{c}_i$ is the correlation vector between inactive feature $i$ and the active block, and $\mathbf{1}$ is a fixed positive sign vector used as a simplified stand-in for $\operatorname{sign}(\boldsymbol{\beta}_S)$. A pseudoinverse is used for numerical robustness near poorly conditioned settings. The baseline sweep uses $n=6000$ samples and five random seeds; the harder cross-scale maps use $n=5000$ and three seeds per grid point; the inactive-count stress test uses $n=5000$ and five seeds while increasing the inactive pool from $1$ to $10$ at fixed $s=4$ relevant (active) features; and the threshold-bridge and complement studies use $250000$ draws so that threshold-placement effects are not dominated by Monte Carlo noise.
 
 These calculations still inherit simplifying assumptions and should be read accordingly:
@@ -244,15 +299,24 @@ One limitation of Figure \ref{fig:rq2_ic_sweep} is intentional: it uses a modera
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=\textwidth]{Figures/boundary_ic_stress_heatmaps.png}
-    \caption[RQ2 harder IC boundary heatmaps.]{Harder IC boundary maps over active-block correlation and inactive-active coupling. The top row shows mean $\Theta$ and the white contour marks the operative failure boundary $\Theta=1$. The bottom row reports the empirical safe frequency $P(\Theta<1)$. The dashed horizontal line marks the baseline coupling slice used in Figure \ref{fig:rq2_ic_sweep}. Rectification pushes the failure boundary outward but does not eliminate failure.}
+    \caption[RQ2 harder IC boundary heatmaps.]{Harder IC boundary maps over active-block correlation and inactive-active coupling. The top row shows mean $\Theta$ and the white contour marks the operative failure boundary $\Theta=1$. The bottom row reports the empirical safe frequency $P(\Theta<1)$. Rectification pushes the failure boundary outward but does not eliminate failure. }
     \label{fig:rq2_ic_heatmaps}
 \end{figure}
 
-Figure \ref{fig:rq2_ic_heatmaps} addresses the most important objection to the baseline sweep: perhaps the original coupling level was simply too mild. The heatmaps vary both $\rho_{\text{active}}$ and $c_{\times}$ and therefore expose the actual rectified failure boundary. The top row shows mean $\Theta$ itself. In these panels, the white contour is the operational threshold $\Theta=1$. Everything below that contour is IC-favorable in the proxy sense, and everything above it is not. The visual comparison is therefore direct: the method with the larger dark region below the white contour retains IC favorability over more of the parameter space.
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=\textwidth]{Figures/boundary_ic_hai_a2_rectified_calibrated_heatmaps.png}
+	\caption[RQ2 harder IC boundary heatmaps with HAI overlay.]{Harder IC boundary maps over active-block correlation and inactive-active coupling expanded to s=25 and with the HAI data included. As with figure \ref{fig:rq2_ic_heatmaps}, the top row shows mean $\Theta$ and the white contour marks the operative failure boundary $\Theta=1$. The bottom row reports the empirical safe frequency $P(\Theta<1)$. The box-plot overlay shows the real-world HAI dataset, and illustrates the effect of the process of binarization. }
+	\label{fig:rq2_ic_heatmaps_w_hai}
+\end{figure}
+
+Figure \ref{fig:rq2_ic_heatmaps} addresses the most important objection to the baseline sweep: perhaps the original coupling level was simply too mild. The heatmaps vary both $\rho_{\text{active}}$ and $c$ (the cross-scale factor) and therefore expose the actual rectified failure boundary. The top row shows mean $\Theta$ itself. In these panels, the white contour is the operational threshold $\Theta=1$. Everything below that contour is IC-favorable in the proxy sense, and everything above it is not. The visual comparison is therefore direct: the method with the larger dark region below the white contour retains IC favorability over more of the parameter space.
 
 The raw and rectified maps differ in exactly the way the theorem suggests. At $\rho_{\text{active}}=0.00$, raw $\Theta$ first crosses $1$ at $c=0.50$, whereas rectified $\Theta$ does not cross until $c=0.80$. At $\rho_{\text{active}}=0.20$, the crossings shift from $0.65$ to $0.85$. At $\rho_{\text{active}}=0.60$, they move from $0.85$ to $0.95$. The meaning of those numbers is concrete: rectification allows a stronger inactive-active coupling before the IC proxy breaks. The lower row restates the same fact as a frequency statement rather than a contour statement. The rectified safe region is not flat at $1.0$ anymore; it shrinks as coupling grows. That is exactly the right result for a scoped mechanism claim, because it shows boundary displacement rather than universal dominance.
 
 The negative side remains useful but must be described carefully. At $\rho_{\text{active}}=-0.20$, raw $\Theta$ crosses near $c=0.45$, while rectified $\Theta$ waits until about $0.80$. This still suggests that the transformed representation can be empirically less fragile, but Figure \ref{fig:rq2_ic_heatmaps} should not be cited as extending the theorem into the negative regime. It should be cited as evidence that the empirical boundary is asymmetric and that negative-side behavior must be framed as stress-test evidence rather than theorem-level support.
+
+Modifying the heatmap so that it includes an overlay of the HAI data in figure \ref{fig:rq2_ic_heatmaps_w_hai}, we can see that during binarization, relevant features become more event-aligned, which makes them more similar to each other, while non-relevant features become less event-aligned with their relevant counterparts. This has the effect of pushing the Active-block rho to the right, and increasing the margin to the 1.0 theta contour. Hence, the selected support lives in a more favorable region of that boundary map.
 
 \subsection{Inactive-pool scaling: the maximum over inactive features matters}
 

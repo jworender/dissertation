@@ -55,16 +55,19 @@ The resulting data set contains bounded continuous sensor-like measurements, kno
 \achapter{Lemmas}
 
 \section{Lemma 1}
-The relationship between the pre-binarization correlation ($ \rho $), and the post binarization correlation ($ \tilde{\rho} $) for \textbf{standard normal} random variables is:
+\begin{lemma}[Arcsin correlation map]\label{lem:app-arcsin-correlation-map}
+For jointly standard normal random variables thresholded at zero, the relationship between the pre-binarization correlation $ \rho $ and the post-binarization correlation $ \tilde{\rho} $ is the classical arcsine relation \cite{WFSheppard1899Application}:
 
-\[
-\tilde{\rho} = \frac{2}{\pi} \arcsin(\rho)\\
-\]
+\begin{equation}\label{eq:app-lemma1-arcsin-map}
+\tilde{\rho} = \frac{2}{\pi} \arcsin(\rho)
+\end{equation}
+\end{lemma}
 
-\textbf{Step 1. }
-\textit{Basic definitions.}
+The following derivation is included for the reader's convenience and is written in notation consistent with this dissertation. It follows the same median-classification argument underlying Sheppard's classical result \cite{WFSheppard1899Application}.
 
-Let $ X $ and $ Y $ be \textbf{standard normal} random variables with:
+\noindent\textbf{Assumptions.}
+
+Let $ X $ and $ Y $ be jointly standard normal random variables with:
 
 \begin{itemize}
 	\setlength\itemsep{-0.5em} % Adjust the spacing
@@ -73,12 +76,9 @@ Let $ X $ and $ Y $ be \textbf{standard normal} random variables with:
 	\item \textbf{Correlation:} $ \text{Corr}(X, Y) = \rho$, where $ -1 \leq \rho \leq 1 $
 \end{itemize}		
 
-\textbf{Step 2. }	
-\textit{Define the Binarized Variables.}
+The variables are binarized using threshold zero:
 
-We binarize $ X $ and $ Y $ using the threshold zero:
-
-\[
+\begin{equation}\label{eq:app-lemma1-binarized-variables}
 \tilde{X} = \begin{cases}
 	1 & \text{if } X > 0 \\
 	0 & \text{if } X \leq 0
@@ -88,12 +88,10 @@ We binarize $ X $ and $ Y $ using the threshold zero:
 	1 & \text{if } Y > 0 \\
 	0 & \text{if } Y \leq 0
 \end{cases}
-\]
+\end{equation}
 This $0/1$ encoding is affine-equivalent to the $\{\pm1\}$ sign encoding used in the RQ2 chapter; after centering, the correlation-ordering arguments are unchanged up to constant scaling.
 
-\textbf{Step 3. }
-\textit{Calculate Means and Variances of Binarized Variables.}
-
+\begin{proof}
 Since $ X $ and $ Y $ are symmetric about zero:
 
 \begin{itemize}
@@ -103,32 +101,23 @@ Since $ X $ and $ Y $ are symmetric about zero:
 	\item Similarly for $ \tilde{Y} : E[\tilde{Y}] = 0.5, \quad \text{Var}(\tilde{Y}) = 0.25 $
 \end{itemize}
 
-\textbf{Step 4. }
-\textit{Express the Correlation Between Binarized Variables.}
-
 The correlation $ \tilde{\rho} $ between $ \tilde{X} $ and $ \tilde{Y} $ is:
 
-\[
+\begin{equation}\label{eq:app-lemma1-binarized-correlation-definition}
 \tilde{\rho} = \frac{E[\tilde{X} \tilde{Y}] - E[\tilde{X}] E[\tilde{Y}]}{\sqrt{\text{Var}(\tilde{X}) \text{Var}(\tilde{Y})}} = 4 \left( P(\tilde{X} = 1, \tilde{Y} = 1) - 0.25 \right)
-\]
-
-\textbf{Step 5. }
-\textit{Define the probabilities.}
+\end{equation}
 
 Since $ X $ and $ Y $ are assumed to be jointly normally distributed, $ P(\tilde{X} = 1, \tilde{Y} = 1) $ can be expressed using the \textbf{bivariate standard normal cumulative distribution function (CDF)}.
 
-\[
+\begin{equation}\label{eq:app-lemma1-positive-quadrant-probability}
 P(\tilde{X} = 1, \tilde{Y} = 1) = P(X > 0, Y > 0)
-\]
+\end{equation}
 
-\textbf{Step 6. }
-\textit{Use the Bivariate Normal CDF.}
+For standard normal variables $ X $ and $ Y $ with correlation $ \rho $, the bivariate normal quadrant identity holds \cite{WFSheppard1899Application}:
 
-For standard normal variables $ X $ and $ Y $ with correlation $ \rho $ an expression of the \textit{Gaussian Copula Formula} holds \cite{WFeller1991Introduction}:
-
-\[
+\begin{equation}\label{eq:app-lemma1-gaussian-orthant-probability}
 P(X > 0, Y > 0) = \frac{1}{4} + \frac{\arcsin(\rho)}{2\pi}
-\]
+\end{equation}
 
 Explanation:
 \begin{itemize}
@@ -137,26 +126,29 @@ Explanation:
 	\item The term $ \arcsin(\rho) $ arises from integrating the bivariate normal density over this quadrant.
 \end{itemize}
 
-\textbf{Step 7. }	
-\textit{Substitute Back to Find $ \tilde{\rho} $.}
-
-\[
+Substituting this quadrant probability into the binarized correlation expression gives:
+\begin{equation}\label{eq:app-lemma1-arcsin-substitution}
 \tilde{\rho} = 4 \left( \frac{1}{4} + \frac{\arcsin(\rho)}{2\pi} - 0.25 \right)
 = \frac{2}{\pi} \arcsin(\rho)
-\]
+\end{equation}
+\end{proof}
+
+\noindent\textbf{Closing.}
+Thus, zero-threshold binarization maps the original Gaussian correlation to the arcsine-transformed correlation in Equation \ref{eq:app-lemma1-arcsin-map}.
 
 \section{Lemma 2}
 
-\[
+\begin{lemma}[Correlation contraction]\label{lem:app-correlation-contraction}
+Under the assumptions of Lemma \ref{lem:app-arcsin-correlation-map}, zero-threshold binarization does not increase the absolute pairwise correlation:
+
+\begin{equation}\label{eq:app-lemma2-correlation-contraction}
 | \tilde{\rho} | \leq | \rho |
-\]	
+\end{equation}	
+\end{lemma}
 
-Interpretation:
-Using the result of Lemma 1, the ratio $ \frac{\tilde{\rho}}{\rho} = \frac{2}{\pi\rho} \arcsin(\rho) $ is always less than one for $ \rho $ in the interval $ (-1,1) $ except at $ \rho = \pm{1} $ where the ratio is equal to one.
+\noindent\textbf{Assumptions.}
 
-\textbf{Step 1}
-
-Properties of the Arcsine ($ sin^{-1}$) Function:
+Assume $ -1 \leq \rho \leq 1 $ and use the arcsine map from Lemma \ref{lem:app-arcsin-correlation-map}. The needed properties of the arcsine function are:
 
 \begin{itemize}
 	\setlength\itemsep{-0.5em} % Adjust the spacing
@@ -165,9 +157,9 @@ Properties of the Arcsine ($ sin^{-1}$) Function:
 	\item The function $ \arcsin(x) $ is \textbf{increasing} on $ [-1, 1] $.
 \end{itemize}
 
-\textbf{Step 2}
+\begin{proof}
 
-We can consider $ \rho $ in one of three intervals:
+It is sufficient to consider $ \rho $ in one of three intervals:
 \begin{itemize}
 	\setlength\itemsep{-0.5em} % Adjust the spacing
 	\item [1.] $ \rho = 0 $
@@ -175,222 +167,146 @@ We can consider $ \rho $ in one of three intervals:
 	\item [3.] $ -1 < \rho < 0 $	
 \end{itemize}
 
-\textbf{Step 3 (Case 1: $ \rho = 0 $)}
+When $ \rho = 0 $, $ \arcsin(0) = 0 $, so $ \tilde{\rho} = 0 $ and the desired inequality holds. The ratio is indeterminate at zero, but its limiting value is $ 2/\pi $ because $ \arcsin(\rho) \approx \rho $ as $ \rho \to 0 $.
 
-{
-	\small
-	\begin{itemize}
-		\setlength\itemsep{-0.1em} % Adjust the spacing
-		\item $ \arcsin(0) = 0 $
-		\item The ratio becomes indeterminate ($ \frac{0}{0} $), but we can consider the limit as $ \rho \to 0 $.
-		\item As $ \rho \to 0 $, $ \arcsin(\rho) \approx \rho $ (using the first-order Taylor expansion).
-		\item Therefore, $ \frac{\tilde{\rho}}{\rho} \approx \frac{2}{\pi \rho} \cdot \rho = \frac{2}{\pi} \approx 0.6366 $.
-	\end{itemize}
-}
+For $ 0 < \rho < 1 $, both $ \rho $ and $ \arcsin(\rho) $ are positive. Define the ratio function:
 
-\textbf{Step 4 (Case 2: $ 0 < \rho < 1 $)}
-
-Both $ \rho $ and $ \arcsin(\rho) $ are positive.
-
-Define the function:
-
-\[
+\begin{equation}\label{eq:app-lemma2-ratio-function}
 f(\rho) = \frac{2}{\pi \rho} \arcsin(\rho)
-\]
+\end{equation}
 
-We need to show that $ f(\rho) < 1 $ for $ 0 < \rho < 1 $.
+For $ 0 < \rho < 1 $, $ \arcsin(\rho) < \frac{\pi}{2} \rho $. This inequality holds because the function $ \arcsin(\rho) $ is strictly convex on $ (0, 1) $, and its graph lies below the straight line $ y = \frac{\pi}{2} \rho $ \cite{JOrender2025Efficient}. Therefore, $ f(\rho) < 1 $ for all $ 0 < \rho < 1 $.
 
-For $ 0 < \rho < 1 $: $ \arcsin(\rho) < \frac{\pi}{2} \rho $
+For $ -1 < \rho < 0 $, both $ \rho $ and $ \arcsin(\rho) $ are negative, so $ \tilde{\rho}/\rho $ is positive. In this interval, $ \arcsin(\rho) > \frac{\pi}{2} \rho $; dividing by the negative value $ \rho $ reverses the inequality and again gives $ f(\rho) < 1 $. At the endpoints, $ \arcsin(-1) = -\frac{\pi}{2} $ and $ \arcsin(1) = \frac{\pi}{2} $, so the ratio is equal to one only when $ \rho = \pm 1 $.
 
-This inequality holds because of the well known result that the function $ \arcsin(\rho) $ is \textbf{strictly convex} on $ (0, 1) $, and its graph lies below the straight line $ y = \frac{\pi}{2} \rho $ \cite{JOrender2025Efficient}. 
-
-Therefore: $ f(\rho) < 1 $ for all $ 0 < \rho < 1 $.
-
-\textbf{Step 5 (Case 3: $ -1 < \rho < 0 $)}
-
-{
-	\small
-	\begin{itemize}
-		\setlength\itemsep{-0.25em} % Adjust the spacing		
-		\item When $ \rho $ is negative $ \arcsin(\rho) $ is negative, also implying that $\tilde{\rho}$ is negative.
-		\item The ratio $ \frac{\tilde{\rho}}{\rho} $ is therefore positive because a negative divided by negative is positive.
-		\item Since $ \arcsin(\rho) $ is negative and increasing from $ -\frac{\pi}{2} $ to $ 0 $ as $ \rho $ increases from $ -1 $ to $ 0 $, we can use logic similar to Case 2.
-		\item Compute the Limit as $ \rho \to -1^+ $.
-		\item $ \arcsin(-1) = -\frac{\pi}{2} $
-		\item $ f(-1) = \frac{2}{\pi \times (-1)} \times \left( -\frac{\pi}{2} \right ) = 1 $
-		\item For $ -1 < \rho < 0 $: $ \arcsin(\rho) > \frac{\pi}{2} \rho $
-	\end{itemize}
-}
-
-(using the same logic as in case 2, except that the signs are opposite) 
-
-$ f(\rho) < 1 $ for all $ -1 < \rho < 0 $.
-
-\textbf{Step 6}
-
-{
-	\small
-	\begin{itemize}
-		\setlength\itemsep{-0.25em} % Adjust the spacing
-		\item The ratio $ \frac{\tilde{\rho}}{\rho} = \frac{2}{\pi \rho} \arcsin(\rho) $ is \textbf{less than one} for all $ \rho $ in $ (-1, 1) $.
-		\item The ratio equals \textbf{one only when} $ \rho = 1 $ or $ \rho = -1 $.
-		\item Therefore, \textbf{the ratio is always less than or equal to one}.
-		\item Furthermore, since $\tilde{\rho}$ will always have the same sign as $ \rho $, the magnitude of $\tilde{\rho}$ will always be less than the magnitude of $ \rho $
-	\end{itemize}
-}
-
-\[
+\begin{equation}\label{eq:app-lemma2-final-correlation-contraction}
 | \tilde{\rho} | \leq | \rho |
-\]
+\end{equation}
+\end{proof}
 
-\textbf{Implications}
-
-{
-	\small
-	\begin{itemize}
-		\item Under this result, binarization reduces or at worst preserves correlation - never inflates it beyond its original absolute value.  That is, for any pair of binarized features, the magnitude of correlation coefficient $ \tilde{\rho} $ is strictly less than the original $ \rho $, except at $ \pm 1 $ where they are equal.
-		\item This result effectively keeps all off-diagonal correlations from saturating to exactly $ \pm 1 $ when no column is an exact multiple of another.
-		\item If all off-diagonal entries of a correlation matrix are strictly bounded away from $ \pm 1 $, then the matrix's smallest eigenvalue $ \lambda_{min} (R)$ is always positive \cite{RAHorn2012Matrix}.
-		\item Therefore, $ R^{-1} $ is well-defined and has a finite spectral norm bound given by: \\  $ \|R^{-1}\|_2 \leq \frac{1}{\lambda_{min}(R)} $.
-		\item Hence, the boundedness of $ R^{-1} $ is implied when $ |\tilde{\rho}| \leq |\rho| $ and $ \tilde{\rho} \neq \pm 1 $ and the entire correlation matrix must be invertible, with binarization universally enhancing its conditioning for more stable inversion in practice.
-		\item Thus, a matrix-level corollary can be extended from the pairwise-level bound shown above. Both statements reinforce the same theme: binarization controls correlations and preserves invertibility in a way beneficial to sparse regression methods like LASSO.
-	\end{itemize}
-}
+\noindent\textbf{Closing.}
+Binarization therefore reduces or preserves pairwise correlation magnitude and provides the pairwise contraction result used by the matrix-level RQ2 argument.
 
 \section{Lemma 3}
 
-\[
+\begin{lemma}[Inactive-active covariance contraction]\label{lem:app-covariance-contraction}
+For any irrelevant feature $ x_{{S^c}i} \in X_{S^c} $ and relevant feature $ x_{Sj} \in X_S $, zero-threshold binarization satisfies
+
+\begin{equation}\label{eq:app-lemma3-covariance-contraction}
 \left| \operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) \right| \leq \left| \operatorname{Cov}(x_{{S^c}i}, x_{Sj}) \right|
-\]
+\end{equation}
+\end{lemma}
 
-Interpretation: Binarization reduces the covariance between features for any irrelevant feature $ x_{{S^c}i} \in X_{S^c} $ and relevant feature $ x_{Sj} \in X_S $.
-
-\textbf{Review of Assumptions:}
+\noindent\textbf{Assumptions.}
 
 \begin{itemize}
 	\item [1.] \textbf{Joint Normality:} The continuous features $ x_{{S^c}i} $ and $ x_{Sj} $ are jointly normally distributed with zero means and unit variances:
-	\[
+	\begin{equation}\label{eq:app-lemma3-standard-normal-assumption}
 	x_{{S^c}i}, x_{Sj} \sim \mathcal{N}(0, 1)
-	\]
+	\end{equation}
 	
 	and correlation $ \rho_{ij} = \operatorname{Corr}(x_{{S^c}i}, x_{Sj}) $.
 	
 	\item [2.] \textbf{Binarization at Zero Threshold} -  The binarized variables are defined as:
-	\[
+	\begin{equation}\label{eq:app-lemma3-binarization-definition}
 	\tilde{X}_k = \begin{cases}
 		1 & \text{if } X_k > 0 \\
 		0 & \text{if } X_k \leq 0
 	\end{cases}, \quad k = i, j
-	\]
+	\end{equation}
 \end{itemize}	
 
-\textbf{Step 1}
-
+\begin{proof}
 The covariance between $ x_{{S^c}i} $ and $ x_{Sj} $ is:
 
-\[
+\begin{equation}\label{eq:app-lemma3-raw-covariance}
 \operatorname{Cov}(x_{{S^c}i}, x_{Sj}) = \rho_{ij} \cdot \sigma_{x_{{S^c}i}} \sigma_{x_{Sj}} = \rho_{ij} \cdot (1)(1) = \rho_{ij}
-\]
-
-\textbf{Step 2}
+\end{equation}
 
 The covariance between $ \tilde{x}_{{S^c}i} $ and $ \tilde{x}_{Sj} $ is:
 
-\[
+\begin{equation}\label{eq:app-lemma3-binarized-covariance-definition}
 \operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) = \mathbb{E}[\tilde{x}_{{S^c}i} \tilde{x}_{Sj}] - \mathbb{E}[\tilde{x}_{{S^c}i}] \mathbb{E}[\tilde{x}_{Sj}]
-\]
+\end{equation}
 
 Since $ x_{{S^c}i} $ and $ x_{Sj} $ are symmetric about zero:
 
-\[
+\begin{equation}\label{eq:app-lemma3-binarized-means}
 \mathbb{E}[\tilde{x}_{{S^c}i}] = P(x_{{S^c}i} > 0) = \frac{1}{2}, \quad \mathbb{E}[\tilde{x}_{Sj}] = \frac{1}{2}
-\]
+\end{equation}
 
 Compute the joint probability:
 
-\[
+\begin{equation}\label{eq:app-lemma3-joint-expectation}
 \mathbb{E}[\tilde{x}_{{S^c}i} \tilde{x}_{Sj}] = P(x_{{S^c}i} > 0, x_{Sj} > 0)
-\]
+\end{equation}
 
-For jointly standard normal variables, this joint probability is given by \cite{WFeller1991Introduction}:
+For jointly standard normal variables, this joint probability is given by the same bivariate normal quadrant identity \cite{WFSheppard1899Application}:
 
-\[
+\begin{equation}\label{eq:app-lemma3-joint-probability}
 P(x_{{S^c}i} > 0, x_{Sj} > 0) = \frac{1}{4} + \frac{\arcsin(\rho_{ij})}{2\pi}
-\]
+\end{equation}
 
 Therefore, the covariance is:
 
-\[
+\begin{equation}\label{eq:app-lemma3-binarized-covariance-result}
 \operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) = \left( \frac{1}{4} + \frac{\arcsin(\rho_{ij})}{2\pi} \right) - \left( \frac{1}{2} \cdot \frac{1}{2} \right) = \frac{\arcsin(\rho_{ij})}{2\pi}
-\]
-
-\textbf{Step 2}
-
-\textit{Comparing Covariances Before and After Binarization}
+\end{equation}
 
 We need to show that:
 
-\[
+\begin{equation}\label{eq:app-lemma3-arcsin-bound-goal}
 \left| \frac{\arcsin(\rho_{ij})}{2\pi} \right| \leq |\rho_{ij}|
-\]
+\end{equation}
 
-Case 1: When $ \rho_{ij} \geq 0 $
-
-The function $ f(\rho) = \frac{\arcsin(\rho)}{2\pi} $ is increasing in $ [0, 1] $.
-Since $ \arcsin(\rho) \leq \frac{\pi}{2} $, we have:
-\[
+When $ \rho_{ij} \geq 0 $, the function $ f(\rho) = \frac{\arcsin(\rho)}{2\pi} $ is increasing on $ [0, 1] $. Since $ \arcsin(\rho) \leq \frac{\pi}{2} $, we have:
+\begin{equation}\label{eq:app-lemma3-positive-arcsin-bound}
 0 \leq \frac{\arcsin(\rho_{ij})}{2\pi} \leq \frac{1}{4}
-\]
+\end{equation}
 
 Also, $ \rho_{ij} \leq 1 $, so:
 
-\[
+\begin{equation}\label{eq:app-lemma3-positive-covariance-bound}
 0 \leq \frac{\arcsin(\rho_{ij})}{2\pi} \leq \rho_{ij}
-\]
+\end{equation}
 
 because $ \arcsin(\rho_{ij}) \leq \frac{\pi}{2} \rho_{ij} $ in $ [0, 1] $.
 
-\textbf{Step 3}
+When $ \rho_{ij} \leq 0 $, the function $ f(\rho) = \frac{\arcsin(\rho)}{2\pi} $ is increasing on $ [-1, 0] $. Since $ \arcsin(\rho_{ij}) \geq -\frac{\pi}{2} $, we have:
 
-Case 2: When $ \rho_{ij} \leq 0 $
-
-The function $ f(\rho) = \frac{\arcsin(\rho)}{2\pi} $ is increasing in $ [-1, 0] $.
-Since $ \arcsin(\rho_{ij}) \geq -\frac{\pi}{2} $, we have:
-
-\[
+\begin{equation}\label{eq:app-lemma3-negative-arcsin-bound}
 -\frac{1}{4} \leq \frac{\arcsin(\rho_{ij})}{2\pi} \leq 0
-\]
+\end{equation}
 
 Also, $ \rho_{ij} \geq -1 $, so:
 
-\[
+\begin{equation}\label{eq:app-lemma3-negative-covariance-bound}
 \rho_{ij} \leq \frac{\arcsin(\rho_{ij})}{2\pi} \leq 0
-\]
+\end{equation}
 
 because $ \arcsin(\rho_{ij}) \geq \frac{\pi}{2} \rho_{ij} $ in $ [-1, 0] $.
 
 Therefore, in both cases:
 
-\[
+\begin{equation}\label{eq:app-lemma3-final-covariance-contraction}
 \left| \operatorname{Cov}(\tilde{x}_{{S^c}i}, \tilde{x}_{Sj}) \right| = \left| \frac{\arcsin(\rho_{ij})}{2\pi} \right| \leq |\rho_{ij}| = \left| \operatorname{Cov}(x_{{S^c}i}, x_{Sj}) \right|
-\]
+\end{equation}
+\end{proof}
 
-
-\textbf{Conclusion}
-
+\noindent\textbf{Closing.}
 The magnitude of the covariance between $ \tilde{x}_{{S^c}i} $ and $ \tilde{x}_{Sj} $ is less than or equal to the magnitude of the covariance between $ x_{{S^c}i} $ and $ x_{Sj} $. Therefore, binarization reduces the covariances between irrelevant and relevant features.
 
 \section{Lemma 4}
 
-When $ \tilde{\rho} $ and $ \rho > 0 $,
+\begin{lemma}[Positive-correlation inverse norm bound]\label{lem:app-inverse-norm-bound}
+When $ 0 < \tilde{\rho} < \rho < 1 $,
 
-\[
+\begin{equation}\label{eq:app-lemma4-inverse-norm-goal}
 \|\tilde{G}^{-1}\|_\infty \leq  \|G^{-1}\|_\infty 
-\]
+\end{equation}
+\end{lemma}
 
-Interpretation: The Infinity norm of the binarized matrix is less than or equal to the Infinity norm of the original continuous matrix. 
-
-\textbf{Definitions:}
+\noindent\textbf{Assumptions.}
 
 {
 	\small
@@ -403,24 +319,22 @@ Interpretation: The Infinity norm of the binarized matrix is less than or equal 
 	\end{itemize}
 }
 
-\textbf{Step 1}	
-
-Original Gram Matrix:
-\[
+The original Gram matrix is:
+\begin{equation}\label{eq:app-lemma4-raw-gram}
 G = n \left( (1 - \rho) \mathbf{I}_s + \rho \mathbf{J}_s \right)
-\]
+\end{equation}
 
-Binarized Gram Matrix:
-\[
+The binarized Gram matrix is:
+\begin{equation}\label{eq:app-lemma4-binarized-gram}
 \tilde{G} = n \left( (1 - \tilde{\rho}) \mathbf{I}_s + \tilde{\rho} \mathbf{J}_s \right)
-\]
+\end{equation}
 
-Inverse of $ G $ and $\tilde{G}$:
+\begin{proof}
 
 First, rewrite $ G $ as
-\[
+\begin{equation}\label{eq:app-lemma4-scaled-raw-gram}
 G = n (1 - \rho) \left( \mathbf{I}_s + \frac{\rho}{1 - \rho} \mathbf{J}_s \right)
-\]
+\end{equation}
 
 Let $ \alpha = \dfrac{\rho}{1 - \rho} $.
 
@@ -429,9 +343,9 @@ Compute $ ( \mathbf{I}_s + \alpha \mathbf{J}_s )^{-1} $:
 \begin{itemize}
 	\item Observation: $ \mathbf{J}_s $ is rank-1.
 	\item Sherman-Morrison-Woodbury formula for the inverse:
-	\[
+	\begin{equation}\label{eq:app-lemma4-sherman-morrison-woodbury}
 	(\mathbf{A} + \mathbf{U}\mathbf{C}\mathbf{V}^T)^{-1} = \mathbf{A}^{-1} - \mathbf{A}^{-1}\mathbf{U}(\mathbf{C}^{-1} + \mathbf{V}^T\mathbf{A}^{-1}\mathbf{U})^{-1}\mathbf{V}^T\mathbf{A}^{-1}
-	\]
+	\end{equation}
 	\setlength\itemsep{-0.25em} % Adjust the spacing
 	\item $\mathbf{A} = \mathbf{I}_s \Rightarrow \mathbf{A}^{-1} = \mathbf{I}_s$
 	\item $\mathbf{U} = \mathbf{V} = \mathbf{1}_s$
@@ -441,30 +355,28 @@ Compute $ ( \mathbf{I}_s + \alpha \mathbf{J}_s )^{-1} $:
 \end{itemize}
 
 For $\mathbf{I}_s + \alpha \mathbf{J}_s$:
-\[
+\begin{equation}\label{eq:app-lemma4-rank-one-inverse}
 (\mathbf{I}_s + \alpha \mathbf{J}_s)^{-1} = \mathbf{I}_s - \frac{\alpha}{1 + \alpha s}\mathbf{J}_s
-\]
+\end{equation}
 
 Therefore,
 
-\[
+\begin{equation}\label{eq:app-lemma4-raw-gram-inverse}
 G^{-1} = \frac{1}{n (1 - \rho)} \left( \mathbf{I}_s - \frac{\rho}{1 + \rho (s - 1)} \mathbf{J}_s \right)
-\]
+\end{equation}
 
 Similarly, for $\tilde{G}$:
-\[
+\begin{equation}\label{eq:app-lemma4-binarized-gram-inverse}
 \tilde{G}^{-1} = \frac{1}{n (1 - \tilde{\rho})} \left( \mathbf{I}_s - \frac{\tilde{\rho}}{1 + \tilde{\rho} (s - 1)} \mathbf{J}_s \right)
-\]
+\end{equation}
 
-\textbf{Step 2}
+The Infinity norm for matrices is defined as:
 
-Definition of Infinity Norm for Matrices:
-
-\[
+\begin{equation}\label{eq:app-lemma4-infinity-norm-definition}
 \|A\|_\infty = \max_{1 \leq i \leq s} \sum_{j=1}^{s} |a_{ij}|
-\]
+\end{equation}
 
-Compute Entries of $G^{-1}$:
+The entries of $G^{-1}$ are:
 
 \begin{itemize}
 	\item Diagonal Entries: $ (G^{-1})_{ii} = \frac{1}{n (1 - \rho)} \left( 1 - \gamma \right) $
@@ -474,41 +386,31 @@ Compute Entries of $G^{-1}$:
 Where:
 $ \gamma = \frac{\rho}{1 + \rho (s - 1)} $
 
-Compute the Row Sum for $G^{-1}$:
-
-
 Row Sum:
 
-\[
+\begin{equation}\label{eq:app-lemma4-raw-row-sum}
 \text{RowSum}_{G^{-1}} = \frac{1}{n (1 - \rho)} \left[ (1 - \gamma) + (s - 1) \gamma \right]
-\]
+\end{equation}
 
-Simplify the Row Sum:
+This row sum simplifies to:
 
-\[
-\text{RowSum}_{G^{-1}} = \frac{1}{n (1 - \rho)} \left[ 1 - \gamma + \gamma (s - 1) \right] \\
-% &= \frac{1}{n (1 - \rho)} \left[ 1 - \gamma + \gamma s - \gamma \right] \\
-% &= \frac{1}{n (1 - \rho)} \left[ 1 - 2\gamma + \gamma s \right] \\
-= \frac{1}{n (1 - \rho)} \left[ 1 + \gamma (s - 2) \right]
-\]
+\begin{equation}\label{eq:app-lemma4-raw-row-sum-simplified}
+\begin{aligned}
+\text{RowSum}_{G^{-1}}
+&= \frac{1}{n (1 - \rho)} \left[ 1 - \gamma + \gamma (s - 1) \right] \\
+&= \frac{1}{n (1 - \rho)} \left[ 1 + \gamma (s - 2) \right]
+\end{aligned}
+\end{equation}
 
 Where: $ \tilde{\gamma} = \frac{\tilde{\rho}}{1 + \tilde{\rho} (s - 1)} $
 
 Similarly:
 
-\[
+\begin{equation}\label{eq:app-lemma4-binarized-row-sum}
 \text{RowSum}_{\tilde{G}^{-1}} = \frac{1}{n (1 - \tilde{\rho})} \left[ 1 + \tilde{\gamma} (s - 2) \right]
-\]
+\end{equation}
 
-\textbf{Step 3}
-
-\textit{Establishing the Relationship between $\gamma$ and $\tilde{\gamma}$ }
-
-Define function $ f(x) = \frac{x}{1 + x (s - 1)} $
-
-Due to the monotonicity of f(x), when $ x_1 < x_2 $, $ f(x_1) < f(x_2) $
-
-It follows that:
+Define $ f(x) = \frac{x}{1 + x (s - 1)} $. Because $ f(x) $ is increasing on $\left(\frac{-1}{s-1}, 1\right)$, $ x_1 < x_2 $ implies $ f(x_1) < f(x_2) $. It follows that:
 
 {
 	\small
@@ -521,21 +423,15 @@ It follows that:
 	\end{itemize}
 }
 
-\textbf{Step 4}
-
-Comparing Row Sums:
-
 Since $|\gamma| \geq |\tilde{\gamma}|$ and $s - 2 \geq 0$ (because $s \geq 2$),
-\[
+\begin{equation}\label{eq:app-lemma4-gamma-order}
 \gamma (s - 2) \geq \tilde{\gamma} (s - 2) \text{ when } \gamma > 0
-\]
+\end{equation}
 
 Therefore,
-\[
+\begin{equation}\label{eq:app-lemma4-row-sum-order}
 1 + \gamma (s - 2) \geq 1 + \tilde{\gamma} (s - 2) \text{ when } \gamma > 0
-\]
-
-Comparing Denominators:
+\end{equation}
 
 Since $ |\tilde{\rho}| \leq |\rho| $,
 \begin{itemize}
@@ -543,32 +439,30 @@ Since $ |\tilde{\rho}| \leq |\rho| $,
 	\item $ 1 - \tilde{\rho} \leq 1 - \rho \Rightarrow \frac{1}{n (1 - \tilde{\rho})} \geq \frac{1}{n (1 - \rho)} $ when $ \tilde{\rho}, \rho < 0 $
 \end{itemize}
 
-\textbf{Step 5}
-
-\textit{Putting It All Together}
-
-Infinity Norms when $ \tilde{\rho}, \rho $ and $ \gamma > 0 $:
-\[
+The Infinity norms when $ \tilde{\rho}, \rho $ and $ \gamma > 0 $ are:
+\begin{equation}\label{eq:app-lemma4-raw-inverse-norm}
 \|G^{-1}\|_\infty = \frac{1}{n (1 - \rho)} \left[ 1 + \gamma (s - 2) \right]
-\]
+\end{equation}
 
-\[
+\begin{equation}\label{eq:app-lemma4-binarized-inverse-norm}
 \|\tilde{G}^{-1}\|_\infty = \frac{1}{n (1 - \tilde{\rho})} \left[ 1 + \tilde{\gamma} (s - 2) \right]
-\]
-
-\textbf{Conclusion}
+\end{equation}
 
 Since both terms examined in the expression for $ G^{-1} $ are greater than the corresponding terms in the expression for $ \tilde{G}^{-1} $ when $ \tilde{\rho}, \rho $ and $ \gamma $ are greater than zero,
-\[
+\begin{equation}\label{eq:app-lemma4-norm-order}
 \|G^{-1}\|_\infty \geq \|\tilde{G}^{-1}\|_\infty
-\]
+\end{equation}
 Furthermore, when $ s = 2 $ and $ \tilde{\rho}, \rho $ and $ \gamma $ are less than zero it can be shown that the reverse is guaranteed to be true. When $ s > 2 $ the answer is dependent upon where $\tilde{\rho}$ or $ \rho $ fall with respect to the interval $ \left[\frac{-1}{s-1}, 1 \right) $. When $ \rho $ is below the lower bound but $ \tilde{\rho} $ is above, the relative norm values will be ambiguous.  By constraining $ \rho $ and $ \tilde{\rho} $ to be greater than zero, the inequality is unambiguous.
 
 As a result, in the positive-correlation PoC regime, the derived inequality supports the IC-oriented matrix statement
-\[
+\begin{equation}\label{eq:app-lemma4-final-inverse-norm-bound}
 \|\tilde{G}^{-1}\|_\infty \leq \|G^{-1}\|_\infty.
-\]
-Combined with the corresponding inactive-active leakage contraction, this is the appendix-level basis for the weak probability claim in RQ2: sign binarization makes IC satisfaction at least as likely under the analyzed zero-threshold, jointly normal, positive-correlation conditions.
+\end{equation}
+\end{proof}
+
+\noindent\textbf{Closing.}
+
+\noindent Combined with the inactive-active leakage contraction, this supports the appendix-level weak probability claim in RQ2: sign binarization makes IC satisfaction at least as likely under the analyzed zero-threshold, jointly normal, positive-correlation conditions.
 
 The negative-correlation cases above should be read as boundary conditions rather than as an extension of the theorem. Their behavior depends on where $ \rho $ and $ \tilde{\rho} $ fall relative to the discontinuity at $ \frac{-1}{s-1} $, so they require empirical stress checks. Adding complement features is an engineering mitigation explored in those boundary checks: it can re-express some negative associations as positive ones, but it is not a theorem-level guarantee for arbitrary negative-correlation designs.
 

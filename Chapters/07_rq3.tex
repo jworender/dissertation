@@ -10,14 +10,26 @@ RQ1 and RQ2 establish two foundations: first, binarization plus sparse learning 
 
 This is important for longitudinal and event-focused domains where users need a concrete trigger logic rather than a dense weight vector. In healthcare monitoring, safety surveillance, and maintenance settings, end users often need to know which few conditions jointly trigger escalation, and they need that logic in a form that is stable under repeated deployment \autocite{wong2010longitudinal,hiploylee2017,shin2020}. In interpretability terms, this chapter focuses on the transition from post hoc explanations to inherently interpretable rule structure \autocite{CRudin2019Stop,WJMurdoch2019Definitions}.
 
-\section{Approach}
+\section{Motivation and Application Context}
 
-The RQ3 approach treats sparse fitting as an intermediate representation rather than as the final deployment artifact. Even when rectification improves support concentration, a weighted linear score with dozens of nonzero lag terms can still be too large for direct human use. The compression stage therefore starts from the active support recovered upstream and searches for a smaller explicit rule that preserves practical operating performance.
+The practical motivation for anytime rule compression is strongest in settings where decisions must be explained and audited quickly:
+\begin{enumerate}
+	\item Clinical and public-health monitoring: produce concise trigger logic for intervention review and cross-site validation in longitudinal streams \autocite{wong2010longitudinal,hiploylee2017}.
+	\item Safety and reliability operations: support transparent condition-based escalation when false negatives are costly and operators need explicit criteria.
+	\item Policy-facing analytics: convert technical models into rules stakeholders can inspect, challenge, and recalibrate without retraining a complex model stack.
+\end{enumerate}
+
+Across these settings, the benefit is not only readability. Compact rules also reduce implementation burden, simplify drift monitoring, and support deterministic replay during audits. The anytime mechanism then provides a tunable point on the complexity-performance frontier for each deployment constraint \autocite{JOrender2025Anytime,WJMurdoch2019Definitions}.
+
+\section{Method}
+
+We treat sparse fitting as an intermediate representation rather than as the final deployment artifact. Even when rectification improves support concentration, a weighted linear score with dozens of nonzero lag terms can still be too large for direct human use. The compression stage therefore starts from the active support recovered upstream and searches for a smaller explicit rule that preserves practical operating performance.
 
 This stage is part of the dissertation's method rather than an unrelated post-processing convenience. The sparse model creates a focused candidate set; logic polishing converts that candidate set into a form that humans can audit, challenge, implement, and monitor. The approach preserves the front-end efficiency of convex sparse learning while recovering a model form closer to how domain experts reason about triggers and deployment criteria.
 
 Given a rectified design matrix and an L1-regularized logistic model, the baseline predictor can be written as
 \begin{equation}
+\label{eq:rq3-rectified-logistic-baseline}
 \hat{p}(y_i=1 \mid \mathbf{x}_i)=\sigma\!\left(\beta_0+\sum_{j=1}^{p}\beta_j \tilde{x}_{ij}\right),
 \end{equation}
 where $\tilde{x}_{ij}$ is the binarized/rectified feature and $\beta_j$ is sparse due to the L1 penalty \autocite{tibshirani1996,fried2010,tay2023}. Let the active set be $\mathcal{A}=\{j:\beta_j\neq 0\}$. RQ3 starts from this fitted model and asks whether we can replace the full weighted sum with a smaller rule that preserves operating performance.
@@ -28,6 +40,7 @@ The compression idea is to map the active coefficients to a shared magnitude (lo
 
 The objective is to optimize a practical trade-off:
 \begin{equation}
+\label{eq:rq3-anytime-compression-objective}
 \max_{\text{rule complexity } C} \; J(C) \quad \text{subject to} \quad C \leq C_{\max},
 \end{equation}
 where $J$ is Youden's statistic ($J=\mathrm{TPR}+\mathrm{TNR}-1$), and complexity is represented by the number of retained conditions $k$ (and optionally the vote threshold $m$ in an $m$-of-$k$ rule) \autocite{JOrender2025Anytime}. Rather than commit to a single fixed complexity in advance, the anytime procedure scans candidate compressions along an ordered frontier. In the generic anytime framework, one may stop at the first prefix whose achieved $J$ falls within an application-defined tolerance of the baseline. In this dissertation, however, that generic tolerance idea is used only to nominate a candidate prefix from the training frontier; actual deployment is decided later by held-out non-inferiority gates.
@@ -119,17 +132,6 @@ RQ3 uses ``no material degradation'' in a practical, decision-oriented sense rat
 Rule-list and scoring-system approaches provide strong interpretability baselines, but they often optimize directly in combinatorial rule space with different scalability profiles \autocite{EAngelino2018Learning,CRudin2019Stop}. The anytime compression strategy differs by leveraging a sparse convex fit first, then performing structured compression in a constrained post-processing stage. This separation is useful when the rectified feature space is large and sparse optimization is already part of the workflow.
 
 The approach is also related to Logical Analysis of Data (LAD), particularly in its use of thresholded indicators and logical structure, but it targets a different optimization path and deployment interface \autocite{EBoros1997Logical,EBoros2000implementation}. In the context of this analysis, the criteria presented can be viewed as a bridge between sparse statistical learning and logic-level decision rules tailored to threshold-driven events \autocite{orender2022,JOrender2025Efficient}.
-
-\section{Motivation and Application Context}
-
-The practical motivation for anytime rule compression is strongest in settings where decisions must be explained and audited quickly:
-\begin{enumerate}
-	\item Clinical and public-health monitoring: produce concise trigger logic for intervention review and cross-site validation in longitudinal streams \autocite{wong2010longitudinal,hiploylee2017}.
-	\item Safety and reliability operations: support transparent condition-based escalation when false negatives are costly and operators need explicit criteria.
-	\item Policy-facing analytics: convert technical models into rules stakeholders can inspect, challenge, and recalibrate without retraining a complex model stack.
-\end{enumerate}
-
-Across these settings, the benefit is not only readability. Compact rules also reduce implementation burden, simplify drift monitoring, and support deterministic replay during audits. The anytime mechanism then provides a tunable point on the complexity-performance frontier for each deployment constraint \autocite{JOrender2025Anytime,WJMurdoch2019Definitions}.
 
 \section{Limitations and Scope}
 

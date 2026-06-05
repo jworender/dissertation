@@ -9,7 +9,14 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{placeins}
 \usepackage{tabularx}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
 % for MS thesis, replace diss with thesis
 % \usepackage[thesis]{odusci}
 
@@ -77,7 +84,7 @@
 %%%%% FRONT MATTER %%%%% 
 
 %% Abstract - maximum 350 words
-\abstract{High-dimensional longitudinal data arise in clinical monitoring, industrial control systems, and other sensor-driven domains where outcomes are often governed by threshold-and-lag behavior. Traditional longitudinal workflows frequently depend on expert guessing to nominate candidate variables, lag windows, and threshold hypotheses, followed by repeated hypothesis testing over a limited set of manually specified relationships. While such approaches can be useful in narrow settings, they are often less robust in high-dimensional regimes because important interactions may be missed, multicollinearity can destabilize inference, and the resulting process can be labor-intensive and difficult to scale. This dissertation develops an end-to-end framework for interpretable sparse longitudinal modeling that addresses these limitations through three stages: (i) critical-range rectification, which converts each lagged continuous measurement into a \{-1,+1\} indicator denoting whether it lies within a data-driven range observed during events; (ii) sparse model fitting using an L1-regularized logistic baseline on the rectified design; and (iii) anytime rule compression ("logic polishing"), which collapses small-magnitude coefficients to produce a compact m-of-K rule model tuned to maximize Youden's J at a chosen operating point. Studies on synthetic data with known ground-truth rules and on real-world datasets, including the HAI industrial control benchmark, show that rectification can improve feature-and-lag attribution, reduce false positives, and decrease end-to-end training time when the underlying event structure is threshold-and-lag aligned, while cross-domain audits also identify settings where those gains weaken or disappear. A tractable theoretical analysis uses the zero-threshold arcsin relation under joint normality to show how sign binarization can contract pairwise correlations, improve conditioning of the Gram matrix, and increase the likelihood of satisfying the LASSO irrepresentable condition. Beyond the prior papers, the dissertation adds repeated-resample stability and ablation, direct interpretable baselines, cross-domain audits, empirical boundary checks, and strict held-out compression validation. In controlled threshold-mediated settings, the compression phase cleanly recovers compact rule forms from the rectified sparse baseline. In real-world data, where threshold-triggered effects may be mixed with smoother additive structure and measurement uncertainty, the dissertation's compression contribution is the explicit decision policy itself: a policy-controlled frontier that provides an auditable basis for accepting or rejecting simplification.} 
+\abstract{High-dimensional longitudinal data arise in clinical monitoring, industrial control systems, and other sensor-driven domains where outcomes are often governed by threshold-and-lag behavior. Traditional longitudinal workflows frequently depend on expert guessing to nominate candidate variables, lag windows, and threshold hypotheses, followed by repeated hypothesis testing over a limited set of manually specified relationships. While such approaches can be useful in narrow settings, they are often less robust in high-dimensional regimes because important interactions may be missed, multicollinearity can destabilize inference, and the resulting process can be labor-intensive and difficult to scale. This dissertation develops an end-to-end framework for interpretable sparse longitudinal modeling that addresses these limitations through three stages: (i) critical-range rectification, which converts each lagged continuous measurement into a \{-1,+1\} indicator denoting whether it lies within a data-driven range observed during events; (ii) sparse model fitting using an L1-regularized logistic baseline on the rectified design; and (iii) anytime rule compression ("logic polishing"), which collapses small-magnitude coefficients to produce a compact m-of-K rule model tuned to maximize Youden's J at a chosen operating point. Studies on synthetic data with known ground-truth rules and on real-world datasets, including the HAI industrial control benchmark, show that rectification can improve feature-and-lag attribution, reduce false positives, and decrease end-to-end training time when the underlying event structure is threshold-and-lag aligned, while cross-domain audits also identify settings where those gains weaken or disappear. A tractable theoretical analysis uses the zero-threshold arcsin relation under joint normality to show how sign binarization can contract pairwise correlations, improve conditioning of the Gram matrix, and increase the likelihood of satisfying the LASSO irrepresentable condition. Beyond the prior papers, this work adds repeated-resample stability and ablation, direct interpretable baselines, cross-domain audits, empirical boundary checks, and strict held-out compression validation. In controlled threshold-mediated settings, the compression phase cleanly recovers compact rule forms from the rectified sparse baseline. In real-world data, where threshold-triggered effects may be mixed with smoother additive structure and measurement uncertainty, the dissertation's compression contribution is the explicit decision policy itself: a policy-controlled frontier that provides an auditable basis for accepting or rejecting simplification.} 
 
 %% Dedication - optional, 1 page max
 \dedication{I dedicate my dissertation to my wife Danielle.}
@@ -128,6 +135,7 @@
 %% Comment the lines below if you do not have any appendices
 \begin{Appendices}
 \include{Chapters/98_appendices} % First appendix file
+\include{Chapters/98_acronyms}
 % \include{Chapters/98_appendices2} % Second appendix file
 % You can add more .tex files as needed
 \end{Appendices}
