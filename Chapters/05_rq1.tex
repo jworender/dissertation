@@ -4,69 +4,19 @@
 
 RQ1 asks whether critical-range rectification can produce a stable sparse baseline with reliable feature and lag attribution in longitudinal settings. This chapter answers that question by showing where and why rectification improves sparse longitudinal selection.
 
-We create a rectification-first lasso logic framework and extending to later theory-backed case studies \autocites{orender2022,JOrender2025Efficient}. Across studies, the central empirical pattern is consistent: when the data generating process has threshold-and-lag structure, rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity pressure.
+This chapter develops the rectification-first lasso logic framework and extends it to later theory-backed case studies \autocites{orender2022,JOrender2025Efficient}. Across studies, the central empirical pattern is consistent: when the data-generating process has threshold-and-lag structure, rectification tends to improve support concentration, lag localization, and sparse-model usability under multicollinearity pressure.
 
-The chapter's main empirical case comes later. The synthetic studies test whether rectification improves exact-lag recovery and support stability under planted ground truth, the expanded baseline packages test whether that effect survives stronger comparators, and the real-world audits identify where the gains weaken or become protocol-sensitive. The toy example that follows the approach section is included as a local intuition bridge for that later evidence: it shows, in miniature, how a threshold-aligned representation can separate true trigger lags from correlated surrogates before the chapter turns to the full benchmark results.
+The organization is as follows: establish the sparse-selection problem, develop the critical-range logic engine from simple examples, formalize the fitted pipeline, evaluate it on simulated longitudinal data, and then test real-world applications. Additionally, this chapter will show: repeated-resample stability, stronger comparator packages, direct interpretable baselines, and cross-domain protocol audits. 
 
-\section{Method}
-
-First, two stages of the dissertation pipeline will be tested: lag-expanded critical-range rectification followed by sparse baseline fitting. Starting from longitudinal measurements, the method creates a supervised design matrix in which each column corresponds to a specific variable-lag pair. For each feature column, the rectifier estimates an event-associated range on training data only and converts the raw measurement into an indicator denoting whether that lagged measurement lies inside or outside the learned range. This produces a threshold-aligned representation before any sparse optimization is performed.
-
-The following algorithm formalizes the process described in pseudocode.
-
-\begin{algorithm}
-	\caption{Critical-Range Rectification and Sparse Baseline Fitting}
-	\begin{algorithmic}[1] % The [1] means every line is numbered
-		\Require $ \mathbf{X},y,\lambda $
-		\Ensure $ \mathbf{A},\hat{y},r_j \left[b,c\right] $
-		\State Let $ r_j \left[b,c\right] $ be the critical range for feature vector $ \mathbf{X_j} $ , where $ b $ is the minimum and $ c $ is maximum defining that range.
-		\Procedure{Binarization}{$ \mathbf{X},y $}
-		\State Find $ Z $ , which is the subset of $ \mathbf{X} $ for which $ y $ is one of the outcomes (which will be defined as TRUE),  $ Z \subseteq \mathbf{X} $ , where $ Z = \left\{ \mathbf{X} \vert y = \mathbf{TRUE} \right\} $
-		\State Compute $ r_{j=1..d} = \left[ min(Z_j), max(Z_j) \right] $ . 
-		\State Compute $ \mathbf{A} $ , the matrix of transformed feature columns, such that:
-		\Statex $ a_{ij} = 
-		\begin{cases}
-			+1 \text{ when } x_{ij} \geq r_j[b] \text{ and } x_{ij} \leq r_j[c] \\
-			-1 \text{ when } x_{ij} < r_j[b] \text{ or } x_{ij} > r_j[c]
-		\end{cases}
-		$
-		\EndProcedure
-		\State Finally, compute the LASSO solution on the transformed data:
-		\Statex $ \hat{y} = LASSO(\mathbf{A},y,\lambda) $
-	\end{algorithmic}
-	\label{alg:binarization}
-\end{algorithm}
+\section{Background and RQ1 Scope}
 
 The sparse learner is intentionally ordinary: an L1-regularized logistic model is fit on the rectified design and compared against a matched raw lag-expanded sparse baseline \autocites{tibshirani1996,fried2010,tay2023}. This keeps the empirical question focused. RQ1 is not asking whether a custom optimizer can be built for every longitudinal domain; it asks whether changing the representation makes a standard sparse learner recover more stable, lag-localized, and compact support under multicollinearity pressure. Nonzero coefficients in the rectified fit are therefore interpreted as candidate feature-lag triggers, subject to the stability, attribution, and held-out discrimination checks reported below.
 
 The diagnostic for using rectification is empirical. Rectification is a strong candidate when event windows repeatedly occupy relatively narrow one-sided or interval ranges at plausible lags, raw sparse supports drift across folds or nearby tuning values, the threshold has domain meaning, and a train-only pilot preserves held-out discrimination while improving support concentration, lag localization, or compactness. When no stable event ranges appear, when small threshold shifts produce large performance swings, or when the transformed model loses held-out performance without interpretability gains, RQ1 treats the raw or a hybrid representation as the correct branch rather than forcing rectification.
 
-\subsection{Worked HAI exemplar for the workflow}
+\section{Critical-Range Logic Engine}
 
-To make the branch logic concrete, the manuscript includes one executable worked example built from the HAI industrial-control benchmark used later in this chapter and in the RQ3 chapter. The accompanying notebook \path{notebooks/walkthrough.ipynb}, available with the manuscript artifacts in the dissertation repository, uses the custom-built \texttt{cutlass} Python package to run the full workflow on the HAI turbine-loop case \path{attack_p2 (a1)}: raw lag-expanded sparse baseline, train-only threshold-alignment pilot, branch selection, strict-policy anytime compression, and final deployment recommendation. The point of this exemplar is operational clarity rather than a separate scientific claim.
-
-Table \ref{tab:workflow_hai_exemplar} compresses the worked example into one page. On this case, the raw baseline reaches test AUC $0.949$ and $J=0.574$, while the matched rectified pilot improves to AUC $0.989$ and $J=0.930$ and shifts absolute coefficient mass toward the attacked $P2$ subsystem ($0.194 \rightarrow 0.599$ share). The workflow therefore takes the ``rectify'' branch, promotes the rectified sparse fit to the new baseline, and then evaluates the anytime frontier under the dissertation's strict default policy. That policy selects $k=14$ from $39$ active logical conditions ($2.79\times$ compression); the held-out deltas are $\Delta \mathrm{AUC}=-0.011$ and $\Delta J=+0.015$, with paired-bootstrap lower bounds $-0.016$ and $-0.005$, both above the dissertation's $-0.02$ non-inferiority margins. The resulting deployment artifact is therefore the compressed rule rather than the full rectified sparse baseline. Appendix \ref{app:rule_card_template} provides the rule-card template that should be filled out before an accepted compressed rule is handed to an operational reviewer.
-
-\begin{table}[tbh]
-    \caption[Worked HAI exemplar for the rectification workflow.]{Compact end-to-end HAI exemplar for the dissertation workflow.}
-    \label{tab:workflow_hai_exemplar}
-    \centering
-        {\footnotesize
-        \setlength{\tabcolsep}{3pt}
-        \renewcommand{\arraystretch}{0.95}
-        \begin{tabularx}{0.97\textwidth}{>{\RaggedRight\arraybackslash}p{0.19\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.23\textwidth}}
-            Step & HAI \path{attack_p2 (a1)} outcome & Workflow implication \\ \hline
-            Raw baseline & Test AUC $0.949$ and $J=0.574$ on the raw lag-expanded sparse fit. & Start from the conventional sparse baseline and use it as the comparator. \\ \hline
-            Train-only rectified pilot & On the same split and penalty, test AUC improves to $0.989$, $J$ improves to $0.930$, and the attacked-$P2$ coefficient-mass share rises from $0.194$ to $0.599$. & Threshold alignment is strong enough to justify switching to rectified features. \\ \hline
-            Branch choice & Chosen branch = ``rectify.'' & Promote the rectified sparse fit to the new baseline. \\ \hline
-            Anytime compression & The strict $2\%$ policy selects $k=14$ from $39$ active logical conditions ($2.79\times$ compression). & The rectified baseline is compressible enough to consider a rule artifact. \\ \hline
-            Held-out adoption gate & $\Delta \mathrm{AUC}=-0.011$ and $\Delta J=+0.015$; paired-bootstrap lower bounds are $-0.016$ and $-0.005$, both above the dissertation's $-0.02$ margins. & The compressed candidate is deployment-eligible under the default policy. \\ \hline
-            Final deployment artifact & Deploy the compressed rule rather than the full rectified sparse baseline. & Full path: raw baseline $\rightarrow$ diagnostic $\rightarrow$ rectify $\rightarrow$ compress. \\ \hline
-        \end{tabularx}
-        }
-\end{table}
-
-\section{A Simple Example for Intuition}
+The following method is introduced through a simple logical setting before the full longitudinal pipeline is formalized. The point of this section is to show why a critical-range representation can make the relevant sparse support easier for lasso to isolate.
 
 Consider a \emph{toy example} showing how continuous features can obscure true relationships. Let \(\mathbf{X}\) be a $10$-feature matrix with columns \(\text{A}, \dots, \text{J}\). Suppose only \(\text{A}\) and \(\text{D}\) determine the outcome \(y\). Fitting LASSO on raw continuous data can yield spurious coefficients (Figure~\ref{fig:toy_example}, top). After \emph{rectifying} features into $+1/-1$ indicators based on a range, irrelevant columns disappear, and \(\text{A}\) and \(\text{D}\) stand out (Figure~\ref{fig:toy_example}, bottom).
 
@@ -103,8 +53,10 @@ The toy example data demonstrates the behavior of a simple set of instrument rea
 \end{equation}
 \endgroup
 
+\newpage
+
 \subsection{Input Data Transformation}
-After transformation, the matrix is encoded using $\{1,-1\}$. In this toy example, values between 0.4 and 0.6 (inclusive) are mapped to $1$, and all other values are mapped to $-1$. For present purposes, the key point is that an event occurs when both features A and D lie simultaneously in the interval $[0.4,0.6]$.
+After transformation, the matrix is encoded using $\{+1,-1\}$. In this toy example, values between 0.4 and 0.6 (inclusive) are mapped to $+1$, and all other values are mapped to $-1$. For present purposes, the key point is that an event occurs when both features A and D lie simultaneously in the interval $[0.4,0.6]$.
 
 \begingroup
 \footnotesize
@@ -166,9 +118,40 @@ The observer sees only the response vector and the feature measurements across 1
 		\label{fig:both_relevant}
 \end{figure}
 
-With that local intuition in place, the chapter now turns from hand-constructed examples to formal evidence. The next section defines the RQ1 evaluation framework, after which the repeated-resample synthetic studies test whether the same attribution-sharpening effect holds under planted ground truth rather than only in an illustrative toy case.
+\subsection{Logical OR complications}
 
-\section{RQ1 Evaluation Framework}
+There is also the possibility of a harder case which must be acknowledged: several independent trigger sets can each produce the same event, creating an apparent logical OR relationship \autocite{orender2022}. If the rectifier estimates a single event-associated range from all positive rows, the apparent range can become wider than the true range for any one trigger because events caused by another feature still contribute to the observed positive set. One possible remedy is to create contracted versions of candidate critical ranges and let lasso select among those versions as additional columns. In this dissertation, that idea appears as a scope condition rather than as the central RQ1 benchmark: rectification is most defensible when the learned range semantics align with the event mechanism.
+
+\subsection{Functional fitting procedure}
+
+The dissertation pipeline tests two stages: lag-expanded critical-range rectification followed by sparse baseline fitting. Starting from longitudinal measurements, the method creates a supervised design matrix in which each column corresponds to a specific variable-lag pair. For each feature column, the rectifier estimates an event-associated range on training data only and converts the raw measurement into an indicator denoting whether that lagged measurement lies inside or outside the learned range. This produces a threshold-aligned representation before any sparse optimization is performed. Algorithm 1 formalizes the process in pseudocode.
+
+\begin{algorithm}
+	\caption{Critical-Range Rectification and Sparse Baseline Fitting}
+	\begin{algorithmic}[1] % The [1] means every line is numbered
+		\Require $ \mathbf{X},y,\lambda $
+		\Ensure $ \mathbf{A},\hat{y},r_j \left[b,c\right] $
+		\State Let $ r_j \left[b,c\right] $ be the critical range for feature vector $ \mathbf{X_j} $ , where $ b $ is the minimum and $ c $ is maximum defining that range.
+		\Procedure{Binarization}{$ \mathbf{X},y $}
+		\State Find $ Z $ , which is the subset of $ \mathbf{X} $ for which $ y $ is one of the outcomes (which will be defined as TRUE),  $ Z \subseteq \mathbf{X} $ , where $ Z = \left\{ \mathbf{X} \vert y = \mathbf{TRUE} \right\} $
+		\State Compute $ r_{j=1..d} = \left[ min(Z_j), max(Z_j) \right] $ . 
+		\State Compute $ \mathbf{A} $ , the matrix of transformed feature columns, such that:
+		\Statex $ a_{ij} = 
+		\begin{cases}
+			+1 \text{ when } x_{ij} \geq r_j[b] \text{ and } x_{ij} \leq r_j[c] \\
+			-1 \text{ when } x_{ij} < r_j[b] \text{ or } x_{ij} > r_j[c]
+		\end{cases}
+		$
+		\EndProcedure
+		\State Finally, compute the LASSO solution on the transformed data:
+		\Statex $ \hat{y} = LASSO(\mathbf{A},y,\lambda) $
+	\end{algorithmic}
+	\label{alg:binarization}
+\end{algorithm}
+
+With the critical-range examples and functional fitting procedure in place, the chapter now turns from hand-constructed examples to formal evidence. The next section defines the RQ1 evaluation framework, after which the repeated-resample synthetic studies test whether the same attribution-sharpening effect holds under planted ground truth rather than only in an illustrative toy case.
+
+\section{Experimental Design and Evaluation Framework}
 
 The dissertation evaluates RQ1 using three complementary evidence streams:
 \begin{itemize}
@@ -179,7 +162,7 @@ The dissertation evaluates RQ1 using three complementary evidence streams:
 
 The evaluation criteria are practical rather than purely theoretical: discriminatory performance (for example AUC and Youden's J), sparsity and support clarity, lag-level attribution fidelity, and end-to-end computational cost. This aligns with known limitations of penalty-only sparse methods under dependence, where prediction may remain strong while support recovery becomes unstable \autocites{PZhao2006model,freijeirogonzalez2022}. The repeated-resample stability and stage-wise ablation package is summarized in Table \ref{tab:d001_stability} and Figures \ref{fig:d001_ablation}--\ref{fig:d001_runtime_scaling}. The expanded baseline and cross-domain comparison package is summarized in Table \ref{tab:d002_baselines} and Figures \ref{fig:d002_transfer_deltas}--\ref{fig:d002_goose_bay_c_sweep}.
 
-\section{Synthetic evidence with known ground truth}
+\section{Simulated Data Experiments with Known Ground Truth}
 
 Synthetic longitudinal datasets are constructed so that events occur when a small subset of variables simultaneously enters critical ranges at specific lags. This creates a hard but controlled setting where lag expansion induces severe multicollinearity by design, closely mirroring the failure modes discussed in lasso consistency literature \autocites{PZhao2006model,freijeirogonzalez2022}. In this regime, representation-level rectification is applied before sparse fitting and compared with untransformed baselines.
 
@@ -208,11 +191,11 @@ The synthetic results in Table \ref{tab:synth_results} show a consistent pattern
     \label{fig:synth_tvsu}
 \end{figure}
 
-Figure \ref{fig:synth_tvsu} provides qualitative support for the same conclusion: rectification yields nonzero coefficients that align more closely with true causal lags, while untransformed fitting produces noisier support spread. This behavior is consistent with the rectification rationale described in prior publications, where binarized critical-range mapping is expected to reduce harmful correlation effects before sparse optimization \autocites{orender2022,JOrender2025Efficient}.
+Figure \ref{fig:synth_tvsu} provides qualitative support for the same conclusion: rectification yields nonzero coefficients that align more closely with true causal lags, while untransformed fitting produces noisier support spread. This behavior is consistent with the idea that binarized critical-range mapping is expected to reduce harmful correlation effects before sparse optimization \autocites{orender2022,JOrender2025Efficient}.
 
 \subsection{Repeated-resample stability and stage-wise ablation}
 
-To test whether the synthetic gains persist beyond a single seeded draw, the dissertation adds a repeated-resample ablation on the Case 1 generator with fixed planted support and independent random seeds. Each resample is evaluated at three pipeline stages: (i) raw lag-expanded L1-logistic on the continuous design, (ii) rectified L1-logistic after training-only critical-range estimation, and (iii) a compact $m$-of-$K$ rule derived from the rectified model by coefficient-ranked prefix compression. This design separates the contribution of the representation change from the contribution of the final logic-compression step.
+To test whether the synthetic gains persist beyond a single seeded draw, this work adds a repeated-resample ablation on the Case 1 generator with fixed planted support and independent random seeds. Each resample is evaluated at three pipeline stages: (i) raw lag-expanded L1-logistic on the continuous design, (ii) rectified L1-logistic after training-only critical-range estimation, and (iii) a compact $m$-of-$K$ rule derived from the rectified model by coefficient-ranked prefix compression, where $m$ is the number of relevant features and $K$ is the magnitude of the coefficients. This design separates the contribution of the representation change from the contribution of the final logic-compression step.
 
 \begin{table}[tbh]
     \caption[RQ1 repeated-resample stability and ablation summary.]{Repeated-resample stability and ablation summary for the synthetic Case 1 study. Values are mean $\pm$ standard deviation across three independent resamples. Pairwise stability is summarized with exact-support Jaccard over all seed pairs.}
@@ -220,7 +203,7 @@ To test whether the synthetic gains persist beyond a single seeded draw, the dis
     \begin{center}
         \resizebox{\textwidth}{!}{
         \begin{tabular}{lcccccc}
-            Method    & AUC               & J                 & Exact-lag F1      & Pairwise Jaccard  & Total Nonzero        & Runtime (s)        \\ \hline
+            Method    & AUC               & Youden's J        & Exact-lag F1      & Pairwise Jaccard  & Total Nonzero        & Runtime (s)        \\ \hline
             Raw       & $0.986 \pm 0.008$ & $0.882 \pm 0.027$ & $0.048 \pm 0.082$ & $0.056 \pm 0.096$ & $340.667 \pm 105.396$ & $23.142 \pm 0.815$ \\ \hline
             Rectified & $0.998 \pm 0.002$ & $0.971 \pm 0.019$ & $0.619 \pm 0.082$ & $0.452 \pm 0.090$ & $190.000 \pm 117.796$ & $12.196 \pm 1.562$ \\ \hline
             Rule      & $0.994 \pm 0.003$ & $0.974 \pm 0.015$ & $0.759 \pm 0.056$ & $0.600 \pm 0.346$ & $6.000 \pm 3.464$     & $12.201 \pm 1.562$ \\ \hline
@@ -263,11 +246,11 @@ The stability figures make the same point from two different angles. Figure \ref
 
 Figure \ref{fig:d001_runtime_scaling} shows that the representation change does not impose a prohibitive computational tax. As the lag-expanded feature count grows from $440$ to $840$, the rectification step remains small ($0.015$ to $0.034$ seconds), while the rectified sparse fit remains materially faster than the raw fit ($1.19$ vs.\ $2.24$ seconds at $440$ features, and $2.30$ vs.\ $4.35$ seconds at $840$ features). This matters for RQ1 because a stable baseline must remain practical under repeated resampling, ablation, model selection, and deployment refresh cycles.
 
-\section{Comparison to competing feature-selection baselines}
+\section[Comparator Extensions]{Competing Feature-Selection Baselines}
 
 RQ1 comparisons also include methods intended to address redundancy or grouped dependence through different mechanisms. Group and block-structured sparse families remain important comparators because they are explicitly designed for correlated predictor settings \autocites{yuan2006,meier2008,kim2006,yang2015,RTibshirani2016ordered}. Across these studies, representation-level rectification combined with standard lasso provides clearer lag attribution in threshold-triggered synthetic settings.
 
-A focused comparator is the quadratic-programming selector of Katrutsa and Strijov, which optimizes a relevance-redundancy objective using pairwise similarity structure \autocite{katrutsa2017}. The method is conceptually aligned with the goal of reducing redundancy, but it emphasizes pairwise criteria and does not directly encode multi-lag conjunctive trigger logic.
+A focused comparator is the quadratic-programming (QP) selector of Katrutsa and Strijov, which optimizes a relevance-redundancy objective using pairwise similarity structure \autocite{katrutsa2017}. The method is conceptually aligned with the goal of reducing redundancy, but it emphasizes pairwise criteria and does not directly encode multi-lag conjunctive trigger logic.
 
 \begin{figure}[tbh]
     \centering
@@ -301,24 +284,24 @@ To broaden the comparator set beyond a single redundancy-oriented method, the di
     \end{center}
 \end{table}
 
-Table \ref{tab:d002_baselines} sharpens the baseline story. Raw lasso, elastic net, and group lasso all remain reasonably predictive, but none of them recover the planted lags exactly. Their support stays concentrated on correlated surrogates in the original continuous representation rather than on the true trigger lags. Adaptive lasso, ordered-prefix selection, and QP+\nobreakdash-L1 reduce model size more aggressively, but they do so by pruning within the same raw representation and therefore sacrifice discrimination without solving the attribution problem. The rectified baseline is the only method in this expanded package that simultaneously attains the best AUC, the best Youden's $J$, and nonzero exact-lag recovery. For RQ1, this matters more than a marginal runtime win because the question is not merely whether a sparse model predicts well; it is whether the selected support remains interpretable at the feature-lag level.
+Table \ref{tab:d002_baselines} sharpens the baseline story. Raw lasso, elastic net, and group lasso all remain reasonably predictive, but none of them recover the planted lags exactly. Their support stays concentrated on correlated surrogates in the original continuous representation rather than on the true trigger lags. Adaptive lasso, ordered-prefix selection, and QP reduce model size more aggressively, but they do so by pruning within the same raw representation and therefore sacrifice discrimination without solving the attribution problem. The rectified baseline is the only method in this expanded package that simultaneously attains the best AUC, the best Youden's $J$, and nonzero exact-lag recovery. For RQ1, this matters more than a marginal runtime win because the question is not merely whether a sparse model predicts well; it is whether the selected support remains interpretable at the feature-lag level.
 
 \subsection{Direct interpretable-model baseline package}
 
 Because RQ1 is partly an interpretability claim rather than only a sparse-selection claim, a second synthetic benchmark was added against three inherently interpretable model families: an additive Explainable Boosting Machine (EBM), a RuleFit rule ensemble, and a greedy rule-list baseline. All methods were evaluated on the same Case 1 generator across the same three repeated resamples used for the stability study. The fit summary reports held-out discrimination, execution time, and structural complexity, while the selection-frequency heatmap records the top-$K$ exact variable-lag locations ($K=7$) so lag-recovery behavior can be compared on the same visual scale. That top-$K$ view is a benchmark comparison device, not a direct measure of model utility when the true number of relevant variables is unknown. In this synthetic package, $K$ is known only because the planted support is known. This distinction matters because EBM, RuleFit, and the greedy rule list do not natively tell the analyst how many active locations should be retained for interpretation, whereas the CUTLASS logic-compression step returns a rule size $k$ as part of the fitted output.
 
 \begin{table}[tbh]
-    \caption[RQ1 direct interpretable-model baseline benchmark.]{Direct interpretable-model baseline benchmark on the synthetic Case 1 study. Values are mean $\pm$ standard deviation across three independent resamples. \texttt{Features used} counts active additive terms or unique lagged features directly referenced by the fitted model, while \texttt{primitive conditions} counts the final auditable atomic conditions.}
+    \caption[RQ1 direct interpretable-model baseline benchmark.]{Direct interpretable-model baseline benchmark on the synthetic Case 1 study. Values are mean $\pm$ standard deviation across three independent resamples. \texttt{Features used} counts active additive terms or unique lagged features directly referenced by the fitted model.}
     \label{tab:d010_interpretable}
     \begin{center}
         \resizebox{\textwidth}{!}{
-        \begin{tabular}{lcccccc}
-            Method            & AUC               & AP                & Youden's $J$      & Runtime (s)        & Features Used        & Primitive Conditions \\ \hline
-            CUTLASS Sparse    & $0.998 \pm 0.002$ & $0.994 \pm 0.006$ & $0.971 \pm 0.019$ & $12.50 \pm 1.30$   & $190.0 \pm 117.8$    & $190.0 \pm 117.8$    \\ \hline
-            CUTLASS Logic     & $0.994 \pm 0.003$ & $0.983 \pm 0.012$ & $0.974 \pm 0.015$ & $12.50 \pm 1.30$   & $6.0 \pm 3.5$        & $6.0 \pm 3.5$        \\ \hline
-            RuleFit           & $0.974 \pm 0.026$ & $0.955 \pm 0.035$ & $0.803 \pm 0.112$ & $1.55 \pm 0.03$    & $28.7 \pm 7.6$       & $51.3 \pm 7.8$       \\ \hline
-            Greedy Rule List  & $0.785 \pm 0.054$ & $0.484 \pm 0.111$ & $0.092 \pm 0.067$ & $0.11 \pm 0.03$    & $4.7 \pm 0.6$        & $4.7 \pm 0.6$        \\ \hline
-            EBM               & $1.000 \pm 0.000$ & $1.000 \pm 0.000$ & $0.987 \pm 0.004$ & $32.96 \pm 3.34$   & $440.0 \pm 0.0$      & $440.0 \pm 0.0$      \\ \hline
+        \begin{tabular}{lccccc}
+            Method            & AUC               & Avg. Precision    & Youden's $J$      & Runtime (s)        & Features Used        \\ \hline
+            CUTLASS Sparse    & $0.998 \pm 0.002$ & $0.994 \pm 0.006$ & $0.971 \pm 0.019$ & $12.50 \pm 1.30$   & $190.0 \pm 117.8$    \\ \hline
+            CUTLASS Logic     & $0.994 \pm 0.003$ & $0.983 \pm 0.012$ & $0.974 \pm 0.015$ & $12.50 \pm 1.30$   & $6.0 \pm 3.5$        \\ \hline
+            RuleFit           & $0.974 \pm 0.026$ & $0.955 \pm 0.035$ & $0.803 \pm 0.112$ & $1.55 \pm 0.03$    & $28.7 \pm 7.6$       \\ \hline
+            Greedy Rule List  & $0.785 \pm 0.054$ & $0.484 \pm 0.111$ & $0.092 \pm 0.067$ & $0.11 \pm 0.03$    & $4.7 \pm 0.6$        \\ \hline
+            EBM               & $1.000 \pm 0.000$ & $1.000 \pm 0.000$ & $0.987 \pm 0.004$ & $32.96 \pm 3.34$   & $440.0 \pm 0.0$      \\ \hline
         \end{tabular}
         }
     \end{center}
@@ -347,15 +330,42 @@ Because RQ1 is partly an interpretability claim rather than only a sparse-select
 
 The direct-comparator package sharpens the interpretability comparison. EBM achieves the strongest mean discrimination and, in the top-$K$ pane of the dual-view heatmap, repeatedly returns to the planted lag neighborhoods. However, that top-$K$ display should be read as a controlled comparison device rather than as a direct statement of what a practitioner would know to inspect in advance. The full-support pane shows why the distinction matters: for EBM and the other non-CUTLASS baselines, the analyst must still decide how many active locations to keep, and EBM in particular remains dense across the lag-expanded design. CUTLASS logic contributes an additional piece of information by selecting a deployable rule size $k$ natively through its compression policy.
 
-Even with that advantage, EBM in the purely additive configuration used here keeps all $440$ exact-lag additive terms active and requires roughly $33$ seconds, about $2.6\times$ the runtime of the CUTLASS pipeline. Runtime comparisons here are package timings rather than implementation-neutral complexity measurements: the current CUTLASS prototype is implemented in Python and NumPy, whereas EBM relies on a compiled native backend. The issue in this benchmark is therefore not combinatorial rule growth, but dense additive growth: as the lag-expanded feature set increases, the model can retain many nonzero term functions whose combined chatter obscures attribution. If pairwise or higher-order interactions were enabled, this complexity would grow more aggressively, becoming at least quadratic and eventually combinatorial in the number of lagged inputs.
+Even with that advantage, EBM in the purely additive configuration used here keeps all $440$ exact-lag additive terms active and requires roughly $33$ seconds, about $2.6\times$ the runtime of the CUTLASS pipeline. Runtime comparisons here are package timings rather than implementation-neutral complexity measurements: the current CUTLASS prototype is implemented in Python and NumPy, whereas EBM relies on a compiled native backend. An implementation-neutral comparison would almost certainly be significantly worse for EBM. The issue in this benchmark is therefore not combinatorial rule growth, but dense additive growth: as the lag-expanded feature set increases, the model can retain many nonzero term functions whose combined chatter obscures attribution. If pairwise or higher-order interactions were enabled, this complexity would grow more aggressively, becoming at least quadratic and eventually combinatorial in the number of lagged inputs.
 
-At the other extreme, the greedy rule list is extremely fast and small, yet its discrimination collapses and its heatmap almost never lands on the exact planted lags. RuleFit is a more serious compact baseline: it remains fast at about $1.5$ seconds and predictive enough to be plausible in practice. Even so, it trails materially on Youden's $J$, averages about $29$ unique lagged features and $51$ primitive conditions, and its support heatmap misses several planted lags across seeds.
+At the other extreme, the greedy rule list is extremely fast and small, yet its discrimination collapses and its heatmap almost never lands on the exact planted lags. RuleFit is a more serious compact baseline: it remains fast at about $1.5$ seconds and predictive enough to be plausible in practice. Even so, it trails materially on Youden's $J$, averages about $29$ unique lagged features, and its support heatmap misses several planted lags across seeds.
 
-The CUTLASS direct-comparator result is therefore not that it dominates every interpretable family on raw fit. EBM wins that comparison. The relevant finding is instead that, in the threshold-aligned synthetic regime, CUTLASS logic achieves the best compact attribution-performance tradeoff: mean AUC $0.994$, mean $J$ $0.974$, and only six primitive conditions on average. In the top-$K$ pane used for controlled comparison, both CUTLASS logic and EBM recover about five of the seven planted lags on average, but the full-support pane makes clear that CUTLASS does so with a deployable rule-sized representation and with a natively selected rule size $k$, rather than a 440-term additive model that still requires the analyst to decide how much of the active support to inspect. This direct comparator package therefore strengthens rather than weakens the RQ1 claim: there are strong transparent alternatives, but the rectification-plus-compression pipeline remains the most favorable compact method in the exact threshold-and-lag regime it was designed to address.
+The CUTLASS direct-comparator result is therefore not that it dominates every interpretable family on raw fit. EBM wins that comparison. The relevant finding is instead that, in the threshold-aligned synthetic regime, CUTLASS logic achieves the best compact attribution-performance tradeoff: mean AUC $0.994$, mean $J$ $0.974$, and only six retained feature-lag terms on average. In the top-$K$ pane used for controlled comparison, both CUTLASS logic and EBM recover about five of the seven planted lags on average, but the full-support pane makes clear that CUTLASS does so with a deployable rule-sized representation and with a natively selected rule size $k$, rather than a 440-term additive model that still requires the analyst to decide how much of the active support to inspect. This direct comparator package therefore strengthens rather than weakens the RQ1 claim: there are strong transparent alternatives, but the rectification-plus-compression pipeline remains the most favorable compact method in the exact threshold-and-lag regime it was designed to address.  Additionally, the CUTLASS package also yields the relevant critical ranges associated with the calculated support, which are valuable analysis artifacts in their own right.
 
-\section{Real-world evidence and interpretability tradeoffs}
+\section[Real-World Applications]{Real-World Data Applications and Interpretability Tradeoffs}
 
 Synthetic evidence is necessary but not sufficient. The real-world studies test whether the same pattern appears in operationally relevant longitudinal data. The HAI industrial control benchmark is particularly useful because it includes realistic multi-sensor temporal dynamics with labeled attack scenarios and known subsystem context \autocite{shin2020}. Additional evidence from historical ionospheric radar work supports the relevance of lagged signal discrimination settings where sparse attribution can complement raw predictive performance \autocite{sigillito1989}.
+
+\subsection{Worked HAI exemplar for the workflow}
+
+To make the branch logic concrete, the manuscript includes one executable worked example built from the HAI industrial-control benchmark analyzed in this section and in the RQ3 chapter. The accompanying notebook \path{notebooks/walkthrough.ipynb}, available with the manuscript artifacts in the dissertation repository, uses the custom-built \texttt{cutlass} Python package to run the full workflow on the HAI turbine-loop case \path{attack_p2 (a1)}: raw lag-expanded sparse baseline, train-only threshold-alignment pilot, branch selection, strict-policy anytime compression, and final deployment recommendation. The point of this exemplar is operational clarity rather than a separate scientific claim.
+
+Table \ref{tab:workflow_hai_exemplar} compresses the worked example into one page. On this case, the raw baseline reaches test AUC $0.949$ and $J=0.574$, while the matched rectified pilot improves to AUC $0.989$ and $J=0.930$ and shifts absolute coefficient mass toward the attacked $P2$ subsystem ($0.194 \rightarrow 0.599$ share). The workflow therefore takes the ``rectify'' branch, promotes the rectified sparse fit to the new baseline, and then evaluates the anytime frontier under the dissertation's strict default policy. That policy selects $k=14$ from $39$ active logical conditions ($2.79\times$ compression); the held-out deltas are $\Delta \mathrm{AUC}=-0.011$ and $\Delta J=+0.015$, with paired-bootstrap lower bounds $-0.016$ and $-0.005$, both above the dissertation's $-0.02$ non-inferiority margins. The resulting deployment artifact is therefore the compressed rule rather than the full rectified sparse baseline. Appendix \ref{app:rule_card_template} provides the rule-card template that should be filled out before an accepted compressed rule is handed to an operational reviewer.
+
+\begin{table}[tbh]
+    \caption[Worked HAI exemplar for the rectification workflow.]{Compact end-to-end HAI exemplar for the dissertation workflow.}
+    \label{tab:workflow_hai_exemplar}
+    \centering
+        {\footnotesize
+        \setlength{\tabcolsep}{3pt}
+        \renewcommand{\arraystretch}{0.95}
+        \begin{tabularx}{0.97\textwidth}{>{\RaggedRight\arraybackslash}p{0.19\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.23\textwidth}}
+            Step & HAI \path{attack_p2 (a1)} outcome & Workflow implication \\ \hline
+            Raw baseline & Test AUC $0.949$ and $J=0.574$ on the raw lag-expanded sparse fit. & Start from the conventional sparse baseline and use it as the comparator. \\ \hline
+            Train-only rectified pilot & On the same split and penalty, test AUC improves to $0.989$, $J$ improves to $0.930$, and the attacked-$P2$ coefficient-mass share rises from $0.194$ to $0.599$. & Threshold alignment is strong enough to justify switching to rectified features. \\ \hline
+            Branch choice & Chosen branch = ``rectify.'' & Promote the rectified sparse fit to the new baseline. \\ \hline
+            Anytime compression & The strict $2\%$ policy selects $k=14$ from $39$ active logical conditions ($2.79\times$ compression). & The rectified baseline is compressible enough to consider a rule artifact. \\ \hline
+            Held-out adoption gate & $\Delta \mathrm{AUC}=-0.011$ and $\Delta J=+0.015$; paired-bootstrap lower bounds are $-0.016$ and $-0.005$, both above the dissertation's $-0.02$ margins. & The compressed candidate is deployment-eligible under the default policy. \\ \hline
+            Final deployment artifact & Deploy the compressed rule rather than the full rectified sparse baseline. & Full path: raw baseline $\rightarrow$ diagnostic $\rightarrow$ rectify $\rightarrow$ compress. \\ \hline
+        \end{tabularx}
+        }
+\end{table}
+
+\subsection{HAI and UNICEF case studies}
 
 \begin{table}[tbh]
     \caption[Real-world transformed vs. untransformed results.]{Real-world case studies: transformed vs untransformed comparisons from the dissertation experiments.}
@@ -401,11 +411,9 @@ One subtle but important point in the HAI case is that residual nonzero coeffici
 
 Cross-dataset behavior is not uniform. In the UNICEF \autocite{unicef2023} case, untransformed models can achieve stronger raw discrimination metrics while transformed models remain substantially sparser and easier to interpret. This pattern is consistent with prior reports that rectification benefits are context dependent: strongest in threshold-and-lag aligned regimes, and more mixed when data-generating structure is less compatible with the assumed critical-range mechanism \autocite{JOrender2025Efficient}.
 
-\subsection{Cross-domain transfer and the Goose Bay protocol audit}
+\subsection{Cross-domain transfer and the Goose Bay protocol Case Study}
 
-The practical point of this subsection is narrow: Goose Bay should be read as a protocol-sensitivity case, not as evidence that the earlier positive result and the later generic transfer probe are substantively contradictory.
-
-The broader transfer package applies one standardized generic protocol across four HAI attack subsets and the UCI ionosphere radar benchmark, then compares raw and rectified lasso under the same train/test handling and fixed penalty settings. Figure \ref{fig:d002_transfer_deltas} shows that the transfer pattern is mixed rather than uniformly positive. Rectification clearly improves both AUC and Youden's $J$ on the HAI turbine-loop attack, improves $J$ substantially on the combined $P1/P2$ attack, is essentially neutral on one attack subset, and loses ground on another. The ionosphere row is also negative under this standardized protocol, with $\Delta J=-0.059$. This is informative rather than contradictory: it means the RQ1 claim must remain conditional on alignment between the rectification rule and the structure of the underlying domain.
+The practical point of this subsection is to treat the Goose Bay ionosphere data as a protocol-sensitivity case study. As such, the broader transfer package applies one standardized generic protocol across four HAI attack subsets and the UCI ionosphere radar benchmark, then compares raw and rectified lasso under the same train/test handling and fixed penalty settings. Figure \ref{fig:d002_transfer_deltas} shows that the transfer pattern is mixed rather than uniformly positive. Rectification clearly improves both AUC and Youden's $J$ on the HAI turbine-loop attack, improves $J$ substantially on the combined $P1/P2$ attack, is essentially neutral on one attack subset, and loses ground on another. The ionosphere row is also negative under this standardized protocol, with $\Delta J=-0.059$. This is informative rather than contradictory: it affirms that the RQ1 claim must remain conditional on alignment between the rectification rule and the structure of the underlying domain.
 
 \begin{figure}[tbh] 
     \centering
@@ -414,7 +422,7 @@ The broader transfer package applies one standardized generic protocol across fo
     \label{fig:d002_transfer_deltas}
 \end{figure}
 
-The ionosphere result required a separate audit because, on its face, it appears to conflict with the positive Goose Bay result reported in the original case study \autocite{orender2022}. Figure \ref{fig:d002_ionosphere_protocols} resolves that apparent contradiction by keeping the two views distinct. The published 2022 Goose Bay reference moves from $J=0.695$ to $J=0.854$ after rectification, a gain of $0.159$. The standardized generic transfer probe instead moves from $J=0.775$ to $J=0.716$, a loss of $0.059$. These are not the same experiment. The published result used the original study protocol, while the generic transfer probe deliberately used the same portable defaults as the other cross-domain datasets.
+The ionosphere result is well suited to show how variances in protocol can affect the outcome. Previous Goose Bay results  \autocite{orender2022} seem to show a positive outcome with respect to the rectification procedure. Figure \ref{fig:d002_ionosphere_protocols} resolves that apparent contradiction by keeping the two views distinct. The published 2022 Goose Bay reference moves from $J=0.695$ to $J=0.854$ after rectification, a gain of $0.159$. The standardized generic transfer probe instead moves from $J=0.775$ to $J=0.716$, a loss of $0.059$. These are not the same experiment. The published result used the original study protocol, while the generic transfer probe deliberately used the same portable defaults as the other cross-domain datasets.
 
 \begin{figure}[tbh]
     \centering
@@ -452,11 +460,11 @@ Figure \ref{fig:d002_goose_bay_c_sweep} extends the same idea to the lasso penal
 
 Taken together, the cross-domain and Goose Bay results refine the empirical claim rather than weakening it. The standardized transfer panel shows that rectification does not dominate uniformly across every dataset when one portable protocol is imposed. The Goose Bay audit then shows why one apparent counterexample appears: the ionosphere benchmark is highly sensitive to how the positive range is defined and to how strongly the lasso penalty suppresses correlated signal fragments. That is a useful scientific boundary. It lends credence to the claim that rectification-first sparse learning is strongest in threshold-mediated regimes when the rectification semantics are aligned with the event structure, not that one untuned default will be optimal for all situations. Further, these results are consistent with the hypothesis that, in threshold-mediated regimes, aligned rectification often improves the likelihood of more favorable irrepresentable-condition behavior. Empirically, once the rectifier definition and penalty are well matched to the domain, indicated by the cross-validation curve, rectification rarely hurts and usually helps.
 
-The practical takeaway is therefore specific. Goose Bay does not negate the earlier positive case study; it shows that a portable default can obscure a strong rectified solution when the positive-range semantics and penalty are mismatched to the domain. The correct operational reading is to treat Goose Bay as evidence for sensitivity-aware rectification, not as a blanket negative result for the rectification-first approach.
+The practical takeaway is therefore specific. Goose Bay data shows that a portable default can obscure a strong rectified solution when the positive-range semantics and penalty are mismatched to the domain. The Goose Bay data is therefore treated as evidence for sensitivity-aware rectification, avoiding blanket application of previously successful parameters.
 
-\subsection{A practical diagnostic for when rectification is worth trying}
+\section{Practical Diagnostic for Rectification}
  
-The RQ1 approach section stated the operational diagnostic before the evidence: rectification should be tried when train-only event windows are stable, domain-meaningful, and associated with better support concentration, lag localization, or compactness without unacceptable held-out loss. The results in this chapter refine that diagnostic rather than replacing it. Synthetic Case 1 satisfies the diagnostic cleanly; the HAI turbine-loop case satisfies it strongly; UNICEF and the generic ionosphere probe show why the branch rules matter. In those weaker or protocol-sensitive cases, the correct operational conclusion is not that rectification is invalid, but that raw or hybrid representations may be the more defensible baseline unless the rectifier semantics and penalty regime can be aligned with the domain.
+The Background and RQ1 Scope section stated the operational diagnostic before the evidence: rectification should be tried when train-only event windows are stable, domain-meaningful, and associated with better support concentration, lag localization, or compactness without unacceptable held-out loss. The results in this chapter refine that diagnostic rather than replacing it. Synthetic Case 1 satisfies the diagnostic cleanly; the HAI turbine-loop case satisfies it strongly; UNICEF and the generic ionosphere probe show why the branch rules matter. In those weaker or protocol-sensitive cases, the correct operational conclusion is not that rectification is invalid, but that raw or hybrid representations may be the more defensible baseline unless the rectifier semantics and penalty regime can be aligned with the domain.
 
 \section{Metric and Notation Guide}
 

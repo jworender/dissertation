@@ -389,3 +389,9 @@ For RQ2, the core result is a principled explanation for why a simple preprocess
 \end{itemize}
 
 In summary, the theorem does not end the theoretical story, but it establishes a coherent bridge from sign binarization to IC favorability. That bridge is sufficient to support the mechanistic claim while also identifying the boundary conditions that matter for later extensions.
+
+\section{Answer to RQ2}
+
+The answer to RQ2 is \textbf{yes, in a scoped form}. Rectification can improve sparse support recovery because, in the analyzed regime, binarization changes the correlation geometry that drives inactive-active interference. In the zero-threshold, jointly normal, positive-correlation setting, sign binarization yields the arcsine correlation map, contracts pairwise dependence, reduces the inactive-active leakage term, and weakly improves the probability that a sufficient IC bound certifies the support-recovery margin.
+
+The mechanism should not be read as a universal guarantee for every critical-range rule. The empirical boundary checks show that the theorem's direction is strongest for the exact sign case and remains most persuasive for moderately shifted one-sided thresholds. Interval rules are more prevalence-sensitive, large inactive pools can still break the IC proxy, and negative-correlation settings require explicit caution or a complement-feature repair rather than a theorem-level extension. Thus RQ2 provides a defensible explanation for why rectification works in the favorable threshold-aligned regimes studied in RQ1 and used by RQ3, while also defining the conditions under which the claim should be limited.

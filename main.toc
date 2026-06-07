@@ -31,52 +31,55 @@
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.4\hfil }\uppercase {Correlation-Aware Feature Selection Families}}{22}{}%
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.5\hfil }\uppercase {Interpretable Modeling and Rule-Learning Literature}}{23}{}%
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.6\hfil }\uppercase {Longitudinal High-Dimensional Modeling Context}}{24}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.7\hfil }\uppercase {Method Lineage and Dissertation Positioning}}{25}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.8\hfil }\uppercase {Summary of Gaps in Prior Work}}{26}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {3.7\hfil }\uppercase {Summary of Gaps in Prior Work}}{25}{}%
 \vspace {0.42cm}
-\contentsline {chapter}{\numberline {4.}\uppercase {Rectification Improves Sparse Longitudinal Selection (RQ1)}}{28}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.1\hfil }\uppercase {Method}}{28}{}%
-\contentsline {subsection}{\numberline {4.1.1}\uppercase {Worked HAI exemplar for the workflow}}{30}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.2\hfil }\uppercase {A Simple Example for Intuition}}{31}{}%
-\contentsline {subsection}{\numberline {4.2.1}\uppercase {Toy Example Data}}{33}{}%
-\contentsline {subsection}{\numberline {4.2.2}\uppercase {Input Data Transformation}}{33}{}%
-\contentsline {subsubsection}{Intuition}{34}{}%
-\contentsline {subsection}{\numberline {4.2.3}\uppercase {Extending the intuition to multiple triggers}}{35}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.3\hfil }\uppercase {RQ1 Evaluation Framework}}{38}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.4\hfil }\uppercase {Synthetic evidence with known ground truth}}{38}{}%
-\contentsline {subsection}{\numberline {4.4.1}\uppercase {Repeated-resample stability and stage-wise ablation}}{40}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.5\hfil }\uppercase {Comparison to competing feature-selection baselines}}{41}{}%
+\contentsline {chapter}{\numberline {4.}\uppercase {Rectification Improves Sparse Longitudinal Selection (RQ1)}}{27}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.1\hfil }\uppercase {Background and RQ1 Scope}}{27}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.2\hfil }\uppercase {Critical-Range Logic Engine}}{28}{}%
+\contentsline {subsection}{\numberline {4.2.1}\uppercase {Toy Example Data}}{30}{}%
+\contentsline {subsection}{\numberline {4.2.2}\uppercase {Input Data Transformation}}{31}{}%
+\contentsline {subsubsection}{Intuition}{32}{}%
+\contentsline {subsection}{\numberline {4.2.3}\uppercase {Extending the intuition to multiple triggers}}{32}{}%
+\contentsline {subsection}{\numberline {4.2.4}\uppercase {Logical OR complications}}{35}{}%
+\contentsline {subsection}{\numberline {4.2.5}\uppercase {Functional fitting procedure}}{35}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.3\hfil }\uppercase {Experimental Design and Evaluation Framework}}{35}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.4\hfil }\uppercase {Simulated Data Experiments with Known Ground Truth}}{37}{}%
+\contentsline {subsection}{\numberline {4.4.1}\uppercase {Repeated-resample stability and stage-wise ablation}}{38}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.5\hfil }\uppercase {Comparator Extensions}}{41}{}%
 \contentsline {subsection}{\numberline {4.5.1}\uppercase {Expanded correlated-feature baseline package}}{43}{}%
 \contentsline {subsection}{\numberline {4.5.2}\uppercase {Direct interpretable-model baseline package}}{45}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.6\hfil }\uppercase {Real-world evidence and interpretability tradeoffs}}{48}{}%
-\contentsline {subsection}{\numberline {4.6.1}\uppercase {Cross-domain transfer and the Goose Bay protocol audit}}{49}{}%
-\contentsline {subsection}{\numberline {4.6.2}\uppercase {A practical diagnostic for when rectification is worth trying}}{52}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.7\hfil }\uppercase {Metric and Notation Guide}}{53}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.8\hfil }\uppercase {Answer to RQ1}}{67}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.6\hfil }\uppercase {Real-World Applications}}{49}{}%
+\contentsline {subsection}{\numberline {4.6.1}\uppercase {Worked HAI exemplar for the workflow}}{50}{}%
+\contentsline {subsection}{\numberline {4.6.2}\uppercase {HAI and UNICEF case studies}}{51}{}%
+\contentsline {subsection}{\numberline {4.6.3}\uppercase {Cross-domain transfer and the Goose Bay protocol Case Study}}{52}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.7\hfil }\uppercase {Practical Diagnostic for Rectification}}{54}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.8\hfil }\uppercase {Metric and Notation Guide}}{55}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {4.9\hfil }\uppercase {Answer to RQ1}}{66}{}%
 \vspace {0.42cm}
-\contentsline {chapter}{\numberline {5.}\uppercase {Theoretical Analysis (RQ2)}}{68}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.1\hfil }\uppercase {Method}}{68}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.2\hfil }\uppercase {Why RQ2 matters after RQ1 evidence}}{69}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.3\hfil }\uppercase {IC in computer-science terms}}{69}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.4\hfil }\uppercase {Tractable Setup and Assumptions}}{70}{}%
-\contentsline {paragraph}{Data and transformation.}{70}{}%
-\contentsline {paragraph}{Proof of Concept (PoC) Assumptions.}{71}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.5\hfil }\uppercase {Why sign binarization can reduce dependence}}{71}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.6\hfil }\uppercase {Formal Lemma Pathway}}{72}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.7\hfil }\uppercase {Theorem and Proof}}{75}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.8\hfil }\uppercase {Practical interpretation}}{76}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.9\hfil }\uppercase {A small interference example}}{77}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.10\hfil }\uppercase {How this differs from penalty-only fixes}}{78}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.11\hfil }\uppercase {What this theorem does not claim}}{78}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.12\hfil }\uppercase {Empirical Boundary Checks Beyond the Theorem}}{79}{}%
-\contentsline {subsection}{\numberline {5.12.1}\uppercase {Construction of the empirical boundary package}}{79}{}%
-\contentsline {subsection}{\numberline {5.12.2}\uppercase {Baseline sweep across the positive and negative regimes}}{81}{}%
-\contentsline {subsection}{\numberline {5.12.3}\uppercase {Cross-scale maps: where the rectified mechanism fails}}{82}{}%
-\contentsline {subsection}{\numberline {5.12.4}\uppercase {Inactive-pool scaling: the maximum over inactive features matters}}{83}{}%
-\contentsline {subsection}{\numberline {5.12.5}\uppercase {Threshold bridge: from exact sign theory to practical critical ranges}}{84}{}%
-\contentsline {subsection}{\numberline {5.12.6}\uppercase {Negative correlation and the complement-feature repair}}{85}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.13\hfil }\uppercase {Empirical Implications of RQ2}}{85}{}%
-\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.14\hfil }\uppercase {Practical Significance}}{87}{}%
+\contentsline {chapter}{\numberline {5.}\uppercase {Theoretical Analysis (RQ2)}}{67}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.1\hfil }\uppercase {Method}}{67}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.2\hfil }\uppercase {Why RQ2 matters after RQ1 evidence}}{68}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.3\hfil }\uppercase {IC in computer-science terms}}{68}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.4\hfil }\uppercase {Tractable Setup and Assumptions}}{69}{}%
+\contentsline {paragraph}{Data and transformation.}{69}{}%
+\contentsline {paragraph}{Proof of Concept (PoC) Assumptions.}{70}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.5\hfil }\uppercase {Why sign binarization can reduce dependence}}{70}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.6\hfil }\uppercase {Formal Lemma Pathway}}{71}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.7\hfil }\uppercase {Theorem and Proof}}{74}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.8\hfil }\uppercase {Practical interpretation}}{75}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.9\hfil }\uppercase {A small interference example}}{76}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.10\hfil }\uppercase {How this differs from penalty-only fixes}}{77}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.11\hfil }\uppercase {What this theorem does not claim}}{77}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.12\hfil }\uppercase {Empirical Boundary Checks Beyond the Theorem}}{78}{}%
+\contentsline {subsection}{\numberline {5.12.1}\uppercase {Construction of the empirical boundary package}}{78}{}%
+\contentsline {subsection}{\numberline {5.12.2}\uppercase {Baseline sweep across the positive and negative regimes}}{80}{}%
+\contentsline {subsection}{\numberline {5.12.3}\uppercase {Cross-scale maps: where the rectified mechanism fails}}{81}{}%
+\contentsline {subsection}{\numberline {5.12.4}\uppercase {Inactive-pool scaling: the maximum over inactive features matters}}{82}{}%
+\contentsline {subsection}{\numberline {5.12.5}\uppercase {Threshold bridge: from exact sign theory to practical critical ranges}}{83}{}%
+\contentsline {subsection}{\numberline {5.12.6}\uppercase {Negative correlation and the complement-feature repair}}{84}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.13\hfil }\uppercase {Empirical Implications of RQ2}}{84}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.14\hfil }\uppercase {Practical Significance}}{86}{}%
+\contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {5.15\hfil }\uppercase {Answer to RQ2}}{86}{}%
 \vspace {0.42cm}
 \contentsline {chapter}{\numberline {6.}\uppercase {Anytime Rule Compression (RQ3)}}{93}{}%
 \contentsline {section}{\hspace {0.6cm}\!\hbox to\@tempdima {6.1\hfil }\uppercase {Why RQ3 Matters After RQ1 and RQ2}}{93}{}%

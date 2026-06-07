@@ -2,18 +2,18 @@
 \noindent Figure\hfill Page\par 
 \contentsline {figure}{\numberline {1.}{\ignorespaces Threshold-and-Lag.}}{13}{}%
 \contentsline {figure}{\numberline {2.}{\ignorespaces Applying the pipeline to a new dataset.}}{14}{}%
-\contentsline {figure}{\numberline {3.}{\ignorespaces Toy Example Coefficient Vectors.}}{32}{}%
-\contentsline {figure}{\numberline {4.}{\ignorespaces Intuition Development for One Relevant Curve.}}{36}{}%
-\contentsline {figure}{\numberline {5.}{\ignorespaces Intuition Development for Two Relevant Curves.}}{37}{}%
+\contentsline {figure}{\numberline {3.}{\ignorespaces Toy Example Coefficient Vectors.}}{29}{}%
+\contentsline {figure}{\numberline {4.}{\ignorespaces Intuition Development for One Relevant Curve.}}{33}{}%
+\contentsline {figure}{\numberline {5.}{\ignorespaces Intuition Development for Two Relevant Curves.}}{34}{}%
 \contentsline {figure}{\numberline {6.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{39}{}%
 \contentsline {figure}{\numberline {7.}{\ignorespaces RQ1 ablation summary.}}{41}{}%
 \contentsline {figure}{\numberline {8.}{\ignorespaces RQ1 pairwise support stability.}}{42}{}%
 \contentsline {figure}{\numberline {9.}{\ignorespaces RQ1 selection-frequency heatmaps.}}{43}{}%
 \contentsline {figure}{\numberline {10.}{\ignorespaces RQ1 runtime scaling under lag expansion.}}{44}{}%
 \contentsline {figure}{\numberline {11.}{\ignorespaces Katrutsa and Strijov Method Results.}}{45}{}%
-\contentsline {figure}{\numberline {12.}{\ignorespaces RQ1 direct interpretable-model summary.}}{46}{}%
-\contentsline {figure}{\numberline {13.}{\ignorespaces RQ1 direct interpretable-model lag-recovery heatmaps.}}{58}{}%
-\contentsline {figure}{\numberline {14.}{\ignorespaces RQ1 direct interpretable-model tradeoff.}}{59}{}%
+\contentsline {figure}{\numberline {12.}{\ignorespaces RQ1 direct interpretable-model summary.}}{48}{}%
+\contentsline {figure}{\numberline {13.}{\ignorespaces RQ1 direct interpretable-model lag-recovery heatmaps.}}{56}{}%
+\contentsline {figure}{\numberline {14.}{\ignorespaces RQ1 direct interpretable-model tradeoff.}}{57}{}%
 \contentsline {figure}{\numberline {15.}{\ignorespaces HAI Results.}}{60}{}%
 \contentsline {figure}{\numberline {16.}{\ignorespaces HAI ROC.}}{61}{}%
 \contentsline {figure}{\numberline {17.}{\ignorespaces HAI J vs. K.}}{62}{}%
