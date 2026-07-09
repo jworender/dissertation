@@ -47,7 +47,8 @@ cells = [
            - raw adaptive L1,
            - raw grouped sparse logistic,
            - a practical ordered-lag prefix proxy,
-           - quadratic-programming feature ranking plus sparse logistic refit.
+           - quadratic-programming feature ranking plus sparse logistic refit,
+           - raw random forest.
         2. **One synthetic comparison figure suite** showing discrimination, attribution fidelity, and runtime tradeoffs.
         3. **One cross-domain transfer summary** across multiple HAI attack subsets plus the UCI ionosphere radar benchmark.
         4. **A concise transferability narrative** derived from the measured domain-by-domain deltas.
@@ -80,7 +81,8 @@ cells = [
         import pandas as pd
         from groupyr import LogisticSGL
         from qp_feature_selection import create_opt_problem, normalize_design_and_target, solve_opt_problem
-        from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
+        from sklearn.ensemble import RandomForestClassifier
+        from sklearn.linear_model import LogisticRegression
         from sklearn.metrics import precision_recall_curve, roc_auc_score
         from sklearn.model_selection import StratifiedKFold, train_test_split
         from sklearn.pipeline import Pipeline
@@ -108,6 +110,8 @@ cells = [
         plt.rcParams["axes.grid"] = True
         if sns is not None:
             sns.set(style="whitegrid")
+        warnings.filterwarnings("ignore", category=FutureWarning, module="sklearn.linear_model._logistic")
+        warnings.filterwarnings("ignore", message=r"Inconsistent values: penalty=.*", category=UserWarning)
         """
     ),
     code_cell(
@@ -178,39 +182,83 @@ cells = [
         )
         TRUE_FEATURES = [f"V{r}TM{SYN_CONFIG['disp'][r - 1]}" for r in SYN_CONFIG["R"]]
 
-        SYN_L1_KW = dict(cv=3, cs=3, c_lo=-2, c_hi=1, solver="saga", tol=1e-3, max_iter=800, cv_rule="1se")
-        ENET_CS = [0.01, 0.1, 1.0]
-        ENET_L1_RATIOS = [0.2, 0.8]
+        SYN_BENCHMARK_PROTOCOL_VERSION = "synthetic-aa-v3-20260622"
+        SYN_RANDOM_STATE = 1234
+        SYN_CV = 3
+        SYN_C_GRID = np.logspace(-2, 1, 3).astype(float)
+        SYN_CV_RULE = "1se"
+        SYN_SOLVER = "saga"
+        SYN_TOL = 1e-3
+        SYN_MAX_ITER = 800
+        SYN_L1_KW = dict(
+            cv=SYN_CV,
+            cs=len(SYN_C_GRID),
+            c_lo=float(np.log10(SYN_C_GRID[0])),
+            c_hi=float(np.log10(SYN_C_GRID[-1])),
+            solver=SYN_SOLVER,
+            tol=SYN_TOL,
+            max_iter=SYN_MAX_ITER,
+            cv_rule=SYN_CV_RULE,
+        )
+        ENET_L1_RATIOS = [0.5]
         ADAPTIVE_EPS = 1e-3
-        GROUP_ALPHA_GRID = [0.001, 0.005, 0.01, 0.05]
-        QP_K_GRID = [5, 7, 10, 15]
-
-        SYN_METHOD_ORDER = [
-            "rectified_l1",
-            "raw_l1",
-            "raw_enet",
-            "raw_adaptive_l1",
-            "raw_group_lasso",
-            "raw_ordered_prefix",
-            "raw_qp_selector",
+        GROUP_ALPHA_GRID = [0.05, 0.01, 0.001]
+        QP_K_GRID = [5, 10, 15]
+        RAW_RF_BASE_KW = dict(
+            n_estimators=500,
+            class_weight="balanced_subsample",
+            random_state=SYN_RANDOM_STATE,
+            n_jobs=1,
+        )
+        RAW_RF_CANDIDATES = [
+            {"max_features": "sqrt", "min_samples_leaf": 8},
+            {"max_features": "sqrt", "min_samples_leaf": 4},
+            {"max_features": "sqrt", "min_samples_leaf": 2},
         ]
+
+        SYN_FAMILY_ORDER = [
+            "l1",
+            "enet",
+            "adaptive_l1",
+            "group_lasso",
+            "ordered_prefix",
+            "qp_selector",
+            "random_forest",
+        ]
+        SYN_FAMILY_LABELS = {
+            "l1": "L1",
+            "enet": "Elastic Net",
+            "adaptive_l1": "Adaptive L1",
+            "group_lasso": "Group Lasso",
+            "ordered_prefix": "Ordered Prefix",
+            "qp_selector": "QP + L1",
+            "random_forest": "Random Forest",
+        }
+        SYN_VIEW_ORDER = ["raw", "rectified"]
+        SYN_VIEW_LABELS = {"raw": "Raw", "rectified": "Rectified"}
+        SYN_VIEW_COLORS = {"raw": "#7f8c8d", "rectified": "#1f77b4"}
+        SYN_METHOD_ORDER = [
+            f"{view}_{family}"
+            for family in SYN_FAMILY_ORDER
+            for view in SYN_VIEW_ORDER
+        ]
+        SYN_METHOD_FAMILY = {
+            method: family
+            for family in SYN_FAMILY_ORDER
+            for method in (f"raw_{family}", f"rectified_{family}")
+        }
+        SYN_METHOD_VIEW = {
+            method: view
+            for family in SYN_FAMILY_ORDER
+            for view, method in (("raw", f"raw_{family}"), ("rectified", f"rectified_{family}"))
+        }
         SYN_METHOD_LABELS = {
-            "rectified_l1": "Rectified L1",
-            "raw_l1": "Raw L1",
-            "raw_enet": "Raw Elastic Net",
-            "raw_adaptive_l1": "Raw Adaptive L1",
-            "raw_group_lasso": "Raw Group Lasso",
-            "raw_ordered_prefix": "Ordered Prefix",
-            "raw_qp_selector": "QP + L1",
+            method: f"{SYN_VIEW_LABELS[SYN_METHOD_VIEW[method]]} {SYN_FAMILY_LABELS[SYN_METHOD_FAMILY[method]]}"
+            for method in SYN_METHOD_ORDER
         }
         SYN_METHOD_COLORS = {
-            "rectified_l1": "#1f77b4",
-            "raw_l1": "#7f8c8d",
-            "raw_enet": "#ff7f0e",
-            "raw_adaptive_l1": "#2ca02c",
-            "raw_group_lasso": "#9467bd",
-            "raw_ordered_prefix": "#8c564b",
-            "raw_qp_selector": "#d62728",
+            method: SYN_VIEW_COLORS[SYN_METHOD_VIEW[method]]
+            for method in SYN_METHOD_ORDER
         }
 
         HAI_TARGETS = {
@@ -358,317 +406,461 @@ cells = [
     ),
     code_cell(
         """
-        def fit_raw_l1_synthetic(raw_train: pd.DataFrame, raw_test: pd.DataFrame) -> dict:
-            start = perf_counter()
-            pipe, _ = skcase.sklearn_build_raw_external_cv(raw_train, random_state=1234, **SYN_L1_KW)
-            prob = pipe.predict_proba(raw_test.drop(columns=["INDC"]))[:, 1]
-            beta = pd.Series(pipe.named_steps["lr"].coef_.ravel(), index=raw_train.drop(columns=["INDC"]).columns, name="coef")
-            selected_topk, beta_nz = top_features_from_series(beta, k=len(TRUE_FEATURES))
-            metrics = metric_row(raw_test["INDC"], prob)
-            _, _, exact_f1 = lag_metrics(selected_topk, TRUE_FEATURES, tol=0)
-            return {
-                "method": "raw_l1",
-                **metrics,
-                "lag_f1_exact": float(exact_f1),
-                "nonzero_total": int((beta != 0).sum()),
-                "selected_features": "|".join(selected_topk),
-                "runtime_seconds": float(perf_counter() - start),
-            }
+        def _raw_synthetic_xy(train_df: pd.DataFrame, test_df: pd.DataFrame) -> tuple[pd.DataFrame, np.ndarray, pd.DataFrame, np.ndarray]:
+            raw_train = train_df[[c for c in train_df.columns if c not in skcase.EXCLUDE_COLS]].copy()
+            raw_test = test_df[[c for c in test_df.columns if c not in skcase.EXCLUDE_COLS]].copy()
+            X_train = raw_train.drop(columns=["INDC"])
+            y_train = raw_train["INDC"].astype(int).to_numpy()
+            X_test = raw_test.drop(columns=["INDC"])
+            y_test = raw_test["INDC"].astype(int).to_numpy()
+            return X_train, y_train, X_test, y_test
 
 
-        def fit_rectified_l1_synthetic(rt_train: pd.DataFrame, rt_test: pd.DataFrame) -> dict:
-            start = perf_counter()
-            pipe, _ = skcase.sklearn_build_rectified_external_cv(rt_train, random_state=1234, **SYN_L1_KW)
-            prob = pipe.predict_proba(rt_test.drop(columns=["INDC"]))[:, 1]
-            beta = pd.Series(pipe.named_steps["lr"].coef_.ravel(), index=rt_train.drop(columns=["INDC"]).columns, name="coef")
-            selected_topk, beta_nz = top_features_from_series(beta, k=len(TRUE_FEATURES))
-            metrics = metric_row(rt_test["INDC"], prob)
-            _, _, exact_f1 = lag_metrics(selected_topk, TRUE_FEATURES, tol=0)
-            return {
-                "method": "rectified_l1",
-                **metrics,
-                "lag_f1_exact": float(exact_f1),
-                "nonzero_total": int((beta != 0).sum()),
-                "selected_features": "|".join(selected_topk),
-                "runtime_seconds": float(perf_counter() - start),
-            }
+        def _rectified_synthetic_xy(train_df: pd.DataFrame, test_df: pd.DataFrame) -> tuple[pd.DataFrame, np.ndarray, pd.DataFrame, np.ndarray]:
+            groups = skcase.organize(train_df)
+            rt_train, limits = skcase.rectify_fast(train_df, groups, limits=None, sdfilter=3.0, snap=0.001)
+            rt_test, _ = skcase.rectify_fast(test_df, groups, limits=limits, sdfilter=3.0, snap=0.001)
+            X_train = rt_train.drop(columns=["INDC"])
+            y_train = rt_train["INDC"].astype(int).to_numpy()
+            X_test = rt_test.drop(columns=["INDC"])
+            y_test = rt_test["INDC"].astype(int).to_numpy()
+            return X_train, y_train, X_test, y_test
 
 
-        def fit_raw_enet_synthetic(X_train: pd.DataFrame, y_train: np.ndarray, X_test: pd.DataFrame, y_test: np.ndarray) -> dict:
-            start = perf_counter()
-            pipe = Pipeline(
-                [
-                    ("scaler", SkStandardScaler()),
-                    (
-                        "lr",
-                        LogisticRegressionCV(
-                            penalty="elasticnet",
-                            solver="saga",
-                            Cs=ENET_CS,
-                            cv=3,
-                            l1_ratios=ENET_L1_RATIOS,
-                            scoring="roc_auc",
-                            max_iter=800,
-                            tol=1e-3,
-                            random_state=1234,
-                            refit=True,
-                        ),
-                    ),
-                ]
+        def _synthetic_xy(
+            train_df: pd.DataFrame,
+            test_df: pd.DataFrame,
+            *,
+            view: str,
+        ) -> tuple[pd.DataFrame, np.ndarray, pd.DataFrame, np.ndarray]:
+            if view == "raw":
+                return _raw_synthetic_xy(train_df, test_df)
+            if view == "rectified":
+                return _rectified_synthetic_xy(train_df, test_df)
+            raise ValueError(f"Unknown synthetic representation: {view}")
+
+
+        def _binary_log_loss(y_true: np.ndarray, prob: np.ndarray) -> float:
+            y_arr = np.asarray(y_true, dtype=float)
+            prob_arr = np.clip(np.asarray(prob, dtype=float), 1e-12, 1.0 - 1e-12)
+            return float(-(y_arr * np.log(prob_arr) + (1.0 - y_arr) * np.log(1.0 - prob_arr)).mean())
+
+
+        def _synthetic_cv_splits(y: np.ndarray) -> list[tuple[np.ndarray, np.ndarray]]:
+            splitter = StratifiedKFold(n_splits=SYN_CV, shuffle=True, random_state=SYN_RANDOM_STATE)
+            return list(splitter.split(np.zeros(len(y)), y))
+
+
+        def _select_loss_candidate(losses: np.ndarray) -> tuple[int, np.ndarray, np.ndarray]:
+            mean_losses = losses.mean(axis=0)
+            se_losses = losses.std(axis=0, ddof=1) / np.sqrt(losses.shape[0]) if losses.shape[0] > 1 else np.zeros_like(mean_losses)
+            best_idx = int(np.argmin(mean_losses))
+            if SYN_CV_RULE == "1se":
+                threshold = mean_losses[best_idx] + se_losses[best_idx]
+                eligible = np.flatnonzero(mean_losses <= threshold)
+                selected_idx = int(eligible[0]) if eligible.size else best_idx
+            else:
+                selected_idx = best_idx
+            return selected_idx, mean_losses, se_losses
+
+
+        def _make_logistic(C: float, *, penalty: str = "l1", l1_ratio: float | None = None, max_iter: int = SYN_MAX_ITER) -> LogisticRegression:
+            kwargs = dict(
+                penalty=penalty,
+                solver=SYN_SOLVER,
+                C=float(C),
+                tol=SYN_TOL,
+                max_iter=int(max_iter),
+                random_state=SYN_RANDOM_STATE,
+                warm_start=False,
+                fit_intercept=True,
             )
-            pipe.fit(X_train, y_train)
-            prob = pipe.predict_proba(X_test)[:, 1]
-            beta = pd.Series(pipe.named_steps["lr"].coef_.ravel(), index=X_train.columns, name="coef")
-            selected_topk, beta_nz = top_features_from_series(beta, k=len(TRUE_FEATURES))
+            if penalty == "elasticnet":
+                kwargs["l1_ratio"] = float(l1_ratio)
+            return LogisticRegression(**kwargs)
+
+
+        def _scaled_pair(X_fit, X_apply):
+            scaler = SkStandardScaler().fit(X_fit)
+            return scaler.transform(X_fit), scaler.transform(X_apply), scaler
+
+
+        def _fit_linear_external_cv(
+            X_train: pd.DataFrame,
+            y_train: np.ndarray,
+            X_test: pd.DataFrame,
+            *,
+            penalty: str = "l1",
+            l1_ratios: list[float | None] | None = None,
+            use_scaler: bool = True,
+        ) -> tuple[np.ndarray, pd.Series, dict]:
+            ratios = [None] if l1_ratios is None else list(l1_ratios)
+            candidates = [{"C": float(C), "l1_ratio": ratio} for C in SYN_C_GRID for ratio in ratios]
+            folds = _synthetic_cv_splits(y_train)
+            losses = np.empty((len(folds), len(candidates)), dtype=float)
+
+            X_arr = X_train.to_numpy(dtype=float)
+            X_test_arr = X_test.to_numpy(dtype=float)
+            for fold_idx, (train_idx, valid_idx) in enumerate(folds):
+                X_fold_train = X_arr[train_idx]
+                X_fold_valid = X_arr[valid_idx]
+                if use_scaler:
+                    X_fold_train, X_fold_valid, _ = _scaled_pair(X_fold_train, X_fold_valid)
+                for cand_idx, candidate in enumerate(candidates):
+                    model = _make_logistic(candidate["C"], penalty=penalty, l1_ratio=candidate["l1_ratio"])
+                    model.fit(X_fold_train, y_train[train_idx])
+                    losses[fold_idx, cand_idx] = _binary_log_loss(y_train[valid_idx], model.predict_proba(X_fold_valid)[:, 1])
+
+            selected_idx, mean_losses, se_losses = _select_loss_candidate(losses)
+            selected = candidates[selected_idx]
+            X_final = X_arr
+            X_test_final = X_test_arr
+            if use_scaler:
+                X_final, X_test_final, _ = _scaled_pair(X_final, X_test_final)
+            final_model = _make_logistic(selected["C"], penalty=penalty, l1_ratio=selected["l1_ratio"])
+            final_model.fit(X_final, y_train)
+            prob = final_model.predict_proba(X_test_final)[:, 1]
+            beta = pd.Series(final_model.coef_.ravel(), index=X_train.columns, name="coef")
+            info = {
+                "selected_C": float(selected["C"]),
+                "selected_l1_ratio": np.nan if selected["l1_ratio"] is None else float(selected["l1_ratio"]),
+                "cv_candidate_count": int(len(candidates)),
+                "fit_count": int(len(folds) * len(candidates) + 1),
+                "iteration_budget": int(SYN_MAX_ITER),
+                "cv_mean_loss": float(mean_losses[selected_idx]),
+                "cv_se_loss": float(se_losses[selected_idx]),
+            }
+            return prob, beta, info
+
+
+        def _finish_synthetic_row(method: str, y_test: np.ndarray, prob: np.ndarray, scores: pd.Series, start: float, info: dict | None = None) -> dict:
+            selected_topk, _ = top_features_from_series(scores, k=len(TRUE_FEATURES))
             metrics = metric_row(y_test, prob)
             _, _, exact_f1 = lag_metrics(selected_topk, TRUE_FEATURES, tol=0)
-            return {
-                "method": "raw_enet",
+            row = {
+                "method": method,
+                "method_family": SYN_METHOD_FAMILY[method],
+                "family_label": SYN_FAMILY_LABELS[SYN_METHOD_FAMILY[method]],
+                "representation": SYN_METHOD_VIEW[method],
+                "representation_label": SYN_VIEW_LABELS[SYN_METHOD_VIEW[method]],
+                "protocol_version": SYN_BENCHMARK_PROTOCOL_VERSION,
                 **metrics,
                 "lag_f1_exact": float(exact_f1),
-                "nonzero_total": int((beta != 0).sum()),
+                "nonzero_total": int((scores != 0).sum()),
                 "selected_features": "|".join(selected_topk),
                 "runtime_seconds": float(perf_counter() - start),
             }
+            if info:
+                row.update(info)
+            return row
 
 
-        def fit_raw_adaptive_l1_synthetic(X_train: pd.DataFrame, y_train: np.ndarray, X_test: pd.DataFrame, y_test: np.ndarray) -> dict:
+        def _view_uses_scaler(view: str) -> bool:
+            return view == "raw"
+
+
+        def _maybe_scaled_pair(X_fit, X_apply, *, use_scaler: bool):
+            if use_scaler:
+                return _scaled_pair(X_fit, X_apply)
+            return np.asarray(X_fit, dtype=float), np.asarray(X_apply, dtype=float), None
+
+
+        def _add_view_info(info: dict, view: str) -> dict:
+            return {**info, "rectification_included": bool(view == "rectified")}
+
+
+        def fit_l1_synthetic(train_df: pd.DataFrame, test_df: pd.DataFrame, *, view: str) -> dict:
             start = perf_counter()
-            scaler = SkStandardScaler().fit(X_train)
-            X_train_scaled = scaler.transform(X_train)
-            X_test_scaled = scaler.transform(X_test)
-
-            init_lr = LogisticRegression(C=1.0, penalty="l2", solver="lbfgs", max_iter=600, random_state=1234)
-            init_lr.fit(X_train_scaled, y_train)
-            weights = 1.0 / (np.abs(init_lr.coef_.ravel()) + ADAPTIVE_EPS)
-
-            X_train_weighted = X_train_scaled / weights
-            X_test_weighted = X_test_scaled / weights
-
-            adaptive_lr = LogisticRegressionCV(
+            X_train, y_train, X_test, y_test = _synthetic_xy(train_df, test_df, view=view)
+            prob, beta, info = _fit_linear_external_cv(
+                X_train,
+                y_train,
+                X_test,
                 penalty="l1",
-                solver="saga",
-                Cs=ENET_CS,
-                cv=3,
-                scoring="roc_auc",
-                max_iter=800,
-                tol=1e-3,
-                random_state=1234,
-                refit=True,
+                use_scaler=_view_uses_scaler(view),
             )
-            adaptive_lr.fit(X_train_weighted, y_train)
-            prob = adaptive_lr.predict_proba(X_test_weighted)[:, 1]
-            beta = pd.Series(adaptive_lr.coef_.ravel() / weights, index=X_train.columns, name="coef")
-            selected_topk, beta_nz = top_features_from_series(beta, k=len(TRUE_FEATURES))
-            metrics = metric_row(y_test, prob)
-            _, _, exact_f1 = lag_metrics(selected_topk, TRUE_FEATURES, tol=0)
-            return {
-                "method": "raw_adaptive_l1",
-                **metrics,
-                "lag_f1_exact": float(exact_f1),
-                "nonzero_total": int((beta != 0).sum()),
-                "selected_features": "|".join(selected_topk),
-                "runtime_seconds": float(perf_counter() - start),
-            }
+            return _finish_synthetic_row(f"{view}_l1", y_test, prob, beta, start, _add_view_info(info, view))
 
 
-        def fit_raw_group_lasso_synthetic(X_train: pd.DataFrame, y_train: np.ndarray, X_test: pd.DataFrame, y_test: np.ndarray) -> dict:
+        def fit_enet_synthetic(train_df: pd.DataFrame, test_df: pd.DataFrame, *, view: str) -> dict:
             start = perf_counter()
-            scaler = SkStandardScaler().fit(X_train)
-            X_train_scaled = scaler.transform(X_train)
-            X_test_scaled = scaler.transform(X_test)
-            groups = synthetic_group_arrays(X_train.columns.tolist())
-            cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=1234)
+            X_train, y_train, X_test, y_test = _synthetic_xy(train_df, test_df, view=view)
+            prob, beta, info = _fit_linear_external_cv(
+                X_train,
+                y_train,
+                X_test,
+                penalty="elasticnet",
+                l1_ratios=ENET_L1_RATIOS,
+                use_scaler=_view_uses_scaler(view),
+            )
+            return _finish_synthetic_row(f"{view}_enet", y_test, prob, beta, start, _add_view_info(info, view))
 
-            best_alpha = None
-            best_score = -np.inf
-            for alpha in GROUP_ALPHA_GRID:
-                scores = []
-                for train_idx, valid_idx in cv.split(X_train_scaled, y_train):
+
+        def fit_adaptive_l1_synthetic(train_df: pd.DataFrame, test_df: pd.DataFrame, *, view: str) -> dict:
+            start = perf_counter()
+            use_scaler = _view_uses_scaler(view)
+            X_train, y_train, X_test, y_test = _synthetic_xy(train_df, test_df, view=view)
+            X_arr = X_train.to_numpy(dtype=float)
+            X_test_arr = X_test.to_numpy(dtype=float)
+            folds = _synthetic_cv_splits(y_train)
+            losses = np.empty((len(folds), len(SYN_C_GRID)), dtype=float)
+
+            for fold_idx, (train_idx, valid_idx) in enumerate(folds):
+                X_fold_train, X_fold_valid, _ = _maybe_scaled_pair(
+                    X_arr[train_idx],
+                    X_arr[valid_idx],
+                    use_scaler=use_scaler,
+                )
+                pilot = LogisticRegression(C=1.0, penalty="l2", solver="lbfgs", max_iter=SYN_MAX_ITER, tol=SYN_TOL, random_state=SYN_RANDOM_STATE)
+                pilot.fit(X_fold_train, y_train[train_idx])
+                weights = 1.0 / (np.abs(pilot.coef_.ravel()) + ADAPTIVE_EPS)
+                X_weighted_train = X_fold_train / weights
+                X_weighted_valid = X_fold_valid / weights
+                for cand_idx, C in enumerate(SYN_C_GRID):
+                    model = _make_logistic(float(C), penalty="l1")
+                    model.fit(X_weighted_train, y_train[train_idx])
+                    losses[fold_idx, cand_idx] = _binary_log_loss(y_train[valid_idx], model.predict_proba(X_weighted_valid)[:, 1])
+
+            selected_idx, mean_losses, se_losses = _select_loss_candidate(losses)
+            selected_C = float(SYN_C_GRID[selected_idx])
+            X_final, X_test_final, _ = _maybe_scaled_pair(X_arr, X_test_arr, use_scaler=use_scaler)
+            pilot = LogisticRegression(C=1.0, penalty="l2", solver="lbfgs", max_iter=SYN_MAX_ITER, tol=SYN_TOL, random_state=SYN_RANDOM_STATE)
+            pilot.fit(X_final, y_train)
+            weights = 1.0 / (np.abs(pilot.coef_.ravel()) + ADAPTIVE_EPS)
+            final_model = _make_logistic(selected_C, penalty="l1")
+            final_model.fit(X_final / weights, y_train)
+            prob = final_model.predict_proba(X_test_final / weights)[:, 1]
+            beta = pd.Series(final_model.coef_.ravel() / weights, index=X_train.columns, name="coef")
+            info = {
+                "selected_C": selected_C,
+                "selected_l1_ratio": np.nan,
+                "cv_candidate_count": int(len(SYN_C_GRID)),
+                "fit_count": int(len(folds) * (len(SYN_C_GRID) + 1) + 2),
+                "iteration_budget": int(SYN_MAX_ITER),
+                "cv_mean_loss": float(mean_losses[selected_idx]),
+                "cv_se_loss": float(se_losses[selected_idx]),
+                "pilot_fit_count": int(len(folds) + 1),
+            }
+            return _finish_synthetic_row(f"{view}_adaptive_l1", y_test, prob, beta, start, _add_view_info(info, view))
+
+
+        def fit_group_lasso_synthetic(train_df: pd.DataFrame, test_df: pd.DataFrame, *, view: str) -> dict:
+            start = perf_counter()
+            use_scaler = _view_uses_scaler(view)
+            X_train, y_train, X_test, y_test = _synthetic_xy(train_df, test_df, view=view)
+            X_arr = X_train.to_numpy(dtype=float)
+            X_test_arr = X_test.to_numpy(dtype=float)
+            groups = synthetic_group_arrays(X_train.columns.tolist())
+            folds = _synthetic_cv_splits(y_train)
+            losses = np.empty((len(folds), len(GROUP_ALPHA_GRID)), dtype=float)
+
+            for fold_idx, (train_idx, valid_idx) in enumerate(folds):
+                X_fold_train, X_fold_valid, _ = _maybe_scaled_pair(
+                    X_arr[train_idx],
+                    X_arr[valid_idx],
+                    use_scaler=use_scaler,
+                )
+                for cand_idx, alpha in enumerate(GROUP_ALPHA_GRID):
                     model = LogisticSGL(
                         l1_ratio=0.0,
                         alpha=float(alpha),
                         groups=groups,
                         scale_l2_by="group_length",
-                        max_iter=500,
-                        tol=1e-3,
+                        max_iter=SYN_MAX_ITER,
+                        tol=SYN_TOL,
                         suppress_solver_warnings=True,
                     )
-                    model.fit(X_train_scaled[train_idx], y_train[train_idx])
-                    prob_valid = model.predict_proba(X_train_scaled[valid_idx])[:, 1]
-                    scores.append(roc_auc_score(y_train[valid_idx], prob_valid))
-                mean_score = float(np.mean(scores))
-                if mean_score > best_score:
-                    best_score = mean_score
-                    best_alpha = float(alpha)
+                    model.fit(X_fold_train, y_train[train_idx])
+                    losses[fold_idx, cand_idx] = _binary_log_loss(y_train[valid_idx], model.predict_proba(X_fold_valid)[:, 1])
 
+            selected_idx, mean_losses, se_losses = _select_loss_candidate(losses)
+            selected_alpha = float(GROUP_ALPHA_GRID[selected_idx])
+            X_final, X_test_final, _ = _maybe_scaled_pair(X_arr, X_test_arr, use_scaler=use_scaler)
             final_model = LogisticSGL(
                 l1_ratio=0.0,
-                alpha=best_alpha,
+                alpha=selected_alpha,
                 groups=groups,
                 scale_l2_by="group_length",
-                max_iter=500,
-                tol=1e-3,
+                max_iter=SYN_MAX_ITER,
+                tol=SYN_TOL,
                 suppress_solver_warnings=True,
             )
-            final_model.fit(X_train_scaled, y_train)
-            prob = final_model.predict_proba(X_test_scaled)[:, 1]
+            final_model.fit(X_final, y_train)
+            prob = final_model.predict_proba(X_test_final)[:, 1]
             beta = pd.Series(np.asarray(final_model.coef_).ravel(), index=X_train.columns, name="coef")
-            selected_topk, beta_nz = top_features_from_series(beta, k=len(TRUE_FEATURES))
-            metrics = metric_row(y_test, prob)
-            _, _, exact_f1 = lag_metrics(selected_topk, TRUE_FEATURES, tol=0)
-            return {
-                "method": "raw_group_lasso",
-                **metrics,
-                "lag_f1_exact": float(exact_f1),
-                "nonzero_total": int((beta != 0).sum()),
-                "selected_features": "|".join(selected_topk),
-                "runtime_seconds": float(perf_counter() - start),
-                "tuned_alpha": float(best_alpha),
+            info = {
+                "selected_alpha": selected_alpha,
+                "tuned_alpha": selected_alpha,
+                "cv_candidate_count": int(len(GROUP_ALPHA_GRID)),
+                "fit_count": int(len(folds) * len(GROUP_ALPHA_GRID) + 1),
+                "iteration_budget": int(SYN_MAX_ITER),
+                "cv_mean_loss": float(mean_losses[selected_idx]),
+                "cv_se_loss": float(se_losses[selected_idx]),
             }
+            return _finish_synthetic_row(f"{view}_group_lasso", y_test, prob, beta, start, _add_view_info(info, view))
 
 
-        def fit_raw_ordered_prefix_synthetic(X_train: pd.DataFrame, y_train: np.ndarray, X_test: pd.DataFrame, y_test: np.ndarray) -> dict:
-            start = perf_counter()
-            prefix_rows = []
+        def _ordered_prefix_design(X_fit: pd.DataFrame, y_fit: np.ndarray, X_apply: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+            train_features = {}
+            apply_features = {}
             for variable in range(1, SYN_CONFIG["S"] + 1):
                 lag_cols = [f"V{variable}TM{lag}" for lag in range(SYN_CONFIG["H"] + 1)]
-                lag_cols = [col for col in lag_cols if col in X_train.columns]
+                lag_cols = [col for col in lag_cols if col in X_fit.columns]
                 best_auc = -np.inf
                 best_label = None
                 best_train_feature = None
-                best_test_feature = None
+                best_apply_feature = None
                 for idx in range(len(lag_cols)):
-                    train_feature = X_train[lag_cols[: idx + 1]].mean(axis=1).to_numpy()
-                    test_feature = X_test[lag_cols[: idx + 1]].mean(axis=1).to_numpy()
-                    auc = roc_auc_score(y_train, train_feature)
+                    cols = lag_cols[: idx + 1]
+                    train_feature = X_fit[cols].mean(axis=1).to_numpy()
+                    apply_feature = X_apply[cols].mean(axis=1).to_numpy()
+                    auc = roc_auc_score(y_fit, train_feature)
                     if auc < 0.5:
                         auc = 1.0 - auc
                         train_feature = -train_feature
-                        test_feature = -test_feature
+                        apply_feature = -apply_feature
                     if auc > best_auc:
                         best_auc = auc
                         best_label = f"V{variable}TM{idx}"
                         best_train_feature = train_feature
-                        best_test_feature = test_feature
-                prefix_rows.append((best_label, best_train_feature, best_test_feature))
-
-            X_train_prefix = pd.DataFrame({label: train_feature for label, train_feature, _ in prefix_rows})
-            X_test_prefix = pd.DataFrame({label: test_feature for label, _, test_feature in prefix_rows})
-
-            pipe = Pipeline(
-                [
-                    ("scaler", SkStandardScaler()),
-                    (
-                        "lr",
-                        LogisticRegressionCV(
-                            penalty="l1",
-                            solver="saga",
-                            Cs=ENET_CS,
-                            cv=3,
-                            scoring="roc_auc",
-                            max_iter=2000,
-                            tol=1e-3,
-                            random_state=1234,
-                            refit=True,
-                        ),
-                    ),
-                ]
-            )
-            pipe.fit(X_train_prefix, y_train)
-            prob = pipe.predict_proba(X_test_prefix)[:, 1]
-            beta = pd.Series(pipe.named_steps["lr"].coef_.ravel(), index=X_train_prefix.columns, name="coef")
-            selected_topk, beta_nz = top_features_from_series(beta, k=len(TRUE_FEATURES))
-            metrics = metric_row(y_test, prob)
-            _, _, exact_f1 = lag_metrics(selected_topk, TRUE_FEATURES, tol=0)
-            return {
-                "method": "raw_ordered_prefix",
-                **metrics,
-                "lag_f1_exact": float(exact_f1),
-                "nonzero_total": int((beta != 0).sum()),
-                "selected_features": "|".join(selected_topk),
-                "runtime_seconds": float(perf_counter() - start),
-            }
+                        best_apply_feature = apply_feature
+                train_features[best_label] = best_train_feature
+                apply_features[best_label] = best_apply_feature
+            return pd.DataFrame(train_features), pd.DataFrame(apply_features)
 
 
-        def fit_raw_qp_selector_synthetic(X_train: pd.DataFrame, y_train: np.ndarray, X_test: pd.DataFrame, y_test: np.ndarray) -> dict:
+        def fit_ordered_prefix_synthetic(train_df: pd.DataFrame, test_df: pd.DataFrame, *, view: str) -> dict:
             start = perf_counter()
-            X_norm, y_norm = normalize_design_and_target(X_train.to_numpy(dtype=float), y_train.astype(float))
-            Q, b = create_opt_problem(X_norm, y_norm, sim="correl", rel="correl")
-            qp_weights = solve_opt_problem(Q, b)
-            ranking = np.argsort(np.abs(qp_weights))[::-1]
+            use_scaler = _view_uses_scaler(view)
+            X_train, y_train, X_test, y_test = _synthetic_xy(train_df, test_df, view=view)
+            folds = _synthetic_cv_splits(y_train)
+            losses = np.empty((len(folds), len(SYN_C_GRID)), dtype=float)
 
-            X_subtrain, X_valid, y_subtrain, y_valid = train_test_split(
-                X_train,
-                y_train,
-                test_size=0.25,
-                stratify=y_train,
-                random_state=1234,
-            )
-
-            best_k = None
-            best_valid_auc = -np.inf
-            for k in QP_K_GRID:
-                cols = X_train.columns[ranking[:k]].tolist()
-                pipe = Pipeline(
-                    [
-                        ("scaler", SkStandardScaler()),
-                        (
-                            "lr",
-                            LogisticRegressionCV(
-                                penalty="l1",
-                                solver="saga",
-                                Cs=ENET_CS,
-                                cv=3,
-                                scoring="roc_auc",
-                                max_iter=800,
-                                tol=1e-3,
-                                random_state=1234,
-                                refit=True,
-                            ),
-                        ),
-                    ]
+            for fold_idx, (train_idx, valid_idx) in enumerate(folds):
+                X_prefix_train, X_prefix_valid = _ordered_prefix_design(X_train.iloc[train_idx], y_train[train_idx], X_train.iloc[valid_idx])
+                X_fold_train = X_prefix_train.to_numpy(dtype=float)
+                X_fold_valid = X_prefix_valid.to_numpy(dtype=float)
+                X_fold_train, X_fold_valid, _ = _maybe_scaled_pair(
+                    X_fold_train,
+                    X_fold_valid,
+                    use_scaler=use_scaler,
                 )
-                pipe.fit(X_subtrain[cols], y_subtrain)
-                valid_prob = pipe.predict_proba(X_valid[cols])[:, 1]
-                valid_auc = roc_auc_score(y_valid, valid_prob)
-                if valid_auc > best_valid_auc:
-                    best_valid_auc = float(valid_auc)
-                    best_k = int(k)
+                for cand_idx, C in enumerate(SYN_C_GRID):
+                    model = _make_logistic(float(C), penalty="l1")
+                    model.fit(X_fold_train, y_train[train_idx])
+                    losses[fold_idx, cand_idx] = _binary_log_loss(y_train[valid_idx], model.predict_proba(X_fold_valid)[:, 1])
 
-            best_cols = X_train.columns[ranking[:best_k]].tolist()
-            final_pipe = Pipeline(
-                [
-                    ("scaler", SkStandardScaler()),
-                    (
-                        "lr",
-                        LogisticRegressionCV(
-                            penalty="l1",
-                            solver="saga",
-                            Cs=ENET_CS,
-                            cv=3,
-                            scoring="roc_auc",
-                            max_iter=800,
-                            tol=1e-3,
-                            random_state=1234,
-                            refit=True,
-                        ),
-                    ),
-                ]
+            selected_idx, mean_losses, se_losses = _select_loss_candidate(losses)
+            selected_C = float(SYN_C_GRID[selected_idx])
+            X_prefix_train, X_prefix_test = _ordered_prefix_design(X_train, y_train, X_test)
+            X_final, X_test_final, _ = _maybe_scaled_pair(
+                X_prefix_train.to_numpy(dtype=float),
+                X_prefix_test.to_numpy(dtype=float),
+                use_scaler=use_scaler,
             )
-            final_pipe.fit(X_train[best_cols], y_train)
-            prob = final_pipe.predict_proba(X_test[best_cols])[:, 1]
-            metrics = metric_row(y_test, prob)
-            _, _, exact_f1 = lag_metrics(best_cols[: len(TRUE_FEATURES)], TRUE_FEATURES, tol=0)
-            return {
-                "method": "raw_qp_selector",
-                **metrics,
-                "lag_f1_exact": float(exact_f1),
-                "nonzero_total": int(best_k),
-                "selected_features": "|".join(best_cols[: len(TRUE_FEATURES)]),
-                "runtime_seconds": float(perf_counter() - start),
-                "chosen_k": int(best_k),
+            final_model = _make_logistic(selected_C, penalty="l1")
+            final_model.fit(X_final, y_train)
+            prob = final_model.predict_proba(X_test_final)[:, 1]
+            beta = pd.Series(final_model.coef_.ravel(), index=X_prefix_train.columns, name="coef")
+            info = {
+                "selected_C": selected_C,
+                "selected_l1_ratio": np.nan,
+                "cv_candidate_count": int(len(SYN_C_GRID)),
+                "fit_count": int(len(folds) * len(SYN_C_GRID) + 1),
+                "iteration_budget": int(SYN_MAX_ITER),
+                "cv_mean_loss": float(mean_losses[selected_idx]),
+                "cv_se_loss": float(se_losses[selected_idx]),
             }
+            return _finish_synthetic_row(f"{view}_ordered_prefix", y_test, prob, beta, start, _add_view_info(info, view))
+
+
+        def _qp_feature_ranking(X_fit: pd.DataFrame, y_fit: np.ndarray) -> np.ndarray:
+            X_norm, y_norm = normalize_design_and_target(X_fit.to_numpy(dtype=float), y_fit.astype(float))
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", category=RuntimeWarning, message="invalid value encountered in divide")
+                Q, b = create_opt_problem(X_norm, y_norm, sim="correl", rel="correl")
+            qp_weights = solve_opt_problem(Q, b)
+            return np.argsort(np.abs(qp_weights))[::-1]
+
+
+        def fit_qp_selector_synthetic(train_df: pd.DataFrame, test_df: pd.DataFrame, *, view: str) -> dict:
+            start = perf_counter()
+            use_scaler = _view_uses_scaler(view)
+            X_train, y_train, X_test, y_test = _synthetic_xy(train_df, test_df, view=view)
+            candidate_pairs = [(int(k), float(C)) for k in QP_K_GRID for C in SYN_C_GRID]
+            folds = _synthetic_cv_splits(y_train)
+            losses = np.empty((len(folds), len(candidate_pairs)), dtype=float)
+
+            for fold_idx, (train_idx, valid_idx) in enumerate(folds):
+                X_fold_df = X_train.iloc[train_idx]
+                X_valid_df = X_train.iloc[valid_idx]
+                ranking = _qp_feature_ranking(X_fold_df, y_train[train_idx])
+                for cand_idx, (k, C) in enumerate(candidate_pairs):
+                    cols = X_train.columns[ranking[:k]].tolist()
+                    X_fold_train, X_fold_valid, _ = _maybe_scaled_pair(
+                        X_fold_df[cols].to_numpy(dtype=float),
+                        X_valid_df[cols].to_numpy(dtype=float),
+                        use_scaler=use_scaler,
+                    )
+                    model = _make_logistic(C, penalty="l1")
+                    model.fit(X_fold_train, y_train[train_idx])
+                    losses[fold_idx, cand_idx] = _binary_log_loss(y_train[valid_idx], model.predict_proba(X_fold_valid)[:, 1])
+
+            selected_idx, mean_losses, se_losses = _select_loss_candidate(losses)
+            selected_k, selected_C = candidate_pairs[selected_idx]
+            ranking = _qp_feature_ranking(X_train, y_train)
+            best_cols = X_train.columns[ranking[:selected_k]].tolist()
+            X_final, X_test_final, _ = _maybe_scaled_pair(
+                X_train[best_cols].to_numpy(dtype=float),
+                X_test[best_cols].to_numpy(dtype=float),
+                use_scaler=use_scaler,
+            )
+            final_model = _make_logistic(selected_C, penalty="l1")
+            final_model.fit(X_final, y_train)
+            prob = final_model.predict_proba(X_test_final)[:, 1]
+            beta = pd.Series(final_model.coef_.ravel(), index=best_cols, name="coef")
+            info = {
+                "selected_C": float(selected_C),
+                "selected_l1_ratio": np.nan,
+                "chosen_k": int(selected_k),
+                "cv_candidate_count": int(len(candidate_pairs)),
+                "fit_count": int(len(folds) * len(candidate_pairs) + 1),
+                "qp_solve_count": int(len(folds) + 1),
+                "iteration_budget": int(SYN_MAX_ITER),
+                "cv_mean_loss": float(mean_losses[selected_idx]),
+                "cv_se_loss": float(se_losses[selected_idx]),
+            }
+            return _finish_synthetic_row(f"{view}_qp_selector", y_test, prob, beta, start, _add_view_info(info, view))
+
+
+        def fit_random_forest_synthetic(train_df: pd.DataFrame, test_df: pd.DataFrame, *, view: str) -> dict:
+            start = perf_counter()
+            X_train, y_train, X_test, y_test = _synthetic_xy(train_df, test_df, view=view)
+            folds = _synthetic_cv_splits(y_train)
+            losses = np.empty((len(folds), len(RAW_RF_CANDIDATES)), dtype=float)
+
+            for fold_idx, (train_idx, valid_idx) in enumerate(folds):
+                for cand_idx, candidate in enumerate(RAW_RF_CANDIDATES):
+                    params = {**RAW_RF_BASE_KW, **candidate}
+                    model = RandomForestClassifier(**params)
+                    model.fit(X_train.iloc[train_idx], y_train[train_idx])
+                    losses[fold_idx, cand_idx] = _binary_log_loss(y_train[valid_idx], model.predict_proba(X_train.iloc[valid_idx])[:, 1])
+
+            selected_idx, mean_losses, se_losses = _select_loss_candidate(losses)
+            selected_params = {**RAW_RF_BASE_KW, **RAW_RF_CANDIDATES[selected_idx]}
+            final_model = RandomForestClassifier(**selected_params)
+            final_model.fit(X_train, y_train)
+            prob = final_model.predict_proba(X_test)[:, 1]
+            importance = pd.Series(final_model.feature_importances_, index=X_train.columns, name="importance")
+            info = {
+                "cv_candidate_count": int(len(RAW_RF_CANDIDATES)),
+                "fit_count": int(len(folds) * len(RAW_RF_CANDIDATES) + 1),
+                "iteration_budget": int(RAW_RF_BASE_KW["n_estimators"]),
+                "selected_min_samples_leaf": int(selected_params["min_samples_leaf"]),
+                "cv_mean_loss": float(mean_losses[selected_idx]),
+                "cv_se_loss": float(se_losses[selected_idx]),
+            }
+            return _finish_synthetic_row(f"{view}_random_forest", y_test, prob, importance, start, _add_view_info(info, view))
         """
     ),
     md_cell(
@@ -676,39 +868,51 @@ cells = [
         ## Synthetic Baseline Expansion
 
         This section expands the baseline set on the synthetic Case 1 generator. The goal is to test whether stronger penalty design on the **raw** lag-expanded representation can match the attribution behavior of a simpler **rectification-first** sparse model.
+
+        Runtime is measured as end-to-end wall time for each method-specific calculation after the common synthetic train/test split has been generated. That includes method-specific preprocessing, rectification where applicable, feature construction or ranking, cross-validation, final refit, prediction, metric extraction, and support extraction. Logistic-family comparisons use the same stratified folds, log-loss selection rule, `C` grid, tolerance, max-iteration budget, and no-warm-start fits; method-specific extra stages such as adaptive-L1 pilot fits or QP ranking are counted in the method's runtime.
         """
     ),
     code_cell(
         """
         def run_or_load_synthetic_benchmark(overwrite_cache: bool = False) -> pd.DataFrame:
             cache_path = RUN_DIR / "synthetic_baseline_runs.csv"
+            expected_methods = set(SYN_METHOD_ORDER)
             if cache_path.exists() and not overwrite_cache:
                 df = pd.read_csv(cache_path)
-                print("Loaded synthetic benchmark from:", cache_path)
-                return df
+                cached_methods = set(df.get("method", pd.Series(dtype=str)).astype(str))
+                missing_methods = sorted(expected_methods.difference(cached_methods))
+                protocol_ok = (
+                    "protocol_version" in df.columns
+                    and set(df["protocol_version"].dropna().astype(str)) == {SYN_BENCHMARK_PROTOCOL_VERSION}
+                )
+                if not missing_methods and protocol_ok:
+                    print("Loaded synthetic benchmark from:", cache_path)
+                    return df
+                reasons = []
+                if missing_methods:
+                    reasons.append("missing methods: " + ", ".join(missing_methods))
+                if not protocol_ok:
+                    reasons.append("stale protocol")
+                print("Synthetic benchmark cache is stale; recomputing (" + "; ".join(reasons) + ")")
 
             cfg = dict(SYN_CONFIG)
             full_df, train_df, test_df = syn.generate_synthetic_dataset_nexamples(**cfg)
-            groups = skcase.organize(train_df)
-            rt_train, limits = skcase.rectify_fast(train_df, groups, limits=None, sdfilter=3.0, snap=0.001)
-            rt_test, _ = skcase.rectify_fast(test_df, groups, limits=limits, sdfilter=3.0, snap=0.001)
-
-            raw_train = train_df[[c for c in train_df.columns if c not in skcase.EXCLUDE_COLS]].copy()
-            raw_test = test_df[[c for c in test_df.columns if c not in skcase.EXCLUDE_COLS]].copy()
-
-            X_raw_train = raw_train.drop(columns=["INDC"])
-            y_raw_train = raw_train["INDC"].astype(int).to_numpy()
-            X_raw_test = raw_test.drop(columns=["INDC"])
-            y_raw_test = raw_test["INDC"].astype(int).to_numpy()
 
             rows = [
-                fit_rectified_l1_synthetic(rt_train, rt_test),
-                fit_raw_l1_synthetic(raw_train, raw_test),
-                fit_raw_enet_synthetic(X_raw_train, y_raw_train, X_raw_test, y_raw_test),
-                fit_raw_adaptive_l1_synthetic(X_raw_train, y_raw_train, X_raw_test, y_raw_test),
-                fit_raw_group_lasso_synthetic(X_raw_train, y_raw_train, X_raw_test, y_raw_test),
-                fit_raw_ordered_prefix_synthetic(X_raw_train, y_raw_train, X_raw_test, y_raw_test),
-                fit_raw_qp_selector_synthetic(X_raw_train, y_raw_train, X_raw_test, y_raw_test),
+                fit_l1_synthetic(train_df, test_df, view="raw"),
+                fit_l1_synthetic(train_df, test_df, view="rectified"),
+                fit_enet_synthetic(train_df, test_df, view="raw"),
+                fit_enet_synthetic(train_df, test_df, view="rectified"),
+                fit_adaptive_l1_synthetic(train_df, test_df, view="raw"),
+                fit_adaptive_l1_synthetic(train_df, test_df, view="rectified"),
+                fit_group_lasso_synthetic(train_df, test_df, view="raw"),
+                fit_group_lasso_synthetic(train_df, test_df, view="rectified"),
+                fit_ordered_prefix_synthetic(train_df, test_df, view="raw"),
+                fit_ordered_prefix_synthetic(train_df, test_df, view="rectified"),
+                fit_qp_selector_synthetic(train_df, test_df, view="raw"),
+                fit_qp_selector_synthetic(train_df, test_df, view="rectified"),
+                fit_random_forest_synthetic(train_df, test_df, view="raw"),
+                fit_random_forest_synthetic(train_df, test_df, view="rectified"),
             ]
 
             df = pd.DataFrame(rows)
@@ -729,20 +933,94 @@ cells = [
     code_cell(
         """
         synthetic_summary = synthetic_runs[
-            ["method", "method_label", "auc_test", "j_test", "lag_f1_exact", "nonzero_total", "runtime_seconds", "selected_features"]
+            [
+                "method",
+                "method_label",
+                "family_label",
+                "representation_label",
+                "auc_test",
+                "j_test",
+                "lag_f1_exact",
+                "nonzero_total",
+                "runtime_seconds",
+                "fit_count",
+                "cv_candidate_count",
+                "iteration_budget",
+                "selected_features",
+            ]
         ].copy()
         synthetic_summary.to_csv(RUN_DIR / "synthetic_baseline_summary.csv", index=False)
 
         synthetic_table = synthetic_summary.copy()
         for col in ["auc_test", "j_test", "lag_f1_exact", "runtime_seconds"]:
             synthetic_table[col] = synthetic_table[col].map(lambda value: format_numeric(value, 3))
-        synthetic_table["nonzero_total"] = synthetic_table["nonzero_total"].astype(int)
+        for col in ["nonzero_total", "fit_count", "cv_candidate_count", "iteration_budget"]:
+            synthetic_table[col] = synthetic_table[col].astype(int)
         synthetic_table.to_csv(RUN_DIR / "synthetic_baseline_summary_formatted.csv", index=False)
 
         if display is not None:
             display(synthetic_table)
         else:
             print(synthetic_table.to_string(index=False))
+        """
+    ),
+    code_cell(
+        """
+        def _latex_text(value) -> str:
+            text = str(value)
+            replacements = {
+                "&": r"\\&",
+                "%": r"\\%",
+                "#": r"\\#",
+                "_": r"\\_",
+            }
+            for old, new in replacements.items():
+                text = text.replace(old, new)
+            return text
+
+
+        def _latex_num(value: float, digits: int = 3) -> str:
+            return f"${float(value):.{digits}f}$"
+
+
+        latex_source = synthetic_runs.copy()
+        latex_source["latex_family_order"] = latex_source["method_family"].map(
+            {family: idx for idx, family in enumerate(SYN_FAMILY_ORDER)}
+        )
+        latex_source["latex_status_order"] = latex_source["representation"].map({"rectified": 0, "raw": 1})
+        latex_source = latex_source.sort_values(["latex_family_order", "latex_status_order"])
+        rectified_l1_time = float(latex_source.loc[latex_source["method"] == "rectified_l1", "runtime_seconds"].iloc[0])
+
+        latex_rows = []
+        for row in latex_source.itertuples(index=False):
+            latex_rows.append(
+                " & ".join(
+                    [
+                        _latex_text(row.family_label),
+                        _latex_text(row.representation_label),
+                        _latex_num(row.runtime_seconds / rectified_l1_time, 1),
+                        _latex_num(row.auc_test, 3),
+                        _latex_num(row.j_test, 3),
+                        _latex_num(row.f1max_test, 3),
+                        _latex_num(row.lag_f1_exact, 3),
+                    ]
+                )
+                + r" \\\\"
+            )
+
+        synthetic_latex_table = "\\n".join(
+            [
+                r"\\begin{tabular}{llccccc}",
+                r"\\toprule",
+                r"Method & Status & Rel. Time & AUC & Youden's $J$ & $F_1$ Max & $F_1$ Exact Lag \\\\",
+                r"\\midrule",
+                *latex_rows,
+                r"\\bottomrule",
+                r"\\end{tabular}",
+            ]
+        )
+
+        print(synthetic_latex_table)
         """
     ),
     code_cell(
@@ -756,20 +1034,32 @@ cells = [
 
         fig, axes = plt.subplots(2, 2, figsize=(13, 8))
         axes = axes.ravel()
-        x = np.arange(len(synthetic_runs))
+        x = np.arange(len(SYN_FAMILY_ORDER))
+        family_labels = [SYN_FAMILY_LABELS[family] for family in SYN_FAMILY_ORDER]
+        width = 0.38
 
         for ax, (metric, title) in zip(axes, plot_metrics):
-            ax.bar(
-                x,
-                synthetic_runs[metric].to_numpy(),
-                color=[SYN_METHOD_COLORS[m] for m in synthetic_runs["method"]],
-            )
+            for view_idx, view in enumerate(SYN_VIEW_ORDER):
+                view_df = (
+                    synthetic_runs[synthetic_runs["representation"] == view]
+                    .set_index("method_family")
+                    .reindex(SYN_FAMILY_ORDER)
+                )
+                offset = (view_idx - 0.5) * width
+                ax.bar(
+                    x + offset,
+                    view_df[metric].to_numpy(),
+                    width=width,
+                    color=SYN_VIEW_COLORS[view],
+                    label=SYN_VIEW_LABELS[view],
+                )
             ax.set_xticks(x)
-            ax.set_xticklabels(synthetic_runs["method_label"], rotation=35, ha="right")
+            ax.set_xticklabels(family_labels, rotation=25, ha="right")
             ax.set_title(title)
             if metric == "runtime_seconds":
                 ax.set_yscale("log")
             ax.grid(True, axis="y", alpha=0.3)
+        axes[0].legend(frameon=False, ncol=2, loc="lower right")
 
         fig.suptitle("D002 Synthetic Baseline Expansion", fontsize=16, y=0.98)
         fig.tight_layout()
@@ -782,20 +1072,57 @@ cells = [
     code_cell(
         """
         fig, ax = plt.subplots(figsize=(10, 6))
-        for row in synthetic_runs.itertuples():
-            ax.scatter(
-                row.runtime_seconds,
-                row.lag_f1_exact,
-                s=120,
-                color=SYN_METHOD_COLORS[row.method],
-                alpha=0.9,
+        label_offsets = {
+            "l1": (1.03, 0.018),
+            "enet": (1.06, -0.002),
+            "adaptive_l1": (1.03, 0.0),
+            "group_lasso": (1.04, 0.0),
+            "ordered_prefix": (1.04, 0.0),
+            "qp_selector": (1.03, -0.012),
+            "random_forest": (1.08, 0.012),
+        }
+        for family in SYN_FAMILY_ORDER:
+            pair = (
+                synthetic_runs[synthetic_runs["method_family"] == family]
+                .set_index("representation")
+                .reindex(SYN_VIEW_ORDER)
             )
-            ax.text(row.runtime_seconds * 1.03, row.lag_f1_exact, row.method_label, fontsize=10, va="center")
+            ax.plot(
+                pair["runtime_seconds"].to_numpy(),
+                pair["lag_f1_exact"].to_numpy(),
+                color="#b0b0b0",
+                linewidth=1.2,
+                zorder=1,
+            )
+            for row in pair.itertuples():
+                ax.scatter(
+                    row.runtime_seconds,
+                    row.lag_f1_exact,
+                    s=110,
+                    color=SYN_VIEW_COLORS[row.Index],
+                    alpha=0.9,
+                label=SYN_VIEW_LABELS[row.Index],
+                zorder=2,
+            )
+            rect_row = pair.loc["rectified"]
+            x_mult, y_delta = label_offsets.get(family, (1.03, 0.0))
+            ax.text(
+                rect_row["runtime_seconds"] * x_mult,
+                rect_row["lag_f1_exact"] + y_delta,
+                SYN_FAMILY_LABELS[family],
+                fontsize=9,
+                va="center",
+                bbox=dict(facecolor="white", edgecolor="none", alpha=0.75, pad=1.5),
+            )
 
         ax.set_xscale("log")
         ax.set_xlabel("Runtime (s, log scale)")
         ax.set_ylabel("Exact-Lag F1")
         ax.set_title("Synthetic Baseline Frontier: Runtime vs Attribution Fidelity")
+        handles, labels = ax.get_legend_handles_labels()
+        by_label = dict(zip(labels, handles))
+        ax.legend(by_label.values(), by_label.keys(), frameon=False, loc="upper right")
+        ax.margins(x=0.12, y=0.08)
         ax.grid(True, alpha=0.3)
         fig.tight_layout()
         out_path = FIGURES_DIR / "cross_domain_synthetic_frontier.png"

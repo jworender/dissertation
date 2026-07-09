@@ -44,9 +44,9 @@ This is also where I will explain why the dissertation takes a representation-fi
 
 The core problem is driven by three tensions.
 
-First, high dimension and correlation create unstable sparse support. In longitudinal data, lag expansion means that neighboring time lags are often highly correlated. This makes it difficult for sparse models to select the right feature and the right lag reliably.
+First, high dimensionality and correlation create unstable sparse support. In longitudinal data, lag expansion means that neighboring time lags are often highly correlated. This makes it difficult for sparse models to select the right feature and the right lag reliably.
 
-Second, operational settings often impose compute and model-complexity constraints. A model that is accurate but too large or too expensive may not be practical.
+Second, operational settings often impose compute and model-complexity constraints. A model that is accurate but too large or too expensive may not be practical in some settings.
 
 Third, high-stakes deployment often requires transparent and auditable rules rather than opaque scoring functions.
 
@@ -258,7 +258,7 @@ Instead, the goal is to show a tractable mechanism: under explicit assumptions, 
 
 ## Slide 19 — RQ2: Irrepresentable Condition
 
-The theoretical lens is the LASSO irrepresentable condition.
+The theoretical lens we will use is the LASSO irrepresentable condition.
 
 The IC gives a formal way to reason about when LASSO can recover the true sparse support. In high-dimensional lag-expanded longitudinal data, raw features often violate this condition because of high collinearity.
 
@@ -278,7 +278,7 @@ For standardized, jointly normal variables with correlation rho, zero-threshold 
 
 The transformed correlation is:
 
-`rho_tilde = (2 / pi) * arcsin(rho)`
+${\rho}_{tilde} = (2 / pi) * arcsin(\rho)$
 
 Under these assumptions, the magnitude of the transformed pairwise correlation is no larger than the original correlation.
 

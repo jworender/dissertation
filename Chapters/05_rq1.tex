@@ -167,22 +167,29 @@ The evaluation criteria are practical rather than purely theoretical: discrimina
 Synthetic longitudinal datasets are constructed so that events occur when a small subset of variables simultaneously enters critical ranges at specific lags. This creates a hard but controlled setting where lag expansion induces severe multicollinearity by design, closely mirroring the failure modes discussed in lasso consistency literature \autocites{PZhao2006model,freijeirogonzalez2022}. In this regime, representation-level rectification is applied before sparse fitting and compared with untransformed baselines.
 
 \begin{table}[tbh]
-    \caption[Synthetic data case study results.]{Synthetic case: transformed vs untransformed comparisons from the dissertation experiments.}
+    \caption[Synthetic data case study results.]{The numbers presented are for the synthetic case showing rectified and raw comparisons from the experiments conducted for this work.}
     \label{tab:synth_results}
     \begin{center}
-        \begin{tabular}{lllll}
-            Method        & Transform Status  & Rel. Time &  Youden's J & F1    \\ \hline
-            LASSO         & Transformed       & 1.00      & 0.975       & 0.988 \\ \hline
-            LASSO         & Untransformed     & 1.83      & 0.753       & 0.804 \\ \hline
-            Random Forest & Transformed       & 12.5      & 0.980       & 0.990 \\ \hline
-            Random Forest & Untransformed     & 43.0      & 0.913       & 0.947 \\ \hline
-            Group LASSO   & Transformed       & 24.5      & 0.689       & 0.558 \\ \hline
-            Group LASSO   & Untransformed     & 53.5      & 0.624       & 0.459 \\ \hline
+        \begin{tabular}{lllllll}
+            Method & Status & Rel. Time & AUC & Youden's $J$ & $F_1$ Max & $F_1$ Exact Lag \\ \hline
+            L1 & Rectified & $1.0$ & $0.997$ & $0.946$ & $0.966$ & $0.571$ \\ \hline
+            L1 & Raw & $1.7$ & $0.995$ & $0.892$ & $0.932$ & $0.000$ \\ \hline
+            Elastic Net & Rectified & $1.0$ & $0.997$ & $0.946$ & $0.966$ & $0.571$ \\ \hline
+            Elastic Net & Raw & $1.5$ & $0.995$ & $0.892$ & $0.932$ & $0.000$ \\ \hline
+            Adaptive L1 & Rectified & $1.0$ & $0.992$ & $0.929$ & $0.959$ & $0.714$ \\ \hline
+            Adaptive L1 & Raw & $1.3$ & $0.996$ & $0.897$ & $0.938$ & $0.000$ \\ \hline
+            Group Lasso & Rectified & $0.6$ & $0.996$ & $0.915$ & $0.947$ & $0.429$ \\ \hline
+            Group Lasso & Raw & $0.6$ & $0.993$ & $0.892$ & $0.926$ & $0.000$ \\ \hline
+            Ordered Prefix & Rectified & $1.2$ & $0.993$ & $0.920$ & $0.953$ & $0.000$ \\ \hline
+            Ordered Prefix & Raw & $1.1$ & $0.993$ & $0.897$ & $0.932$ & $0.000$ \\ \hline
+            QP + L1 & Raw & $3.0$ & $0.915$ & $0.629$ & $0.754$ & $0.000$ \\ \hline
+            Random Forest & Rectified & $2.2$ & $0.995$ & $0.911$ & $0.945$ & $0.286$ \\ \hline
+            Random Forest & Raw & $4.5$ & $0.999$ & $0.964$ & $0.987$ & $0.143$ \\ \hline
         \end{tabular}
     \end{center}
 \end{table}
 
-The synthetic results in Table \ref{tab:synth_results} show a consistent pattern: transformed models improve discrimination and often reduce runtime relative to their untransformed counterparts. More importantly for RQ1, support concentration is visibly improved at the coefficient level when transformed inputs are used, which directly affects lag-attribution reliability.
+The synthetic results in Table \ref{tab:synth_results} show a consistent pattern: rectified models improve discrimination and often reduce runtime relative to their raw counterparts. More importantly for RQ1, support concentration is visibly improved at the coefficient level when transformed inputs are used, which directly affects lag-attribution reliability. Note that Adaptive L1 gives the strongest exact-lag recovery in this synthetic panel, but this result should be interpreted as exploratory because the formal theoretical analysis is stated for the standard L1 estimator. The comparison is nevertheless useful: the raw adaptive-L1 fit still fails to recover the generating lags, whereas the rectified adaptive-L1 fit improves substantially. This suggests that rectification and adaptive weighting may be complementary, but a full theory for weighted/adaptive penalties is left for future work.
 
 \begin{figure}[tbh]
     \centering
@@ -284,7 +291,7 @@ To broaden the comparator set beyond a single redundancy-oriented method, the di
     \end{center}
 \end{table}
 
-Table \ref{tab:d002_baselines} sharpens the baseline story. Raw lasso, elastic net, and group lasso all remain reasonably predictive, but none of them recover the planted lags exactly. Their support stays concentrated on correlated surrogates in the original continuous representation rather than on the true trigger lags. Adaptive lasso, ordered-prefix selection, and QP reduce model size more aggressively, but they do so by pruning within the same raw representation and therefore sacrifice discrimination without solving the attribution problem. The rectified baseline is the only method in this expanded package that simultaneously attains the best AUC, the best Youden's $J$, and nonzero exact-lag recovery. For RQ1, this matters more than a marginal runtime win because the question is not merely whether a sparse model predicts well; it is whether the selected support remains interpretable at the feature-lag level.
+Table \ref{tab:d002_baselines} sharpens the baseline story. Raw lasso, elastic net, and group lasso all remain reasonably predictive, but none of them recover the planted lags exactly. Their support stays concentrated on correlated surrogates in the original continuous representation rather than on the true trigger lags. For Group Lasso, this is despite the groups being explicitly defined by which baseline variable was represented, with all lags for that baseline variable belonging to that group. Adaptive lasso, ordered-prefix selection, and QP reduce model size more aggressively, but they do so by pruning within the same raw representation and therefore sacrifice discrimination without solving the attribution problem. The rectified baseline is the only method in this expanded package that simultaneously attains the best AUC, the best Youden's $J$, and nonzero exact-lag recovery. For RQ1, this matters more than a marginal runtime win because the question is not merely whether a sparse model predicts well; it is whether the selected support remains interpretable at the feature-lag level.
 
 \subsection{Direct interpretable-model baseline package}
 
@@ -422,7 +429,7 @@ The practical point of this subsection is to treat the Goose Bay ionosphere data
     \label{fig:d002_transfer_deltas}
 \end{figure}
 
-The ionosphere result is well suited to show how variances in protocol can affect the outcome. Previous Goose Bay results  \autocite{orender2022} seem to show a positive outcome with respect to the rectification procedure. Figure \ref{fig:d002_ionosphere_protocols} resolves that apparent contradiction by keeping the two views distinct. The published 2022 Goose Bay reference moves from $J=0.695$ to $J=0.854$ after rectification, a gain of $0.159$. The standardized generic transfer probe instead moves from $J=0.775$ to $J=0.716$, a loss of $0.059$. These are not the same experiment. The published result used the original study protocol, while the generic transfer probe deliberately used the same portable defaults as the other cross-domain datasets.
+The ionosphere result is well suited to show how variances in protocol can affect the outcome. Previous Goose Bay results  \autocite{orender2022} seem to show a positive outcome with respect to the rectification procedure. Figure \ref{fig:d002_ionosphere_protocols} resolves that apparent contradiction by keeping the two views distinct. The published 2022 Goose Bay reference moves from $J=0.695$ to $J=0.854$ after rectification, a gain of $0.159$. The standardized generic transfer probe instead moves from $J=0.775$ to $J=0.716$, a loss of $0.059$. These are not the same experiment. The published result used the original study protocol, while the generic transfer probe deliberately used the same portable defaults as the other cross-domain datasets. 
 
 \begin{figure}[tbh]
     \centering
@@ -454,7 +461,7 @@ Figure \ref{fig:d002_goose_bay_c_sweep} extends the same idea to the lasso penal
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=0.96\textwidth]{Figures/goose_bay_c_sweep_scatter.png}
-    \caption[Goose Bay penalty sensitivity.]{Goose Bay sensitivity to the lasso penalty under the $67/33$ split with min/max rectification. The upper panel shows seed-level and mean $\Delta J$ values with an overlaid $10$-fold cross-validation mean-$J$ curve; the lower panel shows the standard deviation of $\Delta J$ at each $C$. The high-$C$ regime is not uniquely optimal, but it is substantially more favorable and more stable than the standardized $C=0.1$ setting.}
+    \caption[Goose Bay penalty sensitivity.]{Goose Bay sensitivity to the lasso penalty under the $67/33$ split with min/max rectification. The upper panel shows seed-level and mean $\Delta J$ values with an overlaid $10$-fold cross-validation mean-$J$ curve; the lower panel shows the standard deviation of $\Delta J$ at each $C$. The high-$C$ regime is not uniquely optimal, but it is substantially more favorable and more stable than the standardized $C=0.1$ setting. To be clear, all data shown and thus any conclusions drawn, are based on training data only. No tuning was performed using test data.}
     \label{fig:d002_goose_bay_c_sweep}
 \end{figure}
 

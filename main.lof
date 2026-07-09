@@ -5,31 +5,31 @@
 \contentsline {figure}{\numberline {3.}{\ignorespaces Toy Example Coefficient Vectors.}}{29}{}%
 \contentsline {figure}{\numberline {4.}{\ignorespaces Intuition Development for One Relevant Curve.}}{33}{}%
 \contentsline {figure}{\numberline {5.}{\ignorespaces Intuition Development for Two Relevant Curves.}}{34}{}%
-\contentsline {figure}{\numberline {6.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{39}{}%
-\contentsline {figure}{\numberline {7.}{\ignorespaces RQ1 ablation summary.}}{41}{}%
-\contentsline {figure}{\numberline {8.}{\ignorespaces RQ1 pairwise support stability.}}{42}{}%
-\contentsline {figure}{\numberline {9.}{\ignorespaces RQ1 selection-frequency heatmaps.}}{43}{}%
-\contentsline {figure}{\numberline {10.}{\ignorespaces RQ1 runtime scaling under lag expansion.}}{44}{}%
-\contentsline {figure}{\numberline {11.}{\ignorespaces Katrutsa and Strijov Method Results.}}{45}{}%
-\contentsline {figure}{\numberline {12.}{\ignorespaces RQ1 direct interpretable-model summary.}}{48}{}%
-\contentsline {figure}{\numberline {13.}{\ignorespaces RQ1 direct interpretable-model lag-recovery heatmaps.}}{56}{}%
-\contentsline {figure}{\numberline {14.}{\ignorespaces RQ1 direct interpretable-model tradeoff.}}{57}{}%
-\contentsline {figure}{\numberline {15.}{\ignorespaces HAI Results.}}{60}{}%
-\contentsline {figure}{\numberline {16.}{\ignorespaces HAI ROC.}}{61}{}%
-\contentsline {figure}{\numberline {17.}{\ignorespaces HAI J vs. K.}}{62}{}%
-\contentsline {figure}{\numberline {18.}{\ignorespaces RQ1 cross-domain transfer deltas.}}{63}{}%
-\contentsline {figure}{\numberline {19.}{\ignorespaces Ionosphere protocol distinction.}}{63}{}%
-\contentsline {figure}{\numberline {20.}{\ignorespaces Goose Bay repeated-split protocol audit.}}{64}{}%
-\contentsline {figure}{\numberline {21.}{\ignorespaces Goose Bay quantile sensitivity.}}{64}{}%
-\contentsline {figure}{\numberline {22.}{\ignorespaces Goose Bay penalty sensitivity.}}{65}{}%
-\contentsline {figure}{\numberline {23.}{\ignorespaces RQ2 baseline IC boundary sweep.}}{88}{}%
-\contentsline {figure}{\numberline {24.}{\ignorespaces RQ2 harder IC boundary heatmaps.}}{89}{}%
-\contentsline {figure}{\numberline {25.}{\ignorespaces RQ2 harder IC boundary heatmaps with HAI overlay.}}{90}{}%
-\contentsline {figure}{\numberline {26.}{\ignorespaces RQ2 fixed-support inactive-count sweep.}}{91}{}%
-\contentsline {figure}{\numberline {27.}{\ignorespaces RQ2 threshold bridge from theory to practice.}}{92}{}%
-\contentsline {figure}{\numberline {28.}{\ignorespaces RQ3 real-data anytime compression frontiers.}}{99}{}%
-\contentsline {figure}{\numberline {29.}{\ignorespaces Anytime Compression (RQ3) Results.}}{102}{}%
-\contentsline {figure}{\numberline {30.}{\ignorespaces Synthetic base oscillatory component.}}{120}{}%
-\contentsline {figure}{\numberline {31.}{\ignorespaces Synthetic composite sensor channel.}}{121}{}%
-\contentsline {figure}{\numberline {32.}{\ignorespaces Synthetic lagged event mechanism.}}{122}{}%
-\contentsline {figure}{\numberline {33.}{\ignorespaces Synthetic lag flattening.}}{123}{}%
+\contentsline {figure}{\numberline {6.}{\ignorespaces Synthetic Data Transformed vs. Untransformed.}}{38}{}%
+\contentsline {figure}{\numberline {7.}{\ignorespaces RQ1 ablation summary.}}{40}{}%
+\contentsline {figure}{\numberline {8.}{\ignorespaces RQ1 pairwise support stability.}}{41}{}%
+\contentsline {figure}{\numberline {9.}{\ignorespaces RQ1 selection-frequency heatmaps.}}{42}{}%
+\contentsline {figure}{\numberline {10.}{\ignorespaces RQ1 runtime scaling under lag expansion.}}{43}{}%
+\contentsline {figure}{\numberline {11.}{\ignorespaces Katrutsa and Strijov Method Results.}}{44}{}%
+\contentsline {figure}{\numberline {12.}{\ignorespaces RQ1 direct interpretable-model summary.}}{46}{}%
+\contentsline {figure}{\numberline {13.}{\ignorespaces RQ1 direct interpretable-model lag-recovery heatmaps.}}{57}{}%
+\contentsline {figure}{\numberline {14.}{\ignorespaces RQ1 direct interpretable-model tradeoff.}}{58}{}%
+\contentsline {figure}{\numberline {15.}{\ignorespaces HAI Results.}}{61}{}%
+\contentsline {figure}{\numberline {16.}{\ignorespaces HAI ROC.}}{62}{}%
+\contentsline {figure}{\numberline {17.}{\ignorespaces HAI J vs. K.}}{63}{}%
+\contentsline {figure}{\numberline {18.}{\ignorespaces RQ1 cross-domain transfer deltas.}}{64}{}%
+\contentsline {figure}{\numberline {19.}{\ignorespaces Ionosphere protocol distinction.}}{64}{}%
+\contentsline {figure}{\numberline {20.}{\ignorespaces Goose Bay repeated-split protocol audit.}}{65}{}%
+\contentsline {figure}{\numberline {21.}{\ignorespaces Goose Bay quantile sensitivity.}}{65}{}%
+\contentsline {figure}{\numberline {22.}{\ignorespaces Goose Bay penalty sensitivity.}}{66}{}%
+\contentsline {figure}{\numberline {23.}{\ignorespaces RQ2 baseline IC boundary sweep.}}{89}{}%
+\contentsline {figure}{\numberline {24.}{\ignorespaces RQ2 harder IC boundary heatmaps.}}{90}{}%
+\contentsline {figure}{\numberline {25.}{\ignorespaces RQ2 harder IC boundary heatmaps with HAI overlay.}}{91}{}%
+\contentsline {figure}{\numberline {26.}{\ignorespaces RQ2 fixed-support inactive-count sweep.}}{92}{}%
+\contentsline {figure}{\numberline {27.}{\ignorespaces RQ2 threshold bridge from theory to practice.}}{93}{}%
+\contentsline {figure}{\numberline {28.}{\ignorespaces RQ3 real-data anytime compression frontiers.}}{100}{}%
+\contentsline {figure}{\numberline {29.}{\ignorespaces Anytime Compression (RQ3) Results.}}{103}{}%
+\contentsline {figure}{\numberline {30.}{\ignorespaces Synthetic base oscillatory component.}}{121}{}%
+\contentsline {figure}{\numberline {31.}{\ignorespaces Synthetic composite sensor channel.}}{122}{}%
+\contentsline {figure}{\numberline {32.}{\ignorespaces Synthetic lagged event mechanism.}}{123}{}%
+\contentsline {figure}{\numberline {33.}{\ignorespaces Synthetic lag flattening.}}{124}{}%
