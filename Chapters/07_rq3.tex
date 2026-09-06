@@ -94,18 +94,23 @@ Figure \ref{fig:rq3_real_frontiers} shows that the frontier shape is strongly do
 \begin{table}[tbh]
 	\caption[RQ3 strict real-data compression policy summary.]{Strict real-data compression policy summary using the smallest-passing training-side candidate prefix under $\epsilon=0.02$. Deployment eligibility requires paired-bootstrap lower bounds above the prespecified non-inferiority margins $\Delta \mathrm{AUC}>-0.02$ and $\Delta J>-0.02$ on held-out test data.}
 	\label{tab:rq3_strict_policy}
-	\begin{center}
-		\resizebox{\textwidth}{!}{
-		\begin{tabular}{lcccccc}
+	\centering
+		\setlength{\tabcolsep}{2pt}
+		\begin{tabularx}{\textwidth}{
+			>{\RaggedRight\arraybackslash}p{0.125\textwidth}
+			>{\centering\arraybackslash}p{0.08\textwidth}
+			>{\centering\arraybackslash}p{0.09\textwidth}
+			>{\centering\arraybackslash}p{0.115\textwidth}
+			>{\centering\arraybackslash}X
+			>{\centering\arraybackslash}X
+			>{\centering\arraybackslash}p{0.08\textwidth}}
 			Domain & Baseline nz & Candidate $k^\star$ & Compression & $\Delta$AUC [95\% CI] & $\Delta J$ [95\% CI] & Deploy? \\ \hline
 			HAI attack\_p2 ($a1$) & 39 & 14 & $2.79\times$ & $-0.011$ [$-0.016$, $-0.006$] & $+0.015$ [$-0.005$, $+0.036$] & yes \\ \hline
 			HAI attack\_p1p2 ($a2$) & 25 & 8 & $3.12\times$ & $-0.001$ [$-0.002$, $-0.001$] & $-0.008$ [$-0.012$, $-0.004$] & yes \\ \hline
 			HAI attack\_p3 ($a3$) & 23 & 7 & $3.29\times$ & $-0.003$ [$-0.054$, $+0.050$] & $+0.341$ [$+0.223$, $+0.457$] & no \\ \hline
 			HAI attack\_p1p3 ($a4$) & 34 & 8 & $4.25\times$ & $+0.011$ [$+0.002$, $+0.023$] & $+0.014$ [$-0.026$, $+0.055$] & no \\ \hline
 			Ionosphere radar & 10 & 10 & $1.00\times$ & $+0.010$ [$-0.014$, $+0.038$] & $+0.019$ [$-0.123$, $+0.163$] & no \\ \hline
-		\end{tabular}
-		}
-	\end{center}
+		\end{tabularx}
 \end{table}
 
 Table \ref{tab:rq3_strict_policy} makes the deployment result explicit. In the controlled synthetic threshold-and-lag regime studied earlier in this chapter, the anytime frontier shows that compression itself works cleanly: once the sparse rectified baseline has isolated the planted event logic, the rule path can recover substantially smaller models without meaningful degradation. The real-data setting is more complicated. Under the strict $2\%$ policy with the relaxed AUC non-inferiority margin, two of the five held-out studies satisfy both gates for their nominated candidate prefixes: HAI $a1$, where the deployed compressed rule shrinks from $39$ active terms to $14$ ($2.79\times$ compression) with only a modest AUC decrease and a slight $J$ increase, and HAI $a2$, where the deployed compressed rule shrinks from $25$ terms to $8$ ($3.12\times$ compression) while keeping both lower bounds above the prespecified margins. HAI $a3$ retains clear compression headroom but its nominated candidate still fails the AUC lower-bound gate, HAI $a4$ reaches an even smaller candidate $k^\star=8$ with positive point estimates for both $\Delta$AUC and $\Delta J$ yet misses the bootstrap $J$ lower-bound requirement, and the ionosphere probe clears the relaxed AUC margin but still fails the $J$ gate because the smaller-sample test estimate is too unstable. This mixed real-data outcome is expected when threshold-triggered effects coexist with more nearly additive relationships and with measurement uncertainty. The real-data answer is therefore not that every sparse model should be shortened, but that the anytime frontier provides an auditable basis for either ``compress'' or ``do not compress'' decisions under an explicit deployment policy. The specific acceptance criteria used here are intentionally conservative and application-dependent rather than universal. Under other operating priorities, especially when compression gains are large and the held-out shortfall is small, some near-miss cases could reasonably be judged acceptable.

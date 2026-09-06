@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  23 APR 2026 00:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.19)  1 AUG 2026 14:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -415,7 +415,7 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
 Package caption Info: Option `figurename' requires the `newfloat' package on in
-put line 621.
+put line 690.
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/newfloat\newfloat.sty
 Package: newfloat 2023/10/01 v1.2 Defining new floating environments (AR)
 Package newfloat Info: Unsupported document class, or \@chapter 
@@ -518,7 +518,36 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@headsep=\skip106
 \dth@everypar=\toks40
 )
-(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithm.st
+y
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\c@algorithm=\count345
+)
+(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/algorithmicx\algpseudoc
+ode.sty
+Package: algpseudocode 
+
+(C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/algorithmicx\algorithmi
+cx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count346
+\c@ALG@rem=\count347
+\c@ALG@nested=\count348
+\ALG@tlm=\skip107
+\ALG@thistlm=\skip108
+\c@ALG@Lnr=\count349
+\c@ALG@blocknr=\count350
+\c@ALG@storecount=\count351
+\c@ALG@tmpcounter=\count352
+\ALG@tmplength=\skip109
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/placeins\placeins.sty
+Package: placeins 2005/04/18  v 2.2
+) (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
@@ -527,8 +556,8 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \ar@mcellbox=\box64
 \extrarowheight=\dimen188
 \NC@list=\toks41
-\extratabsurround=\skip107
-\backup@length=\skip108
+\extratabsurround=\skip110
+\backup@length=\skip111
 \ar@cellbox=\box65
 )
 \TX@col@width=\dimen189
@@ -536,9 +565,11 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \TX@old@col=\dimen191
 \TX@target=\dimen192
 \TX@delta=\dimen193
-\TX@cols=\count345
+\TX@cols=\count353
 \TX@ftn=\toks42
 )
+\c@theorem=\count354
+
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.sty
 Package: biblatex 2025/07/10 v3.21 programmable bibliographies (PK/MW)
 
@@ -565,68 +596,68 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )) (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count346
+\lrq@indent=\count355
 
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 ))
-\c@tabx@nest=\count347
-\c@listtotal=\count348
-\c@listcount=\count349
-\c@liststart=\count350
-\c@liststop=\count351
-\c@citecount=\count352
-\c@citetotal=\count353
-\c@multicitecount=\count354
-\c@multicitetotal=\count355
-\c@instcount=\count356
-\c@maxnames=\count357
-\c@minnames=\count358
-\c@maxitems=\count359
-\c@minitems=\count360
-\c@citecounter=\count361
-\c@maxcitecounter=\count362
-\c@savedcitecounter=\count363
-\c@uniquelist=\count364
-\c@uniquename=\count365
-\c@refsection=\count366
-\c@refsegment=\count367
-\c@maxextratitle=\count368
-\c@maxextratitleyear=\count369
-\c@maxextraname=\count370
-\c@maxextradate=\count371
-\c@maxextraalpha=\count372
-\c@abbrvpenalty=\count373
-\c@highnamepenalty=\count374
-\c@lownamepenalty=\count375
-\c@maxparens=\count376
-\c@parenlevel=\count377
-\blx@tempcnta=\count378
-\blx@tempcntb=\count379
-\blx@tempcntc=\count380
-\c@blx@maxsection=\count381
-\blx@maxsegment@0=\count382
-\blx@notetype=\count383
-\blx@parenlevel@text=\count384
-\blx@parenlevel@foot=\count385
-\blx@sectionciteorder@0=\count386
-\blx@sectionciteorderinternal@0=\count387
-\blx@entrysetcounter=\count388
-\blx@biblioinstance=\count389
-\labelnumberwidth=\skip109
-\labelalphawidth=\skip110
-\biblabelsep=\skip111
-\bibitemsep=\skip112
-\bibnamesep=\skip113
-\bibinitsep=\skip114
-\bibparsep=\skip115
-\bibhang=\skip116
+\c@tabx@nest=\count356
+\c@listtotal=\count357
+\c@listcount=\count358
+\c@liststart=\count359
+\c@liststop=\count360
+\c@citecount=\count361
+\c@citetotal=\count362
+\c@multicitecount=\count363
+\c@multicitetotal=\count364
+\c@instcount=\count365
+\c@maxnames=\count366
+\c@minnames=\count367
+\c@maxitems=\count368
+\c@minitems=\count369
+\c@citecounter=\count370
+\c@maxcitecounter=\count371
+\c@savedcitecounter=\count372
+\c@uniquelist=\count373
+\c@uniquename=\count374
+\c@refsection=\count375
+\c@refsegment=\count376
+\c@maxextratitle=\count377
+\c@maxextratitleyear=\count378
+\c@maxextraname=\count379
+\c@maxextradate=\count380
+\c@maxextraalpha=\count381
+\c@abbrvpenalty=\count382
+\c@highnamepenalty=\count383
+\c@lownamepenalty=\count384
+\c@maxparens=\count385
+\c@parenlevel=\count386
+\blx@tempcnta=\count387
+\blx@tempcntb=\count388
+\blx@tempcntc=\count389
+\c@blx@maxsection=\count390
+\blx@maxsegment@0=\count391
+\blx@notetype=\count392
+\blx@parenlevel@text=\count393
+\blx@parenlevel@foot=\count394
+\blx@sectionciteorder@0=\count395
+\blx@sectionciteorderinternal@0=\count396
+\blx@entrysetcounter=\count397
+\blx@biblioinstance=\count398
+\labelnumberwidth=\skip112
+\labelalphawidth=\skip113
+\biblabelsep=\skip114
+\bibitemsep=\skip115
+\bibnamesep=\skip116
+\bibinitsep=\skip117
+\bibparsep=\skip118
+\bibhang=\skip119
 \blx@bcfin=\read3
 \blx@bcfout=\write3
 \blx@langwohyphens=\language80
-\c@mincomprange=\count390
-\c@maxcomprange=\count391
-\c@mincompwidth=\count392
+\c@mincomprange=\count399
+\c@maxcomprange=\count400
+\c@mincompwidth=\count401
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
@@ -637,88 +668,88 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'ieee.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count393
-\c@savedafterword=\count394
-\c@annotator=\count395
-\c@savedannotator=\count396
-\c@author=\count397
-\c@savedauthor=\count398
-\c@bookauthor=\count399
-\c@savedbookauthor=\count400
-\c@commentator=\count401
-\c@savedcommentator=\count402
-\c@editor=\count403
-\c@savededitor=\count404
-\c@editora=\count405
-\c@savededitora=\count406
-\c@editorb=\count407
-\c@savededitorb=\count408
-\c@editorc=\count409
-\c@savededitorc=\count410
-\c@foreword=\count411
-\c@savedforeword=\count412
-\c@holder=\count413
-\c@savedholder=\count414
-\c@introduction=\count415
-\c@savedintroduction=\count416
-\c@namea=\count417
-\c@savednamea=\count418
-\c@nameb=\count419
-\c@savednameb=\count420
-\c@namec=\count421
-\c@savednamec=\count422
-\c@translator=\count423
-\c@savedtranslator=\count424
-\c@shortauthor=\count425
-\c@savedshortauthor=\count426
-\c@shorteditor=\count427
-\c@savedshorteditor=\count428
-\c@labelname=\count429
-\c@savedlabelname=\count430
-\c@institution=\count431
-\c@savedinstitution=\count432
-\c@lista=\count433
-\c@savedlista=\count434
-\c@listb=\count435
-\c@savedlistb=\count436
-\c@listc=\count437
-\c@savedlistc=\count438
-\c@listd=\count439
-\c@savedlistd=\count440
-\c@liste=\count441
-\c@savedliste=\count442
-\c@listf=\count443
-\c@savedlistf=\count444
-\c@location=\count445
-\c@savedlocation=\count446
-\c@organization=\count447
-\c@savedorganization=\count448
-\c@origlocation=\count449
-\c@savedoriglocation=\count450
-\c@origpublisher=\count451
-\c@savedorigpublisher=\count452
-\c@publisher=\count453
-\c@savedpublisher=\count454
-\c@language=\count455
-\c@savedlanguage=\count456
-\c@origlanguage=\count457
-\c@savedoriglanguage=\count458
-\c@pageref=\count459
-\c@savedpageref=\count460
-\shorthandwidth=\skip117
-\shortjournalwidth=\skip118
-\shortserieswidth=\skip119
-\shorttitlewidth=\skip120
-\shortauthorwidth=\skip121
-\shorteditorwidth=\skip122
-\locallabelnumberwidth=\skip123
-\locallabelalphawidth=\skip124
-\localshorthandwidth=\skip125
-\localshortjournalwidth=\skip126
-\localshortserieswidth=\skip127
-\localshorttitlewidth=\skip128
-\localshortauthorwidth=\skip129
-\localshorteditorwidth=\skip130
+\c@afterword=\count402
+\c@savedafterword=\count403
+\c@annotator=\count404
+\c@savedannotator=\count405
+\c@author=\count406
+\c@savedauthor=\count407
+\c@bookauthor=\count408
+\c@savedbookauthor=\count409
+\c@commentator=\count410
+\c@savedcommentator=\count411
+\c@editor=\count412
+\c@savededitor=\count413
+\c@editora=\count414
+\c@savededitora=\count415
+\c@editorb=\count416
+\c@savededitorb=\count417
+\c@editorc=\count418
+\c@savededitorc=\count419
+\c@foreword=\count420
+\c@savedforeword=\count421
+\c@holder=\count422
+\c@savedholder=\count423
+\c@introduction=\count424
+\c@savedintroduction=\count425
+\c@namea=\count426
+\c@savednamea=\count427
+\c@nameb=\count428
+\c@savednameb=\count429
+\c@namec=\count430
+\c@savednamec=\count431
+\c@translator=\count432
+\c@savedtranslator=\count433
+\c@shortauthor=\count434
+\c@savedshortauthor=\count435
+\c@shorteditor=\count436
+\c@savedshorteditor=\count437
+\c@labelname=\count438
+\c@savedlabelname=\count439
+\c@institution=\count440
+\c@savedinstitution=\count441
+\c@lista=\count442
+\c@savedlista=\count443
+\c@listb=\count444
+\c@savedlistb=\count445
+\c@listc=\count446
+\c@savedlistc=\count447
+\c@listd=\count448
+\c@savedlistd=\count449
+\c@liste=\count450
+\c@savedliste=\count451
+\c@listf=\count452
+\c@savedlistf=\count453
+\c@location=\count454
+\c@savedlocation=\count455
+\c@organization=\count456
+\c@savedorganization=\count457
+\c@origlocation=\count458
+\c@savedoriglocation=\count459
+\c@origpublisher=\count460
+\c@savedorigpublisher=\count461
+\c@publisher=\count462
+\c@savedpublisher=\count463
+\c@language=\count464
+\c@savedlanguage=\count465
+\c@origlanguage=\count466
+\c@savedoriglanguage=\count467
+\c@pageref=\count468
+\c@savedpageref=\count469
+\shorthandwidth=\skip120
+\shortjournalwidth=\skip121
+\shortserieswidth=\skip122
+\shorttitlewidth=\skip123
+\shortauthorwidth=\skip124
+\shorteditorwidth=\skip125
+\locallabelnumberwidth=\skip126
+\locallabelalphawidth=\skip127
+\localshorthandwidth=\skip128
+\localshortjournalwidth=\skip129
+\localshortserieswidth=\skip130
+\localshorttitlewidth=\skip131
+\localshortauthorwidth=\skip132
+\localshorteditorwidth=\skip133
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
@@ -739,19 +770,19 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.def
 File: biblatex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
-\c@textcitecount=\count461
-\c@textcitetotal=\count462
-\c@textcitemaxnames=\count463
-\c@biburlbigbreakpenalty=\count464
-\c@biburlbreakpenalty=\count465
-\c@biburlnumpenalty=\count466
-\c@biburlucpenalty=\count467
-\c@biburllcpenalty=\count468
+\c@textcitecount=\count470
+\c@textcitetotal=\count471
+\c@textcitemaxnames=\count472
+\c@biburlbigbreakpenalty=\count473
+\c@biburlbreakpenalty=\count474
+\c@biburlnumpenalty=\count475
+\c@biburlucpenalty=\count476
+\c@biburllcpenalty=\count477
 \biburlbigskip=\muskip19
 \biburlnumskip=\muskip20
 \biburlucskip=\muskip21
 \biburllcskip=\muskip22
-\c@smartand=\count469
+\c@smartand=\count478
 )
 Package biblatex Info: Trying to load bibliography style 'ieee'...
 Package biblatex Info: ... file 'ieee.bbx' found.
@@ -776,8 +807,8 @@ Package biblatex Info: ... file 'standard.bbx' found.
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\standard.b
 bx
 File: standard.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count470
-\c@bbx:relatedtotal=\count471
+\c@bbx:relatedcount=\count479
+\c@bbx:relatedtotal=\count480
 ))))
 Package biblatex Info: Trying to load citation style 'numeric-comp'...
 Package biblatex Info: ... file 'numeric-comp.cbx' found.
@@ -785,10 +816,10 @@ Package biblatex Info: ... file 'numeric-comp.cbx' found.
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/cbx\numeric-co
 mp.cbx
 File: numeric-comp.cbx 2025/07/10 v3.21 biblatex citation style (PK/MW)
-\c@cbx@tempcnta=\count472
-\c@cbx@tempcntb=\count473
-\c@cbx@tempcntc=\count474
-\c@cbx@tempcntd=\count475
+\c@cbx@tempcnta=\count481
+\c@cbx@tempcntb=\count482
+\c@cbx@tempcntc=\count483
+\c@cbx@tempcntd=\count484
 Package biblatex Info: Redefining '\cite'.
 Package biblatex Info: Redefining '\parencite'.
 Package biblatex Info: Redefining '\footcite'.
@@ -816,7 +847,7 @@ Package: expl3 2025-12-24 L3 programming layer (loader)
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count476
+\l__color_backend_stack_int=\count485
 ))
 Package biblatex Info: ... and expl3
 (biblatex)             2025-12-24 L3 programming layer (loader) 
@@ -835,7 +866,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 41
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 71
 .
 
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
@@ -843,23 +874,24 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (C:\Users\jason\ODU\dissertation\buildcheck\main.aux
 (C:\Users\jason\ODU\dissertation\buildcheck\Chapters/98_appendices.aux)
+(C:\Users\jason\ODU\dissertation\buildcheck\Chapters/98_acronyms.aux)
 (C:\Users\jason\ODU\dissertation\buildcheck\Chapters/99_vita.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: changepage package is loaded.
@@ -868,25 +900,28 @@ Package caption Info: changepage package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
+\c@subalgorithm=\count486
+\c@subalgorithm@save=\count487
+\c@loadepth=\count488
 
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/floatrow\fr-subfig.sty
 Package: fr-subfig 2007/12/24 v0.1g (beta) floatrow: additions for subfig
-\FBsc@max=\skip131
-\FBso@max=\skip132
+\FBsc@max=\skip134
+\FBso@max=\skip135
 )
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count477
+\scratchcounter=\count489
 \scratchdimen=\dimen196
 \scratchbox=\box66
-\nofMPsegments=\count478
-\nofMParguments=\count479
+\nofMPsegments=\count490
+\nofMParguments=\count491
 \everyMPshowfont=\toks43
-\MPscratchCnt=\count480
+\MPscratchCnt=\count492
 \MPscratchDim=\dimen197
-\MPnumerator=\count481
-\makeMPintoPDFobject=\count482
+\MPnumerator=\count493
+\makeMPintoPDFobject=\count494
 \everyMPtoPDFconversion=\toks44
 )
 (C:\Users\jason\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -899,7 +934,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c@lstlisting=\count483
+\c@lstlisting=\count495
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -955,30 +990,30 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (C:\Users\jason\ODU\dissertation\buildcheck\main.bbl)
-Package biblatex Info: Reference section=0 on input line 41.
-Package biblatex Info: Reference segment=0 on input line 41.
+Package biblatex Info: Reference section=0 on input line 71.
+Package biblatex Info: Reference segment=0 on input line 71.
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--106
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 106--106
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--106
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--106
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--106
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
 
  []
 
@@ -1093,6 +1128,9 @@ File: Figures/threshold_and_lag.pdf Graphic file (type pdf)
 <use Figures/threshold_and_lag.pdf>
 Package pdftex.def Info: Figures/threshold_and_lag.pdf  used on input line 13.
 (pdftex.def)             Requested size: 352.31625pt x 519.53627pt.
+
+LaTeX Warning: Float too large for page by 24.10626pt on input line 16.
+
 [1
 
 
@@ -1196,133 +1234,158 @@ LaTeX Warning: Citation 'JOrender2025Anytime' on page 4 undefined on input line
  39.
 
 
-LaTeX Warning: Citation 'orender2022' on page 4 undefined on input line 45.
+LaTeX Warning: Citation 'tibshirani1996' on page 4 undefined on input line 45.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 4 undefined on input li
-ne 45.
+LaTeX Warning: Citation 'fried2010' on page 4 undefined on input line 45.
 
 
-Overfull \hbox (31.15549pt too wide) in paragraph at lines 45--46
+LaTeX Warning: Citation 'tay2023' on page 4 undefined on input line 45.
+
+
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 4 undefined on input line
+ 45.
+
+
+Overfull \hbox (0.60481pt too wide) in paragraph at lines 45--46
+\T1/ptm/m/n/12 nested $\OML/ztmcm/m/it/12 m$\T1/ptm/m/n/12 -of-$\OML/ztmcm/m/it
+/12 K$ \T1/ptm/m/n/12 rule can-di-dates by the any-time logic-polishing pro-ce-
+dure [[]]. 
+ []
+
+[4]
+<Figures/new_dataset_pipeline_workflow.pdf, id=57, 692.5875pt x 873.2625pt>
+File: Figures/new_dataset_pipeline_workflow.pdf Graphic file (type pdf)
+<use Figures/new_dataset_pipeline_workflow.pdf>
+Package pdftex.def Info: Figures/new_dataset_pipeline_workflow.pdf  used on inp
+ut line 53.
+(pdftex.def)             Requested size: 436.86871pt x 550.85118pt.
+ [5]
+
+LaTeX Warning: Citation 'orender2026cutlass' on page 6 undefined on input line 
+79.
+
+
+LaTeX Warning: Citation 'orender2026dissertationrepo' on page 6 undefined on in
+put line 79.
+
+
+Overfull \hbox (19.34892pt too wide) in paragraph at lines 79--80
+[]\T1/ptm/m/n/12 The reusable mod-el-ing core is ex-posed through the pub-lic \
+T1/cmtt/m/n/12 cutlass \T1/ptm/m/n/12 pack-age [[]],
+ []
+
+
+Overfull \hbox (6.15211pt too wide) in paragraph at lines 79--80
+\T1/ptm/m/n/12 while the dis-ser-ta-tion repos-i-tory pre-serves the study laye
+r: note-books, paired $\T1/cmtt/m/n/12 scripts / _generate _
+ []
+
+
+LaTeX Warning: Citation 'orender2022' on page 6 undefined on input line 85.
+
+
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 6 undefined on input li
+ne 85.
+
+
+Overfull \hbox (31.15549pt too wide) in paragraph at lines 85--86
 \T1/ptm/m/n/12 stream rule ex-trac-tion into a sin-gle end-to-end frame-work [[
 ], []]. 
  []
 
 
-LaTeX Warning: Citation 'PZhao2006model' on page 4 undefined on input line 46.
+LaTeX Warning: Citation 'PZhao2006model' on page 6 undefined on input line 86.
 
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 4 undefined on input li
-ne 46.
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 6 undefined on input li
+ne 86.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 4 undefined on input li
-ne 46.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 6 undefined on input li
+ne 86.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 4 undefined on input line
- 47.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 6 undefined on input line
+ 87.
 
 
-LaTeX Warning: Citation 'EAngelino2018Learning' on page 4 undefined on input li
-ne 47.
-
-
-Overfull \hbox (7.57542pt too wide) in paragraph at lines 47--48
-\T1/ptm/m/n/12 ex-plicit performance-tolerance poli-cies [[], []]. 
- []
-
-[4]
-
-LaTeX Warning: Citation 'shin2020' on page 5 undefined on input line 48.
-
-
-LaTeX Warning: Citation 'sigillito1989' on page 5 undefined on input line 48.
-
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 59.
-
-LaTeX Warning: Citation 'orender2022' on page 5 undefined on input line 61.
-
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 5 undefined on input li
-ne 64.
-
-
-Overfull \hbox (29.60004pt too wide) in paragraph at lines 64--65
-\T1/ptm/m/n/10.95 [[]]|  
- []
-
-
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 5 undefined on input line
- 67.
-
-
-Overfull \hbox (30.20247pt too wide) in paragraph at lines 67--68
-\T1/ptm/m/n/10.95 [[]]|  
- []
-
-
-LaTeX Warning: Citation 'PZhao2006model' on page 5 undefined on input line 87.
-
-
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 5 undefined on input li
+LaTeX Warning: Citation 'EAngelino2018Learning' on page 6 undefined on input li
 ne 87.
 
 
-LaTeX Warning: Citation 'CRudin2019Stop' on page 5 undefined on input line 87.
+Overfull \hbox (7.57542pt too wide) in paragraph at lines 87--88
+\T1/ptm/m/n/12 ex-plicit performance-tolerance poli-cies [[], []]. 
+ []
+
+[6] [7]
+
+LaTeX Warning: Citation 'shin2020' on page 8 undefined on input line 88.
 
 
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 5 undefined on input
- line 87.
+LaTeX Warning: Citation 'sigillito1989' on page 8 undefined on input line 88.
+
+[8]
+
+LaTeX Warning: Citation 'PZhao2006model' on page 9 undefined on input line 129.
 
 
-Overfull \hbox (42.2694pt too wide) in paragraph at lines 87--88
+
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 9 undefined on input li
+ne 129.
+
+
+LaTeX Warning: Citation 'CRudin2019Stop' on page 9 undefined on input line 129.
+
+
+
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 9 undefined on input
+ line 129.
+
+
+Overfull \hbox (42.2694pt too wide) in paragraph at lines 129--130
 \T1/ptm/m/n/12 work-flows [[], [], [], []]. 
  []
 
-[5] [6]
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 7 undefined on input li
-ne 93.
-
-
-LaTeX Warning: Citation 'shin2020' on page 7 undefined on input line 93.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 9 undefined on input li
+ne 135.
 
 
-LaTeX Warning: Citation 'sigillito1989' on page 7 undefined on input line 93.
+LaTeX Warning: Citation 'shin2020' on page 9 undefined on input line 135.
 
 
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 7 undefined on input
- line 95.
+LaTeX Warning: Citation 'sigillito1989' on page 9 undefined on input line 135.
+
+[9]
+
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 10 undefined on inpu
+t line 137.
 
 
-LaTeX Warning: Citation 'EAngelino2018Learning' on page 7 undefined on input li
-ne 95.
+LaTeX Warning: Citation 'EAngelino2018Learning' on page 10 undefined on input l
+ine 137.
 
 
-LaTeX Warning: Citation 'DJSchuirmann1987comparison' on page 7 undefined on inp
-ut line 97.
+LaTeX Warning: Citation 'DJSchuirmann1987comparison' on page 10 undefined on in
+put line 139.
 
 
-LaTeX Warning: Citation 'fried2010' on page 7 undefined on input line 125.
+LaTeX Warning: Citation 'fried2010' on page 10 undefined on input line 167.
 
 
-LaTeX Warning: Citation 'tay2023' on page 7 undefined on input line 125.
+LaTeX Warning: Citation 'tay2023' on page 10 undefined on input line 167.
 
 
-LaTeX Warning: Citation 'yang2015' on page 7 undefined on input line 125.
+LaTeX Warning: Citation 'yang2015' on page 10 undefined on input line 167.
 
-[7] [8]) (Chapters/02_background.tex [9] [10 <./Figures/threshold_and_lag.pdf>]
+[10] [11]) (Chapters/02_background.tex [12] [13 <./Figures/threshold_and_lag.pd
+f>] [14 <./Figures/new_dataset_pipeline_workflow.pdf>]
 
-LaTeX Warning: Citation 'tibshirani1996' on page 11 undefined on input line 5.
+LaTeX Warning: Citation 'tibshirani1996' on page 15 undefined on input line 5.
 
 
-LaTeX Warning: Citation 'AYNg2004Feature' on page 11 undefined on input line 5.
+LaTeX Warning: Citation 'AYNg2004Feature' on page 15 undefined on input line 5.
 
 
 
@@ -1332,60 +1395,60 @@ l pre-dic-tive per-for-mance [[],
  []
 
 
-LaTeX Warning: Citation 'hiploylee2017' on page 11 undefined on input line 7.
+LaTeX Warning: Citation 'hiploylee2017' on page 15 undefined on input line 7.
 
 
-LaTeX Warning: Citation 'wong2010longitudinal' on page 11 undefined on input li
+LaTeX Warning: Citation 'wong2010longitudinal' on page 15 undefined on input li
 ne 7.
 
 
-LaTeX Warning: Citation 'sorvali2021farmer' on page 11 undefined on input line 
+LaTeX Warning: Citation 'sorvali2021farmer' on page 15 undefined on input line 
 7.
 
 
-LaTeX Warning: Citation 'tibshirani1996' on page 11 undefined on input line 10.
+LaTeX Warning: Citation 'tibshirani1996' on page 15 undefined on input line 10.
 
 
-[11
+[15
 
 ]
 
-LaTeX Warning: Citation 'fried2010' on page 12 undefined on input line 12.
+LaTeX Warning: Citation 'fried2010' on page 16 undefined on input line 12.
 
 
-LaTeX Warning: Citation 'tay2023' on page 12 undefined on input line 12.
+LaTeX Warning: Citation 'tay2023' on page 16 undefined on input line 12.
 
 
-LaTeX Warning: Citation 'PZhao2006model' on page 12 undefined on input line 15.
+LaTeX Warning: Citation 'PZhao2006model' on page 16 undefined on input line 15.
 
 
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 12 undefined on input l
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 16 undefined on input l
 ine 17.
 
 
-LaTeX Warning: Citation 'RAHorn2012Matrix' on page 12 undefined on input line 1
+LaTeX Warning: Citation 'RAHorn2012Matrix' on page 16 undefined on input line 1
 9.
 
-[12]
+[16]
 
-LaTeX Warning: Citation 'RTibshirani2016ordered' on page 13 undefined on input 
+LaTeX Warning: Citation 'RTibshirani2016ordered' on page 17 undefined on input 
 line 22.
 
 
-LaTeX Warning: Citation 'turlach2005' on page 13 undefined on input line 22.
+LaTeX Warning: Citation 'turlach2005' on page 17 undefined on input line 22.
 
 
-LaTeX Warning: Citation 'CRudin2019Stop' on page 13 undefined on input line 27.
+LaTeX Warning: Citation 'CRudin2019Stop' on page 17 undefined on input line 27.
 
 
 
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 13 undefined on inpu
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 17 undefined on inpu
 t line 27.
 
-[13]) (Chapters/03_relatedwork.tex [14]
+[17]) (Chapters/03_relatedwork.tex [18]
 
-LaTeX Warning: Citation 'tibshirani1996' on page 15 undefined on input line 9.
+LaTeX Warning: Citation 'tibshirani1996' on page 19 undefined on input line 9.
 
 
 Overfull \hbox (10.4672pt too wide) in paragraph at lines 9--10
@@ -1394,32 +1457,32 @@ Overfull \hbox (10.4672pt too wide) in paragraph at lines 9--10
  []
 
 
-LaTeX Warning: Citation 'AYNg2004Feature' on page 15 undefined on input line 11
+LaTeX Warning: Citation 'AYNg2004Feature' on page 19 undefined on input line 11
 .
 
 
-LaTeX Warning: Citation 'fried2010' on page 15 undefined on input line 13.
+LaTeX Warning: Citation 'fried2010' on page 19 undefined on input line 13.
 
 
-LaTeX Warning: Citation 'tay2023' on page 15 undefined on input line 13.
+LaTeX Warning: Citation 'tay2023' on page 19 undefined on input line 13.
 
-[15
+[19
 
 ]
 
-LaTeX Warning: Citation 'HZou2005Regularization' on page 16 undefined on input 
+LaTeX Warning: Citation 'HZou2005Regularization' on page 20 undefined on input 
 line 15.
 
 
-LaTeX Warning: Citation 'HZou2006adaptive' on page 16 undefined on input line 1
+LaTeX Warning: Citation 'HZou2006adaptive' on page 20 undefined on input line 1
 5.
 
 
-LaTeX Warning: Citation 'PZhao2006model' on page 16 undefined on input line 19.
+LaTeX Warning: Citation 'PZhao2006model' on page 20 undefined on input line 19.
 
 
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 16 undefined on input l
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 20 undefined on input l
 ine 21.
 
 
@@ -1429,16 +1492,16 @@ act sup-port re-cov-ery [[]].
  []
 
 
-LaTeX Warning: Citation 'HZhu2021variable' on page 16 undefined on input line 2
+LaTeX Warning: Citation 'HZhu2021variable' on page 20 undefined on input line 2
 3.
 
 
-LaTeX Warning: Citation 'MRejchel2020Rank' on page 16 undefined on input line 2
+LaTeX Warning: Citation 'MRejchel2020Rank' on page 20 undefined on input line 2
 3.
 
-[16]
+[20]
 
-LaTeX Warning: Citation 'RAHorn2012Matrix' on page 17 undefined on input line 2
+LaTeX Warning: Citation 'RAHorn2012Matrix' on page 21 undefined on input line 2
 5.
 
 
@@ -1448,22 +1511,22 @@ tur-ba-tion be-hav-ior [[]].
  []
 
 
-LaTeX Warning: Citation 'turlach2005' on page 17 undefined on input line 29.
+LaTeX Warning: Citation 'turlach2005' on page 21 undefined on input line 29.
 
 
-LaTeX Warning: Citation 'yuan2006' on page 17 undefined on input line 29.
+LaTeX Warning: Citation 'yuan2006' on page 21 undefined on input line 29.
 
 
-LaTeX Warning: Citation 'meier2008' on page 17 undefined on input line 31.
+LaTeX Warning: Citation 'meier2008' on page 21 undefined on input line 31.
 
 
-LaTeX Warning: Citation 'kim2006' on page 17 undefined on input line 31.
+LaTeX Warning: Citation 'kim2006' on page 21 undefined on input line 31.
 
 
-LaTeX Warning: Citation 'yang2015' on page 17 undefined on input line 31.
+LaTeX Warning: Citation 'yang2015' on page 21 undefined on input line 31.
 
 
-LaTeX Warning: Citation 'RTibshirani2016ordered' on page 17 undefined on input 
+LaTeX Warning: Citation 'RTibshirani2016ordered' on page 21 undefined on input 
 line 33.
 
 
@@ -1472,42 +1535,42 @@ Overfull \hbox (51.37605pt too wide) in paragraph at lines 33--34
  those as-sump-tions hold [[]].
  []
 
-[17]
+[21]
 
-LaTeX Warning: Citation 'katrutsa2017' on page 18 undefined on input line 39.
-
-
-LaTeX Warning: Citation 'roozbeh2018' on page 18 undefined on input line 41.
+LaTeX Warning: Citation 'katrutsa2017' on page 22 undefined on input line 39.
 
 
-LaTeX Warning: Citation 'ladha2011' on page 18 undefined on input line 43.
+LaTeX Warning: Citation 'roozbeh2018' on page 22 undefined on input line 41.
 
 
-LaTeX Warning: Citation 'kp2022feature' on page 18 undefined on input line 43.
-
-[18]
-
-LaTeX Warning: Citation 'CRudin2019Stop' on page 19 undefined on input line 49.
+LaTeX Warning: Citation 'ladha2011' on page 22 undefined on input line 43.
 
 
+LaTeX Warning: Citation 'kp2022feature' on page 22 undefined on input line 43.
 
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 19 undefined on inpu
+[22]
+
+LaTeX Warning: Citation 'CRudin2019Stop' on page 23 undefined on input line 49.
+
+
+
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 23 undefined on inpu
 t line 49.
 
 
-LaTeX Warning: Citation 'lou2012intelligible' on page 19 undefined on input lin
+LaTeX Warning: Citation 'lou2012intelligible' on page 23 undefined on input lin
 e 51.
 
 
-LaTeX Warning: Citation 'friedman2008rulefit' on page 19 undefined on input lin
+LaTeX Warning: Citation 'friedman2008rulefit' on page 23 undefined on input lin
 e 51.
 
 
-LaTeX Warning: Citation 'EBoros1997Logical' on page 19 undefined on input line 
+LaTeX Warning: Citation 'EBoros1997Logical' on page 23 undefined on input line 
 53.
 
 
-LaTeX Warning: Citation 'EBoros2000implementation' on page 19 undefined on inpu
+LaTeX Warning: Citation 'EBoros2000implementation' on page 23 undefined on inpu
 t line 53.
 
 
@@ -1515,13 +1578,13 @@ Overfull \hbox (9.74864pt too wide) in paragraph at lines 53--54
 \T1/ptm/m/n/12 point se-lec-tion and pat-tern con-struc-tion [[], []]. These
  []
 
-[19]
+[23]
 
-LaTeX Warning: Citation 'EAngelino2018Learning' on page 20 undefined on input l
+LaTeX Warning: Citation 'EAngelino2018Learning' on page 24 undefined on input l
 ine 55.
 
 
-LaTeX Warning: Citation 'yang2023model' on page 20 undefined on input line 61.
+LaTeX Warning: Citation 'yang2023model' on page 24 undefined on input line 61.
 
 
 Overfull \hbox (7.25284pt too wide) in paragraph at lines 61--62
@@ -1530,493 +1593,437 @@ ry mod-el-ing [[]]. These
  []
 
 
-LaTeX Warning: Citation 'hiploylee2017' on page 20 undefined on input line 63.
+LaTeX Warning: Citation 'hiploylee2017' on page 24 undefined on input line 63.
 
 
-LaTeX Warning: Citation 'wong2010longitudinal' on page 20 undefined on input li
+LaTeX Warning: Citation 'wong2010longitudinal' on page 24 undefined on input li
 ne 63.
 
 
-LaTeX Warning: Citation 'sorvali2021farmer' on page 20 undefined on input line 
+LaTeX Warning: Citation 'sorvali2021farmer' on page 24 undefined on input line 
 63.
 
-[20]
+[24]
 
-LaTeX Warning: Citation 'shin2020' on page 21 undefined on input line 65.
-
-
-LaTeX Warning: Citation 'sigillito1989' on page 21 undefined on input line 65.
+LaTeX Warning: Citation 'shin2020' on page 25 undefined on input line 65.
 
 
-LaTeX Warning: Citation 'inoue2021' on page 21 undefined on input line 65.
+LaTeX Warning: Citation 'sigillito1989' on page 25 undefined on input line 65.
 
 
-LaTeX Warning: Citation 'orender2022' on page 21 undefined on input line 69.
+LaTeX Warning: Citation 'inoue2021' on page 25 undefined on input line 65.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 21 undefined on input l
-ine 71.
-
-
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 21 undefined on input lin
-e 73.
-
-[21]
-
-LaTeX Warning: Citation 'PZhao2006model' on page 22 undefined on input line 104
+LaTeX Warning: Citation 'PZhao2006model' on page 25 undefined on input line 111
 .
 
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 22 undefined on input l
-ine 104.
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 25 undefined on input l
+ine 111.
 
 
-Overfull \hbox (19.19217pt too wide) in paragraph at lines 104--105
+Overfull \hbox (19.19217pt too wide) in paragraph at lines 111--112
 \T1/ptm/m/n/12 mains frag-ile un-der strong lag-induced de-pen-dence [[], []]. 
 
  []
 
 
-LaTeX Warning: Citation 'RTibshirani2016ordered' on page 22 undefined on input 
-line 105.
+LaTeX Warning: Citation 'RTibshirani2016ordered' on page 25 undefined on input 
+line 112.
 
 
-LaTeX Warning: Citation 'HZhu2021variable' on page 22 undefined on input line 1
-05.
+LaTeX Warning: Citation 'HZhu2021variable' on page 25 undefined on input line 1
+12.
 
 
-LaTeX Warning: Citation 'yuan2006' on page 22 undefined on input line 105.
+LaTeX Warning: Citation 'yuan2006' on page 25 undefined on input line 112.
 
 
-LaTeX Warning: Citation 'EBoros1997Logical' on page 22 undefined on input line 
-106.
+LaTeX Warning: Citation 'EBoros1997Logical' on page 25 undefined on input line 
+113.
 
 
-LaTeX Warning: Citation 'EAngelino2018Learning' on page 22 undefined on input l
-ine 106.
+LaTeX Warning: Citation 'EAngelino2018Learning' on page 25 undefined on input l
+ine 113.
 
 
-Overfull \hbox (70.6467pt too wide) in paragraph at lines 106--107
+Overfull \hbox (70.6467pt too wide) in paragraph at lines 113--114
 \T1/ptm/m/n/12 dif-fi-cult to scale in high-dimensional lon-gi-tu-di-nal spaces
  [[], []]. 
  []
 
-[22] [23]
 
-LaTeX Warning: Citation 'orender2022' on page 24 undefined on input line 107.
-
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 24 undefined on input l
-ine 107.
+LaTeX Warning: Citation 'orender2022' on page 25 undefined on input line 114.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 24 undefined on input lin
-e 107.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 25 undefined on input l
+ine 114.
 
 
-Overfull \hbox (9.3996pt too wide) in paragraph at lines 107--108
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 25 undefined on input lin
+e 114.
+
+
+Overfull \hbox (9.3996pt too wide) in paragraph at lines 114--115
 \T1/ptm/m/n/12 and ex-ten-sively bench-marked syn-the-sis is still needed [[], 
 [],
  []
 
-) (Chapters/04_approach.tex [24]
+) (Chapters/05_rq1.tex [25] [26] [27] [28]
 
-LaTeX Warning: Citation 'orender2022' on page 25 undefined on input line 5.
-
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 25 undefined on input l
-ine 5.
+LaTeX Warning: Citation 'orender2022' on page 29 undefined on input line 7.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 25 undefined on input lin
-e 5.
-
-
-LaTeX Warning: Citation 'PZhao2006model' on page 25 undefined on input line 11.
-
-
-
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 25 undefined on input l
-ine 11.
-
-[25
-
-] [26] [27]
-
-LaTeX Warning: Citation 'tibshirani1996' on page 28 undefined on input line 43.
-
-
-
-LaTeX Warning: Citation 'fried2010' on page 28 undefined on input line 43.
-
-
-LaTeX Warning: Citation 'tay2023' on page 28 undefined on input line 43.
-
-[28]
-
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 29 undefined on input lin
-e 49.
-
-
-Overfull \hbox (44.72752pt too wide) in paragraph at lines 49--50
-\T1/ptm/m/n/12 small resid-ual co-ef-fi-cients, and eval-u-ates nested pre-fixe
-s as $\OML/ztmcm/m/it/12 m$\T1/ptm/m/n/12 -of-$\OML/ztmcm/m/it/12 K$ \T1/ptm/m/
-n/12 de-ci-sion rules [[]].
- []
-
-<Figures/new_dataset_pipeline_workflow.pdf, id=186, 692.5875pt x 873.2625pt>
-File: Figures/new_dataset_pipeline_workflow.pdf Graphic file (type pdf)
-<use Figures/new_dataset_pipeline_workflow.pdf>
-Package pdftex.def Info: Figures/new_dataset_pipeline_workflow.pdf  used on inp
-ut line 59.
-(pdftex.def)             Requested size: 436.86871pt x 550.85118pt.
-[29] [30] [31] [32] [33]
-
-LaTeX Warning: Citation 'orender2026cutlass' on page 34 undefined on input line
- 131.
-
-
-LaTeX Warning: Citation 'orender2026dissertationrepo' on page 34 undefined on i
-nput line 131.
-
-[34]
-
-LaTeX Warning: Citation 'PZhao2006model' on page 35 undefined on input line 168
-.
-
-[35]
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 36 undefined on input l
-ine 185.
-
-[36]) (Chapters/05_rq1.tex [37] [38 <./Figures/new_dataset_pipeline_workflow.pd
-f>] [39] [40]
-
-LaTeX Warning: Citation 'orender2022' on page 41 undefined on input line 7.
-
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 41 undefined on input l
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 29 undefined on input l
 ine 7.
 
 
-Overfull \hbox (24.61606pt too wide) in paragraph at lines 7--8
-\T1/ptm/m/n/12 rectification-first lasso logic frame-work and ex-tend-ing to la
-ter theory-backed case stud-ies [[],
- []
+LaTeX Warning: Citation 'tibshirani1996' on page 29 undefined on input line 13.
 
-[41
+
+
+LaTeX Warning: Citation 'fried2010' on page 29 undefined on input line 13.
+
+
+LaTeX Warning: Citation 'tay2023' on page 29 undefined on input line 13.
+
+[29
 
 ]
-<Figures/toy_example.pdf, id=247, 578.16pt x 433.62pt>
+<Figures/toy_example.pdf, id=207, 578.16pt x 433.62pt>
 File: Figures/toy_example.pdf Graphic file (type pdf)
 <use Figures/toy_example.pdf>
-Package pdftex.def Info: Figures/toy_example.pdf  used on input line 17.
+Package pdftex.def Info: Figures/toy_example.pdf  used on input line 25.
 (pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
- [42 <./Figures/toy_example.pdf>] [43] [44]
+ [30] [31 <./Figures/toy_example.pdf>] [32] [33] [34]
 
 pdfTeX warning: pdflatex.exe (file ./Figures/first_irrelevant.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
-<Figures/first_irrelevant.pdf, id=265, 963.6pt x 542.025pt>
+<Figures/first_irrelevant.pdf, id=231, 963.6pt x 542.025pt>
 File: Figures/first_irrelevant.pdf Graphic file (type pdf)
 <use Figures/first_irrelevant.pdf>
-Package pdftex.def Info: Figures/first_irrelevant.pdf  used on input line 92.
+Package pdftex.def Info: Figures/first_irrelevant.pdf  used on input line 100.
 (pdftex.def)             Requested size: 352.31625pt x 198.17244pt.
-[45] [46 <./Figures/first_irrelevant.pdf>]
+[35] [36 <./Figures/first_irrelevant.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./Figures/both_relevant.pdf): PDF inclusion:
  found PDF version <1.7>, but at most version <1.5> allowed
-<Figures/both_relevant.pdf, id=282, 963.6pt x 542.025pt>
+<Figures/both_relevant.pdf, id=248, 963.6pt x 542.025pt>
 File: Figures/both_relevant.pdf Graphic file (type pdf)
 <use Figures/both_relevant.pdf>
-Package pdftex.def Info: Figures/both_relevant.pdf  used on input line 106.
+Package pdftex.def Info: Figures/both_relevant.pdf  used on input line 114.
 (pdftex.def)             Requested size: 352.31625pt x 198.17244pt.
-[47 <./Figures/both_relevant.pdf>]
 
-LaTeX Warning: Citation 'PZhao2006model' on page 48 undefined on input line 122
+LaTeX Warning: Citation 'orender2022' on page 37 undefined on input line 121.
+
+[37 <./Figures/both_relevant.pdf>] [38] [39]
+
+LaTeX Warning: Citation 'PZhao2006model' on page 40 undefined on input line 161
 .
 
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 48 undefined on input l
-ine 122.
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 40 undefined on input l
+ine 161.
 
 
-LaTeX Warning: Citation 'PZhao2006model' on page 48 undefined on input line 126
+LaTeX Warning: Citation 'PZhao2006model' on page 40 undefined on input line 165
 .
 
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 48 undefined on input l
-ine 126.
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 40 undefined on input l
+ine 165.
 
-[48]
-<Figures/Coefficient_Comparison_Raw_vs._Rectified.png, id=298, 1011.78pt x 549.
+[40] [41]
+<Figures/Coefficient_Comparison_Raw_vs._Rectified.png, id=275, 1011.78pt x 549.
 252pt>
 File: Figures/Coefficient_Comparison_Raw_vs._Rectified.png Graphic file (type p
 ng)
 <use Figures/Coefficient_Comparison_Raw_vs._Rectified.png>
 Package pdftex.def Info: Figures/Coefficient_Comparison_Raw_vs._Rectified.png  
-used on input line 148.
+used on input line 194.
 (pdftex.def)             Requested size: 422.77664pt x 229.51094pt.
 
 
-LaTeX Warning: Citation 'orender2022' on page 49 undefined on input line 153.
+LaTeX Warning: Citation 'orender2022' on page 42 undefined on input line 199.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 49 undefined on input l
-ine 153.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 42 undefined on input l
+ine 199.
 
-[49] [50 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
-<Figures/stability_ablation_summary.png, id=308, 855.195pt x 567.5604pt>
+[42 <./Figures/Coefficient_Comparison_Raw_vs._Rectified.png>]
+<Figures/stability_ablation_summary.png, id=281, 855.195pt x 567.5604pt>
 File: Figures/stability_ablation_summary.png Graphic file (type png)
 <use Figures/stability_ablation_summary.png>
 Package pdftex.def Info: Figures/stability_ablation_summary.png  used on input 
-line 176.
+line 221.
 (pdftex.def)             Requested size: 399.29463pt x 264.99539pt.
-<Figures/stability_pairwise_jaccard.png, id=309, 855.195pt x 312.6882pt>
+<Figures/stability_pairwise_jaccard.png, id=282, 855.195pt x 312.6882pt>
 File: Figures/stability_pairwise_jaccard.png Graphic file (type png)
 <use Figures/stability_pairwise_jaccard.png>
 Package pdftex.def Info: Figures/stability_pairwise_jaccard.png  used on input 
-line 185.
+line 230.
 (pdftex.def)             Requested size: 352.31625pt x 128.81847pt.
-<Figures/stability_selection_frequency.png, id=310, 1161.6198pt x 586.3506pt>
+<Figures/stability_selection_frequency.png, id=283, 1161.6198pt x 586.3506pt>
 File: Figures/stability_selection_frequency.png Graphic file (type png)
 <use Figures/stability_selection_frequency.png>
 Package pdftex.def Info: Figures/stability_selection_frequency.png  used on inp
-ut line 192.
+ut line 237.
 (pdftex.def)             Requested size: 469.75502pt x 237.12175pt.
- [51]
-<Figures/lag_runtime_scaling.png, id=314, 638.8668pt x 385.44pt>
+ [43]
+<Figures/lag_runtime_scaling.png, id=288, 638.8668pt x 385.44pt>
 File: Figures/lag_runtime_scaling.png Graphic file (type png)
 <use Figures/lag_runtime_scaling.png>
-Package pdftex.def Info: Figures/lag_runtime_scaling.png  used on input line 20
-1.
+Package pdftex.def Info: Figures/lag_runtime_scaling.png  used on input line 24
+6.
 (pdftex.def)             Requested size: 352.31625pt x 212.56314pt.
+ [44]
 
-[52 <./Figures/stability_ablation_summary.png>]
-
-LaTeX Warning: Citation 'yuan2006' on page 53 undefined on input line 210.
-
-
-LaTeX Warning: Citation 'meier2008' on page 53 undefined on input line 210.
+LaTeX Warning: Citation 'yuan2006' on page 45 undefined on input line 255.
 
 
-LaTeX Warning: Citation 'kim2006' on page 53 undefined on input line 210.
+LaTeX Warning: Citation 'meier2008' on page 45 undefined on input line 255.
 
 
-LaTeX Warning: Citation 'yang2015' on page 53 undefined on input line 210.
+LaTeX Warning: Citation 'kim2006' on page 45 undefined on input line 255.
 
 
-LaTeX Warning: Citation 'RTibshirani2016ordered' on page 53 undefined on input 
-line 210.
+LaTeX Warning: Citation 'yang2015' on page 45 undefined on input line 255.
 
 
-Overfull \hbox (2.69295pt too wide) in paragraph at lines 210--211
+LaTeX Warning: Citation 'RTibshirani2016ordered' on page 45 undefined on input 
+line 255.
+
+
+Overfull \hbox (2.69295pt too wide) in paragraph at lines 255--256
 []\T1/ptm/m/n/12 , [], [], []]. Across these stud-ies, representation-
  []
 
 
-Overfull \hbox (8.34378pt too wide) in paragraph at lines 210--211
+Overfull \hbox (8.34378pt too wide) in paragraph at lines 255--256
 \T1/ptm/m/n/12 level rec-ti-fi-ca-tion com-bined with stan-dard lasso pro-vides
  clearer lag at-tri-bu-tion in threshold-triggered
  []
 
 
-LaTeX Warning: Citation 'katrutsa2017' on page 53 undefined on input line 212.
+LaTeX Warning: Citation 'katrutsa2017' on page 45 undefined on input line 257.
 
-<Figures/katrutsa_figure.pdf, id=319, 592.08078pt x 516.98706pt>
+
+Overfull \hbox (13.74399pt too wide) in paragraph at lines 257--258
+\T1/ptm/m/n/12 which op-ti-mizes a relevance-redundancy ob-jec-tive us-ing pair
+-wise sim-i-lar-ity struc-ture [[]].
+ []
+
+[45 <./Figures/stability_ablation_summary.png>]
+<Figures/katrutsa_figure.pdf, id=296, 592.08078pt x 516.98706pt>
 File: Figures/katrutsa_figure.pdf Graphic file (type pdf)
 <use Figures/katrutsa_figure.pdf>
-Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 216.
+Package pdftex.def Info: Figures/katrutsa_figure.pdf  used on input line 261.
 (pdftex.def)             Requested size: 352.31625pt x 307.63872pt.
-[53 <./Figures/stability_pairwise_jaccard.png>] [54 <./Figures/stability_select
-ion_frequency.png>] [55 <./Figures/lag_runtime_scaling.png>] [56 <./Figures/kat
-rutsa_figure.pdf>] [57]
-<Figures/interpretable_baselines_case1_summary.png, id=387, 1281.43744pt x 369.
-93207pt>
+ [46 <./Figures/stability_pairwise_jaccard.png>] [47 <./Figures/stability_selec
+tion_frequency.png>] [48 <./Figures/lag_runtime_scaling.png>] [49 <./Figures/ka
+trutsa_figure.pdf>] [50]
+<Figures/interpretable_baselines_case1_summary.png, id=364, 1317.57243pt x 372.
+1905pt>
 File: Figures/interpretable_baselines_case1_summary.png Graphic file (type png)
 
 <use Figures/interpretable_baselines_case1_summary.png>
 Package pdftex.def Info: Figures/interpretable_baselines_case1_summary.png  use
-d on input line 271.
-(pdftex.def)             Requested size: 432.17375pt x 124.76483pt.
- [58]
-<Figures/interpretable_baselines_dual_support_frequency.png, id=391, 873.56363p
+d on input line 312.
+(pdftex.def)             Requested size: 432.17375pt x 122.07927pt.
+<Figures/interpretable_baselines_dual_support_frequency.png, id=365, 873.56363p
 t x 953.964pt>
 File: Figures/interpretable_baselines_dual_support_frequency.png Graphic file (
 type png)
 <use Figures/interpretable_baselines_dual_support_frequency.png>
 Package pdftex.def Info: Figures/interpretable_baselines_dual_support_frequency
-.png  used on input line 278.
+.png  used on input line 319.
 (pdftex.def)             Requested size: 327.58556pt x 357.73563pt.
-<Figures/interpretable_baselines_case1_tradeoff.png, id=392, 564.60938pt x 420.
+<Figures/interpretable_baselines_case1_tradeoff.png, id=366, 564.60938pt x 420.
 06938pt>
 File: Figures/interpretable_baselines_case1_tradeoff.png Graphic file (type png
 )
 <use Figures/interpretable_baselines_case1_tradeoff.png>
 Package pdftex.def Info: Figures/interpretable_baselines_case1_tradeoff.png  us
-ed on input line 285.
+ed on input line 326.
 (pdftex.def)             Requested size: 366.40834pt x 272.61241pt.
 
-Overfull \hbox (5.25694pt too wide) in paragraph at lines 290--291
-[]\T1/ptm/m/n/12 Table 10[] and Fig-ures 12[]--14[] sharpen the in-ter-pretabil
--ity com-par-i-son. EBM achieves the strongest
- []
+[51] [52 <./Figures/interpretable_baselines_case1_summary.png>]
 
-[59 <./Figures/interpretable_baselines_case1_summary.png>] [60]
-
-LaTeX Warning: Citation 'shin2020' on page 61 undefined on input line 298.
+LaTeX Warning: Citation 'shin2020' on page 53 undefined on input line 341.
 
 
-LaTeX Warning: Citation 'sigillito1989' on page 61 undefined on input line 298.
+LaTeX Warning: Citation 'sigillito1989' on page 53 undefined on input line 341.
 
 
-[61]
+[53] [54]
 
-LaTeX Warning: Citation 'shin2020' on page 62 undefined on input line 317.
+LaTeX Warning: Citation 'shin2020' on page 55 undefined on input line 387.
 
 <Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients.png
-, id=404, 840.86145pt x 638.8668pt>
+, id=380, 840.86145pt x 638.8668pt>
 File: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficient
 s.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coefficients
 .png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_cutlass_logic_polished_full_p
-ipeline_coefficients.png  used on input line 321.
+ipeline_coefficients.png  used on input line 391.
 (pdftex.def)             Requested size: 352.31625pt x 267.67883pt.
-<Figures/hai_attack_p2_sm_roc_comparison.png, id=405, 606.70665pt x 462.16666pt
+<Figures/hai_attack_p2_sm_roc_comparison.png, id=381, 606.70665pt x 462.16666pt
 >
 File: Figures/hai_attack_p2_sm_roc_comparison.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_roc_comparison.png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_roc_comparison.png  used on i
-nput line 328.
+nput line 398.
 (pdftex.def)             Requested size: 352.31625pt x 268.38829pt.
-<Figures/hai_attack_p2_sm_logical_J_vs_k.png, id=406, 643.203pt x 461.0826pt>
+<Figures/hai_attack_p2_sm_logical_J_vs_k.png, id=382, 643.203pt x 461.0826pt>
 File: Figures/hai_attack_p2_sm_logical_J_vs_k.png Graphic file (type png)
 <use Figures/hai_attack_p2_sm_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/hai_attack_p2_sm_logical_J_vs_k.png  used on i
-nput line 336.
+nput line 406.
 (pdftex.def)             Requested size: 352.31625pt x 252.56198pt.
 
-LaTeX Warning: Citation 'unicef2023' on page 62 undefined on input line 342.
+LaTeX Warning: Citation 'unicef2023' on page 55 undefined on input line 412.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 62 undefined on input l
-ine 342.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 55 undefined on input l
+ine 412.
 
-[62]
-<Figures/cross_domain_transfer_deltas.png, id=410, 848.72081pt x 341.47575pt>
+[55]
+<Figures/cross_domain_transfer_deltas.png, id=387, 848.72081pt x 341.47575pt>
 File: Figures/cross_domain_transfer_deltas.png Graphic file (type png)
 <use Figures/cross_domain_transfer_deltas.png>
 Package pdftex.def Info: Figures/cross_domain_transfer_deltas.png  used on inpu
-t line 352.
+t line 420.
 (pdftex.def)             Requested size: 432.17375pt x 173.88458pt.
 
 
-LaTeX Warning: Citation 'orender2022' on page 63 undefined on input line 357.
+LaTeX Warning: Citation 'orender2022' on page 56 undefined on input line 425.
 
-<Figures/cross_domain_ionosphere_protocol_comparison.png, id=411, 1072.30612pt 
+<Figures/cross_domain_ionosphere_protocol_comparison.png, id=388, 1072.30612pt 
 x 341.92744pt>
 File: Figures/cross_domain_ionosphere_protocol_comparison.png Graphic file (typ
 e png)
 <use Figures/cross_domain_ionosphere_protocol_comparison.png>
 Package pdftex.def Info: Figures/cross_domain_ionosphere_protocol_comparison.pn
-g  used on input line 361.
+g  used on input line 429.
 (pdftex.def)             Requested size: 469.75502pt x 149.79114pt.
-[63]
-<Figures/goose_bay_delta_j_protocols.png, id=415, 858.65794pt x 422.7795pt>
+[56]
+<Figures/goose_bay_delta_j_protocols.png, id=392, 858.65794pt x 422.7795pt>
 File: Figures/goose_bay_delta_j_protocols.png Graphic file (type png)
 <use Figures/goose_bay_delta_j_protocols.png>
 Package pdftex.def Info: Figures/goose_bay_delta_j_protocols.png  used on input
- line 370.
+ line 438.
 (pdftex.def)             Requested size: 432.17375pt x 212.79556pt.
-<Figures/goose_bay_quantile_sweep.png, id=416, 800.84193pt x 409.68056pt>
+<Figures/goose_bay_quantile_sweep.png, id=393, 800.84193pt x 409.68056pt>
 File: Figures/goose_bay_quantile_sweep.png Graphic file (type png)
 <use Figures/goose_bay_quantile_sweep.png>
 Package pdftex.def Info: Figures/goose_bay_quantile_sweep.png  used on input li
-ne 379.
+ne 447.
 (pdftex.def)             Requested size: 422.77664pt x 216.2795pt.
-<Figures/goose_bay_c_sweep_scatter.png, id=417, 733.0888pt x 461.62462pt>
+ [57]
+<Figures/goose_bay_c_sweep_scatter.png, id=397, 733.0888pt x 461.62462pt>
 File: Figures/goose_bay_c_sweep_scatter.png Graphic file (type png)
 <use Figures/goose_bay_c_sweep_scatter.png>
 Package pdftex.def Info: Figures/goose_bay_c_sweep_scatter.png  used on input l
-ine 388.
+ine 456.
 (pdftex.def)             Requested size: 450.96797pt x 283.97844pt.
- [64] [65] [66]) (Chapters/06_rq2.tex [67] [68 <./Figures/interpretable_baselin
-es_dual_support_frequency.png>] [69 <./Figures/interpretable_baselines_case1_tr
-adeoff.png>] [70 <./Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeli
-ne_coefficients.png>] [71 <./Figures/hai_attack_p2_sm_roc_comparison.png>]
-[72 <./Figures/hai_attack_p2_sm_logical_J_vs_k.png>] [73 <./Figures/cross_domai
-n_transfer_deltas.png> <./Figures/cross_domain_ionosphere_protocol_comparison.p
-ng>] [74 <./Figures/goose_bay_delta_j_protocols.png> <./Figures/goose_bay_quant
-ile_sweep.png>] [75 <./Figures/goose_bay_c_sweep_scatter.png>]
-
-LaTeX Warning: Citation 'PZhao2006model' on page 76 undefined on input line 5.
-
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 76 undefined on input l
-ine 5.
-
-
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 76 undefined on input l
-ine 7.
-
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 76 undefined on input l
-ine 7.
-
-
-LaTeX Warning: Citation 'tibshirani1996' on page 76 undefined on input line 13.
-
-
-
-LaTeX Warning: Citation 'PZhao2006model' on page 76 undefined on input line 13.
-
-
-[76
+ [58] [59] [60 <./Figures/interpretable_baselines_dual_support_frequency.png>] 
+[61 <./Figures/interpretable_baselines_case1_tradeoff.png>] [62]
+[63] [64 <./Figures/hai_attack_p2_sm_cutlass_logic_polished_full_pipeline_coeff
+icients.png>] [65 <./Figures/hai_attack_p2_sm_roc_comparison.png>] [66 <./Figur
+es/hai_attack_p2_sm_logical_J_vs_k.png>] [67 <./Figures/cross_domain_transfer_d
+eltas.png> <./Figures/cross_domain_ionosphere_protocol_comparison.png>]
+[68 <./Figures/goose_bay_delta_j_protocols.png>] [69 <./Figures/goose_bay_quant
+ile_sweep.png>] [70 <./Figures/goose_bay_c_sweep_scatter.png>] [71])
+(Chapters/06_rq2.tex [72
 
 ]
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 77 undefined on input l
-ine 30.
+LaTeX Warning: Citation 'PZhao2006model' on page 73 undefined on input line 5.
 
+
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 73 undefined on input l
+ine 5.
+
+
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 73 undefined on input l
+ine 7.
+
+
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 73 undefined on input l
+ine 7.
+
+[73
+
+]
+
+LaTeX Warning: Citation 'tibshirani1996' on page 74 undefined on input line 21.
+
+
+
+LaTeX Warning: Citation 'PZhao2006model' on page 74 undefined on input line 21.
+
+
+[74]
+
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 75 undefined on input l
+ine 38.
+
+
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 75 undefined on input l
+ine 42.
+
+[75] [76]
 
 LaTeX Warning: Citation 'JOrender2025Efficient' on page 77 undefined on input l
-ine 34.
-
-[77] [78]
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 79 undefined on input l
-ine 73.
+ine 81.
 
 
-LaTeX Warning: Citation 'RAHorn2012Matrix' on page 79 undefined on input line 7
-3.
+LaTeX Warning: Citation 'RAHorn2012Matrix' on page 77 undefined on input line 8
+1.
 
-[79] [80] [81]
 
-LaTeX Warning: Citation 'orender2022' on page 82 undefined on input line 152.
+LaTeX Warning: Citation 'WFSheppard1899Application' on page 77 undefined on inp
+ut line 88.
+
+[77]
+
+LaTeX Warning: Citation 'WFSheppard1899Application' on page 78 undefined on inp
+ut line 95.
+
+
+Overfull \hbox (128.98691pt too wide) in paragraph at lines 95--96
+[]\T1/ptm/m/n/12 Because $\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 X; Y\OT1/ztmcm/
+m/n/12 )$ \T1/ptm/m/n/12 is bi-vari-ate nor-mal and cen-tered, the clas-si-cal 
+quad-rant for-mula gives [[]] 
+ []
+
+[78] [79] [80] [81]
+
+LaTeX Warning: Citation 'orender2022' on page 82 undefined on input line 215.
 
 
 LaTeX Warning: Citation 'JOrender2025Efficient' on page 82 undefined on input l
-ine 152.
+ine 215.
 
 [82]
 
 LaTeX Warning: Citation 'HZou2005Regularization' on page 83 undefined on input 
-line 166.
+line 229.
 
 
-LaTeX Warning: Citation 'HZou2006adaptive' on page 83 undefined on input line 1
-66.
+LaTeX Warning: Citation 'HZou2006adaptive' on page 83 undefined on input line 2
+29.
 
 
-LaTeX Warning: Citation 'yuan2006' on page 83 undefined on input line 166.
+LaTeX Warning: Citation 'yuan2006' on page 83 undefined on input line 229.
 
 
 LaTeX Warning: Citation 'RTibshirani2016ordered' on page 83 undefined on input 
-line 166.
+line 229.
 
 
-Overfull \hbox (56.70465pt too wide) in paragraph at lines 166--167
+Overfull \hbox (56.70465pt too wide) in paragraph at lines 229--230
 \T1/ptm/m/n/12 tic net, adap-tive penal-ties, and grouped or or-dered struc-tur
 es [[], [],
  []
@@ -2024,81 +2031,97 @@ es [[], [],
 [83]
 
 LaTeX Warning: Citation 'freijeirogonzalez2022' on page 84 undefined on input l
-ine 187.
+ine 250.
 
 
 LaTeX Warning: Citation 'JOrender2025Efficient' on page 84 undefined on input l
-ine 187.
+ine 250.
 
 [84] [85]
-<Figures/boundary_ic_sweep.png, id=501, 855.6768pt x 590.6868pt>
+<Figures/boundary_ic_sweep.png, id=499, 855.6768pt x 590.6868pt>
 File: Figures/boundary_ic_sweep.png Graphic file (type png)
 <use Figures/boundary_ic_sweep.png>
-Package pdftex.def Info: Figures/boundary_ic_sweep.png  used on input line 221.
+Package pdftex.def Info: Figures/boundary_ic_sweep.png  used on input line 284.
 
 (pdftex.def)             Requested size: 469.75502pt x 324.28387pt.
  [86]
-<Figures/boundary_ic_stress_heatmaps.png, id=505, 873.5034pt x 600.8046pt>
+<Figures/boundary_ic_stress_heatmaps.png, id=503, 873.5034pt x 600.8046pt>
 File: Figures/boundary_ic_stress_heatmaps.png Graphic file (type png)
 <use Figures/boundary_ic_stress_heatmaps.png>
 Package pdftex.def Info: Figures/boundary_ic_stress_heatmaps.png  used on input
- line 238.
+ line 301.
 (pdftex.def)             Requested size: 469.75502pt x 323.10036pt.
- [87]
-<Figures/boundary_inactive_count_sweep.png, id=509, 855.195pt x 354.6048pt>
+<Figures/boundary_ic_hai_a2_rectified_calibrated_heatmaps.png, id=504, 873.5034
+pt x 598.3956pt>
+File: Figures/boundary_ic_hai_a2_rectified_calibrated_heatmaps.png Graphic file
+ (type png)
+<use Figures/boundary_ic_hai_a2_rectified_calibrated_heatmaps.png>
+Package pdftex.def Info: Figures/boundary_ic_hai_a2_rectified_calibrated_heatma
+ps.png  used on input line 308.
+(pdftex.def)             Requested size: 469.75502pt x 321.80484pt.
+ [87] [88]
+<Figures/boundary_inactive_count_sweep.png, id=511, 855.195pt x 354.6048pt>
 File: Figures/boundary_inactive_count_sweep.png Graphic file (type png)
 <use Figures/boundary_inactive_count_sweep.png>
 Package pdftex.def Info: Figures/boundary_inactive_count_sweep.png  used on inp
-ut line 253.
+ut line 325.
 (pdftex.def)             Requested size: 469.75502pt x 194.77892pt.
- [88]
-<Figures/boundary_threshold_bridge.png, id=513, 855.6768pt x 334.851pt>
+<Figures/boundary_threshold_bridge.png, id=512, 855.6768pt x 334.851pt>
 File: Figures/boundary_threshold_bridge.png Graphic file (type png)
 <use Figures/boundary_threshold_bridge.png>
 Package pdftex.def Info: Figures/boundary_threshold_bridge.png  used on input l
-ine 268.
+ine 340.
 (pdftex.def)             Requested size: 432.17375pt x 169.1214pt.
- [89] [90] [91]
+ [89] [90]
+Underfull \hbox (badness 2922) in paragraph at lines 363--363
+[]|$\OT1/ztmcm/m/n/10 ^^B : 0\OML/ztmcm/m/it/10 :\OT1/ztmcm/m/n/10 719 \OMS/ztm
+cm/m/n/10 ! \OT1/ztmcm/m/n/10 0\OML/ztmcm/m/it/10 :\OT1/ztmcm/m/n/10 600$\T1/pt
+m/m/n/10 ; ac-tive cor-re-la-tion:
+ []
 
-LaTeX Warning: Citation 'PZhao2006model' on page 92 undefined on input line 315
+[91]
+
+LaTeX Warning: Citation 'PZhao2006model' on page 92 undefined on input line 386
 .
 
-[92]) (Chapters/07_rq3.tex [93] [94 <./Figures/boundary_ic_sweep.png>] [95 <./F
-igures/boundary_ic_stress_heatmaps.png>] [96 <./Figures/boundary_inactive_count
-_sweep.png>] [97 <./Figures/boundary_threshold_bridge.png>]
+[92]) (Chapters/07_rq3.tex [93] [94] [95 <./Figures/boundary_ic_sweep.png>]
+[96 <./Figures/boundary_ic_stress_heatmaps.png>] [97 <./Figures/boundary_ic_hai
+_a2_rectified_calibrated_heatmaps.png>] [98 <./Figures/boundary_inactive_count_
+sweep.png>] [99 <./Figures/boundary_threshold_bridge.png>]
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 98 undefined on input lin
-e 5.
-
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 98 undefined on input l
-ine 5.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 100 undefined on input li
+ne 5.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 98 undefined on input l
-ine 9.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 100 undefined on input 
+line 5.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 98 undefined on input lin
-e 9.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 100 undefined on input 
+line 9.
 
 
-LaTeX Warning: Citation 'wong2010longitudinal' on page 98 undefined on input li
-ne 11.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 100 undefined on input li
+ne 9.
 
 
-LaTeX Warning: Citation 'hiploylee2017' on page 98 undefined on input line 11.
+LaTeX Warning: Citation 'wong2010longitudinal' on page 100 undefined on input l
+ine 11.
 
 
-LaTeX Warning: Citation 'shin2020' on page 98 undefined on input line 11.
-
-
-LaTeX Warning: Citation 'CRudin2019Stop' on page 98 undefined on input line 11.
+LaTeX Warning: Citation 'hiploylee2017' on page 100 undefined on input line 11.
 
 
 
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 98 undefined on inpu
-t line 11.
+LaTeX Warning: Citation 'shin2020' on page 100 undefined on input line 11.
+
+
+LaTeX Warning: Citation 'CRudin2019Stop' on page 100 undefined on input line 11
+.
+
+
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 100 undefined on inp
+ut line 11.
 
 
 Overfull \hbox (53.08017pt too wide) in paragraph at lines 11--12
@@ -2106,250 +2129,251 @@ Overfull \hbox (53.08017pt too wide) in paragraph at lines 11--12
 ure [[], []]. 
  []
 
-[98
+[100
 
 ]
 
-LaTeX Warning: Citation 'tibshirani1996' on page 99 undefined on input line 19.
+LaTeX Warning: Citation 'wong2010longitudinal' on page 101 undefined on input l
+ine 17.
+
+
+LaTeX Warning: Citation 'hiploylee2017' on page 101 undefined on input line 17.
 
 
 
-LaTeX Warning: Citation 'fried2010' on page 99 undefined on input line 19.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 101 undefined on input li
+ne 22.
 
 
-LaTeX Warning: Citation 'tay2023' on page 99 undefined on input line 19.
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 101 undefined on inp
+ut line 22.
+
+[101]
+
+LaTeX Warning: Citation 'tibshirani1996' on page 102 undefined on input line 35
+.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 99 undefined on input lin
-e 21.
+LaTeX Warning: Citation 'fried2010' on page 102 undefined on input line 35.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 99 undefined on input lin
-e 29.
+LaTeX Warning: Citation 'tay2023' on page 102 undefined on input line 35.
 
 
-Overfull \hbox (16.7447pt too wide) in paragraph at lines 28--30
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 102 undefined on input li
+ne 37.
+
+
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 102 undefined on input li
+ne 46.
+
+
+Overfull \hbox (16.7447pt too wide) in paragraph at lines 45--47
 \T1/ptm/m/n/12 re-tained con-di-tions $\OML/ztmcm/m/it/12 k$ \T1/ptm/m/n/12 (an
 d op-tion-ally the vote thresh-old $\OML/ztmcm/m/it/12 m$ \T1/ptm/m/n/12 in an 
 $\OML/ztmcm/m/it/12 m$\T1/ptm/m/n/12 -of-$\OML/ztmcm/m/it/12 k$ \T1/ptm/m/n/12 
 rule) [[]].
  []
 
-[99]
+[102]
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 100 undefined on input li
-ne 31.
-
-
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 100 undefined on input li
-ne 35.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 103 undefined on input li
+ne 48.
 
 
-LaTeX Warning: Citation 'tibshirani1996' on page 100 undefined on input line 39
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 103 undefined on input li
+ne 52.
+
+
+LaTeX Warning: Citation 'tibshirani1996' on page 103 undefined on input line 56
 .
 
 
-LaTeX Warning: Citation 'fried2010' on page 100 undefined on input line 39.
+LaTeX Warning: Citation 'fried2010' on page 103 undefined on input line 56.
 
 
-LaTeX Warning: Citation 'tay2023' on page 100 undefined on input line 39.
+LaTeX Warning: Citation 'tay2023' on page 103 undefined on input line 56.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 100 undefined on input li
-ne 39.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 103 undefined on input li
+ne 56.
 
 
-Overfull \hbox (41.57292pt too wide) in paragraph at lines 39--40
+Overfull \hbox (41.57292pt too wide) in paragraph at lines 56--57
 \T1/ptm/m/n/12 the ref-er-ence qual-ity floor for com-pres-sion [[], [], [], []
 ]. 
  []
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 100 undefined on input li
-ne 43.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 103 undefined on input li
+ne 60.
+
+[103]
+
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 104 undefined on input li
+ne 64.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 100 undefined on input li
-ne 47.
-
-
-Overfull \hbox (77.23601pt too wide) in paragraph at lines 47--48
+Overfull \hbox (77.23601pt too wide) in paragraph at lines 64--65
 \T1/ptm/m/n/12 complexity-performance fron-tier at fixed $\OML/ztmcm/m/it/12 k$
 \T1/ptm/m/n/12 ; sweep-ing $\OML/ztmcm/m/it/12 k$ \T1/ptm/m/n/12 gives the glob
 al any-time fron-tier [[]]. 
  []
 
-[100]
+[104]
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 101 undefined on input li
-ne 62.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 105 undefined on input li
+ne 79.
 
-[101]
-<Figures/rq3_real_data_frontiers.png, id=560, 1144.6765pt x 639.5895pt>
+<Figures/rq3_real_data_frontiers.png, id=570, 855.195pt x 851.983pt>
 File: Figures/rq3_real_data_frontiers.png Graphic file (type png)
 <use Figures/rq3_real_data_frontiers.png>
 Package pdftex.def Info: Figures/rq3_real_data_frontiers.png  used on input lin
-e 70.
-(pdftex.def)             Requested size: 469.75502pt x 262.47737pt.
- [102] [103 <./Figures/rq3_real_data_frontiers.png>] [104]
+e 87.
+(pdftex.def)             Requested size: 469.75502pt x 467.9811pt.
+[105] [106] [107]
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 105 undefined on input li
-ne 98.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 108 undefined on input li
+ne 120.
 
-<Figures/synthetic_logical_J_vs_k.png, id=572, 491.436pt x 303.534pt>
+<Figures/synthetic_logical_J_vs_k.png, id=580, 491.436pt x 303.534pt>
 File: Figures/synthetic_logical_J_vs_k.png Graphic file (type png)
 <use Figures/synthetic_logical_J_vs_k.png>
 Package pdftex.def Info: Figures/synthetic_logical_J_vs_k.png  used on input li
-ne 104.
+ne 126.
 (pdftex.def)             Requested size: 352.31625pt x 217.618pt.
 
-LaTeX Warning: Citation 'DJSchuirmann1987comparison' on page 105 undefined on i
-nput line 111.
+LaTeX Warning: Citation 'DJSchuirmann1987comparison' on page 108 undefined on i
+nput line 133.
 
 
-LaTeX Warning: Citation 'Student1908probable' on page 105 undefined on input li
-ne 111.
+LaTeX Warning: Citation 'Student1908probable' on page 108 undefined on input li
+ne 133.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 105 undefined on input li
-ne 111.
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 108 undefined on input li
+ne 133.
 
 
-Overfull \hbox (61.6712pt too wide) in paragraph at lines 111--112
+Overfull \hbox (61.6712pt too wide) in paragraph at lines 133--134
 \T1/ptm/m/n/12 clared mar-gin (for ex-am-ple, $\OMS/ztmcm/m/n/12 ^^F\OT1/ztmcm/
 m/n/12 0\OML/ztmcm/m/it/12 :\OT1/ztmcm/m/n/12 01$ \T1/ptm/m/n/12 AUC) to jus-ti
 fy prac-ti-cal non-loss claims [[],
  []
 
-[105]
+[108]
 
-LaTeX Warning: Citation 'EAngelino2018Learning' on page 106 undefined on input 
-line 115.
-
-
-LaTeX Warning: Citation 'CRudin2019Stop' on page 106 undefined on input line 11
-5.
+LaTeX Warning: Citation 'EAngelino2018Learning' on page 109 undefined on input 
+line 137.
 
 
-Overfull \hbox (49.80301pt too wide) in paragraph at lines 115--116
+LaTeX Warning: Citation 'CRudin2019Stop' on page 109 undefined on input line 13
+7.
+
+
+Overfull \hbox (49.80301pt too wide) in paragraph at lines 137--138
 \T1/ptm/m/n/12 ten op-ti-mize di-rectly in com-bi-na-to-rial rule space with di
 f-fer-ent scal-a-bil-ity pro-files [[],
  []
 
-[106 <./Figures/synthetic_logical_J_vs_k.png>]
 
-LaTeX Warning: Citation 'EBoros1997Logical' on page 107 undefined on input line
- 117.
-
-
-LaTeX Warning: Citation 'EBoros2000implementation' on page 107 undefined on inp
-ut line 117.
+LaTeX Warning: Citation 'EBoros1997Logical' on page 109 undefined on input line
+ 139.
 
 
-LaTeX Warning: Citation 'orender2022' on page 107 undefined on input line 117.
+LaTeX Warning: Citation 'EBoros2000implementation' on page 109 undefined on inp
+ut line 139.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 107 undefined on input 
-line 117.
+LaTeX Warning: Citation 'orender2022' on page 109 undefined on input line 139.
 
 
-LaTeX Warning: Citation 'wong2010longitudinal' on page 107 undefined on input l
-ine 123.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 109 undefined on input 
+line 139.
 
+[109]
 
-LaTeX Warning: Citation 'hiploylee2017' on page 107 undefined on input line 123
-.
-
-
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 107 undefined on input li
-ne 128.
-
-
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 107 undefined on inp
-ut line 128.
-
-[107]
-
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 108 undefined on input li
-ne 136.
-
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 108 undefined on input 
-line 136.
-
-) (Chapters/88_futurework.tex [108] [109]
-
-LaTeX Warning: Citation 'PZhao2006model' on page 110 undefined on input line 9.
-
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 110 undefined on input li
+ne 147.
 
 
 LaTeX Warning: Citation 'JOrender2025Efficient' on page 110 undefined on input 
-line 9.
+line 147.
 
+) (Chapters/88_futurework.tex [110] [111 <./Figures/rq3_real_data_frontiers.png
+>] [112 <./Figures/synthetic_logical_J_vs_k.png>]
 
-LaTeX Warning: Citation 'shin2020' on page 110 undefined on input line 13.
+LaTeX Warning: Citation 'PZhao2006model' on page 113 undefined on input line 9.
 
-
-LaTeX Warning: Citation 'wong2010longitudinal' on page 110 undefined on input l
-ine 13.
-
-
-LaTeX Warning: Citation 'hiploylee2017' on page 110 undefined on input line 13.
-
-
-
-LaTeX Warning: Citation 'yang2023model' on page 110 undefined on input line 13.
-
-
-[110
-
-]
-
-LaTeX Warning: Citation 'EBoros1997Logical' on page 111 undefined on input line
- 17.
-
-
-LaTeX Warning: Citation 'EBoros2000implementation' on page 111 undefined on inp
-ut line 17.
-
-
-LaTeX Warning: Citation 'EAngelino2018Learning' on page 111 undefined on input 
-line 17.
-
-
-LaTeX Warning: Citation 'CRudin2019Stop' on page 111 undefined on input line 21
-.
-
-
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 111 undefined on inp
-ut line 21.
-
-[111]) (Chapters/89_conclusion.tex [112]
-
-LaTeX Warning: Citation 'orender2022' on page 113 undefined on input line 5.
 
 
 LaTeX Warning: Citation 'JOrender2025Efficient' on page 113 undefined on input 
+line 9.
+
+
+LaTeX Warning: Citation 'shin2020' on page 113 undefined on input line 13.
+
+
+LaTeX Warning: Citation 'wong2010longitudinal' on page 113 undefined on input l
+ine 13.
+
+
+LaTeX Warning: Citation 'hiploylee2017' on page 113 undefined on input line 13.
+
+
+
+LaTeX Warning: Citation 'yang2023model' on page 113 undefined on input line 13.
+
+
+[113
+
+]
+
+LaTeX Warning: Citation 'EBoros1997Logical' on page 114 undefined on input line
+ 17.
+
+
+LaTeX Warning: Citation 'EBoros2000implementation' on page 114 undefined on inp
+ut line 17.
+
+
+LaTeX Warning: Citation 'EAngelino2018Learning' on page 114 undefined on input 
+line 17.
+
+
+LaTeX Warning: Citation 'CRudin2019Stop' on page 114 undefined on input line 21
+.
+
+
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 114 undefined on inp
+ut line 21.
+
+[114]) (Chapters/89_conclusion.tex [115]
+
+LaTeX Warning: Citation 'orender2022' on page 116 undefined on input line 5.
+
+
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 116 undefined on input 
 line 5.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 113 undefined on input li
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 116 undefined on input li
 ne 5.
 
 
-LaTeX Warning: Citation 'PZhao2006model' on page 113 undefined on input line 16
+LaTeX Warning: Citation 'PZhao2006model' on page 116 undefined on input line 16
 .
 
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 113 undefined on input 
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 116 undefined on input 
 line 16.
 
 
-LaTeX Warning: Citation 'CRudin2019Stop' on page 113 undefined on input line 16
+LaTeX Warning: Citation 'CRudin2019Stop' on page 116 undefined on input line 16
 .
 
 
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 113 undefined on inp
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 116 undefined on inp
 ut line 16.
 
 
@@ -2357,22 +2381,22 @@ Overfull \hbox (24.06454pt too wide) in paragraph at lines 16--17
 \T1/ptm/m/n/12 cred-i-ble up-stream se-lec-tion mech-a-nism [[], [], [],
  []
 
-[113
+[116
 
 ]
 
-LaTeX Warning: Citation 'orender2022' on page 114 undefined on input line 22.
+LaTeX Warning: Citation 'orender2022' on page 117 undefined on input line 22.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 114 undefined on input 
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 117 undefined on input 
 line 22.
 
 
-LaTeX Warning: Citation 'PZhao2006model' on page 114 undefined on input line 22
+LaTeX Warning: Citation 'PZhao2006model' on page 117 undefined on input line 22
 .
 
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 114 undefined on input 
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 117 undefined on input 
 line 22.
 
 
@@ -2382,52 +2406,52 @@ ar-ity stress [[], []].
  []
 
 
-LaTeX Warning: Citation 'PZhao2006model' on page 114 undefined on input line 28
+LaTeX Warning: Citation 'PZhao2006model' on page 117 undefined on input line 28
 .
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 114 undefined on input 
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 117 undefined on input 
 line 28.
 
-[114]
+[117]
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 115 undefined on input li
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 118 undefined on input li
 ne 35.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 115 undefined on input 
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 118 undefined on input 
 line 35.
 
 
-LaTeX Warning: Citation 'CRudin2019Stop' on page 115 undefined on input line 35
+LaTeX Warning: Citation 'CRudin2019Stop' on page 118 undefined on input line 35
 .
 
 
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 115 undefined on inp
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 118 undefined on inp
 ut line 35.
 
 
-LaTeX Warning: Citation 'DJSchuirmann1987comparison' on page 115 undefined on i
+LaTeX Warning: Citation 'DJSchuirmann1987comparison' on page 118 undefined on i
 nput line 37.
 
 
-LaTeX Warning: Citation 'Student1908probable' on page 115 undefined on input li
+LaTeX Warning: Citation 'Student1908probable' on page 118 undefined on input li
 ne 37.
 
-[115]
+[118]
 
-LaTeX Warning: Citation 'orender2022' on page 116 undefined on input line 43.
+LaTeX Warning: Citation 'orender2022' on page 119 undefined on input line 43.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 116 undefined on input 
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 119 undefined on input 
 line 43.
 
 
-LaTeX Warning: Citation 'PZhao2006model' on page 116 undefined on input line 44
+LaTeX Warning: Citation 'PZhao2006model' on page 119 undefined on input line 44
 .
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 116 undefined on input 
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 119 undefined on input 
 line 44.
 
 
@@ -2437,54 +2461,54 @@ ty in a tractable regime [[],
  []
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 116 undefined on input li
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 119 undefined on input li
 ne 45.
 
-[116]
+[119]
 
-LaTeX Warning: Citation 'tibshirani1996' on page 117 undefined on input line 56
+LaTeX Warning: Citation 'tibshirani1996' on page 120 undefined on input line 56
 .
 
 
-LaTeX Warning: Citation 'HZou2005Regularization' on page 117 undefined on input
+LaTeX Warning: Citation 'HZou2005Regularization' on page 120 undefined on input
  line 56.
 
 
-LaTeX Warning: Citation 'HZou2006adaptive' on page 117 undefined on input line 
+LaTeX Warning: Citation 'HZou2006adaptive' on page 120 undefined on input line 
 56.
 
 
-LaTeX Warning: Citation 'fried2010' on page 117 undefined on input line 56.
+LaTeX Warning: Citation 'fried2010' on page 120 undefined on input line 56.
 
 
-LaTeX Warning: Citation 'tay2023' on page 117 undefined on input line 56.
+LaTeX Warning: Citation 'tay2023' on page 120 undefined on input line 56.
 
 
-LaTeX Warning: Citation 'turlach2005' on page 117 undefined on input line 56.
+LaTeX Warning: Citation 'turlach2005' on page 120 undefined on input line 56.
 
 
-LaTeX Warning: Citation 'yuan2006' on page 117 undefined on input line 56.
+LaTeX Warning: Citation 'yuan2006' on page 120 undefined on input line 56.
 
 
-LaTeX Warning: Citation 'meier2008' on page 117 undefined on input line 56.
+LaTeX Warning: Citation 'meier2008' on page 120 undefined on input line 56.
 
 
-LaTeX Warning: Citation 'yang2015' on page 117 undefined on input line 56.
+LaTeX Warning: Citation 'yang2015' on page 120 undefined on input line 56.
 
 
-LaTeX Warning: Citation 'RTibshirani2016ordered' on page 117 undefined on input
+LaTeX Warning: Citation 'RTibshirani2016ordered' on page 120 undefined on input
  line 56.
 
 
-LaTeX Warning: Citation 'lou2012intelligible' on page 117 undefined on input li
+LaTeX Warning: Citation 'lou2012intelligible' on page 120 undefined on input li
 ne 56.
 
 
-LaTeX Warning: Citation 'friedman2008rulefit' on page 117 undefined on input li
+LaTeX Warning: Citation 'friedman2008rulefit' on page 120 undefined on input li
 ne 56.
 
 
-LaTeX Warning: Citation 'EAngelino2018Learning' on page 117 undefined on input 
+LaTeX Warning: Citation 'EAngelino2018Learning' on page 120 undefined on input 
 line 56.
 
 
@@ -2493,13 +2517,13 @@ Overfull \hbox (57.20741pt too wide) in paragraph at lines 56--57
 
  []
 
-[117]
+[120]
 
-LaTeX Warning: Citation 'freijeirogonzalez2022' on page 118 undefined on input 
+LaTeX Warning: Citation 'freijeirogonzalez2022' on page 121 undefined on input 
 line 72.
 
 
-LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 118 undefined on inp
+LaTeX Warning: Citation 'WJMurdoch2019Definitions' on page 121 undefined on inp
 ut line 72.
 
 
@@ -2509,112 +2533,133 @@ struc-tures and ob-jec-tives [[],
  []
 
 
-LaTeX Warning: Citation 'shin2020' on page 118 undefined on input line 76.
+LaTeX Warning: Citation 'shin2020' on page 121 undefined on input line 76.
 
 
-LaTeX Warning: Citation 'wong2010longitudinal' on page 118 undefined on input l
+LaTeX Warning: Citation 'wong2010longitudinal' on page 121 undefined on input l
 ine 76.
 
 
-LaTeX Warning: Citation 'hiploylee2017' on page 118 undefined on input line 76.
+LaTeX Warning: Citation 'hiploylee2017' on page 121 undefined on input line 76.
 
 
-[118]
+[121]
 
-LaTeX Warning: Citation 'orender2022' on page 119 undefined on input line 80.
+LaTeX Warning: Citation 'orender2022' on page 122 undefined on input line 80.
 
 
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 119 undefined on input 
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 122 undefined on input 
 line 80.
 
 
-LaTeX Warning: Citation 'JOrender2025Anytime' on page 119 undefined on input li
+LaTeX Warning: Citation 'JOrender2025Anytime' on page 122 undefined on input li
 ne 80.
 
-) [119]
+) [122]
 
-LaTeX Warning: Empty bibliography on input line 126.
+LaTeX Warning: Empty bibliography on input line 155.
 
 \openout2 = `Chapters/98_appendices.aux'.
 
 (Chapters/98_appendices.tex
 APPENDIX A
-[120
-
-
-
-
-]
-<Figures/curve_generation_1.png, id=624, 715.92468pt x 139.27031pt>
+<Figures/curve_generation_1.png, id=631, 715.92468pt x 139.27031pt>
 File: Figures/curve_generation_1.png Graphic file (type png)
 <use Figures/curve_generation_1.png>
-Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 33.
+Package pdftex.def Info: Figures/curve_generation_1.png  used on input line 14.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.5363pt.
-<Figures/curve_generation_2.png, id=625, 711.4078pt x 137.7647pt>
+[123
+
+
+
+
+ <./Figures/curve_generation_1.png>]
+<Figures/curve_generation_2.png, id=635, 711.4078pt x 137.7647pt>
 File: Figures/curve_generation_2.png Graphic file (type png)
 <use Figures/curve_generation_2.png>
-Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 42.
+Package pdftex.def Info: Figures/curve_generation_2.png  used on input line 23.
 
 (pdftex.def)             Requested size: 352.31625pt x 68.22841pt.
- [121 <./Figures/curve_generation_1.png> <./Figures/curve_generation_2.png>]
-<Figures/curve_generation_3.png, id=630, 718.93594pt x 136.25906pt>
+<Figures/curve_generation_3.png, id=636, 718.93594pt x 136.25906pt>
 File: Figures/curve_generation_3.png Graphic file (type png)
 <use Figures/curve_generation_3.png>
-Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 53.
+Package pdftex.def Info: Figures/curve_generation_3.png  used on input line 34.
 
 (pdftex.def)             Requested size: 352.31625pt x 66.77583pt.
- [122 <./Figures/curve_generation_3.png>]
-<Figures/curve_flatten.png, id=634, 943.27406pt x 490.08093pt>
+ [124 <./Figures/curve_generation_2.png>]
+<Figures/curve_flatten.png, id=640, 943.27406pt x 490.08093pt>
 File: Figures/curve_flatten.png Graphic file (type png)
 <use Figures/curve_flatten.png>
-Package pdftex.def Info: Figures/curve_flatten.png  used on input line 66.
+Package pdftex.def Info: Figures/curve_flatten.png  used on input line 45.
 (pdftex.def)             Requested size: 352.31625pt x 183.04704pt.
- [123 <./Figures/curve_flatten.png>]
+ [125 <./Figures/curve_generation_3.png>] [126 <./Figures/curve_flatten.png>]
 APPENDIX B
-[124
+
+LaTeX Warning: Citation 'WFSheppard1899Application' on page 127 undefined on in
+put line 59.
+
+
+LaTeX Warning: Citation 'WFSheppard1899Application' on page 127 undefined on in
+put line 66.
+
+[127
 
 ]
 
-LaTeX Warning: Citation 'WFeller1991Introduction' on page 125 undefined on inpu
-t line 150.
-
-[125] [126]
-
-LaTeX Warning: Citation 'JOrender2025Efficient' on page 127 undefined on input 
-line 228.
-
-[127]
-
-LaTeX Warning: Citation 'RAHorn2012Matrix' on page 128 undefined on input line 
-276.
+LaTeX Warning: Citation 'WFSheppard1899Application' on page 128 undefined on in
+put line 116.
 
 [128] [129]
 
-LaTeX Warning: Citation 'WFeller1991Introduction' on page 130 undefined on inpu
-t line 338.
+LaTeX Warning: Citation 'JOrender2025Efficient' on page 130 undefined on input 
+line 178.
 
+[130] [131]
 
-Overfull \hbox (21.93707pt too wide) in paragraph at lines 338--339
-[]\T1/ptm/m/n/12 For jointly stan-dard nor-mal vari-ables, this joint prob-a-bi
-l-ity is given by [[]]: 
- []
+LaTeX Warning: Citation 'WFSheppard1899Application' on page 132 undefined on in
+put line 244.
 
-[130] [131] [132] [133] [134] [135] [136] [137]
+[132]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 314.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 314.
+ [133] [134] [135] [136] [137] [138]
 APPENDIX C
-) [138
+[139
 
-] [139] [140]
+] [140] [141] [142]
+APPENDIX D
+) [143
+
+] [144] [145]
+\openout2 = `Chapters/98_acronyms.aux'.
+
+ (Chapters/98_acronyms.tex
+APPENDIX E
+[146
+
+
+
+
+
+] [147] [148] [149] [150]) [151]
 \openout2 = `Chapters/99_vita.aux'.
 
- (Chapters/99_vita.tex) [141
+ (Chapters/99_vita.tex) [152
 
 
 
 
 ]
+
+Package caption Warning: Unused \captionsetup[subalgorithm] on input line 71.
+See the caption package documentation for explanation.
+
 (C:\Users\jason\ODU\dissertation\buildcheck\main.aux
 (C:\Users\jason\ODU\dissertation\buildcheck\Chapters/98_appendices.aux)
+(C:\Users\jason\ODU\dissertation\buildcheck\Chapters/98_acronyms.aux)
 (C:\Users\jason\ODU\dissertation\buildcheck\Chapters/99_vita.aux))
  ***********
 LaTeX2e <2025-11-01>
@@ -2634,34 +2679,31 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19775 strings out of 467871
- 360879 string characters out of 5418376
- 1017717 words of memory out of 5000000
- 48288 multiletter control sequences out of 15000+600000
- 713171 words of font info for 193 fonts, out of 8000000 for 9000
+ 20534 strings out of 467871
+ 376120 string characters out of 5418376
+ 1037850 words of memory out of 5000000
+ 49024 multiletter control sequences out of 15000+600000
+ 713353 words of font info for 187 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,15n,79p,2736b,1956s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,15n,79p,2715b,1954s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt
-0800.pk> <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\ectt1000.pk> <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\ectt1200.pk><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmex10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/jason/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jason/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jason/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/
-jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.
-pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/rsfs/rsfs1
-0.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr
-.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.
-pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.
-pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.
-pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a
-.pfb>
-Output written on C:\Users\jason\ODU\dissertation\buildcheck\main.pdf (153 page
-s, 3726496 bytes).
+1000.pk> <C:\Users\jason\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
+0\ectt1200.pk><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmex10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmmi10.pfb><C:/Users/jason/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jason/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jason/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/jason/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/rsfs/rsfs10.pfb><C:/Users/jaso
+n/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/jason
+/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/jason/
+AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/jason/
+AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/jason/
+AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on C:\Users\jason\ODU\dissertation\buildcheck\main.pdf (164 page
+s, 3897760 bytes).
 PDF statistics:
- 834 PDF objects out of 1000 (max. 8388607)
+ 856 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 161 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 166 words of extra memory for PDF output out of 10000 (max. 10000000)
 

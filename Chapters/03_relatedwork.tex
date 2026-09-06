@@ -73,28 +73,35 @@ Benchmark infrastructure also matters for evaluating longitudinal methods. Publi
 %The companion 2025 anytime rule-compression paper addressed the remaining interpretability gap: sparse coefficients are often still too numerous for direct human use. The anytime compression stage converts sparse rectified models into compact m-of-K style rule behavior with controlled discrimination tradeoffs and early-stop practicality \autocite{JOrender2025Anytime}. This contribution aligns the pipeline with interpretable-model deployment requirements discussed earlier in this chapter.
 
 %Compared with related work, the dissertation's distinguishing emphasis is integration. Rather than proposing only a new penalty, only a new binarizer, or only a new rule learner, it unifies all three stages and evaluates them as one longitudinal decision-support pipeline. The key comparative hypothesis is that representation-level rectification plus sparse selection plus anytime compression better balances support reliability, interpretability, and compute constraints than any single-stage alternative.
-%Table \ref{tab:method_family_positioning} compresses that cross-family positioning into one view so the dissertation's intervention point and output target can be compared against the main competing families at a glance.
+Table \ref{tab:method_family_positioning} compresses that cross-family positioning into one view so the dissertation's intervention point and output target can be compared against the main competing families at a glance.
 
 \begin{table}[p]
     \caption[Cross-family positioning of the dissertation pipeline.]{Cross-family positioning of the dissertation pipeline relative to the main competing method families discussed in this chapter.}
     \label{tab:method_family_positioning}
     \centering
-    {\scriptsize
     \setlength{\tabcolsep}{2pt}
     \renewcommand{\arraystretch}{0.95}
-    \begin{tabularx}{0.98\textwidth}{>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}p{0.11\textwidth}>{\RaggedRight\arraybackslash}p{0.16\textwidth}>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}X}
+    \begin{tabularx}{0.98\textwidth}{>{\RaggedRight\arraybackslash}p{0.14\textwidth}>{\RaggedRight\arraybackslash}p{0.14\textwidth}>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}p{0.14\textwidth}>{\RaggedRight\arraybackslash}X}
         Method family & Intervention point & Representation change? & Typical output form & Deployment-policy support & Dissertation's intended advantage \\ \hline
         L1 / elastic-net / adaptive lasso & Coefficient regularization & No & Sparse weighted coefficients & Indirect; usually analyst-defined & Changes representation before fitting rather than relying only on penalty tuning under the original dependence structure. \\ \hline
         Grouped / ordered sparsity & Structured coefficient regularization & No & Grouped or ordered sparse coefficients & Indirect; usually analyst-defined & Targets threshold logic and lag semantics through feature redesign rather than only through coefficient constraints. \\ \hline
         Dependence-aware / QP / robust selectors & Redundancy control or robust objective & Usually no & Selected subsets or weighted coefficients & Indirect; usually analyst-defined & Couples redundancy reduction to explicit threshold semantics and a downstream interpretable rule path. \\ \hline
+    \end{tabularx}
+\end{table}
+
+\begin{table}[p]
+    \ContinuedFloat
+    \caption[]{Cross-family positioning of the dissertation pipeline relative to the main competing method families discussed in this chapter (continued).}
+    \centering
+    \setlength{\tabcolsep}{2pt}
+    \renewcommand{\arraystretch}{0.95}
+    \begin{tabularx}{0.98\textwidth}{>{\RaggedRight\arraybackslash}p{0.14\textwidth}>{\RaggedRight\arraybackslash}p{0.14\textwidth}>{\RaggedRight\arraybackslash}p{0.13\textwidth}>{\RaggedRight\arraybackslash}p{0.15\textwidth}>{\RaggedRight\arraybackslash}p{0.14\textwidth}>{\RaggedRight\arraybackslash}X}
+        Method family & Intervention point & Representation change? & Typical output form & Deployment-policy support & Dissertation's intended advantage \\ \hline
         Interpretable additive / rule-ensemble models (EBM / RuleFit) & Model-class redesign & Mixed & Additive terms or sparse rule-weight mixtures & Partial; model-specific & Produces a shared rectified sparse baseline and, when justified, a smaller policy-screened rule artifact rather than leaving rule complexity mostly model-specific. \\ \hline
         Direct rule-list / LAD-style methods & Combinatorial rule search & Yes & Explicit rule lists or logical patterns & Often direct, but search-heavy & Reuses mature sparse solvers and restricts logic compression to the active support rather than searching the full lag-expanded space from scratch. \\ \hline
         This dissertation & Representation-first pipeline with sparse front end and post-fit compression & Yes & Rectified sparse baseline plus optional policy-controlled $m$-of-$K$ rule & Explicit held-out policy & Balances support reliability, interpretability, solver reuse, and auditable deployment decisions in one longitudinal pipeline. \\ \hline
     \end{tabularx}
-    }
 \end{table}
-
-Table \ref{tab:dissertation_delta} in Chapter 1 makes the dissertation-level delta relative to these prior papers explicit.
 
 \section{Summary of Gaps in Prior Work}
 

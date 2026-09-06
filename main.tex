@@ -13,6 +13,23 @@
 \usepackage{algpseudocode}
 \usepackage{placeins}
 \usepackage{tabularx}
+\usepackage{etoolbox}
+
+% Keep every table body at the same explicit size.  In the previous draft,
+% \resizebox selected a different effective font size for each table.
+\newcommand{\dissertationtablefont}{\fontsize{10pt}{12pt}\selectfont}
+\AtBeginEnvironment{tabular}{\dissertationtablefont}
+\AtBeginEnvironment{tabularx}{\dissertationtablefont}
+
+% Number appendix subsections in the text without adding them to the TOC.
+\makeatletter
+\newcommand{\appendixsectionnotoc}[1]{%
+    \begingroup
+    \let\addcontentsline\@gobblethree
+    \section{#1}%
+    \endgroup
+}
+\makeatother
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -24,7 +41,7 @@
 %% Uncomment the appropriate line for your discipline
 %% IEEE
 %% Using backend=bibtex for environments where biber is unavailable.
-\usepackage[backend=bibtex, style=ieee, sorting=nyt, citestyle=numeric-comp, maxnames=10, minnames=10]{biblatex}
+\usepackage[backend=bibtex, style=ieee, sorting=none, citestyle=numeric-comp, maxnames=10, minnames=10]{biblatex}
 %% APA
 % \usepackage[backend=bibtex, style=apa, sorting=nyt, maxnames=10, minnames=10]{biblatex}
 %% Science 
@@ -45,6 +62,12 @@
 
 %% ***DO NOT CHANGE OR COMMENT THE NEXT LINE*** 
 \setlength\intextsep{1.69cm} % to set space above/below the floats and text 
+% The ODU template's two-double-line clearance for adjacent floats.
+\setlength\floatsep{1.69cm}
+\makeatletter
+\setlength\@fpsep{1.69cm plus 1fil}
+\setlength\@dblfpsep{1.69cm plus 1fil}
+\makeatother
 \begin{document}
 
 %%%%% TITLE PAGE %%%%% 
@@ -55,7 +78,7 @@
 %% US degree
 \degrees{B.S. December 1993, University of Texas at Austin\\
 		 M.B.A. December 2002, George Mason University\\
-         M.S. May 2018, Old Dominion University}
+         M.S. May 2019, Old Dominion University}
 
 %% Department
 \dept{Computer Science}
@@ -69,7 +92,7 @@
 
 %% Default is for a single adviser
 \principaladviser{Jiangwen Sun}
-\member{Mohammed Zubair}
+\member{Mohammad Zubair}
 \member{Yaohang Li}
 \member{Yet Nguyen}
 

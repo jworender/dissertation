@@ -354,11 +354,17 @@ Negative correlation is the regime where this work most clearly distinguishes th
 
 \section{Empirical Implications of RQ2}
 
-\begin{table}[tbh]
+The theorem's implications are now presented as a structured empirically supported story rather than merely as a placeholder proof-of-concept claim.
+\begin{enumerate}
+    \item Within the theorem-scoped positive-correlation regime, the data show the same mechanism at each level of resolution: pairwise dependence contracts, inactive-active leakage drops, the active block is easier to invert, and the empirical safe frequency $P(\Theta<1)$ rises (Figures \ref{fig:rq2_ic_sweep} and \ref{fig:rq2_ic_heatmaps}).
+    \item Once off-support coupling or inactive-pool size grows, rectification remains helpful but does not guarantee safety. The failure boundary moves outward, but rectification may not remove failure altogether (Figures \ref{fig:rq2_ic_heatmaps} and \ref{fig:rq2_inactive_count}).
+    \item Once the threshold rule departs from the exact sign case, one-sided rules remain the strongest empirical bridge, interval rules become weaker and more prevalence-sensitive, and negative-correlation settings require either explicit out-of-scope language or a complement-feature repair (Figure \ref{fig:rq2_threshold_bridge} and Table \ref{tab:rq2_boundary_summary}).
+\end{enumerate}
+
+\begin{table}[H]
     \caption[RQ2 empirical boundary-condition summary.]{Summary of the empirical boundary package. ``Strong'' means the theorem's direction is well supported empirically; ``weak'' means the direction survives but the exact theorem does not; ``fail'' means that making theorem-level claims is not supported; ``recovered'' means a practical representation repair is available.}
     \label{tab:rq2_boundary_summary}
     \begin{center}
-        \small
         \begin{tabular}{p{0.38\textwidth}p{0.11\textwidth}p{0.37\textwidth}}
             Setting & Status & Key empirical evidence \\ \hline
             Positive zero-threshold sign case ($\rho=0.60$) & strong & $\Theta: 0.719 \rightarrow 0.600$; active correlation: $0.600 \rightarrow 0.415$. \\ \hline
@@ -370,13 +376,6 @@ Negative correlation is the regime where this work most clearly distinguishes th
         \end{tabular}
     \end{center}
 \end{table}
-
-The theorem's implications are now presented as a structured empirically supported story rather than merely as a placeholder proof-of-concept claim.
-\begin{enumerate}
-    \item Within the theorem-scoped positive-correlation regime, the data show the same mechanism at each level of resolution: pairwise dependence contracts, inactive-active leakage drops, the active block is easier to invert, and the empirical safe frequency $P(\Theta<1)$ rises (Figures \ref{fig:rq2_ic_sweep} and \ref{fig:rq2_ic_heatmaps}).
-    \item Once off-support coupling or inactive-pool size grows, rectification remains helpful but does not guarantee safety. The failure boundary moves outward, but rectification may not remove failure altogether (Figures \ref{fig:rq2_ic_heatmaps} and \ref{fig:rq2_inactive_count}).
-    \item Once the threshold rule departs from the exact sign case, one-sided rules remain the strongest empirical bridge, interval rules become weaker and more prevalence-sensitive, and negative-correlation settings require either explicit out-of-scope language or a complement-feature repair (Figure \ref{fig:rq2_threshold_bridge} and Table \ref{tab:rq2_boundary_summary}).
-\end{enumerate}
 
 These empirical patterns convert RQ2 from an abstract theorem into a concrete explanation for the behavior observed in RQ1 and RQ3. RQ1 reported better support concentration, lower false-positive lag selection, and more stable sparse attribution in threshold-aligned settings. The empirical studies explain why those gains should be expected in the favorable regime and, equally importantly, where they should not be overgeneralized.
 

@@ -95,6 +95,11 @@
 \setlength{\textfloatsep}{1.69cm}
 \setlength{\floatsep}{1.69cm}
 
+% Do not leave a paragraph's first or final line isolated on a page.
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
 
 %%%%% Declaring Options - MS vs. PhD %%%%%
 
@@ -483,6 +488,33 @@ Copyright, \@copyrightyear, by \@author, All Rights Reserved.
 
 \renewcommand{\section}{
                     \secdef\@section\@ssection}
+
+% Keep section-level headings away from the foot of a page.  Three and one
+% quarter body baselines leave room for the heading, its required following
+% space, and at least two lines of the material that follows.  Compare the
+% requested space
+% directly with the remaining page height so a heading is not moved merely
+% because the page contains stretchable vertical space.
+\def\odu@headingneedspace{%
+        \par
+        \@tempskipb\lastskip
+        \vskip-\@tempskipb
+        \penalty-100
+        \begingroup
+          \dimen@=3.25\baselineskip
+          \advance\dimen@ by \@tempskipb
+          \dimen@ii=\pagegoal
+          \advance\dimen@ii by -\pagetotal
+          \ifdim\dimen@>\dimen@ii
+            \ifdim\dimen@ii>\z@
+              \vfil
+            \fi
+            \break
+          \else
+            \vskip\@tempskipb
+          \fi
+        \endgroup
+  }
                     
 \def\@section[#1]#2{\ifnum \c@secnumdepth >\m@ne
                          \refstepcounter{section}%
@@ -495,17 +527,40 @@ Copyright, \@copyrightyear, by \@author, All Rights Reserved.
                        \@makesectionhead{#2}%
                      }
 \def\@makesectionhead#1{%
+        \odu@headingneedspace
         \vskip 0.42cm
-         {\bfseries \noindent \thesection\space\parbox[t]{5.5in}{\raggedright\uppercase{#1}}}
+        \begingroup
+          \bfseries
+          \setbox\z@=\hbox{\thesection\space}%
+          \dimen@=\linewidth
+          \advance\dimen@ by -\wd\z@
+          \advance\dimen@ by -5.5in
+          \interlinepenalty=10000
+          \noindent
+          \hangindent=\wd\z@
+          \hangafter=1
+          \raggedright
+          \rightskip=\dimen@ plus 1fil
+          \box\z@\uppercase{#1}\par
+        \endgroup
+        \nobreak
         \vskip 0.42cm
+        \nobreak
   }
 \def\@ssection#1{
                    \@makessectionhead{#1}%
                  }
 \def\@makessectionhead#1{%
+        \odu@headingneedspace
         \vskip 0.42cm
-     {\bfseries \noindent \raggedright\uppercase{#1}}
-   \vskip 0.42cm
+        \begingroup
+          \bfseries
+          \interlinepenalty=10000
+          \noindent\raggedright\uppercase{#1}\par
+        \endgroup
+        \nobreak
+        \vskip 0.42cm
+        \nobreak
   }
 
 \renewcommand{\subsection}{
@@ -518,17 +573,31 @@ Copyright, \@copyrightyear, by \@author, All Rights Reserved.
                        \@makesubsectionhead{#2}%
                      }
 \def\@makesubsectionhead#1{%
+        \odu@headingneedspace
         \vskip 0.42cm
-        {\bfseries \noindent \raggedright\thesubsection\space\titlecap{#1}}
+        \begingroup
+          \bfseries
+          \interlinepenalty=10000
+          \noindent\raggedright\thesubsection\space\titlecap{#1}\par
+        \endgroup
+        \nobreak
         \vskip 0.42cm
+        \nobreak
   }
 \def\@ssection#1{
                    \@makessubsectionhead{#1}%
                  }
 \def\@makessubsectionhead#1{%
+        \odu@headingneedspace
         \vskip 0.42cm
-     {\bfseries \noindent \raggedright\uppercase{#1}}
-   \vskip 0.42cm
+        \begingroup
+          \bfseries
+          \interlinepenalty=10000
+          \noindent\raggedright\uppercase{#1}\par
+        \endgroup
+        \nobreak
+        \vskip 0.42cm
+        \nobreak
   }
 
 \newcommand{\achapter}{\if@openright\cleardoublepage\else\clearpage\fi

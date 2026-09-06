@@ -12,6 +12,8 @@ I couldn't open database file ref.bib
 I'm skipping whatever remains of this command
 Reallocating 'name_of_file' (item size: 1) to 27 items.
 A level-1 auxiliary file: Chapters/98_appendices.aux
+Reallocating 'name_of_file' (item size: 1) to 25 items.
+A level-1 auxiliary file: Chapters/98_acronyms.aux
 Reallocating 'name_of_file' (item size: 1) to 21 items.
 A level-1 auxiliary file: Chapters/99_vita.aux
 Reallocating 'glb_str_end' (item size: 4) to 20 items.
@@ -58,11 +60,13 @@ Warning--I didn't find a database entry for "EBoros2000implementation"
 Warning--I didn't find a database entry for "orender2022"
 Warning--I didn't find a database entry for "JOrender2025Efficient"
 Warning--I didn't find a database entry for "JOrender2025Anytime"
+Warning--I didn't find a database entry for "fried2010"
+Warning--I didn't find a database entry for "tay2023"
+Warning--I didn't find a database entry for "orender2026cutlass"
+Warning--I didn't find a database entry for "orender2026dissertationrepo"
 Warning--I didn't find a database entry for "shin2020"
 Warning--I didn't find a database entry for "sigillito1989"
 Warning--I didn't find a database entry for "DJSchuirmann1987comparison"
-Warning--I didn't find a database entry for "fried2010"
-Warning--I didn't find a database entry for "tay2023"
 Warning--I didn't find a database entry for "yang2015"
 Warning--I didn't find a database entry for "RAHorn2012Matrix"
 Warning--I didn't find a database entry for "turlach2005"
@@ -74,17 +78,15 @@ Warning--I didn't find a database entry for "kp2022feature"
 Warning--I didn't find a database entry for "lou2012intelligible"
 Warning--I didn't find a database entry for "friedman2008rulefit"
 Warning--I didn't find a database entry for "inoue2021"
-Warning--I didn't find a database entry for "orender2026cutlass"
-Warning--I didn't find a database entry for "orender2026dissertationrepo"
 Warning--I didn't find a database entry for "unicef2023"
+Warning--I didn't find a database entry for "WFSheppard1899Application"
 Warning--I didn't find a database entry for "Student1908probable"
-Warning--I didn't find a database entry for "WFeller1991Introduction"
 Biblatex version: 3.21
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 You've used 1 entry,
             6402 wiz_defined-function locations,
-            1271 strings with 10111 characters,
+            1272 strings with 10140 characters,
 and the built_in function-call counts, 1646 in all, are:
 = -- 77
 > -- 82

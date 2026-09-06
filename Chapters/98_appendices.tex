@@ -54,7 +54,7 @@ The resulting data set contains bounded continuous sensor-like measurements, kno
 
 \achapter{Lemmas}
 
-\section{Lemma 1}
+\appendixsectionnotoc{Lemma 1}
 \begin{lemma}[Arcsin correlation map]\label{lem:app-arcsin-correlation-map}
 For jointly standard normal random variables thresholded at zero, the relationship between the pre-binarization correlation $ \rho $ and the post-binarization correlation $ \tilde{\rho} $ is the classical arcsine relation \cite{WFSheppard1899Application}:
 
@@ -136,7 +136,7 @@ Substituting this quadrant probability into the binarized correlation expression
 \noindent\textbf{Closing.}
 Thus, zero-threshold binarization maps the original Gaussian correlation to the arcsine-transformed correlation in Equation \ref{eq:app-lemma1-arcsin-map}.
 
-\section{Lemma 2}
+\appendixsectionnotoc{Lemma 2}
 
 \begin{lemma}[Correlation contraction]\label{lem:app-correlation-contraction}
 Under the assumptions of Lemma \ref{lem:app-arcsin-correlation-map}, zero-threshold binarization does not increase the absolute pairwise correlation:
@@ -187,7 +187,7 @@ For $ -1 < \rho < 0 $, both $ \rho $ and $ \arcsin(\rho) $ are negative, so $ \t
 \noindent\textbf{Closing.}
 Binarization therefore reduces or preserves pairwise correlation magnitude and provides the pairwise contraction result used by the matrix-level RQ2 argument.
 
-\section{Lemma 3}
+\appendixsectionnotoc{Lemma 3}
 
 \begin{lemma}[Inactive-active covariance contraction]\label{lem:app-covariance-contraction}
 For any irrelevant feature $ x_{{S^c}i} \in X_{S^c} $ and relevant feature $ x_{Sj} \in X_S $, zero-threshold binarization satisfies
@@ -296,7 +296,7 @@ Therefore, in both cases:
 \noindent\textbf{Closing.}
 The magnitude of the covariance between $ \tilde{x}_{{S^c}i} $ and $ \tilde{x}_{Sj} $ is less than or equal to the magnitude of the covariance between $ x_{{S^c}i} $ and $ x_{Sj} $. Therefore, binarization reduces the covariances between irrelevant and relevant features.
 
-\section{Lemma 4}
+\appendixsectionnotoc{Lemma 4}
 
 \begin{lemma}[Positive-correlation inverse norm bound]\label{lem:app-inverse-norm-bound}
 When $ 0 < \tilde{\rho} < \rho < 1 $,
@@ -469,7 +469,7 @@ The negative-correlation cases above should be read as boundary conditions rathe
 \achapter{Reproducibility Map}
 \label{app:reproducibility_map}
 
-This appendix provides the direct manuscript-to-artifact map referenced in the introduction and RQ chapters. Each row names the notebook-backed study package, its paired generator, the cached run directory preserved under \path{notebooks/runs_new/}, the principal manuscript artifact(s) supported by that package, and the chapter that consumes the result.
+This appendix provides the direct manuscript-to-artifact map referenced in the introduction and RQ chapters. Each row names the notebook-backed study package, its paired generator, the cached run directory preserved under \path{notebooks/runs_new/}, the principal manuscript artifact(s) supported by that package, and the chapter that consumes the result. Tables \ref{tab:repro_map_rq1} and \ref{tab:repro_map_rq23} divide the map into the RQ1 packages and the RQ2--RQ3 packages, respectively.
 
 From the repository root, the minimal regeneration pattern is:
 \begin{verbatim}
@@ -487,7 +487,6 @@ python notebooks/build_hai_cutlass_data.py
     \caption[Reproducibility map for the introduction and RQ1 study packages.]{Direct regeneration map for the introduction and RQ1 study packages.}
     \label{tab:repro_map_rq1}
     \centering
-    {\scriptsize
     \setlength{\tabcolsep}{3pt}
     \renewcommand{\arraystretch}{0.97}
     \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.37\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.14\textwidth}}
@@ -513,6 +512,17 @@ python notebooks/build_hai_cutlass_data.py
         Figures \ref{fig:d002_goose_bay_protocols}, \ref{fig:d002_goose_bay_quantiles}, and \ref{fig:d002_goose_bay_c_sweep}.
         &
         RQ1 chapter. \\ \hline
+    \end{tabularx}
+\end{table}
+
+\begin{table}[p]
+    \ContinuedFloat
+    \caption[]{Direct regeneration map for the introduction and RQ1 study packages (continued).}
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \renewcommand{\arraystretch}{0.97}
+    \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.37\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.14\textwidth}}
+        Study package, generator, cached outputs & Principal manuscript artifacts & Chapter(s) \\ \hline
         \path{notebooks/interpretable_baselines.ipynb}\newline
         \path{scripts/_generate_interpretable_baselines_notebook.py}\newline
         \path{notebooks/runs_new/interpretable_baselines/}
@@ -528,14 +538,13 @@ python notebooks/build_hai_cutlass_data.py
         &
         RQ1 chapter. \\ \hline
     \end{tabularx}
-    }
 \end{table}
 
 \begin{table}[p]
     \caption[Reproducibility map for the RQ2 and RQ3 study packages.]{Direct regeneration map for the RQ2 and RQ3 study packages.}
     \label{tab:repro_map_rq23}
     \centering
-    {\scriptsize
+    {
     \setlength{\tabcolsep}{3pt}
     \renewcommand{\arraystretch}{0.97}
     \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.37\textwidth}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}p{0.14\textwidth}}
@@ -561,13 +570,13 @@ python notebooks/build_hai_cutlass_data.py
 \achapter{Rule-Card Template for Accepted Compressed Rules}
 \label{app:rule_card_template}
 
-This appendix defines the handoff template for a compressed rule that passes the dissertation's held-out adoption gate. The template is not another statistical test. It is the operational record that makes an accepted $m$-of-$k$ rule reviewable after model fitting: what rule was selected, what evidence justified acceptance, where it may be used, and when it must be revisited.
+This appendix defines the handoff template for a compressed rule that passes the dissertation's held-out adoption gate. The template is not another statistical test. It is the operational record that makes an accepted $m$-of-$k$ rule reviewable after model fitting: what rule was selected, what evidence justified acceptance, where it may be used, and when it must be revisited. Table \ref{tab:rule_card_template_logic} records the rule identity, logic, and intended use; Table \ref{tab:rule_card_template_validation} records the validation evidence, risks, and monitoring plan.
 
 \begin{table}[p]
     \caption[Rule-card template: identity, rule logic, and intended use.]{Rule-card template for accepted compressed rules: identity, rule logic, and intended use.}
     \label{tab:rule_card_template_logic}
     \centering
-    {\scriptsize
+    {
     \setlength{\tabcolsep}{3pt}
     \renewcommand{\arraystretch}{0.97}
     \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.25\textwidth}>{\RaggedRight\arraybackslash}X}
@@ -587,7 +596,7 @@ This appendix defines the handoff template for a compressed rule that passes the
     \caption[Rule-card template: validation, risks, and monitoring.]{Rule-card template for accepted compressed rules: validation, risks, and monitoring.}
     \label{tab:rule_card_template_validation}
     \centering
-    {\scriptsize
+    {
     \setlength{\tabcolsep}{3pt}
     \renewcommand{\arraystretch}{0.97}
     \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.25\textwidth}>{\RaggedRight\arraybackslash}X}
@@ -603,4 +612,3 @@ This appendix defines the handoff template for a compressed rule that passes the
 \end{table}
 
 For the worked HAI exemplar in the RQ1 chapter, the selected-rule and deployment-summary artifacts are written under \path{notebooks/runs_new/walkthrough/}. A completed rule card would combine those files with the validation policy in the RQ3 chapter and the intended-use notes from the domain review before the compressed rule is treated as deployable.
-
